@@ -1,6 +1,5 @@
 package com.unza.wipro.main.views.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
