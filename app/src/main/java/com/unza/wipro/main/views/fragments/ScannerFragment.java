@@ -1,11 +1,23 @@
 package com.unza.wipro.main.views.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.paditech.core.BaseFragment;
 import com.unza.wipro.R;
+import com.unza.wipro.utils.Utils;
 
-public class ScannerFragment extends BaseFragment {
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import me.dm7.barcodescanner.zbar.BarcodeFormat;
+import me.dm7.barcodescanner.zbar.Result;
+import me.dm7.barcodescanner.zbar.ZBarScannerView;
+
+public class ScannerFragment extends BaseFragment implements ZBarScannerView.ResultHandler {
+    private static final String TAG = "CAMERA";
+
     public static ScannerFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -27,5 +39,42 @@ public class ScannerFragment extends BaseFragment {
 
     @Override
     public void setScreenTitle(String title) {
+    }
+
+    @BindView(R.id.layoutScanner)
+    ZBarScannerView mScannerView;
+
+    @Override
+    public void initView() {
+        super.initView();
+        setupFormats();
+    }
+
+    private void setupFormats() {
+        List<BarcodeFormat> formats = new ArrayList<>();
+        formats.add(BarcodeFormat.QRCODE);
+        mScannerView.setFormats(formats);
+    }
+
+    @Override
+    public void onViewAppear() {
+        Utils.checkCameraPermission(getActivity());
+        mScannerView.setResultHandler(this);
+        mScannerView.startCamera();
+    }
+
+    @Override
+    public void onViewDisappear() {
+        super.onViewDisappear();
+        mScannerView.stopCamera();
+    }
+
+    @Override
+    public void handleResult(Result rawResult) {
+        Log.e(TAG, rawResult.getContents()); // Prints scan results
+        Log.e(TAG, rawResult.getBarcodeFormat().getName()); // Prints the scan format (qrcode, pdf417 etc.)
+
+        showToast(rawResult.getContents());
+//        mScannerView.resumeCameraPreview(this);
     }
 }
