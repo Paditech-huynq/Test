@@ -1,6 +1,6 @@
 package com.unza.wipro.main.views.activities;
 
-import android.util.Log;
+import android.widget.TextView;
 
 import com.paditech.core.mvp.MVPActivity;
 import com.unza.wipro.R;
@@ -8,7 +8,11 @@ import com.unza.wipro.main.contracts.MainContract;
 import com.unza.wipro.main.presenters.MainPresenter;
 import com.unza.wipro.main.views.fragments.HomeFragment;
 
+import butterknife.BindView;
+
 public class MainActivity extends MVPActivity<MainPresenter> implements MainContract.ViewImpl {
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
 
     @Override
     protected int getLayoutResource() {
@@ -19,6 +23,18 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
     public void initView() {
         super.initView();
         switchFragment(HomeFragment.newInstance(), false);
-        Log.e("AAA","BBB");
+    }
+
+    @Override
+    public String getScreenTitle() {
+        return null;
+    }
+
+    @Override
+    public void setScreenTitle(String title) {
+        super.setScreenTitle(title);
+        if(title!= null) {
+            tvTitle.setText(title);
+        }
     }
 }

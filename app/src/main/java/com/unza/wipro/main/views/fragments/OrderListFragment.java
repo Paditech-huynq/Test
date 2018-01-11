@@ -17,6 +17,15 @@ public class OrderListFragment extends BaseFragment {
     
     @Override
     protected int getLayoutResource() {
-        return R.layout.layout_default;
+        return R.layout.fragment_home_order;
+    }
+
+    @Override
+    public String getScreenTitle() {
+        return getString(R.string.title_home_order);
+    }
+
+    @Override
+    public void setScreenTitle(String title) {
     }
 }

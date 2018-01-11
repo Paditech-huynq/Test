@@ -17,6 +17,15 @@ public class LookupFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.layout_default;
+        return R.layout.fragment_home_lookup;
+    }
+
+    @Override
+    public String getScreenTitle() {
+        return getString(R.string.title_home_lookup);
+    }
+
+    @Override
+    public void setScreenTitle(String title) {
     }
 }

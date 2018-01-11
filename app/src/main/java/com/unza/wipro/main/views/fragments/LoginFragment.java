@@ -18,4 +18,14 @@ public class LoginFragment extends BaseFragment{
     protected int getLayoutResource() {
         return R.layout.layout_default;
     }
+
+    @Override
+    public String getScreenTitle() {
+        return null;
+    }
+
+    @Override
+    public boolean isShowTitle() {
+        return false;
+    }
 }

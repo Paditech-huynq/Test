@@ -3,4 +3,9 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_home_lookup">Tìm kiếm sản phẩm</string>
+    <string name="title_home_news">Tin tức - Khuyến mãi</string>
+    <string name="title_home_order">Đơn hàng</string>
+    <string name="title_home_product">Sản phẩm</string>
+    <string name="title_home_qr">Scan</string>
 </resources>

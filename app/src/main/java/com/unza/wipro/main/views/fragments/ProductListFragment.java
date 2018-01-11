@@ -1,5 +1,6 @@
 package com.unza.wipro.main.views.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.paditech.core.BaseFragment;
@@ -17,6 +18,21 @@ public class ProductListFragment extends BaseFragment{
     
     @Override
     protected int getLayoutResource() {
-        return R.layout.layout_default;
+        return R.layout.fragment_home_product;
+    }
+
+    @Override
+    public String getScreenTitle() {
+        return getString(R.string.title_home_product);
+    }
+
+    @Override
+    public void setScreenTitle(String title) {
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        setScreenTitle(getScreenTitle());
     }
 }

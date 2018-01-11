@@ -5,6 +5,9 @@ import com.paditech.core.mvp.BaseViewImpl;
 
 public interface HomeContract {
     interface ViewImpl extends BaseViewImpl {
+        void switchTab(int i);
+
+        void updateTitle();
     }
 
     interface Presenter extends BasePresenterImpl {
