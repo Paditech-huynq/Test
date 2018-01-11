@@ -1,0 +1,19 @@
+<tabs>
+    <tab
+        id="@+id/navigation_product"
+        icon="@drawable/ic_product_list_unselected"/>
+
+    <tab
+        id="@+id/navigation_order"
+        icon="@drawable/ic_order_list_unselected" />
+
+    <tab
+        id="@+id/navigation_qr"
+        icon="@drawable/ic_scan_qr_unselected" />
+    <tab
+        id="@+id/navigation_lookup"
+        icon="@drawable/ic_lookup_unselected" />
+    <tab
+        id="@+id/navigation_news"
+        icon="@drawable/ic_news_unselected" />
+</tabs>

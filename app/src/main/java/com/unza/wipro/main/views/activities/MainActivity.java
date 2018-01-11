@@ -1,24 +1,18 @@
 package com.unza.wipro.main.views.activities;
 
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.view.MenuItem;
-import android.widget.TextView;
-
 import com.paditech.core.mvp.MVPActivity;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.MainContract;
 import com.unza.wipro.main.presenters.MainPresenter;
 
 import butterknife.BindView;
 
-public class MainActivity extends MVPActivity<MainPresenter> implements MainContract.ViewImpl, BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends MVPActivity<MainPresenter> implements MainContract.ViewImpl, OnTabSelectListener {
 
-    @BindView(R.id.navigation)
-    BottomNavigationView navigation;
-
-    @BindView(R.id.message)
-    TextView mTextMessage;
+    @BindView(R.id.bottomBar)
+    BottomBar navigation;
 
     @Override
     protected int getLayoutResource() {
@@ -28,22 +22,22 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
     @Override
     public void initView() {
         super.initView();
-        navigation.setOnNavigationItemSelectedListener(this);
+        navigation.setOnTabSelectListener(this, true);
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.navigation_home:
-                mTextMessage.setText(R.string.title_home);
-                return true;
-            case R.id.navigation_dashboard:
-                mTextMessage.setText(R.string.title_dashboard);
-                return true;
-            case R.id.navigation_notifications:
-                mTextMessage.setText(R.string.title_notifications);
-                return true;
+    public void onTabSelected(int tabId) {
+        switch (tabId) {
+            case R.id.navigation_product:
+                break;
+            case R.id.navigation_order:
+                break;
+            case R.id.navigation_qr:
+                break;
+            case R.id.navigation_lookup:
+                break;
+            case R.id.navigation_news:
+                break;
         }
-        return false;
     }
 }
