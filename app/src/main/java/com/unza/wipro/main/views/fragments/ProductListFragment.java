@@ -44,12 +44,6 @@ public class ProductListFragment extends BaseFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        setScreenTitle(getScreenTitle());
-    }
-
-    @Override
     public void initView() {
         super.initView();
         setupViewPager();

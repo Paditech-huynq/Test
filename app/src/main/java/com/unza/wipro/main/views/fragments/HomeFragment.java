@@ -48,6 +48,7 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
     private void setUpViewPagger() {
         mAdapter = new HomeFragmentPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mAdapter);
+        mViewPager.setOffscreenPageLimit(mAdapter.getCount());
     }
 
     private void setUpBottomBar() {
@@ -77,5 +78,10 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
     @Override
     public String getScreenTitle() {
         return null;
+    }
+
+    @Override
+    public void setScreenTitle(String title) {
+//        super.setScreenTitle(title);
     }
 }

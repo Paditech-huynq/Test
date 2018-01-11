@@ -9,6 +9,7 @@
     <TextView
         android:textSize="@dimen/text_size_title"
         android:id="@+id/tvTitle"
+        android:fontFamily="@font/nunito_semibold"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -32,7 +33,7 @@
             android:id="@+id/btnCart"
             android:layout_width="@dimen/actionbar_button_size"
             android:layout_height="@dimen/actionbar_button_size"
-            android:padding="5dip"
+            android:padding="7dip"
             android:src="@drawable/ic_cart2" />
 
         <ImageView
