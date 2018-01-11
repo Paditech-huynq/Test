@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:elevation="5dp"
+    android:background="@color/colorPrimary"
+    android:paddingLeft="@dimen/padding_normal"
+    android:paddingRight="@dimen/padding_normal">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="TITLE"
+        android:textColor="@android:color/white" />
+
+    <ImageView
+        android:id="@+id/imvAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher_round" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/btnCart"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:padding="5dip"
+            android:src="@drawable/ic_cart2" />
+
+        <ImageView
+            android:id="@+id/btnNotification"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:paddingTop="@dimen/padding_tiny"
+            android:src="@drawable/ic_notification" />
+    </LinearLayout>
+</RelativeLayout>
