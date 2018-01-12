@@ -22,6 +22,8 @@ import butterknife.OnClick;
 
 public class ForgotPasswordActivity extends MVPActivity<ForgotPasswordPresenter> implements ForgotPasswordContract.ViewImpl {
 
+    private static final int CHANGE_PASS_REQ_CODE = 1001;
+
     @BindView(R.id.edt_username)
     EditText mUsernameText;
 
@@ -48,14 +50,22 @@ public class ForgotPasswordActivity extends MVPActivity<ForgotPasswordPresenter>
             @Override
             public void run() {
                 if (result) {
-                    Intent intent = new Intent(ForgotPasswordActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    Intent intent = new Intent(ForgotPasswordActivity.this, ChangePasswordActivity.class);
+                    startActivityForResult(intent, CHANGE_PASS_REQ_CODE);
                 } else {
                     String alert = StringUtil.isEmpty(message) ? getString(R.string.message_forgot_pass_failure) : message;
                     showToast(alert);
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CHANGE_PASS_REQ_CODE && resultCode == RESULT_OK) {
+            finish();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @OnClick(R.id.imv_close)

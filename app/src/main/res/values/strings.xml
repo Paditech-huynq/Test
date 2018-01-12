@@ -33,4 +33,13 @@
     <string name="forgot_pass_username_hint">Username</string>
     <string name="forgot_pass_button">Xác nhận</string>
     <string name="message_forgot_pass_failure">Yêu cầu không thành công! Xin hãy thử lại!</string>
+
+    <!-- change password -->
+    <string name="change_pass_new_pass">Mật khẩu mới</string>
+    <string name="change_pass_confirm_pass">Nhập lại mật khẩu mới</string>
+    <string name="change_pass_button">Đổi mật khẩu</string>
+    <string name="message_pass_new_empty">Bạn chưa nhập mật khẩu mới!</string>
+    <string name="message_pass_confirm_empty">Bạn chưa nhập lại mật khẩu mới!</string>
+    <string name="message_pass_confirm_invalid">Xác nhận mật khẩu sai!</string>
+    <string name="message_change_pass_failure">Đổi mật khẩu không thành công! Xin hãy thử lại!</string>
 </resources>
