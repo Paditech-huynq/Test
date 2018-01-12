@@ -8,4 +8,16 @@
     <string name="title_home_order">Đơn hàng</string>
     <string name="title_home_product">Sản phẩm</string>
     <string name="title_home_qr">Scan</string>
+
+    <!-- login -->
+    <string name="login_username_hint">Username</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_button">Đăng nhập</string>
+    <string name="login_forgot_pass">Forgot password</string>
+    <string name="login_call_center">Call center</string>
+    <string name="login_term">Term &amp; policy</string>
+    <string name="message_username_empty">Bạn chưa nhập tài khoản!</string>
+    <string name="message_password_empty">Bạn chưa nhập mật khẩu!</string>
+    <string name="message_login_failure">Đăng nhập không thành công! Xin hãy thử lại!</string>
+
 </resources>
