@@ -55,7 +55,7 @@ public class FillOtpActivity extends MVPActivity<OtpPresenter> implements OtpCon
     @Override
     public void initView() {
         super.initView();
-        Utils.dismissSoftKeyboard(findViewById(R.id.view_container), this);
+        Utils.dismissSoftKeyboard(findViewById(R.id.layout_main), this);
         Utils.setStatusBarTranslucent(true, this);
 
         mCode1Text.setSelectAllOnFocus(true);
