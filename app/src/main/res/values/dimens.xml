@@ -2,6 +2,8 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="margin_small">5dp</dimen>
     <dimen name="padding_normal">10dip</dimen>
     <dimen name="padding_small">5dip</dimen>
     <dimen name="padding_tiny">3dip</dimen>
@@ -15,4 +17,7 @@
     <dimen name="card_radius_small">4dp</dimen>
     <dimen name="lookup_item_height">70dip</dimen>
 
+    <!-- login -->
+    <dimen name="login_divider_width">100dp</dimen>
+    <dimen name="login_divider_height">1dp</dimen>
 </resources>
