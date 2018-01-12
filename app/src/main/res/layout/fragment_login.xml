@@ -85,6 +85,7 @@
             android:background="@drawable/bg_primary_button"
             android:fontFamily="@font/nunito_bold"
             android:gravity="center"
+            android:padding="@dimen/padding_small"
             android:paddingBottom="@dimen/padding_normal"
             android:paddingLeft="@dimen/padding_big"
             android:paddingRight="@dimen/padding_big"

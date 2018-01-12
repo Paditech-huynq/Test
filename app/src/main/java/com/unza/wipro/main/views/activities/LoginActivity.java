@@ -39,14 +39,25 @@ public class LoginActivity extends MVPActivity<LoginPresenter> implements LoginC
 
     @Override
     public void initView() {
+        super.initView();
         Utils.dismissSoftKeyboard(findViewById(R.id.layout_main), this);
         Utils.setStatusBarTranslucent(true, this);
-        super.initView();
     }
 
     @Override
-    public void onLoginResult() {
-        goToMain();
+    public void onLoginResult(final boolean result, final String message) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (result) {
+                    Intent intent = new Intent(LoginActivity.this, FillOtpActivity.class);
+                    startActivity(intent);
+                } else {
+                    String alert = StringUtil.isEmpty(message) ? getString(R.string.message_login_failure) : message;
+                    showToast(alert);
+                }
+            }
+        });
     }
 
     @OnClick(R.id.imv_close)
@@ -69,12 +80,14 @@ public class LoginActivity extends MVPActivity<LoginPresenter> implements LoginC
 
     @OnClick(R.id.tv_call_center)
     protected void callCenter() {
-
+        //TODO: call center
+        showToast("Cập nhật sau!");
     }
 
     @OnClick(R.id.tv_term)
     protected void goToTerm() {
-
+        //TODO: term & policy
+        showToast("Cập nhật sau!");
     }
 
     private boolean validate(String username, String pass) {
@@ -87,11 +100,5 @@ public class LoginActivity extends MVPActivity<LoginPresenter> implements LoginC
             return false;
         }
         return true;
-    }
-
-    private void goToMain() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
     }
 }

@@ -17,6 +17,6 @@ public class LoginPresenter extends BasePresenter<LoginContract.ViewImpl> implem
 //        getView().showProgressDialog(true);
 //        getView().showProgressDialog(false);
         // TODO: call login api
-        getView().onLoginResult();
+        getView().onLoginResult(true, "");
     }
 }

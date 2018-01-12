@@ -20,4 +20,10 @@
     <string name="message_password_empty">Bạn chưa nhập mật khẩu!</string>
     <string name="message_login_failure">Đăng nhập không thành công! Xin hãy thử lại!</string>
 
+    <!-- otp -->
+    <string name="otp_hint">Mã số bí mật đã được gửi về Email hoặc số điện thoại của bạn. Vui lòng kiểm tra và nhập để tiếp tục</string>
+    <string name="otp_button">Xác nhận</string>
+    <string name="message_otp_empty">Bạn chưa nhập mã số!</string>
+    <string name="message_otp_failure">Mã số không hợp lệ! Xin hãy thử lại!</string>
+
 </resources>

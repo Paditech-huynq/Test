@@ -5,7 +5,7 @@ import com.paditech.core.mvp.BaseViewImpl;
 
 public interface LoginContract {
     interface ViewImpl extends BaseViewImpl {
-        void onLoginResult();
+        void onLoginResult(boolean result, String message);
     }
 
     interface Presenter extends BasePresenterImpl {
