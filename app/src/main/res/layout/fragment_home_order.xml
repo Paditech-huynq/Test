@@ -17,7 +17,7 @@
             android:src="@drawable/ic_time"
             android:scaleType="centerInside"
             android:layout_alignParentStart="true"
-            android:background=""
+            android:background="#00ffffff"
             />
         <TextView
             android:text="fdfđfdddd"
@@ -44,10 +44,11 @@
             android:src="@drawable/ic_filter"
             android:scaleType="centerInside"
             android:layout_alignParentEnd="true"
-            android:background=""
+            android:background="#00ffffff"
             />
     </RelativeLayout>
     <android.support.v7.widget.RecyclerView
+        android:padding="5dp"
         android:id="@+id/rcvOrder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
