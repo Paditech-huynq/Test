@@ -28,4 +28,9 @@ public class OrderListFragment extends BaseFragment {
     @Override
     public void setScreenTitle(String title) {
     }
+
+    @Override
+    protected boolean isKeepFragment() {
+        return true;
+    }
 }

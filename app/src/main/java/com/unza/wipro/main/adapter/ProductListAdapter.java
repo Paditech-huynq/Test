@@ -32,7 +32,7 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
         return imagesDummy.length;
     }
 
-    class ProductHolder extends BaseRecycleViewAdapter.BaseViewHolder {
+    class ProductHolder extends BaseViewHolder {
         int index;
 
         @BindView(R.id.imvProduct)

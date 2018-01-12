@@ -35,7 +35,7 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
     @Override
     public void setScreenTitle(String title) {
         super.setScreenTitle(title);
-        if(title!= null) {
+        if (title != null) {
             tvTitle.setText(title);
         }
     }
@@ -44,5 +44,9 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
     protected void onAvatarClick() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.btnCart)
+    void onBtnCartClick() {
     }
 }

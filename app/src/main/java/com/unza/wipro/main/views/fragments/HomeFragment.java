@@ -2,6 +2,7 @@ package com.unza.wipro.main.views.fragments;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.paditech.core.BaseFragment;
 import com.paditech.core.mvp.MVPFragment;
@@ -46,9 +47,28 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
     }
 
     private void setUpViewPagger() {
-        mAdapter = new HomeFragmentPagerAdapter(getChildFragmentManager());
+        if(mAdapter== null) {
+            Log.e("create adapter","create");
+            mAdapter = new HomeFragmentPagerAdapter(getChildFragmentManager());
+        }
         mViewPager.setAdapter(mAdapter);
         mViewPager.setOffscreenPageLimit(mAdapter.getCount());
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mBottomBar.selectTabAtPosition(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void setUpBottomBar() {
@@ -57,7 +77,7 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
             public void onTabSelected(int tabId) {
                 getPresenter().onTabSelected(tabId);
             }
-        },false);
+        }, false);
     }
 
     @Override
@@ -83,5 +103,23 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
     @Override
     public void setScreenTitle(String title) {
 //        super.setScreenTitle(title);
+    }
+
+    @Override
+    public void onViewAppear() {
+        super.onViewAppear();
+    }
+
+    @Override
+    public void onViewDisappear() {
+        super.onViewDisappear();
+    }
+
+    @Override
+    public void onResumeFromBackStack() {
+        super.onResumeFromBackStack();
+        setUpViewPagger();
+        setUpBottomBar();
+//        super.setScreenTitle(String.valueOf(mAdapter.getPageTitle(mViewPager.getCurrentItem())));
     }
 }

@@ -23,7 +23,7 @@ public class LookupAdaper extends BaseRecycleViewAdapter {
         return 100;
     }
 
-    class LookupItemHolder extends BaseRecycleViewAdapter.BaseViewHolder {
+    class LookupItemHolder extends BaseViewHolder {
 
         public LookupItemHolder(View itemView) {
             super(itemView);

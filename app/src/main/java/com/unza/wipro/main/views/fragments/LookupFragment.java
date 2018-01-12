@@ -112,4 +112,9 @@ public class LookupFragment extends BaseFragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdaper);
     }
+
+    @Override
+    protected boolean isKeepFragment() {
+        return true;
+    }
 }

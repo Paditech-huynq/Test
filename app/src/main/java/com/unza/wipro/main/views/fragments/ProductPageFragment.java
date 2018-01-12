@@ -45,9 +45,17 @@ public class ProductPageFragment extends BaseFragment {
     private void setupRecycleView() {
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         StaggeredSpacesItemDecoration spacesItemDecoration = new StaggeredSpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_small));
-        mAdapter = new ProductListAdapter();
+        if (mAdapter == null) {
+            mAdapter = new ProductListAdapter();
+        }
         mRecyclerView.addItemDecoration(spacesItemDecoration);
         mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+
+    }
+
+    @Override
+    protected boolean isKeepFragment() {
+        return true;
     }
 }

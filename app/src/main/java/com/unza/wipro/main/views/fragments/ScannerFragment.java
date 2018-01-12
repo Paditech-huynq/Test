@@ -58,15 +58,23 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
 
     @Override
     public void onViewAppear() {
-        Utils.checkCameraPermission(getActivity());
-        mScannerView.setResultHandler(this);
-        mScannerView.startCamera();
+        super.onViewAppear();
+        try {
+            Utils.checkCameraPermission(getActivity());
+            mScannerView.setResultHandler(this);
+            mScannerView.startCamera();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onViewDisappear() {
         super.onViewDisappear();
-        mScannerView.stopCamera();
+        try {
+            mScannerView.stopCamera();
+        } catch (Exception ignored) {
+        }
     }
 
     @Override
