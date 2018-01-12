@@ -31,6 +31,7 @@
                 android:maxLines="2"
                 android:paddingLeft="@dimen/padding_small"
                 android:paddingTop="@dimen/padding_small"
+                android:textColor="@color/text_dark"
                 android:paddingRight="@dimen/padding_small"
                 android:text="Striped Maxi Dress Color - Show your of  your life - SKU002" />
 
@@ -55,7 +56,7 @@
                 android:layout_marginLeft="@dimen/padding_small"
                 android:layout_toLeftOf="@+id/btnCart"
                 android:gravity="center_vertical"
-                android:textColor="@color/orange"
+                android:textColor="@color/text_orange"
                 android:text="Đơn giá: 40.000 VNĐ" />
         </RelativeLayout>
     </LinearLayout>

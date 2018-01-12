@@ -5,7 +5,6 @@
     android:background="@color/colorPrimary"
     android:elevation="5dp"
     android:paddingLeft="@dimen/padding_normal">
-
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
