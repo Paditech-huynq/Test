@@ -1,6 +1,7 @@
 package com.unza.wipro.main.views.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -28,7 +29,13 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         adapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
             public void onLoadMore() {
-
+                adapter.setList(orderFragmentPresenter.LoadMore());
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.notifyDataSetChanged();
+                    }
+                },200);
             }
         });
         rcvOrder.setAdapter(adapter);

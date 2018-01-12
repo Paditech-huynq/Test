@@ -16,9 +16,13 @@ public class OrderData {
 
     public OrderData() {
         list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,1,2,15,25), 1000000, 3));
+        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,1,2,15,25), 1000000, 3));
+        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,2,2,15,25), 1000000, 3));
         list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,2,2,15,25), 1000000, 3));
         list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,3,2,15,25), 1000000, 3));
+        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,3,2,15,25), 1000000, 3));
         list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,4,2,15,25), 1000000, 3));
+        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,5,2,15,25), 1000000, 3));
         list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,5,2,15,25), 1000000, 3));
         list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,6,2,15,25), 1000000, 3));
         list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,7,2,15,25), 1000000, 3));

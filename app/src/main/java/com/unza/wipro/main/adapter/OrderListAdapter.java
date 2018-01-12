@@ -38,6 +38,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
     private boolean isLoading = false;
     private BaseRecycleViewAdapter.LoadMoreListener onLoadMoreListener;
     private Date date;
+    List<Object> list = new ArrayList<>();
     public OrderListAdapter(RecyclerView recyclerView) {
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -57,14 +58,9 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
     }
 
     private void changeLoading(){
-        if(isLoading){
-            isLoading = false;
-        } else {
-            isLoading = true;
-        }
+        isLoading = !isLoading;
     }
 
-    List<Object> list = new ArrayList<>();
 
     public List<Object> getList() {
         return list;
@@ -72,7 +68,9 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
     public void setList(List<OrderClass> list) {
         this.list.addAll(list);
+        Log.e( "setList: ",123+"" );
         check_Day(list);
+        changeLoading();
     }
 
     private void check_Day(List<OrderClass> list){
@@ -90,7 +88,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
                 }
                 insertSection(0, strDate);
             } else {
-                if(list.get(i).getDate().getYear()>date.getYear() ){
+                if(list.get(i).getDate().getYear()!= date.getYear() ){
                     date = new Date(list.get(i).getDate().getYear(),list.get(i).getDate().getMonth(),list.get(i).getDate().getDate(),list.get(i).getDate().getHours()
                             ,list.get(i).getDate().getMinutes(),list.get(i).getDate().getSeconds());
                     String strDate ;
@@ -102,8 +100,8 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
                     }
                     insertSection(this.list.size()- (list.size()-(i)), strDate);
 
-                } else if(list.get(i).getDate().getYear()==date.getYear() ){
-                    if(list.get(i).getDate().getMonth()>date.getMonth()){
+                } else if(list.get(i).getDate().getYear() == date.getYear() ){
+                    if(list.get(i).getDate().getMonth()!= date.getMonth()){
                         Log.e("check_Day: ", String.valueOf(list.get(i).getDate().getMonth()) + "" );
                         Log.e("check_Day: ", String.valueOf(date.getMonth()) + "" );
                         date = new Date(list.get(i).getDate().getYear(),list.get(i).getDate().getMonth(),list.get(i).getDate().getDate(),list.get(i).getDate().getHours()
@@ -121,7 +119,6 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
             }
         }
         Log.e("check_Day: ", this.list.size()+"" );
-        notifyDataSetChanged();
     }
 
     private void insertSection(int position, String a){
