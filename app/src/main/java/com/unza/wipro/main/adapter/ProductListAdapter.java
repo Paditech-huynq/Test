@@ -1,6 +1,5 @@
 package com.unza.wipro.main.adapter;
 
-import android.graphics.PointF;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +13,6 @@ import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.views.customs.DynamicHeightImageView;
 import com.unza.wipro.main.views.customs.PlaceHolderDrawableHelper;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 
@@ -36,8 +32,6 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
         return imagesDummy.length;
     }
 
-    private Map<String, PointF> mapSize = new HashMap<>();
-
     class ProductHolder extends BaseRecycleViewAdapter.BaseViewHolder {
         int index;
 
@@ -54,7 +48,7 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
         @Override
         protected void onBindingData(final int position) {
             final String url = getItem(position);
-            ViewHelper.setText(tvDescription, position+" - " + url, null);
+            ViewHelper.setText(tvDescription, position + " - " + url, null);
             updateImageSize(position);
 
             GlideApp.with(itemView.getContext()).load(url)

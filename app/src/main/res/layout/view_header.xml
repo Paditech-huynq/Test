@@ -5,7 +5,6 @@
     android:background="@color/colorPrimary"
     android:elevation="5dp"
     android:paddingLeft="@dimen/padding_normal">
-
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
@@ -31,16 +30,19 @@
 
         <ImageView
             android:id="@+id/btnCart"
-            android:layout_width="@dimen/actionbar_button_size"
-            android:layout_height="@dimen/actionbar_button_size"
-            android:padding="7dip"
+            android:layout_width="35dip"
+            android:layout_height="35dip"
+            android:paddingLeft="@dimen/padding_normal"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_cart2" />
 
         <ImageView
+            android:layout_marginLeft="@dimen/padding_tiny"
+            android:layout_marginTop="@dimen/padding_tiny"
             android:id="@+id/btnNotification"
-            android:layout_width="@dimen/actionbar_button_size"
-            android:layout_height="@dimen/actionbar_button_size"
-            android:paddingTop="@dimen/padding_tiny"
+            android:layout_width="35dip"
+            android:layout_height="35dip"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_notification" />
     </LinearLayout>
 </RelativeLayout>

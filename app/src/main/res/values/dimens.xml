@@ -12,6 +12,10 @@
     <dimen name="text_size_title">18sp</dimen>
     <dimen name="tab_indicator_height">3dip</dimen>
     <dimen name="text_size_normal">14sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="card_radius_normal">8dip</dimen>
+    <dimen name="card_radius_small">4dp</dimen>
+    <dimen name="lookup_item_height">70dip</dimen>
 
     <!-- login -->
     <dimen name="login_divider_width">100dp</dimen>

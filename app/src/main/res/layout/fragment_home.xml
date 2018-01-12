@@ -18,7 +18,7 @@
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:bb_activeTabColor="@color/orange"
+        app:bb_activeTabColor="@color/text_orange"
         app:bb_behavior="iconsOnly"
         app:bb_inActiveTabColor="@color/gray"
         app:bb_tabXmlResource="@xml/bottombar_tabs" />

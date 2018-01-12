@@ -7,7 +7,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import com.paditech.core.BaseFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProductListAdapter;
-import com.unza.wipro.main.views.customs.SpacesItemDecoration;
+import com.unza.wipro.main.views.customs.StaggeredSpacesItemDecoration;
 
 import butterknife.BindView;
 
@@ -44,7 +44,7 @@ public class ProductPageFragment extends BaseFragment {
 
     private void setupRecycleView() {
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        SpacesItemDecoration spacesItemDecoration = new SpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_small));
+        StaggeredSpacesItemDecoration spacesItemDecoration = new StaggeredSpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_small));
         mAdapter = new ProductListAdapter();
         mRecyclerView.addItemDecoration(spacesItemDecoration);
         mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
