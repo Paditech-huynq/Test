@@ -93,7 +93,13 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
                 if(list.get(i).getDate().getYear()>date.getYear() ){
                     date = new Date(list.get(i).getDate().getYear(),list.get(i).getDate().getMonth(),list.get(i).getDate().getDate(),list.get(i).getDate().getHours()
                             ,list.get(i).getDate().getMinutes(),list.get(i).getDate().getSeconds());
-                    String strDate = String.valueOf(date.getMonth()) +"/"+String.valueOf(date.getYear());
+                    String strDate ;
+                    if(date.getMonth() == 0){
+                        strDate = "12" + "/" + String.valueOf(date.getYear()-1);
+                    }
+                    else {
+                        strDate = String.valueOf(date.getMonth()) + "/" + String.valueOf(date.getYear());
+                    }
                     insertSection(this.list.size()- (list.size()-(i)), strDate);
 
                 } else if(list.get(i).getDate().getYear()==date.getYear() ){
@@ -102,14 +108,14 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
                         Log.e("check_Day: ", String.valueOf(date.getMonth()) + "" );
                         date = new Date(list.get(i).getDate().getYear(),list.get(i).getDate().getMonth(),list.get(i).getDate().getDate(),list.get(i).getDate().getHours()
                                 ,list.get(i).getDate().getMinutes(),list.get(i).getDate().getSeconds());
-                        String strDate = String.valueOf(date.getMonth()) +"/"+String.valueOf(date.getYear());
+                        String strDate ;
                         if(date.getMonth() == 0){
                             strDate = "12" + "/" + String.valueOf(date.getYear()-1);
                         }
                         else {
                             strDate = String.valueOf(date.getMonth()) + "/" + String.valueOf(date.getYear());
                         }
-                        insertSection(0, strDate);
+                        insertSection(this.list.size()- (list.size()-(i)), strDate);
                     }
                 }
             }
@@ -196,8 +202,15 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
         protected void onBindingData(int position) {
             OrderClass order = (OrderClass) list.get(position);
             Date date = ((OrderClass) list.get(position)).getDate();
-            String strDate = String.valueOf(date.getYear()) +"-"+String.valueOf(date.getMonth())+"-"+String.valueOf(date.getDate()) +" "+String.valueOf(date.getHours())
-                    +":"+String.valueOf(date.getMinutes());
+            String strDate;
+            if(date.getMonth() == 0){
+                strDate = String.valueOf(date.getYear()-1) +"-"+"12"+"-"+String.valueOf(date.getDate()) +" "+String.valueOf(date.getHours())
+                        +":"+String.valueOf(date.getMinutes());
+            }
+            else {
+                strDate = String.valueOf(date.getYear()) +"-"+String.valueOf(date.getMonth())+"-"+String.valueOf(date.getDate()) +" "+String.valueOf(date.getHours())
+                        +":"+String.valueOf(date.getMinutes());
+            }
             System.out.println("Converted String: " + strDate);
             GlideApp.with(itemView.getContext()).load(order.getImg()).into(img_propduct);
             tx_title.setText(order.getTitle());
