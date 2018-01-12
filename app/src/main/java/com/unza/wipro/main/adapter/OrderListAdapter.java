@@ -81,7 +81,13 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
             if(date == null){
                 date = new Date(list.get(i).getDate().getYear(),list.get(i).getDate().getMonth(),list.get(i).getDate().getDate(),list.get(i).getDate().getHours()
                 ,list.get(i).getDate().getMinutes(),list.get(i).getDate().getSeconds());
-                String strDate = String.valueOf(date.getMonth()) +"/"+String.valueOf(date.getYear());
+                String strDate;
+                if(date.getMonth() == 0){
+                    strDate = "12" + "/" + String.valueOf(date.getYear()-1);
+                }
+                else {
+                    strDate = String.valueOf(date.getMonth()) + "/" + String.valueOf(date.getYear());
+                }
                 insertSection(0, strDate);
             } else {
                 if(list.get(i).getDate().getYear()>date.getYear() ){
@@ -97,11 +103,16 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
                         date = new Date(list.get(i).getDate().getYear(),list.get(i).getDate().getMonth(),list.get(i).getDate().getDate(),list.get(i).getDate().getHours()
                                 ,list.get(i).getDate().getMinutes(),list.get(i).getDate().getSeconds());
                         String strDate = String.valueOf(date.getMonth()) +"/"+String.valueOf(date.getYear());
-                        insertSection(this.list.size()- (list.size()-(i)), strDate);
+                        if(date.getMonth() == 0){
+                            strDate = "12" + "/" + String.valueOf(date.getYear()-1);
+                        }
+                        else {
+                            strDate = String.valueOf(date.getMonth()) + "/" + String.valueOf(date.getYear());
+                        }
+                        insertSection(0, strDate);
                     }
                 }
             }
-
         }
         Log.e("check_Day: ", this.list.size()+"" );
         notifyDataSetChanged();
