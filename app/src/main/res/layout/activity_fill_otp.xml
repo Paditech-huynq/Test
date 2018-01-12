@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/view_container"
+                android:id="@+id/layout_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_login"
                 android:fitsSystemWindows="true">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_login"/>
 
     <ImageView
         android:id="@+id/imv_cancel"
@@ -167,7 +172,8 @@
             android:paddingTop="@dimen/padding_normal"
             android:text="@string/otp_button"
             android:textAllCaps="false"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_normal"/>
 
     </LinearLayout>
 

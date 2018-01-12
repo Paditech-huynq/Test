@@ -75,7 +75,8 @@ public class LoginActivity extends MVPActivity<LoginPresenter> implements LoginC
 
     @OnClick(R.id.tv_forgot_password)
     protected void goToForgotPassword() {
-
+        Intent intent = new Intent(this, ForgotPasswordActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.tv_call_center)
