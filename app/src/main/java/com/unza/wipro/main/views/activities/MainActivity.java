@@ -7,6 +7,7 @@ import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.MainContract;
 import com.unza.wipro.main.presenters.MainPresenter;
 import com.unza.wipro.main.views.fragments.HomeFragment;
+import com.unza.wipro.main.views.fragments.OrderListFragment;
 
 import butterknife.BindView;
 
@@ -22,7 +23,7 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
     @Override
     public void initView() {
         super.initView();
-        switchFragment(HomeFragment.newInstance(), false);
+        switchFragment(OrderListFragment.newInstance(), false);
     }
 
     @Override
