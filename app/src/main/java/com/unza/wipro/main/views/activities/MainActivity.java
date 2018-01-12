@@ -23,7 +23,7 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
     @Override
     public void initView() {
         super.initView();
-        switchFragment(OrderListFragment.newInstance(), false);
+        switchFragment(HomeFragment.newInstance(), false);
     }
 
     @Override
