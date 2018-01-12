@@ -1,5 +1,6 @@
 package com.unza.wipro.main.views.activities;
 
+import android.content.Intent;
 import android.widget.TextView;
 
 import com.paditech.core.mvp.MVPActivity;
@@ -9,6 +10,7 @@ import com.unza.wipro.main.presenters.MainPresenter;
 import com.unza.wipro.main.views.fragments.HomeFragment;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MainActivity extends MVPActivity<MainPresenter> implements MainContract.ViewImpl {
     @BindView(R.id.tvTitle)
@@ -36,5 +38,11 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
         if(title!= null) {
             tvTitle.setText(title);
         }
+    }
+
+    @OnClick(R.id.imvAvatar)
+    protected void onAvatarClick() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }

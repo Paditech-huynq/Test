@@ -15,6 +15,7 @@ public class ChangePasswordPresenter extends BasePresenter<ChangePasswordContrac
 
     @Override
     public void changePass(String newPassword, String confirmPassword) {
+        // TODO: call change password api
         getView().onChangePassResult(true, "");
     }
 }
