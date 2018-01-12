@@ -17,11 +17,10 @@
             android:id="@+id/imvProduct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/ic_launcher" />
 
         <TextView
             android:textStyle="bold"
-            android:fontFamily="@font/nunito_semibold"
             android:textColor="@color/dark"
             android:layout_marginTop="@dimen/padding_normal"
             android:id="@+id/tvDescription"
@@ -45,7 +44,6 @@
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/nunito_semibold"
                 android:text="140.000 VND"
                 android:textColor="@color/orange"
                 android:textSize="@dimen/text_size_normal"

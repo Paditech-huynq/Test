@@ -1,9 +1,12 @@
 package com.unza.wipro.main.views.fragments;
 
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 
 import com.paditech.core.BaseFragment;
 import com.unza.wipro.R;
+
+import butterknife.BindView;
 
 public class LookupFragment extends BaseFragment {
     public static LookupFragment newInstance() {
@@ -14,6 +17,9 @@ public class LookupFragment extends BaseFragment {
         fragment.setArguments(args);
         return fragment;
     }
+
+    @BindView(R.id.rcvLookup)
+    RecyclerView mRecyclerView;
 
     @Override
     protected int getLayoutResource() {
