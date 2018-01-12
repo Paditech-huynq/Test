@@ -8,5 +8,6 @@ public interface LoginContract {
     }
 
     interface Presenter extends BasePresenterImpl {
+        void loginFb();
     }
 }

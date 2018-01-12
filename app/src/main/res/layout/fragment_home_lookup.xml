@@ -12,6 +12,7 @@
         android:padding="@dimen/padding_small">
 
         <EditText
+            android:id="@+id/edtSearch"
             android:layout_width="match_parent"
             android:layout_height="30dip"
             android:layout_marginLeft="@dimen/padding_small"
@@ -19,8 +20,7 @@
             android:background="@drawable/bg_search_border_radius"
             android:drawableLeft="@drawable/ic_lookup3"
             android:drawablePadding="@dimen/padding_normal"
-            android:drawableRight="@drawable/ic_cancel"
-            android:hint="Stripped"
+            android:hint="@string/hint_lookup_input"
             android:paddingLeft="@dimen/padding_normal"
             android:paddingRight="@dimen/padding_normal"
             android:textColor="@color/text_dark"
