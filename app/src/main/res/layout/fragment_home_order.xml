@@ -1,7 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#44d2d4">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ffffff"
+        android:id="@+id/RL_filter">
+        <ImageButton
+            android:padding="10dp"
+            android:id="@+id/bt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_time"
+            android:scaleType="centerInside"
+            android:layout_alignParentStart="true"
+            android:background=""
+            />
+        <TextView
+            android:text="fdfđfdddd"
+            android:id="@+id/text_time"
+            android:textSize="@dimen/text_size_normal"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/bt_time"
+            android:layout_toStartOf="@+id/bt_filter" />
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#9b9b9b"
+            android:layout_toEndOf="@+id/text_time"/>
+        <ImageButton
+            android:padding="10dp"
+            android:id="@+id/bt_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_filter"
+            android:scaleType="centerInside"
+            android:layout_alignParentEnd="true"
+            android:background=""
+            />
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcvOrder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/RL_filter"/>
 
-</android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>
