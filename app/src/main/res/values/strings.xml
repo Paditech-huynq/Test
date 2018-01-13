@@ -45,4 +45,6 @@
     <string name="action_change">Thay đổi</string>
     <string name="att_address"><b>Đ/c: </b> Siêu Thị Minh Hoa 250 Cầu Giấy Hà Nội</string>
     <string name="action_seller"><b>Người bán:</b> Phương Ly</string>
+    <string name="action_create_new_customer">Tạo khách hàng mới</string>
+    <string name="title_profile_select">Chọn khách hàng</string>
 </resources>

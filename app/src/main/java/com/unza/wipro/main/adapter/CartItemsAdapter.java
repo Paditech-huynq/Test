@@ -11,11 +11,12 @@ import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 
 public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConstans {
-    public final static int TYPE_INFO = 0;
-    public final static int TYPE_ITEM = 1;
+    private final static int TYPE_INFO = 0;
+    private final static int TYPE_ITEM = 1;
 
     @Override
     public String getItem(int position) {
@@ -47,7 +48,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         @BindView(R.id.imvProduct)
         ImageView imvProduct;
 
-        public CartItemHolder(View itemView) {
+        CartItemHolder(View itemView) {
             super(itemView);
         }
 
@@ -62,7 +63,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         @BindView(R.id.imvAvatar)
         ImageView imvAvatar;
 
-        public CartInfoHolder(View itemView) {
+        CartInfoHolder(View itemView) {
             super(itemView);
         }
 
@@ -70,6 +71,12 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         protected void onBindingData(int position) {
 //            ImageHelper.loadThumbCircleImage(itemView.getContext(), imagesDummy[15], imvAvatar);
 
+        }
+
+        @OnClick(R.id.btnChange)
+        void onAvatarClick()
+        {
+            onViewClick(R.id.btnChange);
         }
     }
 }

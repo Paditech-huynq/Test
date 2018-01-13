@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.paditech.core.BaseFragment;
+import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.ViewHelper;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.CartItemsAdapter;
@@ -16,7 +17,9 @@ public class OrderDetailFragment extends BaseFragment {
     @BindView(R.id.rcvProduct)
     RecyclerView mRecyclerView;
 
-    CartItemsAdapter mAdapter;
+    private int scrollX, scrollY;
+
+    private CartItemsAdapter mAdapter;
 
     public static OrderDetailFragment newInstance() {
 
@@ -40,8 +43,40 @@ public class OrderDetailFragment extends BaseFragment {
     @Override
     public void initView() {
         super.initView();
-        mRecyclerView.addItemDecoration(new VerticalSpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_normal)));
+        setupRecycleView();
+
+    }
+
+    private void setupRecycleView() {
         mAdapter = new CartItemsAdapter();
-        ViewHelper.setupRecycle(mRecyclerView,new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false),mAdapter);
+        mAdapter.setOnViewClickListener(new BaseRecycleViewAdapter.ViewClickListener() {
+            @Override
+            public void onViewItemClock(int resId, BaseRecycleViewAdapter.BaseViewHolder holder, int position) {
+                if (resId == R.id.btnChange) {
+                    switchFragment(ProfileListFragment.newInstance(), true);
+                }
+            }
+        });
+        mRecyclerView.addItemDecoration(new VerticalSpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_normal)));
+        ViewHelper.setupRecycle(mRecyclerView, new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false), mAdapter);
+        mRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                mRecyclerView.scrollBy(scrollX,scrollY);
+            }
+        });
+    }
+
+    @Override
+    public void onResumeFromBackStack() {
+        super.onResumeFromBackStack();
+        setupRecycleView();
+    }
+
+    @Override
+    public void onDestroyView() {
+        scrollX = mRecyclerView.computeHorizontalScrollOffset();
+        scrollY = mRecyclerView.computeVerticalScrollOffset();
+        super.onDestroyView();
     }
 }
