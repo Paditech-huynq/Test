@@ -68,7 +68,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @Override
         protected void onBindingData(int position) {
-            ImageHelper.loadThumbCircleImage(itemView.getContext(), imagesDummy[15], imvAvatar);
+//            ImageHelper.loadThumbCircleImage(itemView.getContext(), imagesDummy[15], imvAvatar);
 
         }
     }
