@@ -8,6 +8,7 @@ import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.MainContract;
 import com.unza.wipro.main.presenters.MainPresenter;
 import com.unza.wipro.main.views.fragments.HomeFragment;
+import com.unza.wipro.main.views.fragments.OrderDetailFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -48,5 +49,6 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
 
     @OnClick(R.id.btnCart)
     void onBtnCartClick() {
+        switchFragment(OrderDetailFragment.newInstance(),true);
     }
 }

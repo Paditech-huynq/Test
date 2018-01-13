@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/text_dark</item>
         <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
         <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
     </style>
     <style name="TabTeaxtAppearance" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
@@ -15,10 +17,10 @@
     </style>
 
     <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:fontFamily">@font/nunito</item>
     </style>
 
     <style name="RobotoButtonStyle" parent="android:Widget.Holo.Button">
-        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:fontFamily">@font/nunito</item>
     </style>
 </resources>

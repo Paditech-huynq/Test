@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://D:\Android Workspace\wipro-crm-android\Wipro.iml" filepath="D:\Android Workspace\wipro-crm-android\Wipro.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Wipro.iml" filepath="$PROJECT_DIR$/Wipro.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/wipro-crm-android.iml" filepath="$PROJECT_DIR$/wipro-crm-android.iml" />
     </modules>
   </component>
 </project>

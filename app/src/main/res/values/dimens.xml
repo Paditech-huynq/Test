@@ -20,4 +20,6 @@
     <!-- login -->
     <dimen name="login_divider_width">100dp</dimen>
     <dimen name="login_divider_height">1dp</dimen>
+    <dimen name="padding_large">20dip</dimen>
+    <dimen name="cart_item_height">100dip</dimen>
 </resources>
