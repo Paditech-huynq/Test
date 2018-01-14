@@ -3,8 +3,10 @@ package com.unza.wipro.main.views.fragments;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.View;
 
 import com.paditech.core.BaseFragment;
+import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProductListAdapter;
 import com.unza.wipro.main.views.customs.StaggeredSpacesItemDecoration;
@@ -52,6 +54,12 @@ public class ProductPageFragment extends BaseFragment {
         mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
+        mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
+                switchFragment(ProductDetailFragment.newInstance(), true);
+            }
+        });
     }
 
     @Override

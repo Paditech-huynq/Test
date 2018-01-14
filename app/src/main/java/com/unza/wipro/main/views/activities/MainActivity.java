@@ -1,6 +1,7 @@
 package com.unza.wipro.main.views.activities;
 
 import android.content.Intent;
+import android.view.View;
 import android.widget.TextView;
 
 import com.paditech.core.mvp.MVPActivity;
@@ -16,6 +17,9 @@ import butterknife.OnClick;
 public class MainActivity extends MVPActivity<MainPresenter> implements MainContract.ViewImpl {
     @BindView(R.id.tvTitle)
     TextView tvTitle;
+
+    @BindView(R.id.layoutHeader)
+    View layoutHeader;
 
     @Override
     protected int getLayoutResource() {
@@ -49,6 +53,10 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
 
     @OnClick(R.id.btnCart)
     void onBtnCartClick() {
-        switchFragment(OrderDetailFragment.newInstance(),true);
+        switchFragment(OrderDetailFragment.newInstance(), true);
+    }
+
+    public void setShowHeader(boolean isShowHeader) {
+        layoutHeader.setVisibility(isShowHeader ? View.VISIBLE : View.GONE);
     }
 }
