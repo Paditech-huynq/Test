@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.image.GlideApp;
@@ -15,12 +16,8 @@ import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.OrderClass;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,6 +36,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
     private BaseRecycleViewAdapter.LoadMoreListener onLoadMoreListener;
     private Date date;
     List<Object> list = new ArrayList<>();
+
     public OrderListAdapter(RecyclerView recyclerView) {
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -61,11 +59,6 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
         isLoading = !isLoading;
     }
 
-
-    public List<Object> getList() {
-        return list;
-    }
-
     public void setList(List<OrderClass> list) {
         this.list.addAll(list);
         Log.e( "setList: ",123+"" );
@@ -77,43 +70,13 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
         for (int i = 0; i < list.size(); i++) {
             if(date == null){
-                date = new Date(list.get(i).getDate().getYear(),list.get(i).getDate().getMonth(),list.get(i).getDate().getDate(),list.get(i).getDate().getHours()
-                ,list.get(i).getDate().getMinutes(),list.get(i).getDate().getSeconds());
-                String strDate;
-                if(date.getMonth() == 0){
-                    strDate = "12" + "/" + String.valueOf(date.getYear()-1);
-                }
-                else {
-                    strDate = String.valueOf(date.getMonth()) + "/" + String.valueOf(date.getYear());
-                }
-                insertSection(0, strDate);
+                insertSection(0, checkMonth0(list.get(i).getDate()));
             } else {
                 if(list.get(i).getDate().getYear()!= date.getYear() ){
-                    date = new Date(list.get(i).getDate().getYear(),list.get(i).getDate().getMonth(),list.get(i).getDate().getDate(),list.get(i).getDate().getHours()
-                            ,list.get(i).getDate().getMinutes(),list.get(i).getDate().getSeconds());
-                    String strDate ;
-                    if(date.getMonth() == 0){
-                        strDate = "12" + "/" + String.valueOf(date.getYear()-1);
-                    }
-                    else {
-                        strDate = String.valueOf(date.getMonth()) + "/" + String.valueOf(date.getYear());
-                    }
-                    insertSection(this.list.size()- (list.size()-(i)), strDate);
-
+                    insertSection(this.list.size()- (list.size()-(i)), checkMonth0(list.get(i).getDate()));
                 } else if(list.get(i).getDate().getYear() == date.getYear() ){
                     if(list.get(i).getDate().getMonth()!= date.getMonth()){
-                        Log.e("check_Day: ", String.valueOf(list.get(i).getDate().getMonth()) + "" );
-                        Log.e("check_Day: ", String.valueOf(date.getMonth()) + "" );
-                        date = new Date(list.get(i).getDate().getYear(),list.get(i).getDate().getMonth(),list.get(i).getDate().getDate(),list.get(i).getDate().getHours()
-                                ,list.get(i).getDate().getMinutes(),list.get(i).getDate().getSeconds());
-                        String strDate ;
-                        if(date.getMonth() == 0){
-                            strDate = "12" + "/" + String.valueOf(date.getYear()-1);
-                        }
-                        else {
-                            strDate = String.valueOf(date.getMonth()) + "/" + String.valueOf(date.getYear());
-                        }
-                        insertSection(this.list.size()- (list.size()-(i)), strDate);
+                        insertSection(this.list.size()- (list.size()-(i)), checkMonth0(list.get(i).getDate()));
                     }
                 }
             }
@@ -123,6 +86,19 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
     private void insertSection(int position, String a){
         list.add(position, a);
+    }
+
+    private String checkMonth0(Date date){
+        this.date = new Date(date.getYear(),date.getMonth(),date.getDate(),date.getHours()
+                ,date.getMinutes(),date.getSeconds());
+        String str;
+        if(this.date.getMonth() == 0){
+            str = "12" + "/" + String.valueOf(this.date.getYear()-1);
+        }
+        else {
+            str = String.valueOf(this.date.getMonth()) + "/" + String.valueOf(this.date.getYear());
+        }
+        return str;
     }
 
     @Override
@@ -173,12 +149,12 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @Override
         protected void onBindingData(int position) {
-
             textDateSection.setText((String) list.get(position));
         }
+
     }
 
-    class ChildViewHolder extends BaseViewHolder{
+    class ChildViewHolder extends BaseViewHolder implements View.OnClickListener{
 
         @BindView(R.id.img_product_order)
         ImageView img_propduct;
@@ -193,6 +169,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
         ChildViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
         }
 
         @Override
@@ -216,6 +193,9 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
             tx_number.setText("Số lượng:"+ order.getNumberOrder() );
         }
 
-
+        @Override
+        public void onClick(View view) {
+            Log.e("onClick: ",getLayoutPosition() +"" );
+        }
     }
 }

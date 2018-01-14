@@ -1,9 +1,16 @@
 package com.unza.wipro.main.views.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.paditech.core.BaseFragment;
 import com.paditech.core.common.BaseRecycleViewAdapter;
@@ -18,9 +25,18 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
 
     private OrderFragmentPresenter orderFragmentPresenter = new OrderFragmentPresenter();
     private OrderListAdapter adapter;
+    private boolean filter_clicked = false;
 
     @BindView(R.id.rcvOrder)
     RecyclerView rcvOrder;
+    @BindView(R.id.bt_filter)
+    ImageButton bt_filter;
+    @BindView(R.id.view_up_rcv)
+    View view_up;
+    @BindView(R.id.filter)
+    LinearLayout filter;
+    @BindView(R.id.bt_search)
+    CardView bt_search;
 
     public void getData() {
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -39,7 +55,40 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
             }
         });
         rcvOrder.setAdapter(adapter);
+        onFilterClick();
+        onSearchClick();
     }
+
+    @Override
+    public void onFilterClick() {
+        bt_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!filter_clicked) {
+                    view_up.setVisibility(View.VISIBLE);
+                    filter.setVisibility(View.VISIBLE);
+                    filter_clicked = true;
+                } else {
+                    view_up.setVisibility(View.GONE);
+                    filter.setVisibility(View.GONE);
+                    filter_clicked = false;
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onSearchClick() {
+        bt_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view_up.setVisibility(View.GONE);
+                filter.setVisibility(View.GONE);
+                filter_clicked = false;
+            }
+        });
+    }
+
 
     public static OrderListFragment newInstance() {
         
@@ -68,4 +117,5 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     public void initView() {
         getData();
     }
+
 }

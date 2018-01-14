@@ -47,12 +47,27 @@
             android:background="#00ffffff"
             />
     </RelativeLayout>
+    <include
+        android:visibility="gone"
+        layout="@layout/fragment_home_order_filter"
+        android:id="@+id/filter"
+        android:layout_below="@+id/RL_filter"
+        android:layout_height="150dp"
+        android:layout_width="match_parent" />
     <android.support.v7.widget.RecyclerView
         android:padding="5dp"
         android:id="@+id/rcvOrder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/RL_filter"/>
-
+        android:layout_below="@+id/filter"/>
+    <View
+        android:clickable="true"
+        android:visibility="gone"
+        android:background="#a8404040"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/filter"
+        android:id="@+id/view_up_rcv"
+        android:focusable="true" />
 
 </RelativeLayout>
