@@ -37,6 +37,16 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     LinearLayout filter;
     @BindView(R.id.bt_search)
     CardView bt_search;
+    @BindView(R.id.bt_all)
+    CardView bt_all;
+    @BindView(R.id.bt_lastweek)
+    CardView bt_lastweek;
+    @BindView(R.id.bt_thisweek)
+    CardView bt_thisweek;
+    @BindView(R.id.bt_thismonth)
+    CardView bt_thismonth;
+
+    
 
     public void getData() {
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -87,6 +97,38 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
                 filter_clicked = false;
             }
         });
+    }
+
+    @Override
+    public void onBtAllClick() {
+        bt_all.setCardBackgroundColor(getResources().getColor(R.color.orange));
+        bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.gray));
+    }
+
+    @Override
+    public void onBtThisWeekClick() {
+        bt_all.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.orange));
+        bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.gray));
+    }
+
+    @Override
+    public void onBtLastWeekClick() {
+        bt_all.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.orange));
+        bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.gray));
+    }
+
+    @Override
+    public void onBtThisMonthClick() {
+        bt_all.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.orange));
     }
 
 

@@ -11,6 +11,10 @@ public interface OrderListContract {
         void getData();
         void onFilterClick();
         void onSearchClick();
+        void onBtAllClick();
+        void onBtThisWeekClick();
+        void onBtLastWeekClick();
+        void onBtThisMonthClick();
     }
 
     interface Presenter extends BasePresenterImpl {
