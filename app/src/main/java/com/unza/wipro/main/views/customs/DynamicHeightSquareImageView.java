@@ -2,7 +2,6 @@ package com.unza.wipro.main.views.customs;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 
 public class DynamicHeightSquareImageView extends android.support.v7.widget.AppCompatImageView {
 
@@ -25,6 +24,5 @@ public class DynamicHeightSquareImageView extends android.support.v7.widget.AppC
 
         int width = getMeasuredWidth();
         setMeasuredDimension(width, width);
-        Log.e("height",heightMeasureSpec+"/"+widthMeasureSpec);
     }
 }

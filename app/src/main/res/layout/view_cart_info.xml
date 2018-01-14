@@ -84,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_small"
-                android:text="@string/att_address" />
+                android:text="@string/att_address_with_input" />
 
         </LinearLayout>
     </LinearLayout>

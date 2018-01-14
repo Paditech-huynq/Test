@@ -68,12 +68,6 @@ public class OrderDetailFragment extends BaseFragment {
     }
 
     @Override
-    public void onResumeFromBackStack() {
-        super.onResumeFromBackStack();
-        setupRecycleView();
-    }
-
-    @Override
     public void onDestroyView() {
         scrollX = mRecyclerView.computeHorizontalScrollOffset();
         scrollY = mRecyclerView.computeVerticalScrollOffset();
