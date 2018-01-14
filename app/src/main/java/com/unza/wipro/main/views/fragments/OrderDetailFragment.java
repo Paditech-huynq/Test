@@ -12,6 +12,7 @@ import com.unza.wipro.main.adapter.CartItemsAdapter;
 import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class OrderDetailFragment extends BaseFragment {
     @BindView(R.id.rcvProduct)
@@ -72,5 +73,23 @@ public class OrderDetailFragment extends BaseFragment {
         scrollX = mRecyclerView.computeHorizontalScrollOffset();
         scrollY = mRecyclerView.computeVerticalScrollOffset();
         super.onDestroyView();
+    }
+
+    @OnClick(R.id.btnScan)
+    void onScanBtnClick()
+    {
+        switchFragment(ScannerFragment.newInstance(),true);
+    }
+
+    @OnClick(R.id.btnSubmit)
+    void onSubmitBtnClick()
+    {
+        getActivity().onBackPressed();
+    }
+
+    @OnClick(R.id.btnLookup)
+    void onLookupBtnClick()
+    {
+        switchFragment(LookupFragment.newInstance(),true);
     }
 }
