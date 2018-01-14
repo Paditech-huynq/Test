@@ -9,7 +9,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fontFamily="@font/nunito_bold"
+        android:textStyle="bold"
         android:gravity="center"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_size_title" />

@@ -34,7 +34,7 @@
                 android:paddingTop="@dimen/padding_small"
                 android:text="Striped Maxi Dress Color - Show your of  your life - SKU002"
                 android:textColor="@color/text_dark"
-                android:textSize="13sp"
+                android:textSize="@dimen/text_size_normal"
                 android:textStyle="bold" />
 
 
@@ -59,6 +59,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:maxLength="4"
+                    android:padding="@dimen/padding_small"
                     android:text="9999" />
 
                 <ImageView
@@ -84,7 +85,7 @@
                     android:gravity="center_vertical"
                     android:text="Đơn giá: 40.000 VNĐ"
                     android:textColor="@color/text_orange"
-                    android:textSize="11sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/tvPrice"
@@ -94,7 +95,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="Tổng:  40.000.00 VNĐ"
-                    android:textSize="11sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

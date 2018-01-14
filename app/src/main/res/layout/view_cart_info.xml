@@ -20,18 +20,19 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_marginLeft="@dimen/padding_small"
-                android:layout_marginRight="@dimen/padding_small"
-                android:layout_marginTop="@dimen/padding_normal"
                 android:id="@+id/imvAvatar"
                 android:layout_width="100dip"
                 android:layout_height="100dip"
-                app:srcCompat="@drawable/ic_launcher" />
+                android:layout_marginLeft="@dimen/padding_small"
+                android:layout_marginRight="@dimen/padding_small"
+                android:layout_marginTop="@dimen/padding_normal"
+                app:srcCompat="@drawable/ic_avatar_holder" />
 
             <TextView
-                android:layout_marginBottom="@dimen/padding_normal"
+                android:id="@+id/btnChange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_normal"
                 android:layout_marginTop="@dimen/padding_small"
                 android:text="@string/action_change"
                 android:textColor="@color/colorPrimary"
@@ -69,7 +70,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_small"
-                android:fontFamily="@font/nunito"
                 android:text="Ngày bán: 29/12/2018 15:34" />
 
 
@@ -84,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_small"
-                android:text="@string/att_address" />
+                android:text="@string/att_address_with_input" />
 
         </LinearLayout>
     </LinearLayout>

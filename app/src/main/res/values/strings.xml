@@ -43,6 +43,13 @@
     <string name="message_pass_confirm_invalid">Xác nhận mật khẩu sai!</string>
     <string name="message_change_pass_failure">Đổi mật khẩu không thành công! Xin hãy thử lại!</string>
     <string name="action_change">Thay đổi</string>
-    <string name="att_address"><b>Đ/c: </b> Siêu Thị Minh Hoa 250 Cầu Giấy Hà Nội</string>
+    <string name="att_address_with_input"><b>Đ/c: </b> Siêu Thị Minh Hoa 250 Cầu Giấy Hà Nội</string>
     <string name="action_seller"><b>Người bán:</b> Phương Ly</string>
+    <string name="action_create_new_customer">Tạo khách hàng mới</string>
+    <string name="title_profile_select">Chọn khách hàng</string>
+    <string name="att_profile_register_full_name_required">Họ và tên (*)</string>
+    <string name="att_profile_register_phone_required">Điện thoại (*)</string>
+    <string name="att_profile_register_email">Email</string>
+    <string name="att_profile_register_address">Địa chỉ</string>
+    <string name="title_profile_register">Tạo khách hàng</string>
 </resources>

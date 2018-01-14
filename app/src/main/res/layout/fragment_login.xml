@@ -36,7 +36,6 @@
             android:layout_marginLeft="@dimen/margin_normal"
             android:layout_marginRight="@dimen/margin_normal"
             android:background="@drawable/bg_white_border_rounded"
-            android:fontFamily="@font/nunito_bold"
             android:hint="@string/login_username_hint"
             android:imeOptions="actionNext"
             android:inputType="text"
@@ -46,7 +45,7 @@
             android:paddingRight="@dimen/padding_big"
             android:paddingTop="@dimen/padding_normal"
             android:textSize="@dimen/text_size_normal"
-            android:textStyle="italic"/>
+            android:textStyle="italic|bold"/>
 
         <EditText
             android:id="@+id/edt_password"
@@ -57,7 +56,6 @@
             android:layout_marginRight="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_normal"
             android:background="@drawable/bg_white_border_rounded"
-            android:fontFamily="@font/nunito_bold"
             android:hint="@string/login_password_hint"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
@@ -67,7 +65,7 @@
             android:paddingRight="@dimen/padding_big"
             android:paddingTop="@dimen/padding_normal"
             android:textSize="@dimen/text_size_normal"
-            android:textStyle="italic"/>
+            android:textStyle="italic|bold"/>
 
         <View
             android:layout_width="@dimen/login_divider_width"
@@ -83,7 +81,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/margin_normal"
             android:background="@drawable/bg_primary_button"
-            android:fontFamily="@font/nunito_bold"
+            android:textStyle="bold"
             android:gravity="center"
             android:padding="@dimen/padding_small"
             android:paddingBottom="@dimen/padding_normal"
@@ -105,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/view_center"
-                android:fontFamily="@font/nunito_bold"
+                android:textStyle="bold"
                 android:text="@string/login_forgot_pass"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_size_normal"/>
@@ -121,7 +119,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/view_center"
-                android:fontFamily="@font/nunito_bold"
+                android:textStyle="bold"
                 android:text="@string/login_call_center"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_size_normal"/>
@@ -133,7 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="50dp"
-            android:fontFamily="@font/nunito_bold"
+            android:textStyle="bold"
             android:text="@string/login_term"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_normal"/>

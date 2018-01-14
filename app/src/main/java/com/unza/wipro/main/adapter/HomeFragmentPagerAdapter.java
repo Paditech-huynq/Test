@@ -60,4 +60,18 @@ public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return fragments.get(position).getScreenTitle();
     }
+
+    public void onViewAppear(int position) {
+        for (int i = 0;i<fragments.size();i++)
+        {
+            BaseFragment fragment = fragments.get(i);
+            if(i == position)
+            {
+                fragment.onViewAppear();
+            }
+            else {
+                fragment.onViewDisappear();
+            }
+        }
+    }
 }

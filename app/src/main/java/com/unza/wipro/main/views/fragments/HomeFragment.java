@@ -62,6 +62,7 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
             @Override
             public void onPageSelected(int position) {
                 mBottomBar.selectTabAtPosition(position);
+                mAdapter.onViewAppear(position);
             }
 
             @Override
@@ -114,12 +115,12 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
     public void onViewDisappear() {
         super.onViewDisappear();
     }
-
-    @Override
-    public void onResumeFromBackStack() {
-        super.onResumeFromBackStack();
-        setUpViewPagger();
-        setUpBottomBar();
-//        super.setScreenTitle(String.valueOf(mAdapter.getPageTitle(mViewPager.getCurrentItem())));
-    }
+//
+//    @Override
+//    public void onResumeFromBackStack() {
+//        super.onResumeFromBackStack();
+//        setUpViewPagger();
+//        setUpBottomBar();
+////        super.setScreenTitle(String.valueOf(mAdapter.getPageTitle(mViewPager.getCurrentItem())));
+//    }
 }
