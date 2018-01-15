@@ -1,7 +1,6 @@
 package com.unza.wipro.main.adapter;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,7 @@ import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.OrderClass;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,48 +28,61 @@ import butterknife.BindView;
 public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConstans {
 
     private static final int TYPE_SECTION = 0;
-    private static final int TYPE_CHILD = 1;
-    private Date date;
+    private static final int TYPE_ITEM = 1;
     private List<Object> listOrder = new ArrayList<>();
 
 
     public void setListOrder(List<OrderClass> listOrder) {
-        this.listOrder.addAll(listOrder);
-        check_Day(listOrder);
+        checkDay(listOrder);
     }
 
-    private void check_Day(List<OrderClass> list){
-
+    private void checkDay(List<OrderClass> list){
         for (int i = 0; i < list.size(); i++) {
-            if(date == null){
-                insertSection(0, checkMonth0(list.get(i).getDate()));
+            Date date_counting = new Date(list.get(i).getDate().getTime());
+            Date date_before;
+            if(listOrder.size() == 0){
+                insertSection(0, date_counting);
             } else {
-                if(list.get(i).getDate().getYear()!= date.getYear() ){
-                    insertSection(this.listOrder.size()- (list.size()-(i)), checkMonth0(list.get(i).getDate()));
-                } else if(list.get(i).getDate().getYear() == date.getYear() ){
-                    if(list.get(i).getDate().getMonth()!= date.getMonth()){
-                        insertSection(this.listOrder.size()- (list.size()-(i)), checkMonth0(list.get(i).getDate()));
+                if (i == 0) {
+                    date_before = new Date(((OrderClass) listOrder.get(listOrder.size() - 1)).getDate().getTime());
+                } else {
+                    date_before = new Date(list.get(i - 1).getDate().getTime());
+                }
+                {
+                    if (getYear(date_before) != getYear(date_counting)) {
+                        insertSection(this.listOrder.size(), date_counting);
+                    } else {
+                        if (getMonth(date_before) != getMonth(date_counting)) {
+                            insertSection(this.listOrder.size(), date_counting);
+                        }
                     }
                 }
             }
+            listOrder.add(list.get(i));
         }
     }
 
-    private void insertSection(int position, String a){
-        listOrder.add(position, a);
+    private int getYear(Date date){
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+        String year = dateFormat.format(date);
+        Log.e("getYear: ", Integer.parseInt(year) +"" );
+        return Integer.parseInt(year)-1900;
     }
 
-    private String checkMonth0(Date date){
-        this.date = new Date(date.getYear(),date.getMonth(),date.getDate(),date.getHours()
-                ,date.getMinutes(),date.getSeconds());
-        String str;
-        if(this.date.getMonth() == 0){
-            str = "12" + "/" + String.valueOf(this.date.getYear()-1);
+    private int getMonth(Date date){
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("MM");
+        String month = dateFormat.format(date);
+        Log.e("getMonth: ", Integer.parseInt(month) +"" );
+        if(Integer.parseInt(month)-1 == 0){
+            return 12;
         }
         else {
-            str = String.valueOf(this.date.getMonth()) + "/" + String.valueOf(this.date.getYear());
+            return Integer.parseInt(month) - 1;
         }
-        return str;
+    }
+
+    private void insertSection(int position, Date date_section){
+        listOrder.add(position, String.valueOf(getMonth(date_section)+"/"+String.valueOf(getYear(date_section))));
     }
 
     @Override
@@ -84,7 +97,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
             case TYPE_SECTION:
                 holder = new SectionViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_home_order_section, parent, false));
                 break;
-            case TYPE_CHILD:
+            case TYPE_ITEM:
                 holder = new ChildViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_home_order_child, parent, false));
                 break;
             default:
@@ -96,7 +109,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
     @Override
     public int getItemViewType(int position) {
         if(listOrder.get(position) instanceof OrderClass){
-            return TYPE_CHILD;
+            return TYPE_ITEM;
         }
         if(listOrder.get(position) instanceof String){
             return TYPE_SECTION;
@@ -148,14 +161,8 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
             OrderClass order = (OrderClass) listOrder.get(position);
             Date date = ((OrderClass) listOrder.get(position)).getDate();
             String strDate;
-            if(date.getMonth() == 0){
-                strDate = String.valueOf(date.getYear()-1) +"-"+"12"+"-"+String.valueOf(date.getDate()) +" "+String.valueOf(date.getHours())
-                        +":"+String.valueOf(date.getMinutes());
-            }
-            else {
-                strDate = String.valueOf(date.getYear()) +"-"+String.valueOf(date.getMonth())+"-"+String.valueOf(date.getDate()) +" "+String.valueOf(date.getHours())
-                        +":"+String.valueOf(date.getMinutes());
-            }
+            strDate = getYear(date) +"-"+getMonth(date)+"-"+String.valueOf(date.getDate()) +" "+String.valueOf(date.getHours())
+                    +":"+String.valueOf(date.getMinutes());
             GlideApp.with(itemView.getContext()).load(order.getImg()).into(img_propduct);
             tx_title.setText(order.getTitle());
             tx_time.setText("Thời gian: "+strDate);
