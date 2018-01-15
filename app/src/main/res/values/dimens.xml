@@ -24,4 +24,5 @@
     <dimen name="cart_item_height">100dip</dimen>
     <dimen name="profile_item_height">140dip</dimen>
     <dimen name="text_size_tiny">10sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

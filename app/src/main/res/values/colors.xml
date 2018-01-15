@@ -10,4 +10,5 @@
     <color name="gray_light">#EFEFEF</color>
     <color name="green">#28B56E</color>
     <color name="main_bg">#EDEDED</color>
+    <color name="white">#FFFFFF</color>
 </resources>
