@@ -52,4 +52,9 @@ public class NewsFragment extends BaseFragment {
         mAdapter = new ProductFragmentPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mAdapter);
     }
+
+    @Override
+    protected boolean isKeepFragment() {
+        return true;
+    }
 }

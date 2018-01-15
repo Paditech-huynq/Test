@@ -102,7 +102,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         bt_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bt_all.setCardBackgroundColor(getResources().getColor(R.color.orange));
+                bt_all.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
                 bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
                 bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
                 bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.gray));
@@ -117,7 +117,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
             public void onClick(View view) {
                 bt_all.setCardBackgroundColor(getResources().getColor(R.color.gray));
                 bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
-                bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.orange));
+                bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
                 bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.gray));
             }
         });
@@ -130,7 +130,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
             @Override
             public void onClick(View view) {
                 bt_all.setCardBackgroundColor(getResources().getColor(R.color.gray));
-                bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.orange));
+                bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
                 bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
                 bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.gray));
             }
@@ -146,7 +146,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
                 bt_all.setCardBackgroundColor(getResources().getColor(R.color.gray));
                 bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
                 bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
-                bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.orange));
+                bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
             }
         });
 
@@ -191,4 +191,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         onBtThisMonthClick();
     }
 
+    protected boolean isKeepFragment() {
+        return true;
+    }
 }

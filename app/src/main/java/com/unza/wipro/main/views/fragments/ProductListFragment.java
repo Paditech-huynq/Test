@@ -18,6 +18,7 @@ public class ProductListFragment extends BaseFragment {
     TabLayout mTabLayout;
 
     private ProductFragmentPagerAdapter mAdapter;
+    private int currentPage;
 
     public static ProductListFragment newInstance() {
 
@@ -49,7 +50,14 @@ public class ProductListFragment extends BaseFragment {
     }
 
     private void setupViewPager() {
-        mAdapter = new ProductFragmentPagerAdapter(getChildFragmentManager());
+        if(mAdapter == null) {
+            mAdapter = new ProductFragmentPagerAdapter(getChildFragmentManager());
+        }
         mViewPager.setAdapter(mAdapter);
+    }
+
+    @Override
+    protected boolean isKeepFragment() {
+        return true;
     }
 }

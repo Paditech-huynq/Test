@@ -9,4 +9,53 @@
     <string name="title_home_product">Sản phẩm</string>
     <string name="title_home_qr">Scan</string>
     <string name="title_profile">Thông tin cá nhân</string>
+=======
+
+    <string name="hint_lookup_input">Vui lòng nhập tên hoặc mã sản phẩm</string>
+
+    <!-- login -->
+    <string name="login_username_hint">Username</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_button">Đăng nhập</string>
+    <string name="login_forgot_pass">Forgot password</string>
+    <string name="login_call_center">Call center</string>
+    <string name="login_term">Term &amp; policy</string>
+    <string name="message_username_empty">Bạn chưa nhập tài khoản!</string>
+    <string name="message_password_empty">Bạn chưa nhập mật khẩu!</string>
+    <string name="message_login_failure">Đăng nhập không thành công! Xin hãy thử lại!</string>
+
+    <!-- otp -->
+    <string name="otp_hint">Mã số bí mật đã được gửi về Email hoặc số điện thoại của bạn. Vui lòng kiểm tra và nhập để tiếp tục</string>
+    <string name="otp_button">Xác nhận</string>
+    <string name="message_otp_empty">Bạn chưa nhập mã số!</string>
+    <string name="message_otp_failure">Mã số không hợp lệ! Xin hãy thử lại!</string>
+
+    <!-- forgot password -->
+    <string name="forgot_pass_hint">Vui lòng nhập số tài khoản của bạn, hệ thống sẽ gửi yêu cầu mật khẩu mới về số điện thoại của bạn</string>
+    <string name="forgot_pass_username_hint">Username</string>
+    <string name="forgot_pass_button">Xác nhận</string>
+    <string name="message_forgot_pass_failure">Yêu cầu không thành công! Xin hãy thử lại!</string>
+
+    <!-- change password -->
+    <string name="change_pass_new_pass">Mật khẩu mới</string>
+    <string name="change_pass_confirm_pass">Nhập lại mật khẩu mới</string>
+    <string name="change_pass_button">Đổi mật khẩu</string>
+    <string name="message_pass_new_empty">Bạn chưa nhập mật khẩu mới!</string>
+    <string name="message_pass_confirm_empty">Bạn chưa nhập lại mật khẩu mới!</string>
+    <string name="message_pass_confirm_invalid">Xác nhận mật khẩu sai!</string>
+    <string name="message_change_pass_failure">Đổi mật khẩu không thành công! Xin hãy thử lại!</string>
+    <string name="action_change">Thay đổi</string>
+    <string name="att_address_with_input"><b>Đ/c: </b> Siêu Thị Minh Hoa 250 Cầu Giấy Hà Nội</string>
+    <string name="action_seller"><b>Người bán:</b> Phương Ly</string>
+    <string name="action_create_new_customer">Tạo khách hàng mới</string>
+    <string name="title_profile_select">Chọn khách hàng</string>
+    <string name="att_profile_register_full_name_required">Họ và tên (*)</string>
+    <string name="att_profile_register_phone_required">Điện thoại (*)</string>
+    <string name="att_profile_register_email">Email</string>
+    <string name="att_profile_register_address">Địa chỉ</string>
+    <string name="title_profile_register">Tạo khách hàng</string>
+    <string name="action_add_to_cart">Thêm vào giở hàng</string>
+    <string name="att_product_category">Danh mục sản phẩm</string>
+    <string name="att_product_available_at">Đang sẵn hàng tại</string>
+    <string name="att_product_describe">Mô tả sản phẩm</string>
 </resources>
