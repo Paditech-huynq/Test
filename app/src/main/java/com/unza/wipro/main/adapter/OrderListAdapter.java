@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.image.GlideApp;
@@ -35,7 +34,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
     private boolean isLoading = false;
     private BaseRecycleViewAdapter.LoadMoreListener onLoadMoreListener;
     private Date date;
-    List<Object> list = new ArrayList<>();
+    private List<Object> listOrder = new ArrayList<>();
 
     public OrderListAdapter(RecyclerView recyclerView) {
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
@@ -59,10 +58,10 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
         isLoading = !isLoading;
     }
 
-    public void setList(List<OrderClass> list) {
-        this.list.addAll(list);
-        Log.e( "setList: ",123+"" );
-        check_Day(list);
+    public void setListOrder(List<OrderClass> listOrder) {
+        this.listOrder.addAll(listOrder);
+        Log.e( "setListOrder: ",123+"" );
+        check_Day(listOrder);
         changeLoading();
     }
 
@@ -73,19 +72,19 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
                 insertSection(0, checkMonth0(list.get(i).getDate()));
             } else {
                 if(list.get(i).getDate().getYear()!= date.getYear() ){
-                    insertSection(this.list.size()- (list.size()-(i)), checkMonth0(list.get(i).getDate()));
+                    insertSection(this.listOrder.size()- (list.size()-(i)), checkMonth0(list.get(i).getDate()));
                 } else if(list.get(i).getDate().getYear() == date.getYear() ){
                     if(list.get(i).getDate().getMonth()!= date.getMonth()){
-                        insertSection(this.list.size()- (list.size()-(i)), checkMonth0(list.get(i).getDate()));
+                        insertSection(this.listOrder.size()- (list.size()-(i)), checkMonth0(list.get(i).getDate()));
                     }
                 }
             }
         }
-        Log.e("check_Day: ", this.list.size()+"" );
+        Log.e("check_Day: ", this.listOrder.size()+"" );
     }
 
     private void insertSection(int position, String a){
-        list.add(position, a);
+        listOrder.add(position, a);
     }
 
     private String checkMonth0(Date date){
@@ -124,10 +123,10 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
     @Override
     public int getItemViewType(int position) {
-        if(list.get(position) instanceof OrderClass){
+        if(listOrder.get(position) instanceof OrderClass){
             return TYPE_CHILD;
         }
-        if(list.get(position) instanceof String){
+        if(listOrder.get(position) instanceof String){
             return TYPE_SECTION;
         }
         return 0;
@@ -135,7 +134,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return listOrder.size();
     }
 
     class SectionViewHolder extends BaseViewHolder{
@@ -149,7 +148,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @Override
         protected void onBindingData(int position) {
-            textDateSection.setText((String) list.get(position));
+            textDateSection.setText((String) listOrder.get(position));
         }
 
     }
@@ -174,8 +173,8 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @Override
         protected void onBindingData(int position) {
-            OrderClass order = (OrderClass) list.get(position);
-            Date date = ((OrderClass) list.get(position)).getDate();
+            OrderClass order = (OrderClass) listOrder.get(position);
+            Date date = ((OrderClass) listOrder.get(position)).getDate();
             String strDate;
             if(date.getMonth() == 0){
                 strDate = String.valueOf(date.getYear()-1) +"-"+"12"+"-"+String.valueOf(date.getDate()) +" "+String.valueOf(date.getHours())

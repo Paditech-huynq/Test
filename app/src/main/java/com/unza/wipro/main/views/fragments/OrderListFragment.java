@@ -1,13 +1,10 @@
 package com.unza.wipro.main.views.fragments;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -51,11 +48,11 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     public void getData() {
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         adapter = new OrderListAdapter(rcvOrder);
-        adapter.setList(orderFragmentPresenter.LoadMore());
+        adapter.setListOrder(orderFragmentPresenter.LoadMore());
         adapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
             public void onLoadMore() {
-                adapter.setList(orderFragmentPresenter.LoadMore());
+                adapter.setListOrder(orderFragmentPresenter.LoadMore());
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
