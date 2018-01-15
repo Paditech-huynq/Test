@@ -18,6 +18,7 @@ import com.unza.wipro.main.contracts.OrderListContract;
 import com.unza.wipro.main.presenters.OrderFragmentPresenter;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> implements OrderListContract.ViewImpl {
 
@@ -42,7 +43,6 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @BindView(R.id.bt_thismonth)
     CardView bt_thismonth;
 
-    
 
     public void getData() {
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -56,104 +56,72 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
                     public void run() {
                         adapter.notifyDataSetChanged();
                     }
-                },200);
+                }, 200);
             }
         });
         rcvOrder.setAdapter(adapter);
     }
 
-    @Override
-    public void onFilterClick() {
-        bt_filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(filter.getVisibility() == View.GONE) {
-                    view_up.setVisibility(View.VISIBLE);
-                    filter.setVisibility(View.VISIBLE);
-                } else {
-                    view_up.setVisibility(View.GONE);
-                    filter.setVisibility(View.GONE);
-                }
-            }
-        });
+    @OnClick(R.id.bt_filter)
+    void onFilterClick() {
+        if (filter.getVisibility() == View.GONE) {
+            view_up.setVisibility(View.VISIBLE);
+            filter.setVisibility(View.VISIBLE);
+        } else {
+            view_up.setVisibility(View.GONE);
+            filter.setVisibility(View.GONE);
+        }
     }
 
-    @Override
-    public void onSearchClick() {
-        bt_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view_up.setVisibility(View.GONE);
-                filter.setVisibility(View.GONE);
-            }
-        });
+    @OnClick(R.id.bt_search)
+    void onSearchClick() {
+        view_up.setVisibility(View.GONE);
+        filter.setVisibility(View.GONE);
+
     }
 
-    @Override
-    public void onBtAllClick() {
-        bt_all.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    @OnClick(R.id.bt_all)
+    void onBtAllClick() {
                 bt_all.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
                 bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
                 bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
                 bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.gray));
-            }
-        });
     }
 
-    @Override
-    public void onBtThisWeekClick() {
-        bt_thisweek.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    @OnClick(R.id.bt_thisweek)
+    void onBtThisWeekClick() {
                 bt_all.setCardBackgroundColor(getResources().getColor(R.color.gray));
                 bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
                 bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
                 bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.gray));
-            }
-        });
-
     }
 
-    @Override
-    public void onBtLastWeekClick() {
-        bt_lastweek.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    @OnClick(R.id.bt_lastweek)
+    void onBtLastWeekClick() {
                 bt_all.setCardBackgroundColor(getResources().getColor(R.color.gray));
                 bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
                 bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
                 bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.gray));
-            }
-        });
-
     }
 
-    @Override
-    public void onBtThisMonthClick() {
-        bt_thismonth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    @OnClick(R.id.bt_thismonth)
+    void onBtThisMonthClick() {
                 bt_all.setCardBackgroundColor(getResources().getColor(R.color.gray));
                 bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
                 bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
                 bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
-            }
-        });
-
     }
 
 
     public static OrderListFragment newInstance() {
-        
+
         Bundle args = new Bundle();
-        
+
         OrderListFragment fragment = new OrderListFragment();
         fragment.setArguments(args);
         return fragment;
     }
-    
+
     @Override
     protected int getLayoutResource() {
         return R.layout.fragment_home_order;
@@ -170,18 +138,10 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public void initView() {
+        super.initView();
         getData();
-        setOnClickButton();
     }
 
-    private void setOnClickButton() {
-        onFilterClick();
-        onSearchClick();
-        onBtAllClick();
-        onBtLastWeekClick();
-        onBtThisWeekClick();
-        onBtThisMonthClick();
-    }
 
     protected boolean isKeepFragment() {
         return true;

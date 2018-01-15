@@ -9,12 +9,6 @@ import java.util.List;
 public interface OrderListContract {
     interface ViewImpl extends BaseViewImpl {
         void getData();
-        void onFilterClick();
-        void onSearchClick();
-        void onBtAllClick();
-        void onBtThisWeekClick();
-        void onBtLastWeekClick();
-        void onBtThisMonthClick();
     }
 
     interface Presenter extends BasePresenterImpl {
