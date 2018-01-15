@@ -21,7 +21,7 @@ import butterknife.BindView;
 public class OrderListFragment extends BaseFragment implements OrderListContract.ViewImpl {
 
     private OrderFragmentPresenter orderFragmentPresenter = new OrderFragmentPresenter();
-    private OrderListAdapter adapter;
+    private OrderListAdapter adapter = new OrderListAdapter();
     private boolean filter_clicked = false;
 
     @BindView(R.id.rcvOrder)
@@ -47,7 +47,6 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
 
     public void getData() {
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        adapter = new OrderListAdapter(rcvOrder);
         adapter.setListOrder(orderFragmentPresenter.LoadMore());
         adapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override

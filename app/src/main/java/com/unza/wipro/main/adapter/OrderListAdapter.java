@@ -29,39 +29,13 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
     private static final int TYPE_SECTION = 0;
     private static final int TYPE_CHILD = 1;
-    private int lastVisibleItem, totalItemCount;
-    private int visibleThreshold = 5;
-    private boolean isLoading = false;
-    private BaseRecycleViewAdapter.LoadMoreListener onLoadMoreListener;
     private Date date;
     private List<Object> listOrder = new ArrayList<>();
 
-    public OrderListAdapter(RecyclerView recyclerView) {
-        final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                totalItemCount = linearLayoutManager.getItemCount();
-                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-                if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold) ){
-                    if (onLoadMoreListener != null) {
-                        onLoadMoreListener.onLoadMore();
-                    }
-                    changeLoading();
-                }
-            }
-        });
-    }
-
-    private void changeLoading(){
-        isLoading = !isLoading;
-    }
 
     public void setListOrder(List<OrderClass> listOrder) {
         this.listOrder.addAll(listOrder);
         check_Day(listOrder);
-        changeLoading();
     }
 
     private void check_Day(List<OrderClass> list){
