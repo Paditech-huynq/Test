@@ -8,4 +8,11 @@ public class UpdatePasswordPresenter extends BasePresenter<UpdatePasswordContrac
     public void onCreate() {
         super.onCreate();
     }
+
+
+    @Override
+    public void updatePassword(String oldPass, String newPass) {
+        // todo: call update password api (get results and message)
+        getView().onChangePasswordResult(true, "");
+    }
 }
