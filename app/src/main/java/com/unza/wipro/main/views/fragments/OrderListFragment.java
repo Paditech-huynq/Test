@@ -22,7 +22,6 @@ import butterknife.BindView;
 public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> implements OrderListContract.ViewImpl {
 
     private OrderListAdapter adapter = new OrderListAdapter();
-    private boolean filter_clicked = false;
 
     @BindView(R.id.rcvOrder)
     RecyclerView rcvOrder;
@@ -68,14 +67,12 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         bt_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!filter_clicked) {
+                if(filter.getVisibility() == View.GONE) {
                     view_up.setVisibility(View.VISIBLE);
                     filter.setVisibility(View.VISIBLE);
-                    filter_clicked = true;
                 } else {
                     view_up.setVisibility(View.GONE);
                     filter.setVisibility(View.GONE);
-                    filter_clicked = false;
                 }
             }
         });
@@ -88,7 +85,6 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
             public void onClick(View view) {
                 view_up.setVisibility(View.GONE);
                 filter.setVisibility(View.GONE);
-                filter_clicked = false;
             }
         });
     }
