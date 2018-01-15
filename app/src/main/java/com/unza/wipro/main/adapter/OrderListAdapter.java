@@ -60,7 +60,6 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
     public void setListOrder(List<OrderClass> listOrder) {
         this.listOrder.addAll(listOrder);
-        Log.e( "setListOrder: ",123+"" );
         check_Day(listOrder);
         changeLoading();
     }
@@ -80,7 +79,6 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
                 }
             }
         }
-        Log.e("check_Day: ", this.listOrder.size()+"" );
     }
 
     private void insertSection(int position, String a){
@@ -184,7 +182,6 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
                 strDate = String.valueOf(date.getYear()) +"-"+String.valueOf(date.getMonth())+"-"+String.valueOf(date.getDate()) +" "+String.valueOf(date.getHours())
                         +":"+String.valueOf(date.getMinutes());
             }
-            System.out.println("Converted String: " + strDate);
             GlideApp.with(itemView.getContext()).load(order.getImg()).into(img_propduct);
             tx_title.setText(order.getTitle());
             tx_time.setText("Thời gian: "+strDate);
@@ -194,7 +191,6 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @Override
         public void onClick(View view) {
-            Log.e("onClick: ",getLayoutPosition() +"" );
         }
     }
 }
