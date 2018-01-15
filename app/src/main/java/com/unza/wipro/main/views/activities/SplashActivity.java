@@ -7,6 +7,7 @@ import android.content.Intent;
 
 public class SplashActivity extends AppCompatActivity {
     private Intent intent;
+    public static final int DELAYIN = 3000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,8 +19,6 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        }, 3000);
-
-
+        }, DELAYIN);
     }
 }
