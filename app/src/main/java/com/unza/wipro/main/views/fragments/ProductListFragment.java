@@ -55,12 +55,6 @@ public class ProductListFragment extends BaseFragment {
         }
         mViewPager.setAdapter(mAdapter);
     }
-//
-//    @Override
-//    public void onResumeFromBackStack() {
-//        super.onResumeFromBackStack();
-//        setupViewPager();
-//    }
 
     @Override
     protected boolean isKeepFragment() {

@@ -52,4 +52,8 @@
     <string name="att_profile_register_email">Email</string>
     <string name="att_profile_register_address">Địa chỉ</string>
     <string name="title_profile_register">Tạo khách hàng</string>
+    <string name="action_add_to_cart">Thêm vào giở hàng</string>
+    <string name="att_product_category">Danh mục sản phẩm</string>
+    <string name="att_product_available_at">Đang sẵn hàng tại</string>
+    <string name="att_product_describe">Mô tả sản phẩm</string>
 </resources>

@@ -20,6 +20,7 @@
         android:paddingRight="25dip">
 
         <ImageView
+            android:id="@+id/btnLookup"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -28,6 +29,7 @@
             app:srcCompat="@drawable/ic_lookup" />
 
         <ImageView
+            android:id="@+id/btnScan"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -36,6 +38,7 @@
             app:srcCompat="@drawable/ic_scan_qr_selected" />
 
         <ImageView
+            android:id="@+id/btnSubmit"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
