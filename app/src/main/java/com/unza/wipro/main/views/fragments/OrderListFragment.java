@@ -187,7 +187,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         onSearchClick();
         onBtAllClick();
         onBtLastWeekClick();
-        onBtThisMonthClick();
+        onBtThisWeekClick();
         onBtThisMonthClick();
     }
 
