@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.paditech.core.BaseFragment;
 import com.paditech.core.common.BaseRecycleViewAdapter;
+import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.OrderListAdapter;
 import com.unza.wipro.main.contracts.OrderListContract;
@@ -18,9 +19,8 @@ import com.unza.wipro.main.presenters.OrderFragmentPresenter;
 
 import butterknife.BindView;
 
-public class OrderListFragment extends BaseFragment implements OrderListContract.ViewImpl {
+public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> implements OrderListContract.ViewImpl {
 
-    private OrderFragmentPresenter orderFragmentPresenter = new OrderFragmentPresenter();
     private OrderListAdapter adapter = new OrderListAdapter();
     private boolean filter_clicked = false;
 
@@ -47,11 +47,11 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
 
     public void getData() {
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        adapter.setListOrder(orderFragmentPresenter.LoadMore());
+        adapter.setListOrder(getPresenter().LoadMore());
         adapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
             public void onLoadMore() {
-                adapter.setListOrder(orderFragmentPresenter.LoadMore());
+                adapter.setListOrder(getPresenter().LoadMore());
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
