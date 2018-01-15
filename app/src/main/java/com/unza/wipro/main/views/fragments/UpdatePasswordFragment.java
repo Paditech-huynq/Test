@@ -1,4 +1,4 @@
-package com.unza.wipro.main.views.activities;
+package com.unza.wipro.main.views.fragments;
 
 import android.widget.EditText;
 
@@ -11,7 +11,7 @@ import com.unza.wipro.main.presenters.UpdatePasswordPresenter;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class UpdatePasswordActivity extends MVPFragment<UpdatePasswordPresenter> implements UpdatePasswordContract.ViewImpl {
+public class UpdatePasswordFragment extends MVPFragment<UpdatePasswordPresenter> implements UpdatePasswordContract.ViewImpl {
     @BindView(R.id.edt_old_pass)
     EditText edtOldPass;
     @BindView(R.id.edt_new_pass)
@@ -21,7 +21,7 @@ public class UpdatePasswordActivity extends MVPFragment<UpdatePasswordPresenter>
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.activity_update_password;
+        return R.layout.fragment_update_password;
     }
 
     @Override
