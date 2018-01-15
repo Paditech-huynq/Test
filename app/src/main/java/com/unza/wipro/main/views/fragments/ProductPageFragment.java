@@ -58,6 +58,7 @@ public class ProductPageFragment extends BaseFragment {
             @Override
             public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
                 switchFragment(ProductDetailFragment.newInstance(), true);
+//                switchFragment(NewsDetailFragment.newInstance(), true);
             }
         });
     }
