@@ -21,7 +21,6 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onFilterClick() {
         getView().updateFilterAppearance();
-
     }
 
     @Override
