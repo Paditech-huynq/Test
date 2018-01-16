@@ -12,6 +12,7 @@ import com.unza.wipro.main.adapter.ProductImageAdapter;
 import com.unza.wipro.main.views.activities.MainActivity;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class ProductDetailFragment extends BaseFragment {
     @BindView(R.id.vpgProduct)
@@ -64,5 +65,10 @@ public class ProductDetailFragment extends BaseFragment {
             Window w = getActivity().getWindow(); // in Activity's onCreate() for instance
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
+    }
+
+    @OnClick(R.id.imvAvatar)
+    protected void back() {
+        getActivity().onBackPressed();
     }
 }
