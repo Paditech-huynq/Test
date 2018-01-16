@@ -123,4 +123,11 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
 //        setUpBottomBar();
 ////        super.setScreenTitle(String.valueOf(mAdapter.getPageTitle(mViewPager.getCurrentItem())));
 //    }
+
+
+    @Override
+    public boolean isActionShow(int resId) {
+
+        return true;
+    }
 }
