@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imv_decrease"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_decrease"/>
+
+    <TextView
+        android:id="@+id/tv_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginRight="@dimen/margin_small"
+        android:layout_toRightOf="@+id/imv_decrease"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:maxLength="4"
+        android:minWidth="50dp"
+        android:padding="@dimen/padding_small"
+        android:text="0"
+        android:textColor="@color/text_dark"
+        android:textSize="@dimen/text_size_normal"/>
+
+    <ImageView
+        android:id="@+id/imv_increase"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/tv_amount"
+        android:src="@drawable/ic_increase"/>
+</RelativeLayout>
