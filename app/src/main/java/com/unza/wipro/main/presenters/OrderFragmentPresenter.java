@@ -2,10 +2,7 @@ package com.unza.wipro.main.presenters;
 
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.main.contracts.OrderListContract;
-import com.unza.wipro.main.models.OrderClass;
 import com.unza.wipro.main.models.OrderData;
-
-import java.util.List;
 
 public class OrderFragmentPresenter extends BasePresenter<OrderListContract.ViewImpl>  implements OrderListContract.Presenter {
     @Override
@@ -22,32 +19,33 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
 
     @Override
     public void onFilterClick() {
+        getView().updateFilterAppearance();
 
     }
 
     @Override
     public void onSearchClick() {
-
+        getView().dismissFilter();
     }
 
     @Override
     public void onBtAllClick() {
-
+        getView().changeColorButtonAll();
     }
 
     @Override
     public void onBtThisWeekClick() {
-
+        getView().changeColorButtonThisWeek();
     }
 
     @Override
     public void onBtLastWeekClick() {
-
+        getView().changeColorButtonLastWeek();
     }
 
     @Override
     public void onBtThisMonthClick() {
-
+        getView().changeColorButtonThisMonth();
     }
 
 

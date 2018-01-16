@@ -70,8 +70,8 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         rcvOrder.setAdapter(mAdapter);
     }
 
-    @OnClick(R.id.bt_filter)
-    public void onFilterClick() {
+    @Override
+    public void updateFilterAppearance() {
         if (filter.getVisibility() == View.GONE) {
             view_up.setVisibility(View.VISIBLE);
             filter.setVisibility(View.VISIBLE);
@@ -79,50 +79,74 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
             view_up.setVisibility(View.GONE);
             filter.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void dismissFilter() {
+        view_up.setVisibility(View.GONE);
+        filter.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void changeColorButtonAll() {
+        bt_all.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
+        bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.gray));
+    }
+
+    @Override
+    public void changeColorButtonThisWeek() {
+        bt_all.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
+        bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.gray));
+    }
+
+    @Override
+    public void changeColorButtonLastWeek() {
+        bt_all.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
+        bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.gray));
+    }
+
+    @Override
+    public void changeColorButtonThisMonth() {
+        bt_all.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
+    }
+
+    @OnClick(R.id.bt_filter)
+    public void onFilterClick() {
         getPresenter().onFilterClick();
     }
 
     @OnClick(R.id.bt_search)
     public void onSearchClick() {
-        view_up.setVisibility(View.GONE);
-        filter.setVisibility(View.GONE);
         getPresenter().onSearchClick();
     }
 
     @OnClick(R.id.bt_all)
     public void onBtAllClick() {
-                bt_all.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
-                bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
-                bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
-                bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.gray));
-                getPresenter().onBtAllClick();
+        getPresenter().onBtAllClick();
     }
 
     @OnClick(R.id.bt_thisweek)
     public void onBtThisWeekClick() {
-                bt_all.setCardBackgroundColor(getResources().getColor(R.color.gray));
-                bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
-                bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
-                bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.gray));
-                getPresenter().onBtThisWeekClick();
+        getPresenter().onBtThisWeekClick();
     }
 
     @OnClick(R.id.bt_lastweek)
     public void onBtLastWeekClick() {
-                bt_all.setCardBackgroundColor(getResources().getColor(R.color.gray));
-                bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
-                bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
-                bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.gray));
-                getPresenter().onBtLastWeekClick();
+        getPresenter().onBtLastWeekClick();
     }
 
     @OnClick(R.id.bt_thismonth)
     public void onBtThisMonthClick() {
-                bt_all.setCardBackgroundColor(getResources().getColor(R.color.gray));
-                bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
-                bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
-                bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
-                getPresenter().onBtThisMonthClick();
+        getPresenter().onBtThisMonthClick();
     }
 
     @Override
