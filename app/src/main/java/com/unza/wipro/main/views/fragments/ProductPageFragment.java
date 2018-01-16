@@ -3,6 +3,7 @@ package com.unza.wipro.main.views.fragments;
 import android.animation.Animator;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.transition.TransitionInflater;
@@ -57,7 +58,7 @@ public class ProductPageFragment extends BaseFragment {
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         StaggeredSpacesItemDecoration spacesItemDecoration = new StaggeredSpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_small));
         if (mAdapter == null) {
-            mAdapter = new ProductListAdapter(String.valueOf(Calendar.getInstance().getTimeInMillis()));
+            mAdapter = new ProductListAdapter();
         }
         mRecyclerView.addItemDecoration(spacesItemDecoration);
         mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
@@ -80,6 +81,7 @@ public class ProductPageFragment extends BaseFragment {
 
     private void startTransition(View view) {
         DynamicHeightImageView imvProduct = view.findViewById(R.id.imvProduct);
+        ViewCompat.setTransitionName(imvProduct, Calendar.getInstance().getTimeInMillis() + "_");
 
         ProductDetailFragment detailFragment = ProductDetailFragment.newInstance(TransitionInflater.from(ProductPageFragment.this.getContext()).
                 inflateTransition(R.transition.change_image_transform));

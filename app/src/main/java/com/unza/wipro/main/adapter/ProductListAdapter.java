@@ -18,12 +18,6 @@ import com.unza.wipro.main.views.customs.PlaceHolderDrawableHelper;
 import butterknife.BindView;
 
 public class ProductListAdapter extends BaseRecycleViewAdapter implements AppConstans {
-    private String fragmentTitle;
-
-    public ProductListAdapter(String fragmentTitle) {
-        this.fragmentTitle = fragmentTitle;
-    }
-
     private OnProductItemClickListenner mOnProductItemClickListenner;
 
     public void setOnProductItemClickListenner(OnProductItemClickListenner mOnProductItemClickListenner) {
@@ -60,8 +54,6 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
 
         @Override
         protected void onBindingData(final int position) {
-            ViewCompat.setTransitionName(imvProduct, fragmentTitle + "_" + String.valueOf(position));
-
             final String url = getItem(position);
             ViewHelper.setText(tvDescription, position + " - " + url, null);
             updateImageSize(position);
