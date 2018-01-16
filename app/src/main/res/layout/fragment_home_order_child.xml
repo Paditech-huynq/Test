@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <android.support.v7.widget.CardView
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="@dimen/child_recycle_view_size"
         app:cardCornerRadius="@dimen/cardview_default_radius"
         android:layout_marginBottom="@dimen/padding_small">
         <RelativeLayout
@@ -16,8 +17,8 @@
             >
             <ImageView
                 android:id="@+id/img_product_order"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/child_recycle_view_size"
+                android:layout_height="@dimen/child_recycle_view_size"
                 android:scaleType="centerCrop"
                 android:layout_centerVertical="true"
                 android:src="@drawable/bg_test"
@@ -55,8 +56,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:textColor="@color/text_orange"
                         tools:ignore="NestedWeights" />
                     <TextView
+                        android:textColor="@color/green"
                         android:id="@+id/tx_number"
                         android:textSize="@dimen/text_size_tiny"
                         android:textStyle="bold"

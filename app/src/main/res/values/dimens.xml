@@ -24,4 +24,9 @@
     <dimen name="cart_item_height">100dip</dimen>
     <dimen name="profile_item_height">140dip</dimen>
     <dimen name="text_size_tiny">10sp</dimen>
+
+    <!--orderlist-->
+    <dimen name="header_fragment_order_height">50dip</dimen>
+    <dimen name="filter_fragment_order_height">150dip</dimen>
+    <dimen name="child_recycle_view_size">80dip</dimen>
 </resources>

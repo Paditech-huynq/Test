@@ -69,8 +69,8 @@
     <string name="transition_list_product_to_product_detail">imgProduct</string>
 
     <!-- order list -->
-    <string name="all">Tất cả</string>
-    <string name="this_week">Tuần này</string>
+    <string name="all_order_list">Tất cả</string>
+    <string name="this_week_order_list">Tuần này</string>
     <string name="last_week">Tuần trước</string>
     <string name="this_month">Tháng này</string>
     <string name="find">Tìm kiếm</string>
