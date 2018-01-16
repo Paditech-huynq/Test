@@ -5,6 +5,7 @@ import com.unza.wipro.main.contracts.OrderListContract;
 import com.unza.wipro.main.models.OrderData;
 
 public class OrderFragmentPresenter extends BasePresenter<OrderListContract.ViewImpl>  implements OrderListContract.Presenter {
+
     @Override
     public void loadData() {
         OrderData orderData = new OrderData();

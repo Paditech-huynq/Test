@@ -64,4 +64,11 @@
     <string name="update_pass_old_pass_empty">Bạn chưa nhập mật khẩu cũ</string>
     <string name="update_pass_new_pass_empty">Bạn chưa nhập mật khẩu mới</string>
     <string name="update_pass_confirm_pass_empty">Bạn phải xác nhận mật khẩu mới</string>
+
+    <!-- order list -->
+    <string name="all">Tất cả</string>
+    <string name="this_week">Tuần này</string>
+    <string name="last_week">Tuần trước</string>
+    <string name="this_month">Tháng này</string>
+    <string name="find">Tìm kiếm</string>
 </resources>

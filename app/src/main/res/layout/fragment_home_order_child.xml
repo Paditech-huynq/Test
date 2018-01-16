@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -7,9 +8,8 @@
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        app:cardCornerRadius="5dp"
-        app:contentPadding="1dp"
-        android:layout_marginBottom="10dp">
+        app:cardCornerRadius="@dimen/cardview_default_radius"
+        android:layout_marginBottom="@dimen/padding_small">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,19 +27,17 @@
                 android:layout_toEndOf="@id/img_product_order"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="5dp">
+                android:padding="@dimen/padding_small">
                 <TextView
                     android:id="@+id/tx_title"
                     android:layout_weight="2"
                     android:textStyle="bold"
-                    android:text="fdfdfdfffffffffffffffffffffffffffffffffffffffffffffffff"
                     android:maxLines="2"
                     android:layout_width="match_parent"
                     android:layout_height="0dp" />
                 <TextView
                     android:id="@+id/tx_time"
-                    android:textSize="10dp"
-                    android:text="gdgddgdg"
+                    android:textSize="@dimen/text_size_small"
                     android:layout_weight="1.5"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -51,21 +49,20 @@
                     android:layout_height="0dp">
                     <TextView
                         android:id="@+id/tx_price"
-                        android:textSize="10dp"
+                        android:textSize="@dimen/text_size_tiny"
                         android:textStyle="bold"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="140.000VNĐ"/>
+                        tools:ignore="NestedWeights" />
                     <TextView
                         android:id="@+id/tx_number"
-                        android:textSize="10dp"
+                        android:textSize="@dimen/text_size_tiny"
                         android:textStyle="bold"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="dsdsd"
                         android:gravity="center"/>
                 </LinearLayout>
             </LinearLayout>
