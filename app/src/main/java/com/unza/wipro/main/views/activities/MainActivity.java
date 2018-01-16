@@ -59,4 +59,8 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
     public void setShowHeader(boolean isShowHeader) {
         layoutHeader.setVisibility(isShowHeader ? View.VISIBLE : View.GONE);
     }
+
+    public View getCartView() {
+        return findViewById(R.id.btnCart);
+    }
 }
