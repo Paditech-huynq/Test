@@ -66,6 +66,9 @@
     <string name="update_pass_new_pass_empty">Bạn chưa nhập mật khẩu mới</string>
     <string name="update_pass_confirm_pass_empty">Bạn phải xác nhận mật khẩu mới</string>
 
+    <!-- transition -->
+    <string name="transition_list_product_to_product_detail">imgProduct</string>
+
     <!-- order list -->
     <string name="all_order_list">Tất cả</string>
     <string name="this_week_order_list">Tuần này</string>
@@ -73,4 +76,23 @@
     <string name="this_month">Tháng này</string>
     <string name="find">Tìm kiếm</string>
 
+    <!--profile fragment-->
+    <string name="order_profile_fragment">Đơn hàng</string>
+    <string name="point_profile_fragment">Điểm tích lũy</string>
+    <string name="custom_profile_fragment">Khách hàng</string>
+    <string name="name_profile_fragment">Họ tên</string>
+    <string name="phone_profile_fragment">Điện thoại</string>
+    <string name="mail_profile_fragment">Email</string>
+    <string name="address_profile_fragment">Địa chỉ</string>
+    <string name="setting_profile_fragment">Cài đặt</string>
+    <string name="time_profile_fragment">Thời gian</string>
+    <string name="sales_want_profile_fragment">Doanh số yêu cầu</string>
+    <string name="sales_have_profile_fragment">Doanh số đã đạt</string>
+    <string name="manager_team_profile_fragment">Quản lý nhóm bán hàng</string>
+    <string name="sales_member_profile_fragment">Doanh số thành viên trong nhóm</string>
+    <string name="watch_order_list_profile_fragment">Xem danh sách đơn hàng</string>
+    <string name="change_pass_profile_fragment">Đổi mật khẩu</string>
+    <string name="questions_profile_fragment">Câu hỏi thường gặp</string>
+    <string name="term_use_profile_fragment">Điều khoản sử dụng</string>
+    <string name="log_out_profile_fragment">Đăng xuất</string>
 </resources>

@@ -33,6 +33,8 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     View view_up;
     @BindView(R.id.filter)
     LinearLayout filter;
+    @BindView(R.id.cardview_header)
+    CardView cardView_header;
     @BindView(R.id.bt_search)
     CardView bt_search;
     @BindView(R.id.bt_all)
@@ -71,9 +73,9 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         if (filter.getVisibility() == View.GONE) {
             view_up.setVisibility(View.VISIBLE);
             filter.setVisibility(View.VISIBLE);
+            cardView_header.setElevation(0);
         } else {
-            view_up.setVisibility(View.GONE);
-            filter.setVisibility(View.GONE);
+            dismissFilter();
         }
     }
 
@@ -81,6 +83,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     public void dismissFilter() {
         view_up.setVisibility(View.GONE);
         filter.setVisibility(View.GONE);
+        cardView_header.setElevation(getResources().getDimensionPixelSize(R.dimen.cardview_default_elevation));
     }
 
     @Override

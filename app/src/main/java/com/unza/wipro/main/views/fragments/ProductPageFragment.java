@@ -2,8 +2,11 @@ package com.unza.wipro.main.views.fragments;
 
 import android.animation.Animator;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -12,8 +15,11 @@ import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProductListAdapter;
 import com.unza.wipro.main.views.activities.MainActivity;
+import com.unza.wipro.main.views.customs.DynamicHeightImageView;
 import com.unza.wipro.main.views.customs.StaggeredSpacesItemDecoration;
 import com.unza.wipro.utils.AddToCartAnimation;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 
@@ -61,8 +67,7 @@ public class ProductPageFragment extends BaseFragment {
         mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
-                switchFragment(ProductDetailFragment.newInstance(), true);
-//                switchFragment(NewsDetailFragment.newInstance(), true);
+                startTransition(view);
             }
         });
 
@@ -72,6 +77,22 @@ public class ProductPageFragment extends BaseFragment {
                 makeFlyAnimation((ImageView) view);
             }
         });
+    }
+
+    private void startTransition(View view) {
+        DynamicHeightImageView imvProduct = view.findViewById(R.id.imvProduct);
+        ViewCompat.setTransitionName(imvProduct, Calendar.getInstance().getTimeInMillis() + "_");
+
+        ProductDetailFragment detailFragment = ProductDetailFragment.newInstance(TransitionInflater.from(ProductPageFragment.this.getContext()).
+                inflateTransition(R.transition.change_image_transform));
+
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(com.paditech.core.R.anim.abc_fade_in, com.paditech.core.R.anim.abc_fade_out, com.paditech.core.R.anim.abc_fade_in, com.paditech.core.R.anim.abc_fade_out);
+        ft.addSharedElement(imvProduct,
+                getString(R.string.transition_list_product_to_product_detail))
+                .replace(R.id.container, detailFragment)
+                .addToBackStack(null)
+                .commitAllowingStateLoss();
     }
 
     @Override
@@ -111,3 +132,4 @@ public class ProductPageFragment extends BaseFragment {
 
     }
 }
+

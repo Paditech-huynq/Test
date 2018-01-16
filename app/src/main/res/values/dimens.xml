@@ -25,7 +25,12 @@
     <dimen name="profile_item_height">140dip</dimen>
     <dimen name="text_size_tiny">10sp</dimen>
 
-    <!--profile-->
-    <dimen name="text_number_sales">30dip</dimen>
-    <dimen name="image_big_width"></dimen>
+    <!--profile fragment-->
+    <dimen name="text_number_sales">30sp</dimen>
+    <dimen name="image_big_height">230dip</dimen>
+
+    <!--orderlist-->
+    <dimen name="header_fragment_order_height">50dip</dimen>
+    <dimen name="filter_fragment_order_height">150dip</dimen>
+    <dimen name="child_recycle_view_size">80dip</dimen>
 </resources>

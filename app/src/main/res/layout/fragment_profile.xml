@@ -6,12 +6,13 @@
     android:background="@color/gray">
 
     <include
-        layout="@layout/view_header_profile"
-        android:id="@+id/view_header_profile"/>
+        android:id="@+id/view_header_profile"
+        layout="@layout/view_header_profile" />
+
     <ScrollView
-        android:layout_below="@+id/view_header_profile"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/view_header_profile">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,537 +23,603 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="230dp">
+
                 <ImageView
                     android:id="@+id/img_avar_under"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/bg_test"
                     android:layout_width="match_parent"
-                    android:layout_height="230dp" />
+                    android:layout_height="@dimen/image_big_height"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_test" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
-                    android:background="#d7ffffff"/>
-            <ImageView
-                android:layout_marginTop="@dimen/padding_large"
-                android:id="@+id/img_avar"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/bg_test"
-                android:scaleType="centerCrop"/>
+                    android:background="#d7ffffff" />
+
+                <ImageView
+                    android:id="@+id/img_avar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/padding_large"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_test" />
+
                 <LinearLayout
-                    android:paddingRight="@dimen/padding_big"
-                    android:paddingLeft="@dimen/padding_big"
-                    android:layout_below="@+id/img_avar"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_below="@+id/img_avar"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padding_big"
+                    android:paddingRight="@dimen/padding_big">
+
                     <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_gravity="end"
-                        android:layout_height="match_parent"
-                        android:paddingBottom="@dimen/padding_normal"
-                        >
+                        android:paddingBottom="@dimen/padding_normal">
+
                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
                             android:gravity="center"
                             android:text="25"
-                            android:textStyle="bold"
                             android:textColor="@color/green"
                             android:textSize="@dimen/text_number_sales"
-                            android:layout_weight="1"
+                            android:textStyle="bold"
+                            tools:ignore="NestedWeights" />
+
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
-                            tools:ignore="NestedWeights" />
-                        <TextView
-                            android:textSize="@dimen/text_size_normal"
                             android:layout_gravity="center"
-                            android:gravity="center"
-                            android:textStyle="bold"
-                            android:textColor="@color/colorPrimary"
-                            android:text="Đơn hàng"
                             android:layout_weight="1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp" />
+                            android:gravity="center"
+                            android:text="Đơn hàng"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_size_normal"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
+
                     <LinearLayout
-                        android:layout_weight="1"
-                        android:orientation="vertical"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:paddingLeft="@dimen/padding_normal"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
                         android:paddingBottom="@dimen/padding_normal"
-                        >
+                        android:paddingEnd="@dimen/padding_normal"
+                        android:paddingStart="@dimen/padding_normal">
+
                         <TextView
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="1600"
-                            android:textStyle="bold"
-                            android:textColor="@color/green"
-                            android:textSize="30sp"
-                            android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
-                            />
-                        <TextView
-                            android:textSize="@dimen/text_size_normal"
                             android:layout_gravity="center"
-                            android:gravity="center"
-                            android:textStyle="bold"
-                            android:textColor="@color/colorPrimary"
-                            android:text="Điểm tích lũy"
                             android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="1600"
+                            android:textColor="@color/green"
+                            android:textSize="@dimen/text_number_sales"
+                            android:textStyle="bold"
+                            tools:ignore="NestedWeights" />
+
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp" />
+                            android:layout_height="0dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Điểm tích lũy"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_size_normal"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
+
             <LinearLayout
-                android:background="@color/white"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/text_number_sales">
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingEnd="0dp"
+                android:paddingStart="@dimen/text_number_sales">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/padding_normal"
-                    android:paddingTop="@dimen/padding_normal"
-                    android:paddingRight="@dimen/padding_normal">
-                        <TextView
-                            android:id="@+id/text_name_default"
-                            android:layout_alignParentStart="true"
-                    android:layout_width="wrap_content"
-                            android:text="Họ tên"
-                            android:textColor="@color/text_dark"
-                            android:textSize="@dimen/text_size_normal"
-                    android:layout_height="wrap_content" />
+                    android:paddingEnd="@dimen/padding_normal"
+                    android:paddingStart="0dp"
+                    android:paddingTop="@dimen/padding_normal">
+
+                    <TextView
+                        android:id="@+id/text_name_default"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:text="Họ tên"
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/text_size_normal" />
+
                     <TextView
                         android:id="@+id/text_name"
-                        android:gravity="right"
-                        android:layout_toRightOf="@+id/text_name_default"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_alignParentRight="true"
                         android:layout_width="wrap_content"
-                        android:maxLines="1"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_toRightOf="@+id/text_name_default"
                         android:ellipsize="end"
+                        android:gravity="right"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/padding_tiny"
                         android:singleLine="true"
-                        android:paddingLeft="2dp"
                         android:text="Nguyễn Hoài Bảo Anh"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_height="wrap_content" />
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_normal" />
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/gray"/>
+                    android:background="@color/gray" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/padding_normal"
-                    android:paddingTop="@dimen/padding_normal"
-                    android:paddingRight="@dimen/padding_normal">
+                    android:paddingRight="@dimen/padding_normal"
+                    android:paddingTop="@dimen/padding_normal">
+
                     <TextView
                         android:id="@+id/text_phone_default"
-                        android:layout_alignParentStart="true"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:text="Điện thoại"
                         android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_height="wrap_content" />
+                        android:textSize="@dimen/text_size_normal" />
+
                     <TextView
                         android:id="@+id/tex_phone"
-                        android:gravity="right"
-                        android:layout_toRightOf="@+id/text_phone_default"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_alignParentRight="true"
                         android:layout_width="wrap_content"
-                        android:maxLines="1"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_toRightOf="@+id/text_phone_default"
                         android:ellipsize="end"
+                        android:gravity="right"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/padding_tiny"
                         android:singleLine="true"
-                        android:paddingLeft="2dp"
                         android:text="0912609016"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_height="wrap_content" />
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_normal" />
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/gray"/>
+                    android:background="@color/gray" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/padding_normal"
-                    android:paddingTop="@dimen/padding_normal"
-                    android:paddingRight="@dimen/padding_normal">
+                    android:paddingRight="@dimen/padding_normal"
+                    android:paddingTop="@dimen/padding_normal">
+
                     <TextView
                         android:id="@+id/text_email_default"
-                        android:layout_alignParentStart="true"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:text="Email"
                         android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_height="wrap_content" />
+                        android:textSize="@dimen/text_size_normal" />
+
                     <TextView
                         android:id="@+id/tex_email"
-                        android:gravity="right"
-                        android:layout_toEndOf="@+id/text_email_default"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_alignParentEnd="true"
                         android:layout_width="wrap_content"
-                        android:maxLines="1"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@+id/text_email_default"
                         android:ellipsize="end"
+                        android:gravity="right"
+                        android:maxLines="1"
+                        android:paddingStart="@dimen/padding_tiny"
                         android:singleLine="true"
-                        android:paddingStart="2dp"
                         android:text="baoanh@gmail.com"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_height="wrap_content"/>
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_normal" />
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/gray"/>
+                    android:background="@color/gray" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/padding_normal"
-                    android:paddingTop="@dimen/padding_normal"
-                    android:paddingRight="@dimen/padding_normal">
+                    android:paddingRight="@dimen/padding_normal"
+                    android:paddingTop="@dimen/padding_normal">
+
                     <TextView
                         android:id="@+id/text_address_default"
-                        android:layout_alignParentStart="true"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:text="Địa chỉ"
                         android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_height="wrap_content" />
+                        android:textSize="@dimen/text_size_normal" />
+
                     <TextView
                         android:id="@+id/text_address"
-                        android:gravity="right"
-                        android:layout_toRightOf="@+id/text_address_default"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_alignParentRight="true"
                         android:layout_width="wrap_content"
-                        android:maxLines="1"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_toRightOf="@+id/text_address_default"
                         android:ellipsize="end"
+                        android:gravity="right"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/padding_tiny"
                         android:singleLine="true"
-                        android:paddingLeft="2dp"
                         android:text="235 Nguyễn Ngọc Nại, HN"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_height="wrap_content" />
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_normal" />
                 </RelativeLayout>
             </LinearLayout>
+
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/ln_degree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            <com.unza.wipro.main.views.customs.Degreeview
-                android:id="@+id/degree_sale"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="@dimen/padding_normal"
-                android:layout_marginBottom="@dimen/padding_normal"/>
+                android:visibility="visible">
+
+                <com.unza.wipro.main.views.customs.Degreeview
+                    android:id="@+id/degree_sale"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginBottom="@dimen/padding_normal"
+                    android:layout_marginTop="@dimen/padding_normal" />
+
                 <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="70dp"
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-                <TextView
-                    android:text="Thời Gian:  "
-                    android:textStyle="bold"
-                    android:textColor="@color/text_dark"
-                    android:textSize="@dimen/text_size_normal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Thời Gian:  "
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/text_size_normal"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/tx_time_profile"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/text_size_normal" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_marginStart="70dp"
-                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="70dp"
+                    android:orientation="horizontal">
+
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="Doanh số đã đạt:  "
-                        android:textStyle="bold"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/tx_sales_have"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/text_size_normal" />
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_marginStart="70dp"
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:text="Doanh số yêu cầu:  "
-                        android:textStyle="bold"
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="70dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+
+                        android:text="Doanh số yêu cầu:  "
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/tx_sales_want"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/text_size_normal" />
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/ln_manager_sales"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-            <RelativeLayout
+                android:orientation="vertical"
+                android:visibility="visible">
 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/ic_some_people"
-                    android:paddingRight="@dimen/padding_normal"
-                    android:paddingLeft="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_people"/>
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:text="Quản lý nhóm bán hàng"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/text_dark"
-                    android:textSize="@dimen/text_size_normal"
-                    android:layout_toEndOf="@+id/ic_some_people"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-            </RelativeLayout>
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ic_some_people"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="@dimen/padding_normal"
+                        android:src="@drawable/ic_people" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/ic_some_people"
+                        android:gravity="center_vertical"
+                        android:text="Quản lý nhóm bán hàng"
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/text_size_normal"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlt_manager_sales"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingBottom="@dimen/padding_normal"
+                    android:paddingEnd="@dimen/padding_normal"
+                    android:paddingStart="@dimen/text_number_sales"
+                    android:paddingTop="@dimen/padding_normal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:text="Đổi mật khẩu"
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/text_size_normal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text=">"
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/text_size_normal" />
+                </RelativeLayout>
+            </LinearLayout>
 
             <RelativeLayout
-                android:id="@+id/rlt_manager_sales"
-                android:background="@color/white"
-                android:paddingStart="@dimen/text_number_sales"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/padding_normal"
-                android:paddingTop="@dimen/padding_normal"
-                android:paddingEnd="@dimen/padding_normal">
-                <TextView
-                    android:layout_alignParentStart="true"
-                    android:layout_width="wrap_content"
-                    android:text="Đổi mật khẩu"
-                    android:textColor="@color/text_dark"
-                    android:textSize="@dimen/text_size_normal"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:gravity="right"
-                    android:textColor="@color/text_dark"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="wrap_content"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text=">"
-                    android:textSize="@dimen/text_size_normal"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-            </LinearLayout>
-            <RelativeLayout
-                android:layout_marginTop="@dimen/padding_normal"
                 android:layout_marginBottom="@dimen/padding_normal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_marginTop="@dimen/padding_normal">
+
                 <ImageView
                     android:id="@+id/ic_setting"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/text_number_sales"
-                    android:src="@drawable/ic_setting"/>
+                    android:src="@drawable/ic_setting" />
+
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/ic_setting"
                     android:text="Cài đặt"
-                    android:textStyle="bold"
                     android:textColor="@color/text_dark"
                     android:textSize="@dimen/text_size_normal"
-                    android:layout_toEndOf="@+id/ic_setting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                    android:textStyle="bold" />
             </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/rlt_list_order"
-                android:background="@color/white"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
                 android:paddingStart="@dimen/text_number_sales">
+
                 <RelativeLayout
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:paddingBottom="@dimen/padding_normal"
-                    android:paddingTop="@dimen/padding_normal"
                     android:paddingEnd="@dimen/padding_normal"
-                    android:focusable="true">
+                    android:paddingTop="@dimen/padding_normal">
+
                     <TextView
-                        android:layout_alignParentStart="true"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:text="Xem danh sách đơn hàng"
                         android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_height="wrap_content" />
+                        android:textSize="@dimen/text_size_normal" />
+
                     <TextView
-                        android:textColor="@color/text_dark"
-                        android:layout_alignParentEnd="true"
                         android:layout_width="wrap_content"
-                        android:maxLines="1"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
                         android:ellipsize="end"
+                        android:maxLines="1"
                         android:singleLine="true"
                         android:text=">"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_height="wrap_content" />
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/text_size_normal" />
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/gray"/>
+                    android:background="@color/gray" />
+
                 <RelativeLayout
                     android:id="@+id/rlt_change_pass"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:paddingBottom="@dimen/padding_normal"
-                    android:paddingTop="@dimen/padding_normal"
                     android:paddingEnd="@dimen/padding_normal"
-                    android:focusable="true">
+                    android:paddingTop="@dimen/padding_normal">
+
                     <TextView
-                        android:layout_alignParentStart="true"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:text="Đổi mật khẩu"
                         android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_height="wrap_content" />
+                        android:textSize="@dimen/text_size_normal" />
+
                     <TextView
-                        android:textColor="@color/text_dark"
-                        android:layout_alignParentEnd="true"
                         android:layout_width="wrap_content"
-                        android:maxLines="1"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
                         android:ellipsize="end"
+                        android:maxLines="1"
                         android:singleLine="true"
                         android:text=">"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_height="wrap_content" />
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/text_size_normal" />
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/gray"/>
+                    android:background="@color/gray" />
+
                 <RelativeLayout
                     android:id="@+id/rlt_questions"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:paddingBottom="@dimen/padding_normal"
-                    android:paddingTop="@dimen/padding_normal"
                     android:paddingEnd="@dimen/padding_normal"
-                    android:focusable="true">
+                    android:paddingTop="@dimen/padding_normal">
+
                     <TextView
-                        android:layout_alignParentStart="true"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:text="Câu hỏi thường gặp"
                         android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_height="wrap_content" />
+                        android:textSize="@dimen/text_size_normal" />
+
                     <TextView
-                        android:textColor="@color/text_dark"
-                        android:layout_alignParentEnd="true"
                         android:layout_width="wrap_content"
-                        android:maxLines="1"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
                         android:ellipsize="end"
+                        android:maxLines="1"
                         android:singleLine="true"
                         android:text=">"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_height="wrap_content" />
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/text_size_normal" />
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/gray"/>
+                    android:background="@color/gray" />
+
                 <RelativeLayout
                     android:id="@+id/rlt_policy_permis"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:paddingBottom="@dimen/padding_normal"
-                    android:paddingTop="@dimen/padding_normal"
                     android:paddingEnd="@dimen/padding_normal"
-                    android:focusable="true">
+                    android:paddingTop="@dimen/padding_normal">
+
                     <TextView
-                        android:layout_alignParentStart="true"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:text="Điều khoản sử dụng"
                         android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_height="wrap_content" />
+                        android:textSize="@dimen/text_size_normal" />
+
                     <TextView
-                        android:textColor="@color/text_dark"
-                        android:layout_alignParentEnd="true"
                         android:layout_width="wrap_content"
-                        android:maxLines="1"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
                         android:ellipsize="end"
+                        android:maxLines="1"
                         android:singleLine="true"
                         android:text=">"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_height="wrap_content" />
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/text_size_normal" />
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/gray"/>
+                    android:background="@color/gray" />
+
                 <RelativeLayout
                     android:id="@+id/rlt_logout"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:paddingBottom="@dimen/padding_normal"
-                    android:paddingTop="@dimen/padding_normal"
                     android:paddingEnd="@dimen/padding_normal"
-                    android:focusable="true">
+                    android:paddingTop="@dimen/padding_normal">
+
                     <TextView
-                        android:layout_alignParentStart="true"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:text="Đăng xuất"
                         android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_height="wrap_content" />
+                        android:textSize="@dimen/text_size_normal" />
+
                     <TextView
-                        android:textColor="@color/text_dark"
-                        android:layout_alignParentEnd="true"
                         android:layout_width="wrap_content"
-                        android:maxLines="1"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
                         android:ellipsize="end"
+                        android:maxLines="1"
                         android:singleLine="true"
                         android:text=">"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_height="wrap_content" />
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/text_size_normal" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

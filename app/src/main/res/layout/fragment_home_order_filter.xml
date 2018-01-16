@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="@dimen/padding_small"
+                android:padding="@dimen/padding_normal"
                 android:text="@string/all_order_list"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_size_small" />
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="@dimen/padding_small"
+                android:padding="@dimen/padding_normal"
                 android:text="@string/this_week_order_list"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_size_small" />
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="@dimen/padding_small"
+                android:padding="@dimen/padding_normal"
                 android:text="@string/last_week"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_size_small" />
@@ -97,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="@dimen/padding_small"
+                android:padding="@dimen/padding_normal"
                 android:text="@string/this_month"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_size_small" />
@@ -112,63 +112,63 @@
         android:orientation="horizontal"
         android:padding="@dimen/padding_small">
 
-            <RelativeLayout
-                android:layout_marginLeft="@dimen/padding_large"
-                android:layout_marginRight="@dimen/padding_large"
-                android:background="@drawable/bg_day_order_list"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:padding="@dimen/padding_small"
-                tools:ignore="NestedWeights">
+        <RelativeLayout
+            android:layout_marginLeft="@dimen/padding_large"
+            android:layout_marginRight="@dimen/padding_large"
+            android:background="@drawable/bg_day_order_list"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_small"
+            tools:ignore="NestedWeights">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:text="22/12/2012"
-                    android:textSize="@dimen/text_size_small" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="22/12/2012"
+                android:textSize="@dimen/text_size_small" />
 
-                <ImageButton
-                    android:id="@+id/calender_left"
-                    android:layout_width="@dimen/text_size_title"
-                    android:layout_height="@dimen/text_size_title"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="@dimen/padding_small"
-                    android:background="@drawable/ic_time"
-                    android:scaleType="centerCrop" />
-            </RelativeLayout>
+            <ImageButton
+                android:id="@+id/calender_left"
+                android:layout_width="@dimen/text_size_title"
+                android:layout_height="@dimen/text_size_title"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/padding_small"
+                android:background="@drawable/ic_time"
+                android:scaleType="centerCrop" />
+        </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/padding_large"
-                android:layout_marginRight="@dimen/padding_large"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:padding="@dimen/padding_small"
-                android:background="@drawable/bg_day_order_list">
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/padding_large"
+            android:layout_marginRight="@dimen/padding_large"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_small"
+            android:background="@drawable/bg_day_order_list">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:text="22/12/2012"
-                    android:textSize="@dimen/text_size_small" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="22/12/2012"
+                android:textSize="@dimen/text_size_small" />
 
-                <ImageButton
-                    android:layout_centerVertical="true"
-                    android:id="@+id/calender_right"
-                    android:layout_width="@dimen/text_size_title"
-                    android:layout_height="@dimen/text_size_title"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/padding_small"
-                    android:background="@drawable/ic_time"
-                    android:scaleType="centerCrop" />
-            </RelativeLayout>
+            <ImageButton
+                android:layout_centerVertical="true"
+                android:id="@+id/calender_right"
+                android:layout_width="@dimen/text_size_title"
+                android:layout_height="@dimen/text_size_title"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/padding_small"
+                android:background="@drawable/ic_time"
+                android:scaleType="centerCrop" />
+        </RelativeLayout>
 
     </LinearLayout>
 
@@ -190,8 +190,9 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="@dimen/text_size_title"
+                android:layout_height="@dimen/text_size_title"
+                android:layout_marginEnd="@dimen/padding_tiny"
                 android:layout_gravity="center"
                 android:background="@color/colorPrimary"
                 android:scaleType="centerInside"

@@ -205,6 +205,7 @@ thơm từ cây hoắc hương.
                         android:id="@+id/vpgProduct"
                         android:layout_width="match_parent"
                         android:layout_height="250dip"
+                        android:transitionName="@string/transition_list_product_to_product_detail"
                         android:scaleType="centerCrop"
                         android:src="@drawable/bg_test" />
 
