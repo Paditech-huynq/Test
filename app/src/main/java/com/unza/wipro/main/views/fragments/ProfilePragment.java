@@ -11,10 +11,6 @@ import com.unza.wipro.main.presenters.ProfilePresenter;
 
 import butterknife.BindView;
 
-/**
- * Created by bangindong on 1/16/2018.
- */
-
 public class ProfilePragment extends MVPFragment<ProfilePresenter> implements ProfileContract.ViewImpl {
 
     @BindView(R.id.ln_degree)
