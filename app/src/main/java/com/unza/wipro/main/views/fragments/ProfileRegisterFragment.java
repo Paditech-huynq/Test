@@ -2,28 +2,41 @@ package com.unza.wipro.main.views.fragments;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.paditech.core.BaseFragment;
+import com.paditech.core.helper.ImageHelper;
 import com.unza.wipro.R;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ProfileRegisterFragment extends BaseFragment {
+    public static int REQUEST_PHOTO_CAMERA = 100;
+    public static int REQUEST_PHOTO_GALLERY = 200;
 
-    @BindView(R.id.dialogSelectImage)
-    FrameLayout frameLayout;
+
+    @BindView(R.id.layoutDisable)
+    View layoutDisable;
+
+    @BindView(R.id.layoutControllSelectImage)
+    View layoutControllSelectImage;
+
+    @BindView(R.id.registView)
+    View registView;
 
     @BindView(R.id.avatar)
-    ImageView imgDemo;
+    ImageView imgAvatar;
 
     public static ProfileRegisterFragment newInstance() {
 
@@ -46,69 +59,85 @@ public class ProfileRegisterFragment extends BaseFragment {
 
     @OnClick(R.id.avatar)
     protected void showSelectFrame() {
-        slideUp(frameLayout);
+        slideUp();
     }
 
     @OnClick(R.id.btnCamera)
     protected void openCamera() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 100);
+        Intent takePictureIntent = new Intent( MediaStore.ACTION_IMAGE_CAPTURE );
+        startActivityForResult(takePictureIntent, REQUEST_PHOTO_CAMERA);
     }
 
     @OnClick(R.id.btnGallery)
     protected void openGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, 200);
+        startActivityForResult(galleryIntent, REQUEST_PHOTO_GALLERY);
     }
 
     @OnClick(R.id.btnCancel)
     protected void openCancel() {
-        slideDown(frameLayout);
+        slideDown();
+    }
+
+    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final RectF rectF = new RectF(rect);
+        final float roundPx = pixels;
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+        return output;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100) {
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            imgDemo.setImageBitmap(bitmap);
+        if (requestCode == REQUEST_PHOTO_CAMERA) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageBitmap = getRoundedCornerBitmap(imageBitmap, 150);
+            imgAvatar.setImageBitmap(imageBitmap);
         }
-        if (requestCode == 200) {
+
+        if (requestCode == REQUEST_PHOTO_GALLERY) {
             Uri imageUri = data.getData();
-            imgDemo.setImageURI(imageUri);
+            ImageHelper.loadThumbCircleImage(this.getContext(), imageUri.toString(), imgAvatar);
         }
-        slideDown(frameLayout);
+        slideDown();
     }
 
-    public void slideUp(View view) {
-        view.setVisibility(View.VISIBLE);
+    public void slideUp() {
+        layoutDisable.setVisibility(View.VISIBLE);
         TranslateAnimation animate = new TranslateAnimation(
                 0,                 // fromXDelta
                 0,                 // toXDelta
-                view.getHeight(),  // fromYDelta
+                layoutControllSelectImage.getHeight(),  // fromYDelta
                 0);                // toYDelta
         animate.setDuration(500);
         animate.setFillAfter(true);
-        view.startAnimation(animate);
+        layoutControllSelectImage.startAnimation(animate);
     }
 
-    public void slideDown(View view) {
+    public void slideDown() {
+        layoutDisable.setVisibility(View.INVISIBLE);
         TranslateAnimation animate = new TranslateAnimation(
                 0,                 // fromXDelta
                 0,                 // toXDelta
                 0,                 // fromYDelta
-                view.getHeight()); // toYDelta
+                layoutControllSelectImage.getHeight()); // toYDelta
         animate.setDuration(500);
         animate.setFillAfter(true);
-        view.startAnimation(animate);
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                frameLayout.setVisibility(View.GONE);
-            }
-        }, 500);
+        layoutControllSelectImage.startAnimation(animate);
 
     }
 }
