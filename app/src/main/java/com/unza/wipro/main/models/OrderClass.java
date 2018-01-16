@@ -2,9 +2,6 @@ package com.unza.wipro.main.models;
 
 import java.util.Date;
 
-/**
- * Created by bangindong on 1/12/2018.
- */
 
 public class OrderClass {
     private int img;

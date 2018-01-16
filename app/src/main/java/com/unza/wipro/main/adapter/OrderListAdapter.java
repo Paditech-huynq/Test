@@ -1,7 +1,6 @@
 package com.unza.wipro.main.adapter;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import com.unza.wipro.R;
 import com.unza.wipro.main.models.OrderClass;
 import com.unza.wipro.utils.DateTimeUntils;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
