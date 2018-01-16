@@ -24,7 +24,6 @@
             app:cardBackgroundColor="@color/gray"
             app:cardCornerRadius="@dimen/card_radius_normal"
             app:cardElevation="0dp"
-            app:contentPadding="1dp"
             tools:ignore="NestedWeights">
 
             <TextView
@@ -47,7 +46,7 @@
             app:cardBackgroundColor="@color/gray"
             app:cardCornerRadius="@dimen/card_radius_normal"
             app:cardElevation="0dp"
-            app:contentPadding="1dp">
+            >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -69,7 +68,7 @@
             app:cardBackgroundColor="@color/gray"
             app:cardCornerRadius="@dimen/card_radius_normal"
             app:cardElevation="0dp"
-            app:contentPadding="1dp">
+            >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -92,7 +91,7 @@
             app:cardBackgroundColor="@color/gray"
             app:cardCornerRadius="@dimen/card_radius_normal"
             app:cardElevation="0dp"
-            app:contentPadding="1dp">
+            >
 
             <TextView
                 android:layout_width="wrap_content"
