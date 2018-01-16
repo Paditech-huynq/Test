@@ -80,11 +80,9 @@ public class ProductPageFragment extends BaseFragment {
     private void startTransition(BaseRecycleViewAdapter.BaseViewHolder holder) {
         ProductDetailFragment detailFragment = ProductDetailFragment.newInstance(TransitionInflater.from(ProductPageFragment.this.getContext()).
                 inflateTransition(R.transition.change_image_transform));
-
+        
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-
         ft.setCustomAnimations(com.paditech.core.R.anim.abc_fade_in, com.paditech.core.R.anim.abc_fade_out, com.paditech.core.R.anim.abc_fade_in, com.paditech.core.R.anim.abc_fade_out);
-
         ft.addSharedElement(((ProductListAdapter.ProductHolder) holder).imvProduct,
                 getString(R.string.transition_list_product_to_product_detail))
                 .replace(R.id.container, detailFragment)

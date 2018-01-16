@@ -29,12 +29,9 @@ public class ProductDetailFragment extends BaseFragment {
     }
 
     public static ProductDetailFragment newInstance(Transition transition) {
-
         ProductDetailFragment fragment = ProductDetailFragment.newInstance();
-
         fragment.setSharedElementEnterTransition(transition);
         fragment.setSharedElementReturnTransition(transition);
-
         return fragment;
     }
 
