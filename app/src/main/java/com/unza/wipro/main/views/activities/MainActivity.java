@@ -69,4 +69,8 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
     protected int getBackButtonView() {
         return R.id.btnBack;
     }
+
+    public View getCartView() {
+        return findViewById(R.id.btnCart);
+    }
 }
