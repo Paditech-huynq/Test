@@ -28,7 +28,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
     private List<Object> mData = new ArrayList<>();
 
 
-    public void setmData(List<OrderClass> data) {
+    public void setData(List<OrderClass> data) {
         checkDay(data);
     }
 
@@ -40,28 +40,12 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
                 mData.add(new SimpleDateFormat("MM/yyyy").format(dateCounting));
             } else {
                     Date dateBefore = new Date(list.get(i-1).getDate().getTime());
-                    if (getYear(dateBefore) != getYear(dateCounting)) {
+                    if (!new SimpleDateFormat("MM/yyyy").format(dateBefore).equals(new SimpleDateFormat("MM/yyyy").format(dateCounting))) {
                         mData.add(new SimpleDateFormat("MM/yyyy").format(dateCounting));
-                    } else {
-                        if (getMonth(dateBefore) != getMonth(dateCounting)) {
-                            mData.add(new SimpleDateFormat("MM/yyyy").format(dateCounting));
-                        }
                     }
             }
             mData.add(list.get(i));
         }
-    }
-
-    private int getYear(Date date){
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
-        String year = dateFormat.format(date);
-        return Integer.parseInt(year);
-    }
-
-    private int getMonth(Date date){
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("MM");
-        String month = dateFormat.format(date);
-        return Integer.parseInt(month);
     }
 
     @Override
