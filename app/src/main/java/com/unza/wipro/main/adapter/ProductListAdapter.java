@@ -1,5 +1,7 @@
 package com.unza.wipro.main.adapter;
 
+import android.support.v4.view.ViewCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,12 @@ import com.unza.wipro.main.views.customs.PlaceHolderDrawableHelper;
 import butterknife.BindView;
 
 public class ProductListAdapter extends BaseRecycleViewAdapter implements AppConstans {
+    private String fragmentTitle;
+
+    public ProductListAdapter(String fragmentTitle) {
+        this.fragmentTitle = fragmentTitle;
+    }
+
     @Override
     public String getItem(int position) {
         return imagesDummy[position];
@@ -32,11 +40,11 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
         return imagesDummy.length;
     }
 
-    class ProductHolder extends BaseViewHolder {
+    public class ProductHolder extends BaseViewHolder {
         int index;
 
         @BindView(R.id.imvProduct)
-        DynamicHeightImageView imvProduct;
+        public DynamicHeightImageView imvProduct;
 
         @BindView(R.id.tvDescription)
         TextView tvDescription;
@@ -47,6 +55,8 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
 
         @Override
         protected void onBindingData(final int position) {
+            ViewCompat.setTransitionName(imvProduct,fragmentTitle + "_" + String.valueOf(position));
+
             final String url = getItem(position);
             ViewHelper.setText(tvDescription, position + " - " + url, null);
             updateImageSize(position);
