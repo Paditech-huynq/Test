@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackgroundBorderless"
     app:cardCornerRadius="@dimen/card_radius_normal">
 
     <LinearLayout
@@ -69,10 +70,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="@dimen/padding_tiny"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/tvName"
+                android:layout_marginBottom="@dimen/padding_tiny"
                 android:layout_toLeftOf="@id/layoutAmount"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
