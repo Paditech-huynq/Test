@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:background="#ffffff"
+    android:background="@android:color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -12,18 +12,17 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:padding="@dimen/padding_small">
 
         <android.support.v7.widget.CardView
             android:id="@+id/bt_all"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="@dimen/padding_small"
             android:layout_weight="1.5"
-            android:padding="5dp"
             app:cardBackgroundColor="@color/gray"
-            app:cardCornerRadius="10dp"
+            app:cardCornerRadius="@dimen/card_radius_normal"
             app:cardElevation="0dp"
             app:contentPadding="1dp"
             tools:ignore="NestedWeights">
@@ -32,10 +31,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="5dp"
+                android:padding="@dimen/padding_small"
                 android:text="@string/all"
-                android:textColor="#ffffff"
-                android:textSize="13sp" />
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_small" />
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
@@ -43,10 +42,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/padding_normal"
             android:layout_weight="2"
             app:cardBackgroundColor="@color/gray"
-            app:cardCornerRadius="10dp"
+            app:cardCornerRadius="@dimen/card_radius_normal"
             app:cardElevation="0dp"
             app:contentPadding="1dp">
 
@@ -54,10 +53,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="5dp"
+                android:padding="@dimen/padding_small"
                 android:text="@string/this_week"
-                android:textColor="#ffffff"
-                android:textSize="13sp" />
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_small" />
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
@@ -65,10 +64,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/padding_normal"
             android:layout_weight="2"
             app:cardBackgroundColor="@color/gray"
-            app:cardCornerRadius="10dp"
+            app:cardCornerRadius="@dimen/card_radius_normal"
             app:cardElevation="0dp"
             app:contentPadding="1dp">
 
@@ -78,8 +77,8 @@
                 android:layout_gravity="center"
                 android:padding="@dimen/padding_small"
                 android:text="@string/last_week"
-                android:textColor="#ffffff"
-                android:textSize="13sp" />
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_small" />
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
@@ -87,11 +86,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:layout_marginStart="@dimen/padding_normal"
             android:layout_weight="2"
             app:cardBackgroundColor="@color/gray"
-            app:cardCornerRadius="10dp"
+            app:cardCornerRadius="@dimen/card_radius_normal"
             app:cardElevation="0dp"
             app:contentPadding="1dp">
 
@@ -99,10 +98,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="5dp"
+                android:padding="@dimen/padding_small"
                 android:text="@string/this_month"
-                android:textColor="#ffffff"
-                android:textSize="13sp" />
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_small" />
         </android.support.v7.widget.CardView>
     </LinearLayout>
 
@@ -112,16 +111,16 @@
         android:layout_gravity="center"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:padding="@dimen/padding_small">
 
             <RelativeLayout
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginLeft="@dimen/padding_large"
+                android:layout_marginRight="@dimen/padding_large"
                 android:background="@drawable/bg_day_order_list"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:padding="5dp"
+                android:padding="@dimen/padding_small"
                 tools:ignore="NestedWeights">
 
                 <TextView
@@ -134,22 +133,23 @@
 
                 <ImageButton
                     android:id="@+id/calender_left"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="@dimen/text_size_title"
+                    android:layout_height="@dimen/text_size_title"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/padding_small"
                     android:background="@drawable/ic_time"
                     android:scaleType="centerCrop" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_gravity="center"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginLeft="@dimen/padding_large"
+                android:layout_marginRight="@dimen/padding_large"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:padding="5dp"
+                android:padding="@dimen/padding_small"
                 android:background="@drawable/bg_day_order_list">
 
                 <TextView
@@ -161,11 +161,12 @@
                     android:textSize="@dimen/text_size_small" />
 
                 <ImageButton
+                    android:layout_centerVertical="true"
                     android:id="@+id/calender_right"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="@dimen/text_size_title"
+                    android:layout_height="@dimen/text_size_title"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="5dp"
+                    android:layout_marginEnd="@dimen/padding_small"
                     android:background="@drawable/ic_time"
                     android:scaleType="centerCrop" />
             </RelativeLayout>
@@ -176,13 +177,13 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="@dimen/padding_small"
+        android:layout_marginTop="@dimen/padding_normal"
         android:layout_weight="1"
         app:cardBackgroundColor="@color/colorPrimary"
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="@dimen/card_radius_normal"
         android:id="@+id/bt_search"
-        app:contentPadding="5dp">
+        app:contentPadding="@dimen/padding_small">
 
         <LinearLayout
             android:layout_gravity="center"
@@ -195,19 +196,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@color/colorPrimary"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_lookup2"
-                android:textAllCaps="false" />
+                android:src="@drawable/ic_lookup2" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="@dimen/padding_normal"
                 android:gravity="center"
                 android:text="@string/find"
-                android:textColor="#ffffff" />
+                android:textColor="@android:color/white" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>
