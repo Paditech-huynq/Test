@@ -42,7 +42,6 @@ public class ProfilePragment extends MVPFragment<ProfilePresenter> implements Pr
     @Override
     public void initView() {
         super.initView();
-        settingView(TYPE_USER_EMPLOYEE);
     }
 
     public void settingView(int typeUser){
