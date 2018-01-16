@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.paditech.core.BaseFragment;
 import com.unza.wipro.R;
-import com.unza.wipro.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +47,7 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
     public void initView() {
         super.initView();
         setupFormats();
+        mScannerView.startCamera();
     }
 
     private void setupFormats() {
@@ -59,37 +59,21 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
     @Override
     public void onViewAppear() {
         super.onViewAppear();
+        showToast("Appear");
         if (mScannerView != null) {
-            mScannerView.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Utils.checkCameraPermission(getActivity());
-                        mScannerView.setResultHandler(ScannerFragment.this);
-                        mScannerView.startCamera();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, 500);
+            mScannerView.startCamera();
         }
     }
 
     @Override
     public void onViewDisappear() {
-        super.onViewDisappear();
-        if (mScannerView != null) {
-            mScannerView.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        mScannerView.stopCamera();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            },1000);
+        try {
+            if (mScannerView != null) {
+                mScannerView.stopCameraPreview();
+            }
+        } catch (Exception ignored) {
         }
+        super.onViewDisappear();
     }
 
     @Override
@@ -99,5 +83,19 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
 
         showToast(rawResult.getContents());
 //        mScannerView.resumeCameraPreview(this);
+    }
+
+    public void openCamera() {
+        mScannerView.startCamera();
+    }
+
+    public void stopCamera() {
+        mScannerView.stopCamera();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mScannerView.stopCamera();
     }
 }

@@ -12,7 +12,6 @@ import com.unza.wipro.main.views.fragments.HomeFragment;
 import com.unza.wipro.main.views.fragments.OrderDetailFragment;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class MainActivity extends MVPActivity<MainPresenter> implements MainContract.ViewImpl {
     @BindView(R.id.tvTitle)
@@ -30,6 +29,7 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
     public void initView() {
         super.initView();
         switchFragment(HomeFragment.newInstance(), false);
+        addToAction(R.id.btnCart, R.id.btnNotification, R.id.imvAvatar);
     }
 
     @Override
@@ -45,18 +45,32 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
         }
     }
 
-    @OnClick(R.id.imvAvatar)
-    protected void onAvatarClick() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.btnCart)
-    void onBtnCartClick() {
-        switchFragment(OrderDetailFragment.newInstance(), true);
-    }
-
     public void setShowHeader(boolean isShowHeader) {
         layoutHeader.setVisibility(isShowHeader ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void onActionSelected(int resId) {
+        super.onActionSelected(resId);
+        switch (resId) {
+            case R.id.btnCart:
+                switchFragment(OrderDetailFragment.newInstance(), true);
+                break;
+            case R.id.btnNotification:
+                break;
+            case R.id.imvAvatar:
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
+    @Override
+    protected int getBackButtonView() {
+        return R.id.btnBack;
+    }
+
+    public View getCartView() {
+        return findViewById(R.id.btnCart);
     }
 }

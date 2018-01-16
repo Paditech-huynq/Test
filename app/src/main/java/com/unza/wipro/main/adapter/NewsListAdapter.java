@@ -24,7 +24,7 @@ public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConsta
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ProductHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.view_product_item, parent, false));
+        return new NewsHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.view_news_item, parent, false));
     }
 
     @Override
@@ -32,16 +32,19 @@ public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConsta
         return imagesDummy.length;
     }
 
-    class ProductHolder extends BaseViewHolder {
+    class NewsHolder extends BaseViewHolder {
         int index;
 
-        @BindView(R.id.imvProduct)
-        DynamicHeightImageView imvProduct;
+        @BindView(R.id.imv_news)
+        DynamicHeightImageView imvNews;
 
-        @BindView(R.id.tvDescription)
+        @BindView(R.id.tv_news_desc)
         TextView tvDescription;
 
-        public ProductHolder(View itemView) {
+        @BindView(R.id.tv_news_date)
+        TextView tvDate;
+
+        public NewsHolder(View itemView) {
             super(itemView);
         }
 
@@ -49,18 +52,19 @@ public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConsta
         protected void onBindingData(final int position) {
             final String url = getItem(position);
             ViewHelper.setText(tvDescription, position + " - " + url, null);
+            tvDate.setText("4 giờ trước");
             updateImageSize(position);
 
             GlideApp.with(itemView.getContext()).load(url)
                     .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
-                    .into(imvProduct);
+                    .into(imvNews);
         }
 
         private void updateImageSize(int pos) {
-            ViewGroup.LayoutParams rlp = imvProduct.getLayoutParams();
+            ViewGroup.LayoutParams rlp = imvNews.getLayoutParams();
             rlp.height = (int) (rlp.width * ratios[pos]);
-            imvProduct.setLayoutParams(rlp);
-            imvProduct.setRatio(ratios[pos]);
+            imvNews.setLayoutParams(rlp);
+            imvNews.setRatio(ratios[pos]);
         }
     }
 }

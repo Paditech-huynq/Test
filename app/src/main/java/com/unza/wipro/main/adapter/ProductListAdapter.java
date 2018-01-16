@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -23,6 +25,12 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
 
     public ProductListAdapter(String fragmentTitle) {
         this.fragmentTitle = fragmentTitle;
+    }
+
+    private OnProductItemClickListenner mOnProductItemClickListenner;
+
+    public void setOnProductItemClickListenner(OnProductItemClickListenner mOnProductItemClickListenner) {
+        this.mOnProductItemClickListenner = mOnProductItemClickListenner;
     }
 
     @Override
@@ -64,6 +72,14 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
             GlideApp.with(itemView.getContext()).load(url)
                     .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
                     .into(imvProduct);
+
+            itemView.findViewById(R.id.btn_add_cart).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOnProductItemClickListenner != null)
+                        mOnProductItemClickListenner.onAddCartButtonClick(itemView.findViewById(R.id.imvProduct), position);
+                }
+            });
         }
 
         private void updateImageSize(int pos) {
@@ -72,5 +88,9 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
             imvProduct.setLayoutParams(rlp);
             imvProduct.setRatio(ratios[pos]);
         }
+    }
+
+    public interface OnProductItemClickListenner {
+        void onAddCartButtonClick(View view, int index);
     }
 }

@@ -1,17 +1,21 @@
 package com.unza.wipro.main.views.fragments;
 
+import android.animation.Animator;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.transition.TransitionInflater;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.paditech.core.BaseFragment;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProductListAdapter;
+import com.unza.wipro.main.views.activities.MainActivity;
 import com.unza.wipro.main.views.customs.StaggeredSpacesItemDecoration;
+import com.unza.wipro.utils.AddToCartAnimation;
 
 import java.util.Calendar;
 
@@ -64,6 +68,13 @@ public class ProductPageFragment extends BaseFragment {
                 startTransition(holder);
             }
         });
+
+        mAdapter.setOnProductItemClickListenner(new ProductListAdapter.OnProductItemClickListenner() {
+            @Override
+            public void onAddCartButtonClick(View view, int index) {
+                makeFlyAnimation((ImageView) view);
+            }
+        });
     }
 
     private void startTransition(BaseRecycleViewAdapter.BaseViewHolder holder) {
@@ -84,6 +95,38 @@ public class ProductPageFragment extends BaseFragment {
     @Override
     protected boolean isKeepFragment() {
         return true;
+    }
+
+    private void makeFlyAnimation(ImageView targetView) {
+        MainActivity activity = (MainActivity) getActivity();
+
+        new AddToCartAnimation().attachActivity(activity)
+                .setTargetView(targetView)
+                .setItemDuration(500)
+                .setMoveDuration(500)
+                .setDestView(activity.getCartView())
+                .setAnimationListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        showToast("Add to Cart");
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                }).startAnimation();
+
     }
 }
 
