@@ -2,9 +2,7 @@ package com.unza.wipro.main.views.fragments;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 
-import com.paditech.core.BaseFragment;
 import com.paditech.core.mvp.MVPFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -48,11 +46,10 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
 
     private void setUpViewPagger() {
         if(mAdapter== null) {
-            Log.e("create adapter","create");
             mAdapter = new HomeFragmentPagerAdapter(getChildFragmentManager());
         }
         mViewPager.setAdapter(mAdapter);
-        mViewPager.setOffscreenPageLimit(mAdapter.getCount());
+//        mViewPager.setOffscreenPageLimit(mAdapter.getCount());
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -90,7 +87,7 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
     @Override
     public void updateTitle() {
         try {
-            super.setScreenTitle(((BaseFragment) mAdapter.getItem(mViewPager.getCurrentItem())).getScreenTitle());
+            super.setScreenTitle(mAdapter.getItem(mViewPager.getCurrentItem()).getScreenTitle());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -103,31 +100,11 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
 
     @Override
     public void setScreenTitle(String title) {
-//        super.setScreenTitle(title);
     }
-
-    @Override
-    public void onViewAppear() {
-        super.onViewAppear();
-    }
-
-    @Override
-    public void onViewDisappear() {
-        super.onViewDisappear();
-    }
-//
-//    @Override
-//    public void onResumeFromBackStack() {
-//        super.onResumeFromBackStack();
-//        setUpViewPagger();
-//        setUpBottomBar();
-////        super.setScreenTitle(String.valueOf(mAdapter.getPageTitle(mViewPager.getCurrentItem())));
-//    }
 
 
     @Override
     public boolean isActionShow(int resId) {
-
         return true;
     }
 }

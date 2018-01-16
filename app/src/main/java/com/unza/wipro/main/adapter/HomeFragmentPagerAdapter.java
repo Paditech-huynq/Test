@@ -1,7 +1,6 @@
 package com.unza.wipro.main.adapter;
 
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
@@ -28,7 +27,7 @@ public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
     }
 
     @Override
-    public Fragment getItem(int position) {
+    public BaseFragment getItem(int position) {
         return fragments.get(position);
     }
 
@@ -62,14 +61,11 @@ public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
     }
 
     public void onViewAppear(int position) {
-        for (int i = 0;i<fragments.size();i++)
-        {
+        for (int i = 0; i < fragments.size(); i++) {
             BaseFragment fragment = fragments.get(i);
-            if(i == position)
-            {
+            if (i == position) {
                 fragment.onViewAppear();
-            }
-            else {
+            } else {
                 fragment.onViewDisappear();
             }
         }
