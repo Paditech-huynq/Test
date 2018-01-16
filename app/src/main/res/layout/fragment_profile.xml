@@ -34,7 +34,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
-                    android:background="#d7ffffff" />
+                    android:background="@color/bg_big_image_blurred_profile_fragment" />
 
                 <ImageView
                     android:id="@+id/img_avar"
@@ -81,7 +81,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="Đơn hàng"
+                            android:text="@string/order_profile_fragment"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/text_size_normal"
                             android:textStyle="bold" />
@@ -115,7 +115,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="Điểm tích lũy"
+                            android:text="@string/point_profile_fragment"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/text_size_normal"
                             android:textStyle="bold" />
@@ -144,7 +144,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="Họ tên"
+                        android:text="@string/name_profile_fragment"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -181,7 +181,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="Điện thoại"
+                        android:text="@string/phone_profile_fragment"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -218,7 +218,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="Email"
+                        android:text="@string/mail_profile_fragment"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -255,7 +255,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="Địa chỉ"
+                        android:text="@string/address_profile_fragment"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -266,7 +266,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_toRightOf="@+id/text_address_default"
                         android:ellipsize="end"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:maxLines="1"
                         android:paddingLeft="@dimen/padding_tiny"
                         android:singleLine="true"
@@ -286,7 +286,7 @@
                 <com.unza.wipro.main.views.customs.Degreeview
                     android:id="@+id/degree_sale"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="@dimen/custom_degree_height"
                     android:layout_marginBottom="@dimen/padding_normal"
                     android:layout_marginTop="@dimen/padding_normal" />
 
@@ -299,7 +299,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Thời Gian:  "
+                        android:text="@string/time_profile_fragment"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal"
                         android:textStyle="bold" />
@@ -321,7 +321,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Doanh số đã đạt:  "
+                        android:text="@string/sales_have_profile_fragment"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal"
                         android:textStyle="bold" />
@@ -344,7 +344,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
 
-                        android:text="Doanh số yêu cầu:  "
+                        android:text="@string/sales_want_profile_fragment"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal"
                         android:textStyle="bold" />
@@ -384,7 +384,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/ic_some_people"
                         android:gravity="center_vertical"
-                        android:text="Quản lý nhóm bán hàng"
+                        android:text="@string/manager_team_profile_fragment"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal"
                         android:textStyle="bold" />
@@ -404,7 +404,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="Đổi mật khẩu"
+                        android:text="@string/change_pass_profile_fragment"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -413,7 +413,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:ellipsize="end"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:maxLines="1"
                         android:singleLine="true"
                         android:text=">"
@@ -439,7 +439,7 @@
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@+id/ic_setting"
-                    android:text="Cài đặt"
+                    android:text="@string/setting_profile_fragment"
                     android:textColor="@color/text_dark"
                     android:textSize="@dimen/text_size_normal"
                     android:textStyle="bold" />
@@ -466,7 +466,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="Xem danh sách đơn hàng"
+                        android:text="@string/watch_order_list_profile_fragment"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -501,7 +501,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="Đổi mật khẩu"
+                        android:text="@string/change_pass_profile_fragment"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -536,7 +536,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="Câu hỏi thường gặp"
+                        android:text="@string/questions_profile_fragment"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -571,7 +571,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="Điều khoản sử dụng"
+                        android:text="@string/term_use_profile_fragment"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -606,7 +606,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="Đăng xuất"
+                        android:text="@string/log_out_profile_fragment"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 

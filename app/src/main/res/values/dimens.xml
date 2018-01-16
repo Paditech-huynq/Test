@@ -28,6 +28,7 @@
     <!--profile fragment-->
     <dimen name="text_number_sales">30sp</dimen>
     <dimen name="image_big_height">230dip</dimen>
+    <dimen name="custom_degree_height">100dp</dimen>
 
     <!--orderlist-->
     <dimen name="header_fragment_order_height">50dip</dimen>

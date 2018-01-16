@@ -132,7 +132,7 @@ public class Degreeview extends View {
 
     public void reset() {
         setBackground1(R.color.white);
-        setBackground2(R.color.blue);
+        setBackground2(R.color.colorPrimaryDark);
         setValue(0);
         setMaxvalue(100);
         mPaint1 = new Paint(Paint.ANTI_ALIAS_FLAG);

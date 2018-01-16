@@ -10,7 +10,7 @@
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="@dimen/child_recycle_view_size"
-        app:cardCornerRadius="@dimen/cardview_default_radius"
+        app:cardCornerRadius="@dimen/card_radius_small"
         android:layout_marginBottom="@dimen/padding_small">
         <RelativeLayout
             android:layout_width="wrap_content"
