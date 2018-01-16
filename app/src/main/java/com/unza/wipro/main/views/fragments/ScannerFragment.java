@@ -59,7 +59,6 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
     @Override
     public void onViewAppear() {
         super.onViewAppear();
-        showToast("Appear");
         if (mScannerView != null) {
             mScannerView.startCamera();
         }
