@@ -65,6 +65,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
             public void onLoadMore() {
+                //todo
             }
         });
         rcvOrder.setAdapter(mAdapter);
@@ -161,11 +162,6 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public void setScreenTitle(String title) {
-    }
-
-    @Override
-    public void initView() {
-        super.initView();
     }
 
     protected boolean isKeepFragment() {
