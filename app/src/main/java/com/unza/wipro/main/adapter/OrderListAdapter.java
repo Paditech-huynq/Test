@@ -13,6 +13,7 @@ import com.paditech.core.image.GlideApp;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.OrderClass;
+import com.unza.wipro.utils.DateTimeUntils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,11 +38,11 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
         for (int i = 0; i < list.size(); i++) {
             Date dateCounting = new Date(list.get(i).getDate().getTime());
             if(mData.size() == 0){
-                mData.add(new SimpleDateFormat("MM/yyyy").format(dateCounting));
+                mData.add(DateTimeUntils.getStringMonthYear(dateCounting));
             } else {
                     Date dateBefore = new Date(list.get(i-1).getDate().getTime());
-                    if (!new SimpleDateFormat("MM/yyyy").format(dateBefore).equals(new SimpleDateFormat("MM/yyyy").format(dateCounting))) {
-                        mData.add(new SimpleDateFormat("MM/yyyy").format(dateCounting));
+                    if (!DateTimeUntils.getStringMonthYear(dateBefore).equals(DateTimeUntils.getStringMonthYear(dateCounting))) {
+                        mData.add(DateTimeUntils.getStringMonthYear(dateCounting));
                     }
             }
             mData.add(list.get(i));
@@ -122,11 +123,9 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
         protected void onBindingData(int position) {
             OrderClass order = (OrderClass) mData.get(position);
             Date date = ((OrderClass) mData.get(position)).getDate();
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm");
-            String strDate = dateFormat.format(date);
             GlideApp.with(itemView.getContext()).load(order.getImg()).into(img_propduct);
             tx_title.setText(order.getTitle());
-            tx_time.setText("Thời gian: "+strDate);
+            tx_time.setText("Thời gian: "+ DateTimeUntils.getStringMonthYear(date));
             tx_price.setText(order.getPrice()+"");
             tx_number.setText("Số lượng:"+ order.getNumberOrder() );
         }
