@@ -1,6 +1,7 @@
 package com.unza.wipro.main.views.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import com.paditech.core.BaseFragment;
@@ -59,37 +60,25 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
     @Override
     public void onViewAppear() {
         super.onViewAppear();
-        if (mScannerView != null) {
-            mScannerView.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Utils.checkCameraPermission(getActivity());
-                        mScannerView.setResultHandler(ScannerFragment.this);
-                        mScannerView.startCamera();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, 500);
-        }
+        Utils.checkCameraPermission(getActivity());
+        mScannerView.setResultHandler(ScannerFragment.this);
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                mScannerView.startCamera();
+            }
+        });
     }
 
     @Override
     public void onViewDisappear() {
         super.onViewDisappear();
-        if (mScannerView != null) {
-            mScannerView.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        mScannerView.stopCamera();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            },1000);
-        }
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                mScannerView.stopCamera();
+            }
+        });
     }
 
     @Override

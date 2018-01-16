@@ -57,4 +57,11 @@
     <string name="att_product_category">Danh mục sản phẩm</string>
     <string name="att_product_available_at">Đang sẵn hàng tại</string>
     <string name="att_product_describe">Mô tả sản phẩm</string>
+
+    <!-- change password -->
+    <string name="update_pass_old_pass">Mật khẩu cũ</string>
+    <string name="update_pass_confirm_pass">Xác nhận mật khẩu mới</string>
+    <string name="update_pass_old_pass_empty">Bạn chưa nhập mật khẩu cũ</string>
+    <string name="update_pass_new_pass_empty">Bạn chưa nhập mật khẩu mới</string>
+    <string name="update_pass_confirm_pass_empty">Bạn phải xác nhận mật khẩu mới</string>
 </resources>

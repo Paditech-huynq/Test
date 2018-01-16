@@ -16,7 +16,7 @@
             android:id="@+id/imvAvatar"
             android:layout_width="100dip"
             android:layout_height="100dip"
-            app:srcCompat="@drawable/ic_launcher" />
+            app:srcCompat="@mipmap/ic_launcher" />
 
         <LinearLayout
             android:id="@+id/layoutContent"

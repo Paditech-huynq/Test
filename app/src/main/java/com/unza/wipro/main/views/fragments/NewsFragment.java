@@ -6,7 +6,7 @@ import android.support.v4.view.ViewPager;
 
 import com.paditech.core.BaseFragment;
 import com.unza.wipro.R;
-import com.unza.wipro.main.adapter.ProductFragmentPagerAdapter;
+import com.unza.wipro.main.adapter.NewsFragmentPagerAdapter;
 
 import butterknife.BindView;
 
@@ -26,7 +26,7 @@ public class NewsFragment extends BaseFragment {
         return fragment;
     }
 
-    private ProductFragmentPagerAdapter mAdapter;
+    private NewsFragmentPagerAdapter mAdapter;
 
     @Override
     protected int getLayoutResource() {
@@ -49,7 +49,7 @@ public class NewsFragment extends BaseFragment {
     }
 
     private void setupViewPager() {
-        mAdapter = new ProductFragmentPagerAdapter(getChildFragmentManager());
+        mAdapter = new NewsFragmentPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mAdapter);
     }
 
