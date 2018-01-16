@@ -118,9 +118,9 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
             Date date = ((OrderClass) mData.get(position)).getDate();
             GlideApp.with(itemView.getContext()).load(order.getImg()).into(img_propduct);
             tx_title.setText(order.getTitle());
-            tx_time.setText("Thời gian: "+ DateTimeUntils.getStringMonthYear(date));
-            tx_price.setText(order.getPrice()+"");
-            tx_number.setText("Số lượng:"+ order.getNumberOrder() );
+            tx_time.setText(String.valueOf("Thời gian: "+ DateTimeUntils.getStringTimeAll(date)));
+            tx_price.setText(String.valueOf(order.getPrice()));
+            tx_number.setText(String.valueOf("Số lượng:"+ order.getNumberOrder()));
         }
 
     }
