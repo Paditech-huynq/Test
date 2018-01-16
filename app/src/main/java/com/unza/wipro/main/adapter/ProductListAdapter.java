@@ -1,10 +1,9 @@
 package com.unza.wipro.main.adapter;
 
+import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -19,7 +18,6 @@ import com.unza.wipro.main.views.customs.PlaceHolderDrawableHelper;
 import butterknife.BindView;
 
 public class ProductListAdapter extends BaseRecycleViewAdapter implements AppConstans {
-
     private OnProductItemClickListenner mOnProductItemClickListenner;
 
     public void setOnProductItemClickListenner(OnProductItemClickListenner mOnProductItemClickListenner) {
@@ -50,7 +48,7 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
         @BindView(R.id.tvDescription)
         TextView tvDescription;
 
-        public ProductHolder(View itemView) {
+        ProductHolder(View itemView) {
             super(itemView);
         }
 

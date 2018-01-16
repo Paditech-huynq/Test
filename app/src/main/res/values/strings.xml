@@ -65,6 +65,9 @@
     <string name="update_pass_new_pass_empty">Bạn chưa nhập mật khẩu mới</string>
     <string name="update_pass_confirm_pass_empty">Bạn phải xác nhận mật khẩu mới</string>
 
+    <!-- transition -->
+    <string name="transition_list_product_to_product_detail">imgProduct</string>
+
     <!-- order list -->
     <string name="all">Tất cả</string>
     <string name="this_week">Tuần này</string>
