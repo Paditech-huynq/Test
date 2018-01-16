@@ -78,7 +78,7 @@ public class ProductPageFragment extends BaseFragment {
                 getString(R.string.transition_list_product_to_product_detail))
                 .replace(R.id.container, detailFragment)
                 .addToBackStack(null)
-                .commit();
+                .commitAllowingStateLoss();
     }
 
     @Override
