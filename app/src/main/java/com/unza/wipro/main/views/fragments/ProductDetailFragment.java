@@ -3,7 +3,6 @@ package com.unza.wipro.main.views.fragments;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.transition.Fade;
 import android.transition.Transition;
 import android.view.Window;
 import android.view.WindowManager;

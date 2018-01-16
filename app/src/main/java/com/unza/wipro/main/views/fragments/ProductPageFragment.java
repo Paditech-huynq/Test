@@ -14,6 +14,7 @@ import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProductListAdapter;
 import com.unza.wipro.main.views.activities.MainActivity;
+import com.unza.wipro.main.views.customs.DynamicHeightImageView;
 import com.unza.wipro.main.views.customs.StaggeredSpacesItemDecoration;
 import com.unza.wipro.utils.AddToCartAnimation;
 
@@ -65,7 +66,7 @@ public class ProductPageFragment extends BaseFragment {
         mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
-                startTransition(holder);
+                startTransition(view);
             }
         });
 
@@ -77,13 +78,15 @@ public class ProductPageFragment extends BaseFragment {
         });
     }
 
-    private void startTransition(BaseRecycleViewAdapter.BaseViewHolder holder) {
+    private void startTransition(View view) {
+        DynamicHeightImageView imvProduct = view.findViewById(R.id.imvProduct);
+
         ProductDetailFragment detailFragment = ProductDetailFragment.newInstance(TransitionInflater.from(ProductPageFragment.this.getContext()).
                 inflateTransition(R.transition.change_image_transform));
-        
+
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.setCustomAnimations(com.paditech.core.R.anim.abc_fade_in, com.paditech.core.R.anim.abc_fade_out, com.paditech.core.R.anim.abc_fade_in, com.paditech.core.R.anim.abc_fade_out);
-        ft.addSharedElement(((ProductListAdapter.ProductHolder) holder).imvProduct,
+        ft.addSharedElement(imvProduct,
                 getString(R.string.transition_list_product_to_product_detail))
                 .replace(R.id.container, detailFragment)
                 .addToBackStack(null)

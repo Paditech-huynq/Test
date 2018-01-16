@@ -1,12 +1,9 @@
 package com.unza.wipro.main.adapter;
 
 import android.support.v4.view.ViewCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -48,22 +45,22 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
         return imagesDummy.length;
     }
 
-    public class ProductHolder extends BaseViewHolder {
+    class ProductHolder extends BaseViewHolder {
         int index;
 
         @BindView(R.id.imvProduct)
-        public DynamicHeightImageView imvProduct;
+        DynamicHeightImageView imvProduct;
 
         @BindView(R.id.tvDescription)
         TextView tvDescription;
 
-        public ProductHolder(View itemView) {
+        ProductHolder(View itemView) {
             super(itemView);
         }
 
         @Override
         protected void onBindingData(final int position) {
-            ViewCompat.setTransitionName(imvProduct,fragmentTitle + "_" + String.valueOf(position));
+            ViewCompat.setTransitionName(imvProduct, fragmentTitle + "_" + String.valueOf(position));
 
             final String url = getItem(position);
             ViewHelper.setText(tvDescription, position + " - " + url, null);
