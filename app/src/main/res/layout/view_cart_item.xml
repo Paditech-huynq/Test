@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:maxLength="4"
-                    android:text="9999" />
+                    android:text="0" />
 
                 <ImageView
                     android:layout_width="20dip"

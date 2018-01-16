@@ -64,4 +64,9 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
                 break;
         }
     }
+
+    @Override
+    protected int getBackButtonView() {
+        return R.id.btnBack;
+    }
 }
