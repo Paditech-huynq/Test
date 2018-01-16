@@ -1,6 +1,5 @@
 package com.unza.wipro.main.adapter;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,6 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
     private static final int TYPE_ITEM = 1;
     private List<Object> mData = new ArrayList<>();
 
-    @SuppressLint("SimpleDateFormat")
     public void addData(List<OrderClass> list){
         for (int i = 0; i < list.size(); i++) {
             Date dateCounting = new Date(list.get(i).getDate().getTime());
