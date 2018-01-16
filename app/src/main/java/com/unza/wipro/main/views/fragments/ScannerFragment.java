@@ -77,6 +77,7 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
 
     @Override
     public void handleResult(Result rawResult) {
+        //todo: handle scan result here
         Log.e(TAG, rawResult.getContents()); // Prints scan results
         Log.e(TAG, rawResult.getBarcodeFormat().getName()); // Prints the scan format (qrcode, pdf417 etc.)
 
