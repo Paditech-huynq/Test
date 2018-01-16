@@ -48,6 +48,4 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     public void onBtThisMonthClick() {
         getView().changeColorButtonThisMonth();
     }
-
-
 }
