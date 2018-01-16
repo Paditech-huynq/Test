@@ -28,13 +28,8 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
     private static final int TYPE_ITEM = 1;
     private List<Object> mData = new ArrayList<>();
 
-
-    public void setData(List<OrderClass> data) {
-        checkDay(data);
-    }
-
     @SuppressLint("SimpleDateFormat")
-    private void checkDay(List<OrderClass> list){
+    public void addData(List<OrderClass> list){
         for (int i = 0; i < list.size(); i++) {
             Date dateCounting = new Date(list.get(i).getDate().getTime());
             if(mData.size() == 0){

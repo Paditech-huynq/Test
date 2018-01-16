@@ -45,7 +45,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     public void getData() {
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        adapter.setData(getPresenter().loadData());
+        adapter.addData(getPresenter().loadData());
         adapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
             public void onLoadMore() {
