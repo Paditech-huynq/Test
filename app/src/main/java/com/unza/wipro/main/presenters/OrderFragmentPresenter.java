@@ -9,7 +9,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void loadData() {
         OrderData orderData = new OrderData();
-        getView().getData(orderData.getData());
+        getView().updateRecycleView(orderData.getData());
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface OrderListContract {
     interface ViewImpl extends BaseViewImpl {
-        void getData(List<OrderClass> data);
+        void updateRecycleView(List<OrderClass> data);
         void updateFilterAppearance();
         void dismissFilter();
         void changeColorButtonAll();
