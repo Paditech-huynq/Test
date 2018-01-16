@@ -8,10 +8,9 @@ import java.util.List;
 
 public interface OrderListContract {
     interface ViewImpl extends BaseViewImpl {
-        void getData();
     }
 
     interface Presenter extends BasePresenterImpl {
-        List<OrderClass> LoadMore();
+        List<OrderClass> loadData();
     }
 }

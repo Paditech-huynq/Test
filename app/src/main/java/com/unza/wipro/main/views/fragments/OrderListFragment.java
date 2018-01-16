@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import com.paditech.core.BaseFragment;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
@@ -46,11 +45,11 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     public void getData() {
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        adapter.setListOrder(getPresenter().LoadMore());
+        adapter.setmData(getPresenter().loadData());
         adapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
             public void onLoadMore() {
-                adapter.setListOrder(getPresenter().LoadMore());
+                adapter.setmData(getPresenter().loadData());
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {

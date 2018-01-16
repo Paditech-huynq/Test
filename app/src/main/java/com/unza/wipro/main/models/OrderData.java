@@ -1,39 +1,44 @@
 package com.unza.wipro.main.models;
 
+import android.annotation.SuppressLint;
+
 import com.unza.wipro.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-/**
- * Created by bangindong on 1/12/2018.
- */
 
 public class OrderData {
 
-    List<OrderClass> list = new ArrayList<>();
+    private List<OrderClass> data = new ArrayList<>();
 
     public OrderData() {
-        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,1,2,15,25), 1000000, 3));
-        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,1,2,15,25), 1000000, 3));
-        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,2,2,15,25), 1000000, 3));
-        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,2,2,15,25), 1000000, 3));
-        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,3,2,15,25), 1000000, 3));
-        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,3,2,15,25), 1000000, 3));
-        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,4,2,15,25), 1000000, 3));
-        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,5,2,15,25), 1000000, 3));
-        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,5,2,15,25), 1000000, 3));
-        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,6,2,15,25), 1000000, 3));
-        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,7,2,15,25), 1000000, 3));
-        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,10,2,15,25), 1000000, 3));
-        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2018,12,2,15,25), 1000000, 3));
-        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2019,1,2,15,25), 1000000, 3));
-        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2019,2,2,15,25), 1000000, 3));
-        list.add(new OrderClass(R.drawable.background, "mỹ phẩm", new Date(2019,3,2,15,25), 1000000, 3));
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd kk:mm:ss");
+        try {
+            data.add(new OrderClass(R.drawable.bg_test, "mỹ phẩm", format.parse("2018/01/02 02:15:25"), 1000000, 3));
+
+        data.add(new OrderClass(R.drawable.bg_test, "mỹ phẩm", format.parse("2018/01/02 02:15:25"), 1000000, 3));
+        data.add(new OrderClass(R.drawable.bg_test, "mỹ phẩm", format.parse("2018/02/02 02:15:25"), 1000000, 3));
+        data.add(new OrderClass(R.drawable.bg_test, "mỹ phẩm", format.parse("2018/03/02 02:15:25"), 1000000, 3));
+        data.add(new OrderClass(R.drawable.bg_test, "mỹ phẩm", format.parse("2018/04/02 02:15:25"), 1000000, 3));
+        data.add(new OrderClass(R.drawable.bg_test, "mỹ phẩm", format.parse("2018/04/02 02:15:25"), 1000000, 3));
+        data.add(new OrderClass(R.drawable.bg_test, "mỹ phẩm", format.parse("2018/05/02 02:15:25"), 1000000, 3));
+        data.add(new OrderClass(R.drawable.bg_test, "mỹ phẩm", format.parse("2018/06/02 02:15:25"), 1000000, 3));
+        data.add(new OrderClass(R.drawable.bg_test, "mỹ phẩm", format.parse("2018/10/02 02:15:25"), 1000000, 3));
+        data.add(new OrderClass(R.drawable.bg_test, "mỹ phẩm", format.parse("2018/12/02 02:15:25"), 1000000, 3));
+        data.add(new OrderClass(R.drawable.bg_test, "mỹ phẩm", format.parse("2018/12/02 02:15:25"), 1000000, 3));
+        data.add(new OrderClass(R.drawable.bg_test, "mỹ phẩm", format.parse("2018/12/02 02:15:25"), 1000000, 3));
+        data.add(new OrderClass(R.drawable.bg_test, "mỹ phẩm", format.parse("2019/01/02 02:15:25"), 1000000, 3));
+        data.add(new OrderClass(R.drawable.bg_test, "mỹ phẩm", format.parse("2019/01/02 02:15:25"), 1000000, 3));
+        data.add(new OrderClass(R.drawable.bg_test, "mỹ phẩm", format.parse("2019/02/02 02:15:25"), 1000000, 3));
+        data.add(new OrderClass(R.drawable.bg_test, "mỹ phẩm", format.parse("2019/02/02 02:15:25"), 1000000, 3));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
-    public List<OrderClass> getList() {
-        return list;
+    public List<OrderClass> getData() {
+        return data;
     }
 }

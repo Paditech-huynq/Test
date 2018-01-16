@@ -18,9 +18,10 @@
                 android:id="@+id/img_product_order"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:scaleType="fitCenter"
+                android:scaleType="centerCrop"
                 android:layout_centerVertical="true"
-                android:src="@drawable/background"/>
+                android:src="@drawable/bg_test"
+                />
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_toEndOf="@id/img_product_order"

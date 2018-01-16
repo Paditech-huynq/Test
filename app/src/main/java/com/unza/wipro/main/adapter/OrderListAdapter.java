@@ -21,73 +21,52 @@ import java.util.List;
 
 import butterknife.BindView;
 
-/**
- * Created by bangindong on 1/12/2018.
- */
-
 public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConstans {
 
     private static final int TYPE_SECTION = 0;
     private static final int TYPE_ITEM = 1;
-    private List<Object> listOrder = new ArrayList<>();
+    private List<Object> mData = new ArrayList<>();
 
 
-    public void setListOrder(List<OrderClass> listOrder) {
-        checkDay(listOrder);
+    public void setmData(List<OrderClass> data) {
+        checkDay(data);
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void checkDay(List<OrderClass> list){
         for (int i = 0; i < list.size(); i++) {
-            Date date_counting = new Date(list.get(i).getDate().getTime());
-            Date date_before;
-            if(listOrder.size() == 0){
-                insertSection(0, date_counting);
+            Date dateCounting = new Date(list.get(i).getDate().getTime());
+            if(mData.size() == 0){
+                mData.add(new SimpleDateFormat("MM/yyyy").format(dateCounting));
             } else {
-                if (i == 0) {
-                    date_before = new Date(((OrderClass) listOrder.get(listOrder.size() - 1)).getDate().getTime());
-                } else {
-                    date_before = new Date(list.get(i - 1).getDate().getTime());
-                }
-                {
-                    if (getYear(date_before) != getYear(date_counting)) {
-                        insertSection(this.listOrder.size(), date_counting);
+                    Date dateBefore = new Date(list.get(i-1).getDate().getTime());
+                    if (getYear(dateBefore) != getYear(dateCounting)) {
+                        mData.add(new SimpleDateFormat("MM/yyyy").format(dateCounting));
                     } else {
-                        if (getMonth(date_before) != getMonth(date_counting)) {
-                            insertSection(this.listOrder.size(), date_counting);
+                        if (getMonth(dateBefore) != getMonth(dateCounting)) {
+                            mData.add(new SimpleDateFormat("MM/yyyy").format(dateCounting));
                         }
                     }
-                }
             }
-            listOrder.add(list.get(i));
+            mData.add(list.get(i));
         }
     }
 
     private int getYear(Date date){
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
         String year = dateFormat.format(date);
-        Log.e("getYear: ", Integer.parseInt(year) +"" );
-        return Integer.parseInt(year)-1900;
+        return Integer.parseInt(year);
     }
 
     private int getMonth(Date date){
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("MM");
         String month = dateFormat.format(date);
-        Log.e("getMonth: ", Integer.parseInt(month) +"" );
-        if(Integer.parseInt(month)-1 == 0){
-            return 12;
-        }
-        else {
-            return Integer.parseInt(month) - 1;
-        }
-    }
-
-    private void insertSection(int position, Date date_section){
-        listOrder.add(position, String.valueOf(getMonth(date_section)+"/"+String.valueOf(getYear(date_section))));
+        return Integer.parseInt(month);
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return mData.get(position);
     }
 
     @Override
@@ -108,10 +87,10 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
     @Override
     public int getItemViewType(int position) {
-        if(listOrder.get(position) instanceof OrderClass){
+        if(mData.get(position) instanceof OrderClass){
             return TYPE_ITEM;
         }
-        if(listOrder.get(position) instanceof String){
+        if(mData.get(position) instanceof String){
             return TYPE_SECTION;
         }
         return 0;
@@ -119,7 +98,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
     @Override
     public int getItemCount() {
-        return listOrder.size();
+        return mData.size();
     }
 
     class SectionViewHolder extends BaseViewHolder{
@@ -133,12 +112,12 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @Override
         protected void onBindingData(int position) {
-            textDateSection.setText((String) listOrder.get(position));
+            textDateSection.setText((String) mData.get(position));
         }
 
     }
 
-    class ChildViewHolder extends BaseViewHolder implements View.OnClickListener{
+    class ChildViewHolder extends BaseViewHolder{
 
         @BindView(R.id.img_product_order)
         ImageView img_propduct;
@@ -153,16 +132,14 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
         ChildViewHolder(View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this);
         }
 
         @Override
         protected void onBindingData(int position) {
-            OrderClass order = (OrderClass) listOrder.get(position);
-            Date date = ((OrderClass) listOrder.get(position)).getDate();
-            String strDate;
-            strDate = getYear(date) +"-"+getMonth(date)+"-"+String.valueOf(date.getDate()) +" "+String.valueOf(date.getHours())
-                    +":"+String.valueOf(date.getMinutes());
+            OrderClass order = (OrderClass) mData.get(position);
+            Date date = ((OrderClass) mData.get(position)).getDate();
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm");
+            String strDate = dateFormat.format(date);
             GlideApp.with(itemView.getContext()).load(order.getImg()).into(img_propduct);
             tx_title.setText(order.getTitle());
             tx_time.setText("Thời gian: "+strDate);
@@ -170,8 +147,5 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
             tx_number.setText("Số lượng:"+ order.getNumberOrder() );
         }
 
-        @Override
-        public void onClick(View view) {
-        }
     }
 }
