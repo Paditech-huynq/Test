@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray">
@@ -30,18 +31,19 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
-                    android:background="#aaffffff"/>
+                    android:background="#d7ffffff"/>
             <ImageView
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/padding_large"
                 android:id="@+id/img_avar"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/bg_test"
                 android:scaleType="centerCrop"/>
                 <LinearLayout
-                    android:padding="5dp"
+                    android:paddingRight="@dimen/padding_big"
+                    android:paddingLeft="@dimen/padding_big"
                     android:layout_below="@+id/img_avar"
                     android:layout_alignParentBottom="true"
                     android:orientation="horizontal"
@@ -51,10 +53,9 @@
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_gravity="right"
-                        android:paddingRight="-30dp"
+                        android:layout_gravity="end"
                         android:layout_height="match_parent"
-                        android:paddingBottom="10dp"
+                        android:paddingBottom="@dimen/padding_normal"
                         >
                         <TextView
                             android:layout_gravity="center"
@@ -62,11 +63,11 @@
                             android:text="25"
                             android:textStyle="bold"
                             android:textColor="@color/green"
-                            android:textSize="30sp"
+                            android:textSize="@dimen/text_number_sales"
                             android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
-                            />
+                            tools:ignore="NestedWeights" />
                         <TextView
                             android:textSize="@dimen/text_size_normal"
                             android:layout_gravity="center"
@@ -84,8 +85,8 @@
                         android:orientation="vertical"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:paddingLeft="-20dp"
-                        android:paddingBottom="10dp"
+                        android:paddingLeft="@dimen/padding_normal"
+                        android:paddingBottom="@dimen/padding_normal"
                         >
                         <TextView
                             android:layout_gravity="center"
@@ -116,13 +117,13 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="30dp">
+                android:paddingLeft="@dimen/text_number_sales">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingRight="10dp">
+                    android:paddingBottom="@dimen/padding_normal"
+                    android:paddingTop="@dimen/padding_normal"
+                    android:paddingRight="@dimen/padding_normal">
                         <TextView
                             android:id="@+id/text_name_default"
                             android:layout_alignParentStart="true"
@@ -153,9 +154,9 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingRight="10dp">
+                    android:paddingBottom="@dimen/padding_normal"
+                    android:paddingTop="@dimen/padding_normal"
+                    android:paddingRight="@dimen/padding_normal">
                     <TextView
                         android:id="@+id/text_phone_default"
                         android:layout_alignParentStart="true"
@@ -186,9 +187,9 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingRight="10dp">
+                    android:paddingBottom="@dimen/padding_normal"
+                    android:paddingTop="@dimen/padding_normal"
+                    android:paddingRight="@dimen/padding_normal">
                     <TextView
                         android:id="@+id/text_email_default"
                         android:layout_alignParentStart="true"
@@ -219,9 +220,9 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingRight="10dp">
+                    android:paddingBottom="@dimen/padding_normal"
+                    android:paddingTop="@dimen/padding_normal"
+                    android:paddingRight="@dimen/padding_normal">
                     <TextView
                         android:id="@+id/text_address_default"
                         android:layout_alignParentStart="true"
@@ -256,8 +257,8 @@
                 android:id="@+id/degree_sale"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginTop="@dimen/padding_normal"
+                android:layout_marginBottom="@dimen/padding_normal"/>
                 <LinearLayout
                     android:layout_marginStart="70dp"
                     android:orientation="horizontal"
@@ -329,7 +330,7 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/ic_some_people"
-                    android:paddingRight="10dp"
+                    android:paddingRight="@dimen/padding_normal"
                     android:paddingLeft="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
@@ -349,12 +350,12 @@
             <RelativeLayout
                 android:id="@+id/rlt_manager_sales"
                 android:background="@color/white"
-                android:paddingStart="30dp"
+                android:paddingStart="@dimen/text_number_sales"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="10dp">
+                android:paddingBottom="@dimen/padding_normal"
+                android:paddingTop="@dimen/padding_normal"
+                android:paddingEnd="@dimen/padding_normal">
                 <TextView
                     android:layout_alignParentStart="true"
                     android:layout_width="wrap_content"
@@ -376,15 +377,14 @@
             </RelativeLayout>
             </LinearLayout>
             <RelativeLayout
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/padding_normal"
+                android:layout_marginBottom="@dimen/padding_normal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/ic_setting"
-                    android:padding="2dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="@dimen/text_number_sales"
                     android:src="@drawable/ic_setting"/>
                 <TextView
                     android:layout_centerVertical="true"
@@ -403,14 +403,14 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="30dp">
+                android:paddingStart="@dimen/text_number_sales">
                 <RelativeLayout
                     android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
+                    android:paddingBottom="@dimen/padding_normal"
+                    android:paddingTop="@dimen/padding_normal"
+                    android:paddingEnd="@dimen/padding_normal"
                     android:focusable="true">
                     <TextView
                         android:layout_alignParentStart="true"
@@ -439,9 +439,9 @@
                     android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
+                    android:paddingBottom="@dimen/padding_normal"
+                    android:paddingTop="@dimen/padding_normal"
+                    android:paddingEnd="@dimen/padding_normal"
                     android:focusable="true">
                     <TextView
                         android:layout_alignParentStart="true"
@@ -470,9 +470,9 @@
                     android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
+                    android:paddingBottom="@dimen/padding_normal"
+                    android:paddingTop="@dimen/padding_normal"
+                    android:paddingEnd="@dimen/padding_normal"
                     android:focusable="true">
                     <TextView
                         android:layout_alignParentStart="true"
@@ -501,9 +501,9 @@
                     android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
+                    android:paddingBottom="@dimen/padding_normal"
+                    android:paddingTop="@dimen/padding_normal"
+                    android:paddingEnd="@dimen/padding_normal"
                     android:focusable="true">
                     <TextView
                         android:layout_alignParentStart="true"
@@ -532,9 +532,9 @@
                     android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
+                    android:paddingBottom="@dimen/padding_normal"
+                    android:paddingTop="@dimen/padding_normal"
+                    android:paddingEnd="@dimen/padding_normal"
                     android:focusable="true">
                     <TextView
                         android:layout_alignParentStart="true"
