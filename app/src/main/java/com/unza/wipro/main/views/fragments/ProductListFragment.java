@@ -6,7 +6,6 @@ import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 
 import com.paditech.core.BaseFragment;
-import com.paditech.core.common.BaseConstant;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProductFragmentPagerAdapter;
 import com.unza.wipro.main.models.ProductCategory;
