@@ -1,5 +1,6 @@
 package com.unza.wipro.services;
 
+import com.unza.wipro.main.models.responses.GetNewsCategoriesRSP;
 import com.unza.wipro.main.models.responses.GetNewsDetailRSP;
 import com.unza.wipro.main.models.responses.GetNewsRSP;
 
@@ -10,10 +11,15 @@ import retrofit2.http.POST;
 
 public interface AppService {
 
+    @POST("news/categories")
+    @FormUrlEncoded
+    Call<GetNewsCategoriesRSP> getNewsCategories(@Field("key") String key, @Field("category_id") Integer categoryId,
+                                                 @Field("page") Integer page, @Field("page_size") Integer pageSize);
+
     @POST("news/posts")
     @FormUrlEncoded
-    Call<GetNewsRSP> getNews(@Field("key") String key, @Field("category_id") int categoryId,
-                             @Field("page") int page, @Field("page_size") int pageSize);
+    Call<GetNewsRSP> getNews(@Field("key") String key, @Field("category_id") Integer categoryId,
+                             @Field("page") Integer page, @Field("page_size") Integer pageSize);
 
     @POST("news/post/detail")
     @FormUrlEncoded
