@@ -9,6 +9,7 @@ import com.paditech.core.BaseFragment;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.NewsListAdapter;
+import com.unza.wipro.main.models.NewsCategory;
 import com.unza.wipro.main.views.customs.StaggeredSpacesItemDecoration;
 
 import butterknife.BindView;
@@ -18,12 +19,12 @@ public class NewsPageFragment extends BaseFragment {
     RecyclerView mRecyclerView;
 
     NewsListAdapter mAdapter;
+    NewsCategory mCategory;
 
-    public static NewsPageFragment newInstance() {
-
+    public static NewsPageFragment newInstance(NewsCategory newsCategory) {
         Bundle args = new Bundle();
-
         NewsPageFragment fragment = new NewsPageFragment();
+        fragment.mCategory = newsCategory;
         fragment.setArguments(args);
         return fragment;
     }
