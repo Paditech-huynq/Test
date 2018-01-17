@@ -60,7 +60,7 @@ public class ProductListFragment extends BaseFragment {
     }
 
     private void getProductCategoryFromServer() {
-        ProductListFragment.this.showProgressDialog(true);
+        showProgressDialog(true);
         AppClient.newInstance()
                 .getService()
                 .getProductCategory()
@@ -71,12 +71,12 @@ public class ProductListFragment extends BaseFragment {
                         List<ProductCategory> productCategories = productCategoryRSP.getData();
                         mAdapter.setProductCategories(productCategories);
                         mAdapter.notifyDataSetChanged();
-                        ProductListFragment.this.showProgressDialog(false);
+                        showProgressDialog(false);
                     }
 
                     @Override
                     public void onFailure(Call<GetProductCategoryRSP> call, Throwable t) {
-                        ProductListFragment.this.showProgressDialog(false);
+                        showProgressDialog(false);
                         Toast.makeText(ProductListFragment.this.getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
