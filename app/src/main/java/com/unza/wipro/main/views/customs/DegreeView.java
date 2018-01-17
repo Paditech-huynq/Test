@@ -13,11 +13,8 @@ import android.view.View;
 import com.unza.wipro.R;
 
 public class DegreeView extends View {
-    public DegreeView(Context context) {
-        super(context);
-    }
 
-        private Paint mPaint1;
+    private Paint mPaint1;
     private Paint mPaint2;
     private int background;
     private int displayDegree;
@@ -26,9 +23,10 @@ public class DegreeView extends View {
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private Context context;
-    private static final float SCALE_NUMBER_DEGREE_WITH_VIEW = 2/25;
+    private static final float SCALE_NUMBER_DEGREE_WITH_VIEW_WHEN_HEIGHT_SMALLER = 6;
+    private static final float SCALE_NUMBER_DEGREE_WITH_VIEW_WHEN_WIDTH_SMALLER = 12;
     private static final int DEGREE_180 = 180;
-    private static final float HALF = 1/2;
+    private static final int HALF = 2;
     private static final int SCALE_NUMBER_IF_WIDTH_TOO_BIG_FOR_HEIGHT = 2;
     private Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
 
@@ -56,6 +54,12 @@ public class DegreeView extends View {
         this.value = value;
     }
 
+    public DegreeView(Context context) {
+        super(context);
+        this.context = context;
+        reset();
+    }
+
     public DegreeView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
@@ -78,14 +82,14 @@ public class DegreeView extends View {
         float radius;
         if (width >= height * SCALE_NUMBER_IF_WIDTH_TOO_BIG_FOR_HEIGHT) {
             radius = height;
-            coordinateXToDraw = (int) width * HALF;
+            coordinateXToDraw = width / HALF;
             coordinateYToDraw = height;
-            text_size = (int) (height * SCALE_NUMBER_DEGREE_WITH_VIEW);
+            text_size = (int) (height / SCALE_NUMBER_DEGREE_WITH_VIEW_WHEN_HEIGHT_SMALLER);
         } else {
-            radius = width * HALF;
-            coordinateXToDraw = (int) width *HALF;
-            coordinateYToDraw = (int) height *HALF;
-            text_size = (int) (width * SCALE_NUMBER_DEGREE_WITH_VIEW);
+            radius = width / HALF;
+            coordinateXToDraw = width / HALF;
+            coordinateYToDraw = height / HALF;
+            text_size = (int) (width * SCALE_NUMBER_DEGREE_WITH_VIEW_WHEN_WIDTH_SMALLER);
         }
         final RectF oval = new RectF();
         int sweepAngle = (int) ((DEGREE_180 * value) / maxvalue);
