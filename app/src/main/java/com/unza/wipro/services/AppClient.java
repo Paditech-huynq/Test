@@ -14,6 +14,6 @@ public class AppClient extends BaseClient<AppService> {
 
     @Override
     protected String getHostAddress() {
-        return "https://demo0858711.mockable.io/";
+        return "http://wipro.crm.admin.paditech.com/api/v1/";
     }
 }

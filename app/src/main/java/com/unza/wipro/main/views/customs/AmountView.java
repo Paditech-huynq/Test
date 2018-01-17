@@ -26,6 +26,9 @@ import butterknife.ButterKnife;
 
 public class AmountView extends RelativeLayout {
 
+    private static final int MAX_TIME_CHANGE_VALUE = 500;
+    private static final int MIN_TIME_CHANGE_VALUE = 10;
+
     @BindView(R.id.tv_amount)
     TextView mAmountText;
     @BindView(R.id.imv_increase)
@@ -38,8 +41,6 @@ public class AmountView extends RelativeLayout {
     private int minValue = 0;
     private int maxValue = Integer.MAX_VALUE;
 
-    private static final int MAX_TIME_CHANGE_VALUE = 500;
-    private static final int MIN_TIME_CHANGE_VALUE = 10;
     private float timeRatio = 0.5F;
     private int countValueChange = 0;
     private boolean isIncrease = true;
