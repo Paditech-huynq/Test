@@ -60,23 +60,25 @@ public class ProductListFragment extends BaseFragment {
     }
 
     private void getProductCategory() {
+        ProductListFragment.this.showProgressDialog(true);
         AppClient.newInstance()
                 .getService()
                 .getProductCategory()
                 .enqueue(new Callback<GetProductCategoryRSP>() {
-            @Override
-            public void onResponse(Call<GetProductCategoryRSP> call, Response<GetProductCategoryRSP> response) {
-                GetProductCategoryRSP productCategoryRSP = response.body();
-                List<ProductCategory> productCategories = productCategoryRSP.getData();
-                mAdapter.setProductCategories(productCategories);
-                mAdapter.notifyDataSetChanged();
-            }
+                    @Override
+                    public void onResponse(Call<GetProductCategoryRSP> call, Response<GetProductCategoryRSP> response) {
+                        GetProductCategoryRSP productCategoryRSP = response.body();
+                        List<ProductCategory> productCategories = productCategoryRSP.getData();
+                        mAdapter.setProductCategories(productCategories);
+                        mAdapter.notifyDataSetChanged();
+                        ProductListFragment.this.showProgressDialog(false);
+                    }
 
-            @Override
-            public void onFailure(Call<GetProductCategoryRSP> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<GetProductCategoryRSP> call, Throwable t) {
 
-            }
-        });
+                    }
+                });
     }
 
     private void setupViewPager() {

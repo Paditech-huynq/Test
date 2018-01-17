@@ -20,7 +20,6 @@ public interface AppService {
     @FormUrlEncoded
     Call<GetNewsDetailRSP> getNewsDetail(@Field("post_id") String postId);
 
-
-    @POST ("product/category")
+    @POST("product/category")
     Call<GetProductCategoryRSP> getProductCategory();
 }
