@@ -22,7 +22,7 @@
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="230dp">
+                android:layout_height="@dimen/image_big_height">
 
                 <ImageView
                     android:id="@+id/img_avar_under"
@@ -38,8 +38,8 @@
 
                 <ImageView
                     android:id="@+id/img_avar"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="@dimen/avar_height_width"
+                    android:layout_height="@dimen/avar_height_width"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/padding_large"
@@ -53,7 +53,8 @@
                     android:layout_below="@+id/img_avar"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/padding_big"
-                    android:paddingRight="@dimen/padding_big">
+                    android:paddingRight="@dimen/padding_big"
+                    android:baselineAligned="false">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -135,8 +136,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/padding_normal"
-                    android:paddingEnd="@dimen/padding_normal"
-                    android:paddingStart="0dp"
                     android:paddingTop="@dimen/padding_normal">
 
                     <TextView
@@ -152,12 +151,13 @@
                         android:id="@+id/text_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_toRightOf="@+id/text_name_default"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@+id/text_name_default"
                         android:ellipsize="end"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:maxLines="1"
-                        android:paddingLeft="@dimen/padding_tiny"
+                        android:paddingStart="@dimen/padding_tiny"
+                        android:paddingEnd="@dimen/padding_normal"
                         android:singleLine="true"
                         android:text="Nguyễn Hoài Bảo Anh"
                         android:textColor="@color/colorPrimary"
@@ -173,7 +173,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/padding_normal"
-                    android:paddingRight="@dimen/padding_normal"
                     android:paddingTop="@dimen/padding_normal">
 
                     <TextView
@@ -189,12 +188,13 @@
                         android:id="@+id/tex_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_toRightOf="@+id/text_phone_default"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@+id/text_phone_default"
                         android:ellipsize="end"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:maxLines="1"
-                        android:paddingLeft="@dimen/padding_tiny"
+                        android:paddingStart="@dimen/padding_tiny"
+                        android:paddingEnd="@dimen/padding_normal"
                         android:singleLine="true"
                         android:text="0912609016"
                         android:textColor="@color/colorPrimary"
@@ -210,7 +210,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/padding_normal"
-                    android:paddingRight="@dimen/padding_normal"
                     android:paddingTop="@dimen/padding_normal">
 
                     <TextView
@@ -229,9 +228,10 @@
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@+id/text_email_default"
                         android:ellipsize="end"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:maxLines="1"
                         android:paddingStart="@dimen/padding_tiny"
+                        android:paddingEnd="@dimen/padding_normal"
                         android:singleLine="true"
                         android:text="baoanh@gmail.com"
                         android:textColor="@color/colorPrimary"
@@ -247,7 +247,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/padding_normal"
-                    android:paddingRight="@dimen/padding_normal"
                     android:paddingTop="@dimen/padding_normal">
 
                     <TextView
@@ -261,14 +260,15 @@
 
                     <TextView
                         android:id="@+id/text_address"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_toRightOf="@+id/text_address_default"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@+id/text_address_default"
                         android:ellipsize="end"
                         android:gravity="end"
                         android:maxLines="1"
-                        android:paddingLeft="@dimen/padding_tiny"
+                        android:paddingStart="@dimen/padding_tiny"
+                        android:paddingEnd="@dimen/padding_normal"
                         android:singleLine="true"
                         android:text="235 Nguyễn Ngọc Nại, HN"
                         android:textColor="@color/colorPrimary"
@@ -372,14 +372,17 @@
 
                     <ImageView
                         android:id="@+id/ic_some_people"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="@dimen/padding_normal"
-                        android:src="@drawable/ic_people" />
+                        android:layout_width="@dimen/ic_group_size"
+                        android:layout_height="@dimen/ic_group_size"
+                        android:padding="@dimen/padding_big"
+                        android:src="@drawable/ic_group"
+                        android:layout_toStartOf="@+id/text_manager_member_default"
+                         />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/text_manager_member_default"
+                        android:layout_toRightOf="@id/ic_some_people"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/ic_some_people"
@@ -387,7 +390,8 @@
                         android:text="@string/manager_team_profile_fragment"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:ignore="RtlHardcoded" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -405,10 +409,12 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:text="@string/change_pass_profile_fragment"
+                        android:id="@+id/text_change_pass_default"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
                     <TextView
+                        android:layout_toEndOf="@+id/text_change_pass_default"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -424,15 +430,15 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/padding_normal"
-                android:layout_marginTop="@dimen/padding_normal">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/ic_setting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/text_number_sales"
-                    android:src="@drawable/ic_setting" />
+                    android:layout_width="@dimen/ic_setting_size"
+                    android:layout_height="@dimen/ic_setting_size"
+                    android:layout_margin="@dimen/padding_big"
+                    android:src="@drawable/ic_setting"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -442,7 +448,8 @@
                     android:text="@string/setting_profile_fragment"
                     android:textColor="@color/text_dark"
                     android:textSize="@dimen/text_size_normal"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    />
             </RelativeLayout>
 
             <LinearLayout
@@ -459,7 +466,6 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:paddingBottom="@dimen/padding_normal"
-                    android:paddingEnd="@dimen/padding_normal"
                     android:paddingTop="@dimen/padding_normal">
 
                     <TextView
@@ -495,6 +501,7 @@
                     android:focusable="true"
                     android:paddingBottom="@dimen/padding_normal"
                     android:paddingEnd="@dimen/padding_normal"
+                    android:paddingStart="0dp"
                     android:paddingTop="@dimen/padding_normal">
 
                     <TextView
@@ -530,6 +537,7 @@
                     android:focusable="true"
                     android:paddingBottom="@dimen/padding_normal"
                     android:paddingEnd="@dimen/padding_normal"
+                    android:paddingStart="0dp"
                     android:paddingTop="@dimen/padding_normal">
 
                     <TextView
@@ -537,6 +545,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:text="@string/questions_profile_fragment"
+                        android:id="@+id/text_questions_profile_default"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -546,6 +555,7 @@
                         android:layout_alignParentEnd="true"
                         android:ellipsize="end"
                         android:maxLines="1"
+                        android:layout_toEndOf="@id/text_questions_profile_default"
                         android:singleLine="true"
                         android:text=">"
                         android:textColor="@color/text_dark"
@@ -565,6 +575,7 @@
                     android:focusable="true"
                     android:paddingBottom="@dimen/padding_normal"
                     android:paddingEnd="@dimen/padding_normal"
+                    android:paddingStart="0dp"
                     android:paddingTop="@dimen/padding_normal">
 
                     <TextView
@@ -572,10 +583,12 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:text="@string/term_use_profile_fragment"
+                        android:id="@+id/text_term_use_default"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
                     <TextView
+                        android:layout_toEndOf="@+id/text_term_use_default"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -600,6 +613,7 @@
                     android:focusable="true"
                     android:paddingBottom="@dimen/padding_normal"
                     android:paddingEnd="@dimen/padding_normal"
+                    android:paddingStart="0dp"
                     android:paddingTop="@dimen/padding_normal">
 
                     <TextView
@@ -607,10 +621,12 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:text="@string/log_out_profile_fragment"
+                        android:id="@+id/text_log_out_default"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
                     <TextView
+                        android:layout_toEndOf="@+id/text_log_out_default"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"

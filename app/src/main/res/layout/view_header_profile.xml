@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorPrimary"
-    android:elevation="5dp"
+    android:elevation="@dimen/cardview_default_elevation"
     android:paddingLeft="@dimen/padding_normal">
     <TextView
         android:id="@+id/tvTitle"
