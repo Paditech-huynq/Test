@@ -56,7 +56,7 @@ public class AmountView extends RelativeLayout {
             }
 
             if (timeChangeValue * timeRatio > MIN_TIME_CHANGE_VALUE && timeChangeValue * timeRatio < MAX_TIME_CHANGE_VALUE) {
-                if (countValueChange == 3 || countValueChange == 7 || countValueChange == 15 || countValueChange == 30 || countValueChange == 50) {
+                if (countValueChange == 5 || countValueChange == 15 || countValueChange == 30 || countValueChange == 50 || countValueChange == 100) {
                     timeChangeValue *= timeRatio;
                 }
             }
