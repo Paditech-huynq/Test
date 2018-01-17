@@ -27,8 +27,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ProfileRegisterFragment extends BaseFragment {
-    public static int REQUEST_PHOTO_CAMERA = 100;
-    public static int REQUEST_PHOTO_GALLERY = 200;
+    public final static int REQUEST_PHOTO_CAMERA = 100;
+    public final static int REQUEST_PHOTO_GALLERY = 200;
+    public final static int REQUEST_WRITE_EXTERNAL_STORAGE = 112;
     private static final String JPEG_FILE_PREFIX = "IMG_";
     private static final String JPEG_FILE_SUFFIX = ".jpg";
     private String mCurrentPhotoPath;
@@ -72,7 +73,7 @@ public class ProfileRegisterFragment extends BaseFragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode == 112) {
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode == REQUEST_WRITE_EXTERNAL_STORAGE) {
             Log.v("My Log : ", "Permission: " + permissions[0] + "was " + grantResults[0]);
             takePicture();
         }
@@ -101,7 +102,7 @@ public class ProfileRegisterFragment extends BaseFragment {
         Log.e("Check permission : ", "" + hasWritePermission);
         if (!hasWritePermission) {
             Utils.checkCameraPermission(this.getActivity());
-            this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 112);
+            this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_EXTERNAL_STORAGE);
         } else {
             takePicture();
         }
