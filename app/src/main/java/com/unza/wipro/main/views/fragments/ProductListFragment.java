@@ -11,7 +11,6 @@ import com.unza.wipro.main.models.ProductCategory;
 import com.unza.wipro.main.models.responses.GetProductCategoryRSP;
 import com.unza.wipro.services.AppClient;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -56,10 +55,10 @@ public class ProductListFragment extends BaseFragment {
     public void initView() {
         super.initView();
         setupViewPager();
-        getProductCategory();
+        getProductCategoryFromServer();
     }
 
-    private void getProductCategory() {
+    private void getProductCategoryFromServer() {
         ProductListFragment.this.showProgressDialog(true);
         AppClient.newInstance()
                 .getService()
