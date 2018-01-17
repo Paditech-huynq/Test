@@ -10,10 +10,10 @@ public class GetProductCategoryRSP {
 
     @SerializedName("result")
     @Expose
-    private int result;
+    private String result;
     @SerializedName("current_time")
     @Expose
-    private long currentTime;
+    private String currentTime;
     @SerializedName("message")
     @Expose
     private String message;
@@ -21,19 +21,19 @@ public class GetProductCategoryRSP {
     @Expose
     private List<ProductCategory> data = null;
 
-    public int getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(int result) {
+    public void setResult(String result) {
         this.result = result;
     }
 
-    public long getCurrentTime() {
+    public String getCurrentTime() {
         return currentTime;
     }
 
-    public void setCurrentTime(long currentTime) {
+    public void setCurrentTime(String currentTime) {
         this.currentTime = currentTime;
     }
 

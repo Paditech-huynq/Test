@@ -7,19 +7,19 @@ public class ProductCategory {
 
 @SerializedName("id")
 @Expose
-private Integer id;
+private String id;
 @SerializedName("name")
 @Expose
 private String name;
 @SerializedName("updated_at")
 @Expose
-private Integer updatedAt;
+private String updatedAt;
 
-public Integer getId() {
+public String getId() {
 return id;
 }
 
-public void setId(Integer id) {
+public void setId(String id) {
 this.id = id;
 }
 
@@ -31,11 +31,11 @@ public void setName(String name) {
 this.name = name;
 }
 
-public Integer getUpdatedAt() {
+public String getUpdatedAt() {
 return updatedAt;
 }
 
-public void setUpdatedAt(Integer updatedAt) {
+public void setUpdatedAt(String updatedAt) {
 this.updatedAt = updatedAt;
 }
 
