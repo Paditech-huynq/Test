@@ -5,21 +5,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.paditech.core.BaseFragment;
+import com.unza.wipro.main.models.ProductCategory;
 import com.unza.wipro.main.views.fragments.ProductPageFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductFragmentPagerAdapter extends FragmentStatePagerAdapter {
-    private String[] titles = new String[]{
-            "category 1",
-            "category 2",
-            "category 3",
-            "category 4",
-            "category 5",
-            "category 6",
-            "category 7",
-            "category 8",
-            "category 9",
-            "category 10",
-    };
+    private List<ProductCategory> productCategories = new ArrayList<>();
+
+    public void setProductCategories(List<ProductCategory> productCategories) {
+        this.productCategories = productCategories;
+    }
 
     public ProductFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -33,17 +30,17 @@ public class ProductFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return titles.length;
+        return productCategories.size();
     }
 
     public String getTitles(int pos) {
-        return titles[pos];
+        return productCategories.get(pos).getName();
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles[position];
+        return productCategories.get(position).getName();
     }
 
     public void onResumeFromBackStack() {
