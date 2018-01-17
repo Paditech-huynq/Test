@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
 import com.paditech.core.BaseFragment;
+import com.paditech.core.common.BaseConstant;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.NewsFragmentPagerAdapter;
 import com.unza.wipro.main.models.responses.GetNewsCategoriesRSP;
@@ -52,12 +53,12 @@ public class NewsFragment extends BaseFragment {
     public void initView() {
         super.initView();
         setupViewPager();
+        getCategories();
     }
 
     private void setupViewPager() {
         mAdapter = new NewsFragmentPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mAdapter);
-        getCategories();
     }
 
     @Override
@@ -83,11 +84,8 @@ public class NewsFragment extends BaseFragment {
 
                     @Override
                     public void onFailure(Call<GetNewsCategoriesRSP> call, Throwable t) {
-                        try {
-                            showProgressDialog(false);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        showProgressDialog(false);
+                        showToast(t.getLocalizedMessage());
                     }
                 });
     }
