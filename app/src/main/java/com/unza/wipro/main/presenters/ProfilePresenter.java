@@ -7,7 +7,7 @@ import com.unza.wipro.main.models.UserData;
 public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> implements ProfileContract.Presenter {
 
     @Override
-    public void getUserData() {
+    public void getUserDataFromServer() {
         UserData userData = new UserData();
         getView().updateUI(userData.getUser());
     }
@@ -15,6 +15,6 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
     @Override
     public void onCreate() {
         super.onCreate();
-        getUserData();
+        getUserDataFromServer();
     }
 }

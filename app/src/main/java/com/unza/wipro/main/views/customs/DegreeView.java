@@ -13,7 +13,11 @@ import android.view.View;
 import com.unza.wipro.R;
 
 public class DegreeView extends View {
-    private Paint mPaint1;
+    public DegreeView(Context context) {
+        super(context);
+    }
+
+        private Paint mPaint1;
     private Paint mPaint2;
     private int background;
     private int displayDegree;
@@ -22,6 +26,10 @@ public class DegreeView extends View {
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private Context context;
+    private static final float SCALE_NUMBER_DEGREE_WITH_VIEW = 2/25;
+    private static final int DEGREE_180 = 180;
+    private static final float HALF = 1/2;
+    private static final int SCALE_NUMBER_IF_WIDTH_TOO_BIG_FOR_HEIGHT = 2;
     private Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
 
     public int getBackground1() {
@@ -48,12 +56,6 @@ public class DegreeView extends View {
         this.value = value;
     }
 
-    public DegreeView(Context context) {
-        super(context);
-        this.context = context;
-        reset();
-    }
-
     public DegreeView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
@@ -70,39 +72,39 @@ public class DegreeView extends View {
         canvas.save();
         float width = (float) getWidth();
         float height = (float) getHeight();
-        float radius;
         int text_size;
-        float center_x, center_y;
-        if (width >= height * 2) {
+        float coordinateXToDraw;
+        float coordinateYToDraw;
+        float radius;
+        if (width >= height * SCALE_NUMBER_IF_WIDTH_TOO_BIG_FOR_HEIGHT) {
             radius = height;
-            center_x = width / 2;
-            center_y = height;
-            text_size = (int) (2 * 2 * height / 25);
+            coordinateXToDraw = (int) width * HALF;
+            coordinateYToDraw = height;
+            text_size = (int) (height * SCALE_NUMBER_DEGREE_WITH_VIEW);
         } else {
-            radius = width / 2;
-            center_x = width / 2;
-            center_y = height / 2;
-            text_size = (int) (2 * width / 25);
+            radius = width * HALF;
+            coordinateXToDraw = (int) width *HALF;
+            coordinateYToDraw = (int) height *HALF;
+            text_size = (int) (width * SCALE_NUMBER_DEGREE_WITH_VIEW);
         }
         final RectF oval = new RectF();
-        int sweepAngle = (int) ((180 * value) / maxvalue);
+        int sweepAngle = (int) ((DEGREE_180 * value) / maxvalue);
         String text = String.valueOf(value * 100 / maxvalue) + " %";
-        oval.set(center_x - radius,
-                center_y - radius,
-                center_x + radius,
-                center_y + radius);
-        mCanvas.drawArc(oval, 180, 180, true, mPaint1);
-        mCanvas.drawArc(oval, 180, sweepAngle, true, mPaint2);
+        oval.set(coordinateXToDraw - radius,
+                coordinateYToDraw - radius,
+                coordinateXToDraw + radius,
+                coordinateYToDraw + radius);
+        mCanvas.drawArc(oval, DEGREE_180, DEGREE_180, true, mPaint1);
+        mCanvas.drawArc(oval, DEGREE_180, sweepAngle, true, mPaint2);
         Paint paint = new Paint();
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         paint.setTextSize(text_size);
         paint.setStrokeWidth(1);
         paint.setTextAlign(Paint.Align.CENTER);
-        mCanvas.drawText(text, center_x, center_y - text_size / 2, paint);
+        mCanvas.drawText(text, coordinateXToDraw, coordinateYToDraw - text_size / 2, paint);
         canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
         canvas.restore();
-
     }
 
     @SuppressLint("DrawAllocation")
@@ -130,8 +132,10 @@ public class DegreeView extends View {
         setDisplayDegree(R.color.colorPrimaryDark);
         setValue(0);
         setMaxvalue(100);
-        mPaint1 = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint2 = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint1 = new Paint();
+        mPaint2 = new Paint();
+        mPaint1.setAntiAlias(true);
+        mPaint2.setAntiAlias(true);
         mPaint1.setColor(context.getResources().getColor(getBackground1()));
         mPaint2.setColor(context.getResources().getColor(getDisplayDegree()));
         mPaint1.setStyle(Paint.Style.FILL);

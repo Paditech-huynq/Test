@@ -10,6 +10,6 @@ public interface ProfileContract {
     }
 
     interface Presenter extends BasePresenterImpl {
-        void getUserData();
+        void getUserDataFromServer();
     }
 }
