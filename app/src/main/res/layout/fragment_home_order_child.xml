@@ -11,7 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/child_recycle_view_size"
         app:cardCornerRadius="@dimen/card_radius_small"
-        android:layout_marginBottom="@dimen/padding_small">
+        android:layout_marginBottom="@dimen/padding_small"
+=======
+        app:cardCornerRadius="@dimen/card_radius_normal"
+        android:layout_marginBottom="@dimen/padding_order_child">
+>>>>>>> fc0995542e3561105a40407be6bb8761b0cca2a6>
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,6 +39,7 @@
                     android:layout_weight="2"
                     android:textStyle="bold"
                     android:maxLines="2"
+                    android:textSize="@dimen/text_size_normal"
                     android:layout_width="match_parent"
                     android:layout_height="0dp" />
                 <TextView
@@ -51,7 +56,7 @@
                     android:layout_height="0dp">
                     <TextView
                         android:id="@+id/tx_price"
-                        android:textSize="@dimen/text_size_tiny"
+                        android:textSize="@dimen/text_size_small"
                         android:textStyle="bold"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -62,7 +67,7 @@
                     <TextView
                         android:textColor="@color/green"
                         android:id="@+id/tx_number"
-                        android:textSize="@dimen/text_size_tiny"
+                        android:textSize="@dimen/text_size_small"
                         android:textStyle="bold"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"

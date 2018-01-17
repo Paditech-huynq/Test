@@ -29,11 +29,11 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
         for (int i = 0; i < list.size(); i++) {
             Date dateCounting = new Date(list.get(i).getDate().getTime());
             if(mData.size() == 0){
-                mData.add(DateTimeUntils.getStringMonthYear(dateCounting));
+                mData.add(String.valueOf("Tháng "+DateTimeUntils.getStringMonthYear(dateCounting)));
             } else {
                     Date dateBefore = new Date(list.get(i-1).getDate().getTime());
                     if (!DateTimeUntils.getStringMonthYear(dateBefore).equals(DateTimeUntils.getStringMonthYear(dateCounting))) {
-                        mData.add(DateTimeUntils.getStringMonthYear(dateCounting));
+                        mData.add(String.valueOf("Tháng "+DateTimeUntils.getStringMonthYear(dateCounting)));
                     }
             }
             mData.add(list.get(i));
@@ -117,8 +117,8 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
             GlideApp.with(itemView.getContext()).load(order.getImg()).into(img_propduct);
             tx_title.setText(order.getTitle());
             tx_time.setText(String.valueOf("Thời gian: "+ DateTimeUntils.getStringTimeAll(date)));
-            tx_price.setText(String.valueOf(order.getPrice()));
-            tx_number.setText(String.valueOf("Số lượng:"+ order.getNumberOrder()));
+            tx_price.setText(String.valueOf(order.getPrice()+" VNĐ"));
+            tx_number.setText(String.valueOf("Số lượng: "+ order.getNumberOrder()));
         }
 
     }
