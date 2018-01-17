@@ -5,44 +5,44 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.paditech.core.BaseFragment;
+import com.unza.wipro.main.models.NewsCategory;
 import com.unza.wipro.main.views.fragments.NewsPageFragment;
 
+import java.util.List;
+
 public class NewsFragmentPagerAdapter extends FragmentStatePagerAdapter {
-    private String[] titles = new String[]{
-            "category 1",
-            "category 2",
-            "category 3",
-            "category 4",
-            "category 5",
-            "category 6",
-            "category 7",
-            "category 8",
-            "category 9",
-            "category 10",
-    };
+
+    private List<NewsCategory> categories;
 
     public NewsFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
+    public void setCategories(List<NewsCategory> categories) {
+        this.categories = categories;
+        notifyDataSetChanged();
+    }
+
     @Override
     public BaseFragment getItem(int position) {
-        return NewsPageFragment.newInstance();
+        return NewsPageFragment.newInstance(categories.get(position));
     }
 
     @Override
     public int getCount() {
-        return titles.length;
+        if (categories != null)
+            return categories.size();
+        return 0;
     }
 
     public String getTitles(int pos) {
-        return titles[pos];
+        return categories.get(pos).getName();
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles[position];
+        return categories.get(position).getName();
     }
 
     public void onResumeFromBackStack() {
