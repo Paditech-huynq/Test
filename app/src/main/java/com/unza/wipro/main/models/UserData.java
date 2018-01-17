@@ -19,9 +19,9 @@ public class UserData {
 
     public User getUser(){
         UserManager user = null;
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd ");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         try {
-            user = new UserManager(160,160,"Nguyễn văn a", " dsdsd","sdsdsd", " sdsdsds", "R.drawable.bg_test", TYPE_USER_MANAGER, format.parse("2018/01/02"), 10000, 10000, 3 , new ArrayList<UserEmployee>());
+            user = new UserManager(160,160,"Nguyễn văn a", " dsdsd","sdsdsd", " sdsdsds", "R.drawable.bg_test", TYPE_USER_MANAGER, format.parse("2018/01/02"), 10000, 1000, 3 , new ArrayList<UserEmployee>());
         } catch (ParseException e) {
             e.printStackTrace();
         }

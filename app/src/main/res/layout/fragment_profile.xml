@@ -33,24 +33,34 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="230dp"
+                    android:layout_height="@dimen/image_big_height"
                     android:background="@color/bg_big_image" />
 
+                <LinearLayout
+                    android:elevation="@dimen/cardview_default_elevation"
+                    android:id="@+id/ln_img_avar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/bg_img_avar_profile"
+                    android:layout_marginTop="@dimen/padding_large"
+                    android:padding="@dimen/padding_small">
                 <ImageView
                     android:id="@+id/img_avar"
                     android:layout_width="@dimen/avar_height_width"
                     android:layout_height="@dimen/avar_height_width"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/padding_large"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/bg_test" />
+                    android:src="@drawable/bg_test"
+                    />
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_below="@+id/img_avar"
+                    android:layout_below="@+id/ln_img_avar"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/padding_big"
                     android:paddingRight="@dimen/padding_big"
@@ -297,7 +307,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="70dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:layout_marginBottom="@dimen/padding_small">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -319,7 +331,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="70dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/padding_small">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -338,6 +351,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginBottom="@dimen/padding_small"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="70dp"
@@ -410,13 +424,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="@string/change_pass_profile_fragment"
-                        android:id="@+id/text_change_pass_default"
+                        android:text="@string/sales_member_profile_fragment"
+                        android:id="@+id/text_sales_member"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
                     <TextView
-                        android:layout_toEndOf="@+id/text_change_pass_default"
+                        android:layout_toEndOf="@+id/text_sales_member"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -468,6 +482,8 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:paddingBottom="@dimen/padding_normal"
+                    android:paddingEnd="@dimen/padding_normal"
+                    android:paddingStart="0dp"
                     android:paddingTop="@dimen/padding_normal">
 
                     <TextView
@@ -557,7 +573,6 @@
                         android:layout_alignParentEnd="true"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:layout_toEndOf="@id/text_questions_default"
                         android:singleLine="true"
                         android:text=">"
                         android:textColor="@color/text_dark"
@@ -590,7 +605,6 @@
                         android:textSize="@dimen/text_size_normal" />
 
                     <TextView
-                        android:layout_toEndOf="@+id/text_term_use_default"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -628,7 +642,6 @@
                         android:textSize="@dimen/text_size_normal" />
 
                     <TextView
-                        android:layout_toEndOf="@+id/text_log_out_default"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"

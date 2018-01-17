@@ -20,36 +20,36 @@ public class Degreeview extends View {
 
     private Paint mPaint1;
     private Paint mPaint2;
-    private int background1;
-    private int background2;
-    private int maxvalue;
-    private int value;
+    private int background;
+    private int displayDegree;
+    private long maxvalue;
+    private long value;
     private Bitmap mBitmap;
     private Canvas mcanvas;
     private Context context;
     private Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
 
     public int getBackground1() {
-        return background1;
+        return background;
     }
 
-    public int getBackground2() {
-        return background2;
+    public int getDisplayDegree() {
+        return displayDegree;
     }
 
     public void setBackground1(int background1) {
-        this.background1 = background1;
+        this.background = background1;
     }
 
-    public void setBackground2(int background2) {
-        this.background2 = background2;
+    public void setDisplayDegree(int displayDegree) {
+        this.displayDegree = displayDegree;
     }
 
-    public void setMaxvalue(int maxvalue) {
+    public void setMaxvalue(long maxvalue) {
         this.maxvalue = maxvalue;
     }
 
-    public void setValue(int value) {
+    public void setValue(long value) {
         this.value = value;
     }
 
@@ -90,7 +90,7 @@ public class Degreeview extends View {
                 text_size = (int) (2*width/25);
             }
             final RectF oval = new RectF();
-            int sweepAngle = (180 * value) / maxvalue;
+            int sweepAngle = (int) ((180 * value) / maxvalue);
             String text = String.valueOf(value * 100 / maxvalue) + " %";
             oval.set(center_x - radius,
                     center_y - radius,
@@ -118,27 +118,27 @@ public class Degreeview extends View {
         mcanvas = new Canvas(mBitmap);
     }
 
-    public void setValue(int background1, int background2 , int maxvalue, int value){
+    public void setValue(int background, int displayDegree , long value, long maxvalue){
         if(value<=maxvalue) {
-        this.background1 = background1;
-        this.background2 = background2;
+        this.background = background;
+        this.displayDegree = displayDegree;
         this.maxvalue = maxvalue;
         this.value = value;
         mPaint1.setColor(context.getResources().getColor(getBackground1()));
-        mPaint2.setColor(context.getResources().getColor(getBackground2()));
+        mPaint2.setColor(context.getResources().getColor(getDisplayDegree()));
         invalidate();
         }
     }
 
     public void reset() {
         setBackground1(R.color.white);
-        setBackground2(R.color.colorPrimaryDark);
+        setDisplayDegree(R.color.colorPrimaryDark);
         setValue(0);
         setMaxvalue(100);
         mPaint1 = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint2 = new Paint(Paint.ANTI_ALIAS_FLAG) ;
         mPaint1.setColor(context.getResources().getColor(getBackground1()));
-        mPaint2.setColor(context.getResources().getColor(getBackground2()));
+        mPaint2.setColor(context.getResources().getColor(getDisplayDegree()));
         mPaint1.setStyle(Paint.Style.FILL);
         mPaint2.setStyle(Paint.Style.FILL);
     }

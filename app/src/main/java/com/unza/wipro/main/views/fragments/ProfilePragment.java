@@ -15,6 +15,7 @@ import com.unza.wipro.main.models.User;
 import com.unza.wipro.main.models.UserEmployee;
 import com.unza.wipro.main.models.UserManager;
 import com.unza.wipro.main.presenters.ProfilePresenter;
+import com.unza.wipro.main.views.customs.Degreeview;
 import com.unza.wipro.utils.DateTimeUntils;
 import com.unza.wipro.utils.Utils;
 
@@ -47,12 +48,14 @@ public class ProfilePragment extends MVPFragment<ProfilePresenter> implements Pr
     TextView tvEmail;
     @BindView(R.id.text_address)
     TextView tvAdress;
-    @BindView(R.id.text_time)
+    @BindView(R.id.text_time_profile)
     TextView tvTime;
     @BindView(R.id.text_sales_want)
     TextView tvSalesWant;
     @BindView(R.id.text_sales_have)
     TextView tvSalesHave;
+    @BindView(R.id.degree_sale)
+    Degreeview degreeSale;
     public static final int TYPE_USER_CUSTOM = 0;
     public static final int TYPE_USER_EMPLOYEE = 1;
     public static final int TYPE_USER_MANAGER = 2;
@@ -89,21 +92,29 @@ public class ProfilePragment extends MVPFragment<ProfilePresenter> implements Pr
             case TYPE_USER_EMPLOYEE:
                 lnDegree.setVisibility(View.VISIBLE);
                 tvNumberPoint.setText(user.getNumberPoint());
-                tvTime.setText(String.valueOf(DateTimeUntils.getStringDayMonthYear(((UserEmployee)user).getDateStart())+ "-" +
-                                DateTimeUntils.getStringDayMonthYear(Calendar.getInstance().getTime())));
+                updateUIForEmployee(user);
                 break;
             case TYPE_USER_MANAGER:
                 lnDegree.setVisibility(View.VISIBLE);
                 tvPoint.setText(getText(R.string.custom_profile_fragment));
-                tvNumberPoint.setText(((UserManager)user).getNumberCustom());
+                tvNumberPoint.setText(String.valueOf(((UserManager)user).getNumberCustom()));
                 lnManagerSales.setVisibility(View.VISIBLE);
+                updateUIForEmployee(user);
                 break;
         }
-        tvNumberSales.setText(user.getNumberSales());
+        tvNumberSales.setText(String.valueOf(user.getNumberSales()));
         tvName.setText(user.getName());
         tvEmail.setText(user.getEmail());
         tvAdress.setText(user.getAddress());
         GlideApp.with(this).load(R.drawable.bg_test).apply(RequestOptions.circleCropTransform()).into(imgAvar);
         GlideApp.with(this).load(R.drawable.bg_test).into(imgAvarUnder);
+    }
+
+    private void updateUIForEmployee(User user){
+        tvTime.setText(String.valueOf("  "+DateTimeUntils.getStringDayMonthYear(((UserEmployee)user).getDateStart())+ " - " +
+                DateTimeUntils.getStringDayMonthYear(Calendar.getInstance().getTime())));
+        tvSalesHave.setText(String.valueOf("  "+((UserEmployee)user).getSaleHave()+"  VNĐ"));
+        tvSalesWant.setText(String.valueOf("  "+((UserEmployee)user).getSaleWant()+"  VNĐ"));
+        degreeSale.setValue(R.color.white,R.color.colorPrimaryDark,((UserEmployee)user).getSaleHave(),((UserEmployee)user).getSaleWant());
     }
 }
