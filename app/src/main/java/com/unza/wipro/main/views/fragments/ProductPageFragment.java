@@ -7,6 +7,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.transition.TransitionInflater;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -80,6 +81,14 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
             @Override
             public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
                 startTransition(view);
+            }
+        });
+
+        mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                getPresenter().getListProductFromServer(true);
+                Log.e("TAG", "onLoadMore: " );
             }
         });
 

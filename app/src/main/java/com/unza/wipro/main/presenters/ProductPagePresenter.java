@@ -22,7 +22,7 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
     @Override
     public void onCreate() {
         super.onCreate();
-        getListProductFromServer();
+        getListProductFromServer(false);
     }
 
     @Override
@@ -41,7 +41,10 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
     }
 
     @Override
-    public void getListProductFromServer() {
+    public void getListProductFromServer(boolean isLoadMore) {
+        if (isLoadMore){
+            page += 1;
+        }
         getView().showProgressDialog(true);
         AppClient.newInstance().getService().getListProduct(page, PAGE_SIZE,
                 ((ProductPageFragment) getView()).getCategoryId(), "")

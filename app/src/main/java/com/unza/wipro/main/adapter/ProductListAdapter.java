@@ -85,7 +85,7 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
         private void updateImageSize(ProductThumbnail productThumbnail) {
             float width = Float.parseFloat(productThumbnail.getWidth());
             float height = Float.parseFloat(productThumbnail.getHeight());
-            float ratio = width / height;
+            float ratio = height / width;
             ViewGroup.LayoutParams rlp = imvProduct.getLayoutParams();
             rlp.height = (int) (rlp.width * ratio);
             imvProduct.setLayoutParams(rlp);
