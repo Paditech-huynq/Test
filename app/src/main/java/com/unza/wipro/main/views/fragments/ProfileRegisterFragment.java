@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -18,6 +17,7 @@ import android.widget.ImageView;
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.ImageHelper;
 import com.unza.wipro.R;
+import com.unza.wipro.utils.Utils;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -72,7 +72,7 @@ public class ProfileRegisterFragment extends BaseFragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode == 112) {
             Log.v("My Log : ", "Permission: " + permissions[0] + "was " + grantResults[0]);
             takePicture();
         }
@@ -96,11 +96,12 @@ public class ProfileRegisterFragment extends BaseFragment {
     @OnClick(R.id.btnCamera)
     protected void openCamera() {
 
-        boolean hasPermission = (ContextCompat.checkSelfPermission(this.getActivity(),
+        boolean hasWritePermission = (ContextCompat.checkSelfPermission(this.getActivity(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
-        Log.e("Check permission : ", "" + hasPermission);
-        if (!hasPermission) {
-            ActivityCompat.requestPermissions(this.getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 112);
+        Log.e("Check permission : ", "" + hasWritePermission);
+        if (!hasWritePermission) {
+            Utils.checkCameraPermission(this.getActivity());
+            this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 112);
         } else {
             takePicture();
         }
