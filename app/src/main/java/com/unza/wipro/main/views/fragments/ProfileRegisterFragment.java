@@ -99,7 +99,6 @@ public class ProfileRegisterFragment extends BaseFragment {
 
         boolean hasWritePermission = (ContextCompat.checkSelfPermission(this.getActivity(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
-        Log.e("Check permission : ", "" + hasWritePermission);
         if (!hasWritePermission) {
             Utils.checkCameraPermission(this.getActivity());
             this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_EXTERNAL_STORAGE);
@@ -198,7 +197,6 @@ public class ProfileRegisterFragment extends BaseFragment {
             } else {
                 new File(Environment.getExternalStorageDirectory() + "/dcim/" + "CameraSample");
             }
-            Log.e("My log : storageDir : ", storageDir.getAbsolutePath());
             if (storageDir != null) {
                 if (!storageDir.mkdirs()) {
                     if (!storageDir.exists()) {
