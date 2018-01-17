@@ -5,8 +5,10 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.mvp.MVPFragment;
@@ -38,13 +40,13 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @BindView(R.id.bt_search)
     CardView bt_search;
     @BindView(R.id.bt_all)
-    CardView bt_all;
+    Button bt_all;
     @BindView(R.id.bt_lastweek)
-    CardView bt_lastweek;
+    Button bt_lastweek;
     @BindView(R.id.bt_thisweek)
-    CardView bt_thisweek;
+    Button bt_thisweek;
     @BindView(R.id.bt_thismonth)
-    CardView bt_thismonth;
+    Button bt_thismonth;
 
     public static OrderListFragment newInstance() {
 
@@ -88,34 +90,34 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public void changeColorButtonAll() {
-        bt_all.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
-        bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
-        bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
-        bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_all.setSelected(true);
+        bt_thisweek.setSelected(false);
+        bt_lastweek.setSelected(false);
+        bt_thismonth.setSelected(false);
     }
 
     @Override
     public void changeColorButtonThisWeek() {
-        bt_all.setCardBackgroundColor(getResources().getColor(R.color.gray));
-        bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
-        bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
-        bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_all.setSelected(false);
+        bt_thisweek.setSelected(true);
+        bt_lastweek.setSelected(false);
+        bt_thismonth.setSelected(false);
     }
 
     @Override
     public void changeColorButtonLastWeek() {
-        bt_all.setCardBackgroundColor(getResources().getColor(R.color.gray));
-        bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
-        bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
-        bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.gray));
+        bt_all.setSelected(false);
+        bt_thisweek.setSelected(false);
+        bt_lastweek.setSelected(true);
+        bt_thismonth.setSelected(false);
     }
 
     @Override
     public void changeColorButtonThisMonth() {
-        bt_all.setCardBackgroundColor(getResources().getColor(R.color.gray));
-        bt_lastweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
-        bt_thisweek.setCardBackgroundColor(getResources().getColor(R.color.gray));
-        bt_thismonth.setCardBackgroundColor(getResources().getColor(R.color.text_orange));
+        bt_all.setSelected(false);
+        bt_thisweek.setSelected(false);
+        bt_lastweek.setSelected(false);
+        bt_thismonth.setSelected(true);
     }
 
     @OnClick(R.id.bt_filter)
