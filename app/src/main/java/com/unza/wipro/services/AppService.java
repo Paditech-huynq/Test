@@ -1,5 +1,6 @@
 package com.unza.wipro.services;
 
+import com.unza.wipro.main.models.responses.GetListProductRSP;
 import com.unza.wipro.main.models.responses.GetNewsDetailRSP;
 import com.unza.wipro.main.models.responses.GetNewsRSP;
 import com.unza.wipro.main.models.responses.GetProductCategoryRSP;
@@ -22,4 +23,8 @@ public interface AppService {
 
     @POST("product/category")
     Call<GetProductCategoryRSP> getProductCategory();
+
+    @POST("product/list")
+    Call<GetListProductRSP> getListProduct(@Field("page") int page, @Field("page_size") int pageSize,
+                                           @Field("category_id") int categoryID, @Field("key") String key);
 }
