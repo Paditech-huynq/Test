@@ -11,11 +11,11 @@ public class User {
     private String avar;
     private int typeUse;
 
-    public User(int typeUse) {
+    User(int typeUse) {
         this.typeUse = typeUse;
     }
 
-    public User(int numberSales, int numberPoint, String name, String phoneNumber, String email, String address, String avar, int typeUse) {
+    User(int numberSales, int numberPoint, String name, String phoneNumber, String email, String address, String avar, int typeUse) {
         this.numberSales = numberSales;
         this.numberPoint = numberPoint;
         this.name = name;

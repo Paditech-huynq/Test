@@ -6,7 +6,6 @@ import com.unza.wipro.main.models.UserData;
 
 public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> implements ProfileContract.Presenter {
 
-
     @Override
     public void getUserData() {
         UserData userData = new UserData();

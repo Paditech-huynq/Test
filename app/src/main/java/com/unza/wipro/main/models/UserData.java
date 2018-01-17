@@ -7,14 +7,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import static com.unza.wipro.main.views.fragments.ProfilePragment.TYPE_USER_MANAGER;
+import static com.unza.wipro.main.views.fragments.ProfileFragment.TYPE_USER_MANAGER;
 
 public class UserData {
 
-    User user;
-
     public UserData() {
-
     }
 
     public User getUser(){
