@@ -12,21 +12,27 @@ import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.image.GlideApp;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
+import com.unza.wipro.main.models.Product;
+import com.unza.wipro.main.models.ProductThumbnail;
 import com.unza.wipro.main.views.customs.DynamicHeightImageView;
 import com.unza.wipro.main.views.customs.PlaceHolderDrawableHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
 public class ProductListAdapter extends BaseRecycleViewAdapter implements AppConstans {
     private OnProductItemClickListenner mOnProductItemClickListenner;
+    private List<Product> productList = new ArrayList<>();
 
     public void setOnProductItemClickListenner(OnProductItemClickListenner mOnProductItemClickListenner) {
         this.mOnProductItemClickListenner = mOnProductItemClickListenner;
     }
 
     @Override
-    public String getItem(int position) {
-        return imagesDummy[position];
+    public Product getItem(int position) {
+        return productList.get(position);
     }
 
     @Override
@@ -36,7 +42,7 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
 
     @Override
     public int getItemCount() {
-        return imagesDummy.length;
+        return productList.size();
     }
 
     class ProductHolder extends BaseViewHolder {
@@ -48,17 +54,22 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
         @BindView(R.id.tvDescription)
         TextView tvDescription;
 
+        @BindView(R.id.tvPrice)
+        TextView tvPrice;
+
         ProductHolder(View itemView) {
             super(itemView);
         }
 
         @Override
         protected void onBindingData(final int position) {
-            final String url = getItem(position);
-            ViewHelper.setText(tvDescription, position + " - " + url, null);
-            updateImageSize(position);
+            final Product product = getItem(position);
+            final ProductThumbnail productThumbnail = product.getProductThumbnail();
+            ViewHelper.setText(tvDescription, product.getName(), null);
+            ViewHelper.setText(tvPrice, product.getPrice(), null);
+            updateImageSize(productThumbnail);
 
-            GlideApp.with(itemView.getContext()).load(url)
+            GlideApp.with(itemView.getContext()).load(productThumbnail.getLink())
                     .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
                     .into(imvProduct);
 
@@ -71,15 +82,24 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
             });
         }
 
-        private void updateImageSize(int pos) {
+        private void updateImageSize(ProductThumbnail productThumbnail) {
+            float width = Float.parseFloat(productThumbnail.getWidth());
+            float height = Float.parseFloat(productThumbnail.getHeight());
+            float ratio = width / height;
             ViewGroup.LayoutParams rlp = imvProduct.getLayoutParams();
-            rlp.height = (int) (rlp.width * ratios[pos]);
+            rlp.height = (int) (rlp.width * ratio);
             imvProduct.setLayoutParams(rlp);
-            imvProduct.setRatio(ratios[pos]);
+            imvProduct.setRatio(ratio);
         }
     }
 
     public interface OnProductItemClickListenner {
         void onAddCartButtonClick(View view, int index);
+    }
+
+    public void addProductList(List<Product> productList) {
+        int lastProductCount = productList.size();
+        this.productList.addAll(productList);
+        notifyItemRangeInserted(lastProductCount, productList.size());
     }
 }

@@ -24,7 +24,13 @@ public class ProductFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public BaseFragment getItem(int position) {
-        ProductPageFragment productPageFragment = ProductPageFragment.newInstance();
+        int category = 0;
+        try {
+            category = Integer.parseInt(productCategories.get(position).getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ProductPageFragment productPageFragment = ProductPageFragment.newInstance(category);
         return productPageFragment;
     }
 

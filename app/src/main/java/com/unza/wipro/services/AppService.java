@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface AppService {
 
@@ -31,6 +32,6 @@ public interface AppService {
     Call<GetProductCategoryRSP> getProductCategory();
 
     @POST("product/list")
-    Call<GetListProductRSP> getListProduct(@Field("page") int page, @Field("page_size") int pageSize,
-                                           @Field("category_id") int categoryID, @Field("key") String key);
+    Call<GetListProductRSP> getListProduct(@Query("page") int page, @Query("page_size") int pageSize,
+                                           @Query("category_id") int categoryID, @Query("key") String key);
 }

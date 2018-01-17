@@ -12,22 +12,28 @@ import android.widget.ImageView;
 
 import com.paditech.core.BaseFragment;
 import com.paditech.core.common.BaseRecycleViewAdapter;
+import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProductListAdapter;
+import com.unza.wipro.main.contracts.ProductPageContract;
+import com.unza.wipro.main.models.Product;
+import com.unza.wipro.main.presenters.ProductPagePresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
 import com.unza.wipro.main.views.customs.DynamicHeightImageView;
 import com.unza.wipro.main.views.customs.StaggeredSpacesItemDecoration;
 import com.unza.wipro.utils.AddToCartAnimation;
 
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 
-public class ProductPageFragment extends BaseFragment {
+public class ProductPageFragment extends MVPFragment<ProductPagePresenter> implements ProductPageContract.ViewImpl {
     @BindView(R.id.rcvProduct)
     RecyclerView mRecyclerView;
 
     ProductListAdapter mAdapter;
+    private int categoryId;
 
     public static ProductPageFragment newInstance() {
 
@@ -35,6 +41,12 @@ public class ProductPageFragment extends BaseFragment {
 
         ProductPageFragment fragment = new ProductPageFragment();
         fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static ProductPageFragment newInstance(int categoryId) {
+        ProductPageFragment fragment = ProductPageFragment.newInstance();
+        fragment.categoryId = categoryId;
         return fragment;
     }
 
@@ -130,6 +142,15 @@ public class ProductPageFragment extends BaseFragment {
                     }
                 }).startAnimation();
 
+    }
+
+    @Override
+    public void getListProduct(List<Product> productList) {
+        mAdapter.addProductList(productList);
+    }
+
+    public int getCategoryId() {
+        return categoryId;
     }
 }
 
