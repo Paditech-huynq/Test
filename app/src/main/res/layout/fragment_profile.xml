@@ -34,7 +34,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
-                    android:background="@color/bg_big_image_blurred_profile_fragment" />
+                    android:background="@color/bg_big_image" />
 
                 <ImageView
                     android:id="@+id/img_avar"
@@ -376,11 +376,10 @@
                         android:layout_height="@dimen/ic_group_size"
                         android:padding="@dimen/padding_big"
                         android:src="@drawable/ic_group"
-                        android:layout_toStartOf="@+id/text_manager_member_default"
                          />
 
                     <TextView
-                        android:id="@+id/text_manager_member_default"
+                        android:id="@+id/text_manager_default"
                         android:layout_toRightOf="@id/ic_some_people"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -545,7 +544,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:text="@string/questions_profile_fragment"
-                        android:id="@+id/text_questions_profile_default"
+                        android:id="@+id/text_questions_default"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -555,7 +554,7 @@
                         android:layout_alignParentEnd="true"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:layout_toEndOf="@id/text_questions_profile_default"
+                        android:layout_toEndOf="@id/text_questions_default"
                         android:singleLine="true"
                         android:text=">"
                         android:textColor="@color/text_dark"

@@ -11,11 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/child_recycle_view_size"
         app:cardCornerRadius="@dimen/card_radius_small"
-        android:layout_marginBottom="@dimen/padding_small"
-=======
-        app:cardCornerRadius="@dimen/card_radius_normal"
-        android:layout_marginBottom="@dimen/padding_order_child">
->>>>>>> fc0995542e3561105a40407be6bb8761b0cca2a6>
+        android:layout_marginBottom="@dimen/padding_small">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

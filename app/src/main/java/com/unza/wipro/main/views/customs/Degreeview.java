@@ -82,12 +82,12 @@ public class Degreeview extends View {
                 radius = height;
                 center_x = width/2;
                 center_y = height;
-                text_size = (int) (2*height/25);
+                text_size = (int) (2*2*height/25);
             } else {
                 radius = width / 2;
                 center_x = width / 2;
                 center_y = height / 2;
-                text_size = (int) (width/25);
+                text_size = (int) (2*width/25);
             }
             final RectF oval = new RectF();
             int sweepAngle = (180 * value) / maxvalue;
