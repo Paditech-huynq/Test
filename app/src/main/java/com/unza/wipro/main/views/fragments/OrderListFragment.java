@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.mvp.MVPFragment;
@@ -30,23 +29,23 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @BindView(R.id.rcvOrder)
     RecyclerView rcvOrder;
     @BindView(R.id.bt_filter)
-    ImageButton bt_filter;
+    ImageButton btFilter;
     @BindView(R.id.view_up_rcv)
-    View view_up;
+    View viewUp;
     @BindView(R.id.filter)
     LinearLayout filter;
     @BindView(R.id.cardview_header)
-    CardView cardView_header;
+    CardView cardViewHeader;
     @BindView(R.id.bt_search)
-    CardView bt_search;
+    CardView btSearch;
     @BindView(R.id.bt_all)
-    Button bt_all;
+    Button btAll;
     @BindView(R.id.bt_lastweek)
-    Button bt_lastweek;
+    Button btLastWeek;
     @BindView(R.id.bt_thisweek)
-    Button bt_thisweek;
+    Button btThisWeek;
     @BindView(R.id.bt_thismonth)
-    Button bt_thismonth;
+    Button btThisMonth;
 
     public static OrderListFragment newInstance() {
 
@@ -73,9 +72,9 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @Override
     public void updateFilterAppearance() {
         if (filter.getVisibility() == View.GONE) {
-            view_up.setVisibility(View.VISIBLE);
+            viewUp.setVisibility(View.VISIBLE);
             filter.setVisibility(View.VISIBLE);
-            cardView_header.setElevation(0);
+            cardViewHeader.setElevation(0);
         } else {
             dismissFilter();
         }
@@ -83,41 +82,41 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public void dismissFilter() {
-        view_up.setVisibility(View.GONE);
+        viewUp.setVisibility(View.GONE);
         filter.setVisibility(View.GONE);
-        cardView_header.setElevation(getResources().getDimensionPixelSize(R.dimen.cardview_default_elevation));
+        cardViewHeader.setElevation(getResources().getDimensionPixelSize(R.dimen.cardview_default_elevation));
     }
 
     @Override
     public void changeColorButtonAll() {
-        bt_all.setSelected(true);
-        bt_thisweek.setSelected(false);
-        bt_lastweek.setSelected(false);
-        bt_thismonth.setSelected(false);
+        btAll.setSelected(true);
+        btThisWeek.setSelected(false);
+        btLastWeek.setSelected(false);
+        btThisMonth.setSelected(false);
     }
 
     @Override
     public void changeColorButtonThisWeek() {
-        bt_all.setSelected(false);
-        bt_thisweek.setSelected(true);
-        bt_lastweek.setSelected(false);
-        bt_thismonth.setSelected(false);
+        btAll.setSelected(false);
+        btThisWeek.setSelected(true);
+        btLastWeek.setSelected(false);
+        btThisMonth.setSelected(false);
     }
 
     @Override
     public void changeColorButtonLastWeek() {
-        bt_all.setSelected(false);
-        bt_thisweek.setSelected(false);
-        bt_lastweek.setSelected(true);
-        bt_thismonth.setSelected(false);
+        btAll.setSelected(false);
+        btThisWeek.setSelected(false);
+        btLastWeek.setSelected(true);
+        btThisMonth.setSelected(false);
     }
 
     @Override
     public void changeColorButtonThisMonth() {
-        bt_all.setSelected(false);
-        bt_thisweek.setSelected(false);
-        bt_lastweek.setSelected(false);
-        bt_thismonth.setSelected(true);
+        btAll.setSelected(false);
+        btThisWeek.setSelected(false);
+        btLastWeek.setSelected(false);
+        btThisMonth.setSelected(true);
     }
 
     @OnClick(R.id.bt_filter)
