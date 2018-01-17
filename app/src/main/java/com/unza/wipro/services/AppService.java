@@ -2,7 +2,6 @@ package com.unza.wipro.services;
 
 import com.unza.wipro.main.models.responses.GetNewsDetailRSP;
 import com.unza.wipro.main.models.responses.GetNewsRSP;
-import com.unza.wipro.main.models.responses.GetPostsRSP;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -19,8 +18,4 @@ public interface AppService {
     @POST("news/post/detail")
     @FormUrlEncoded
     Call<GetNewsDetailRSP> getNewsDetail(@Field("post_id") String postId);
-
-    @POST("news/posts")
-    @FormUrlEncoded
-    Call<GetPostsRSP> getPosts();
 }

@@ -7,7 +7,8 @@ import android.support.v4.view.ViewPager;
 import com.paditech.core.BaseFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.NewsFragmentPagerAdapter;
-
+import com.unza.wipro.main.models.responses.GetNewsRSP;
+import com.unza.wipro.services.AppClient;
 import butterknife.BindView;
 
 public class NewsFragment extends BaseFragment {
