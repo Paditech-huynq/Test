@@ -8,11 +8,19 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.paditech.core.BaseFragment;
+import com.paditech.core.helper.StringUtil;
 import com.unza.wipro.R;
+import com.unza.wipro.main.models.News;
+import com.unza.wipro.main.models.responses.GetNewsDetailRSP;
 import com.unza.wipro.main.views.activities.MainActivity;
+import com.unza.wipro.services.AppClient;
+import com.unza.wipro.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * wipro-crm-android
@@ -31,6 +39,8 @@ public class NewsDetailFragment extends BaseFragment {
     TextView mDateText;
     @BindView(R.id.web_view)
     WebView mWebView;
+
+    News mNews;
 
     public static NewsDetailFragment newInstance() {
         Bundle args = new Bundle();
@@ -52,22 +62,9 @@ public class NewsDetailFragment extends BaseFragment {
     @Override
     public void initView() {
         super.initView();
-        mTitleText.setText("Range Rover Velar có giá từ 3,9 tỉ đồng tại Việt Nam");
-        mDescText.setText("Mẫu xe đàn anh của Range Rover Evoque được niêm yết giá bán từ 3,9 đến 4,9 tỉ đồng tại Việt Nam tùy phiên bản.");
-        mDateText.setText("3 giờ trước");
+        setupWebView();
 
-        mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        mWebView.setFocusableInTouchMode(false);
-        mWebView.setFocusable(false);
-        mWebView.setWebViewClient(new WebBrowser());
-        WebSettings settings = mWebView.getSettings();
-        settings.setJavaScriptEnabled(true);
-        settings.setLoadsImagesAutomatically(true);
-        settings.setLoadWithOverviewMode(true);
-        settings.setUseWideViewPort(true);
-        settings.setDefaultFontSize((int) getResources().getDimension(R.dimen.text_size_normal));
-
-        mWebView.loadUrl("http://autodaily.vn/2017/08/range-rover-velar-gia-tu-39-ty-dong-chot-ngay-ra-mat-tai-viet-nam/");
+        getDetail();
     }
 
     @Override
@@ -87,10 +84,57 @@ public class NewsDetailFragment extends BaseFragment {
         getActivity().onBackPressed();
     }
 
+    private void setupWebView() {
+        mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        mWebView.setFocusableInTouchMode(false);
+        mWebView.setFocusable(false);
+        mWebView.setWebViewClient(new WebBrowser());
+        WebSettings settings = mWebView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setLoadsImagesAutomatically(true);
+        settings.setLoadWithOverviewMode(true);
+        settings.setUseWideViewPort(true);
+        settings.setDefaultFontSize((int) getResources().getDimension(R.dimen.text_size_normal));
+    }
+
+    private void showDetail(News news) {
+        if (news == null) return;
+        mNews = news;
+        mTitleText.setText(mNews.getTitle());
+        mDescText.setText(mNews.getSummary());
+        mDateText.setText(Utils.getTimeCreated(getContext(),mNews.getCreatedAt()));
+        if (!StringUtil.isEmpty(mNews.getContent()))
+            mWebView.loadData(mNews.getContent(), "text/html; charset=UTF-8;", null);
+    }
+
+    private void getDetail() {
+        showProgressDialog(true);
+        AppClient.newInstance().getService().getNewsDetail(String.valueOf(1))
+                .enqueue(new Callback<GetNewsDetailRSP>() {
+                    @Override
+                    public void onResponse(Call<GetNewsDetailRSP> call, Response<GetNewsDetailRSP> response) {
+                        try {
+                            showProgressDialog(false);
+                            if (response.body() != null) {
+                                showDetail(response.body().getNews());
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetNewsDetailRSP> call, Throwable t) {
+                        showProgressDialog(false);
+                        showToast(t.getLocalizedMessage());
+                    }
+                });
+    }
+
     private class WebBrowser extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
+//            view.loadUrl(url);
             return true;
         }
 
