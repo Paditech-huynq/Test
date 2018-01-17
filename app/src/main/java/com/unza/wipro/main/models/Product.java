@@ -27,7 +27,7 @@ public class Product {
     @SerializedName("images")
     @Expose
     private List<Object> images = null;
-    @SerializedName("productThumbnail")
+    @SerializedName("thumbnail")
     @Expose
     private ProductThumbnail productThumbnail;
     @SerializedName("created_at")
