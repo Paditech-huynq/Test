@@ -22,7 +22,7 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
     @Override
     public void onCreate() {
         super.onCreate();
-        getListProductFromServer(false);
+        getListProductFromServer();
     }
 
     @Override
@@ -41,10 +41,7 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
     }
 
     @Override
-    public void getListProductFromServer(boolean isLoadMore) {
-        if (isLoadMore){
-            page += 1;
-        }
+    public void getListProductFromServer() {
         getView().showProgressDialog(true);
         AppClient.newInstance().getService().getListProduct(page, PAGE_SIZE,
                 ((ProductPageFragment) getView()).getCategoryId(), "")
@@ -62,6 +59,25 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
                     public void onFailure(Call<GetListProductRSP> call, Throwable t) {
                         getView().showProgressDialog(false);
                         Toast.makeText(getView().getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    @Override
+    public void loadMoreListProductFromServer() {
+        page += 1;
+        AppClient.newInstance().getService().getListProduct(page, PAGE_SIZE,
+                ((ProductPageFragment) getView()).getCategoryId(), "")
+                .enqueue(new Callback<GetListProductRSP>() {
+                    @Override
+                    public void onResponse(Call<GetListProductRSP> call, Response<GetListProductRSP> response) {
+                        GetListProductRSP listProductRSP = response.body();
+                        List<Product> productList = listProductRSP.getData();
+                        getView().getListProduct(productList);
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetListProductRSP> call, Throwable t) {
                     }
                 });
     }

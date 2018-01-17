@@ -87,8 +87,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
         mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
             public void onLoadMore() {
-                getPresenter().getListProductFromServer(true);
-                Log.e("TAG", "onLoadMore: " );
+                getPresenter().loadMoreListProductFromServer();
             }
         });
 
