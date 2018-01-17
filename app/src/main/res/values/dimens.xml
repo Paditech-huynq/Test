@@ -26,7 +26,9 @@
     <dimen name="text_size_tiny">10sp</dimen>
 
     <!--orderlist-->
-    <dimen name="header_fragment_order_height">50dip</dimen>
+    <dimen name="padding_order_child">7dip</dimen>
+    <dimen name="radius_button_choose_day">15dip</dimen>
+    <dimen name="header_fragment_order_height">40dip</dimen>
     <dimen name="filter_fragment_order_height">150dip</dimen>
-    <dimen name="child_recycle_view_size">80dip</dimen>
+    <dimen name="child_recycle_view_size">100dip</dimen>
 </resources>

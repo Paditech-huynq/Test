@@ -3,112 +3,73 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="@dimen/padding_small">
+        android:padding="@dimen/padding_normal">
 
-        <android.support.v7.widget.CardView
+        <Button
             android:id="@+id/bt_all"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn_filter_choose_day"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/padding_small"
             android:layout_weight="1.5"
-            app:cardBackgroundColor="@color/gray"
-            app:cardCornerRadius="@dimen/card_radius_normal"
-            app:cardElevation="0dp"
-            tools:ignore="NestedWeights">
+            android:text="@string/all_order_list"
+            android:textSize="@dimen/text_size_normal"
+            android:textColor="@drawable/color_text_filter_choose_day"
+            android:minHeight="0dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="@dimen/padding_normal"
-                android:text="@string/all_order_list"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_small" />
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
+        <Button
             android:id="@+id/bt_thisweek"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn_filter_choose_day"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginStart="@dimen/padding_small"
             android:layout_weight="2"
-            app:cardBackgroundColor="@color/gray"
-            app:cardCornerRadius="@dimen/card_radius_normal"
-            app:cardElevation="0dp"
-            >
+            android:text="@string/this_week_order_list"
+            android:textSize="@dimen/text_size_normal"
+            android:textColor="@drawable/color_text_filter_choose_day"
+            android:minHeight="0dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="@dimen/padding_normal"
-                android:text="@string/this_week_order_list"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_small" />
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
+        <Button
             android:id="@+id/bt_lastweek"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn_filter_choose_day"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginStart="@dimen/padding_small"
             android:layout_weight="2"
-            app:cardBackgroundColor="@color/gray"
-            app:cardCornerRadius="@dimen/card_radius_normal"
-            app:cardElevation="0dp"
-            >
+            android:text="@string/last_week"
+            android:textSize="@dimen/text_size_normal"
+            android:textColor="@drawable/color_text_filter_choose_day"
+            android:minHeight="0dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="@dimen/padding_normal"
-                android:text="@string/last_week"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_small" />
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
+        <Button
             android:id="@+id/bt_thismonth"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn_filter_choose_day"
             android:layout_gravity="center"
-            android:layout_marginEnd="@dimen/padding_normal"
-            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginStart="@dimen/padding_small"
             android:layout_weight="2"
-            app:cardBackgroundColor="@color/gray"
-            app:cardCornerRadius="@dimen/card_radius_normal"
-            app:cardElevation="0dp"
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="@dimen/padding_normal"
-                android:text="@string/this_month"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_small" />
-        </android.support.v7.widget.CardView>
+            android:text="@string/this_month"
+            android:textSize="@dimen/text_size_normal"
+            android:textColor="@drawable/color_text_filter_choose_day"
+            android:minHeight="0dp"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="1"
         android:orientation="horizontal"
         android:padding="@dimen/padding_small">
 
@@ -123,12 +84,15 @@
             tools:ignore="NestedWeights">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/text_this_month_filter"
+                android:layout_width="match_parent"
+                android:gravity="center"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/calender_left"
                 android:layout_centerVertical="true"
                 android:text="22/12/2012"
-                android:textSize="@dimen/text_size_small" />
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_normal" />
 
             <ImageButton
                 android:id="@+id/calender_left"
@@ -152,12 +116,13 @@
             android:background="@drawable/bg_day_order_list">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="center"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/calender_right"
                 android:layout_centerVertical="true"
                 android:text="22/12/2012"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="@dimen/text_size_normal" />
 
             <ImageButton
                 android:layout_centerVertical="true"
@@ -173,36 +138,40 @@
     </LinearLayout>
 
     <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="1"
         app:cardBackgroundColor="@color/colorPrimary"
-        app:cardCornerRadius="@dimen/card_radius_normal"
+        app:cardCornerRadius="@dimen/card_radius_small"
         android:id="@+id/bt_search"
         app:contentPadding="@dimen/padding_tiny"
-        android:layout_marginBottom="@dimen/padding_normal">
+        android:layout_marginTop="@dimen/padding_small"
+        android:layout_marginBottom="@dimen/padding_tiny">
 
         <LinearLayout
+            android:gravity="center"
             android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="@dimen/text_size_title"
                 android:layout_height="@dimen/text_size_title"
-                android:layout_marginEnd="@dimen/padding_tiny"
+                android:layout_marginEnd="@dimen/padding_normal"
                 android:layout_gravity="center"
                 android:background="@color/colorPrimary"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_lookup2" />
 
             <TextView
+                android:textStyle="bold"
+                android:padding="@dimen/padding_tiny"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/padding_normal"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:gravity="center"
+                android:textSize="@dimen/text_size_normal"
                 android:text="@string/find"
                 android:textColor="@android:color/white" />
         </LinearLayout>
