@@ -14,8 +14,8 @@ import com.unza.wipro.R;
 
 public class DegreeView extends View {
 
-    private Paint mPaint1;
-    private Paint mPaint2;
+    private Paint mPaintDrawBackground;
+    private Paint mPaintDrawDegree;
     private int background;
     private int displayDegree;
     private long maxvalue;
@@ -98,15 +98,15 @@ public class DegreeView extends View {
                 coordinateYToDraw - radius,
                 coordinateXToDraw + radius,
                 coordinateYToDraw + radius);
-        mCanvas.drawArc(oval, DEGREE_180, DEGREE_180, true, mPaint1);
-        mCanvas.drawArc(oval, DEGREE_180, sweepAngle, true, mPaint2);
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        paint.setTextSize(text_size);
-        paint.setStrokeWidth(1);
-        paint.setTextAlign(Paint.Align.CENTER);
-        mCanvas.drawText(text, coordinateXToDraw, coordinateYToDraw - text_size / 2, paint);
+        mCanvas.drawArc(oval, DEGREE_180, DEGREE_180, true, mPaintDrawBackground);
+        mCanvas.drawArc(oval, DEGREE_180, sweepAngle, true, mPaintDrawDegree);
+        Paint paintDrawText = new Paint();
+        paintDrawText.setAntiAlias(true);
+        paintDrawText.setStyle(Paint.Style.FILL_AND_STROKE);
+        paintDrawText.setTextSize(text_size);
+        paintDrawText.setStrokeWidth(1);
+        paintDrawText.setTextAlign(Paint.Align.CENTER);
+        mCanvas.drawText(text, coordinateXToDraw, coordinateYToDraw - (text_size / HALF), paintDrawText);
         canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
         canvas.restore();
     }
@@ -125,8 +125,8 @@ public class DegreeView extends View {
             this.displayDegree = displayDegree;
             this.maxvalue = maxvalue;
             this.value = value;
-            mPaint1.setColor(context.getResources().getColor(getBackground1()));
-            mPaint2.setColor(context.getResources().getColor(getDisplayDegree()));
+            mPaintDrawBackground.setColor(context.getResources().getColor(getBackground1()));
+            mPaintDrawDegree.setColor(context.getResources().getColor(getDisplayDegree()));
             invalidate();
         }
     }
@@ -134,15 +134,15 @@ public class DegreeView extends View {
     public void reset() {
         setBackground1(R.color.white);
         setDisplayDegree(R.color.colorPrimaryDark);
-        setValue(0);
+        setValue(30);
         setMaxvalue(100);
-        mPaint1 = new Paint();
-        mPaint2 = new Paint();
-        mPaint1.setAntiAlias(true);
-        mPaint2.setAntiAlias(true);
-        mPaint1.setColor(context.getResources().getColor(getBackground1()));
-        mPaint2.setColor(context.getResources().getColor(getDisplayDegree()));
-        mPaint1.setStyle(Paint.Style.FILL);
-        mPaint2.setStyle(Paint.Style.FILL);
+        mPaintDrawBackground = new Paint();
+        mPaintDrawDegree = new Paint();
+        mPaintDrawBackground.setAntiAlias(true);
+        mPaintDrawDegree.setAntiAlias(true);
+        mPaintDrawBackground.setColor(context.getResources().getColor(getBackground1()));
+        mPaintDrawDegree.setColor(context.getResources().getColor(getDisplayDegree()));
+        mPaintDrawBackground.setStyle(Paint.Style.FILL);
+        mPaintDrawDegree.setStyle(Paint.Style.FILL);
     }
 }

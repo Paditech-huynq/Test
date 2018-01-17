@@ -14,7 +14,7 @@ public class UserData {
     public UserData() {
     }
 
-    public User getUser(){
+    public User getUserData(){
         UserManager user = null;
         @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         try {

@@ -9,7 +9,7 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
     @Override
     public void getUserDataFromServer() {
         UserData userData = new UserData();
-        getView().updateUI(userData.getUser());
+        getView().updateUI(userData.getUserData());
     }
 
     @Override
