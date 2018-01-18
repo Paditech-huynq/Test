@@ -12,8 +12,6 @@ public interface ProductPageContract {
     }
 
     interface Presenter extends BasePresenterImpl {
-        void loadFirstListProductFromServer();
-
-        void loadMoreListProductFromServer();
+        void onLoadMore();
     }
 }

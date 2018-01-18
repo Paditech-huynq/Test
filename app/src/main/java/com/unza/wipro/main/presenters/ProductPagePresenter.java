@@ -22,7 +22,7 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
     @Override
     public void onCreate() {
         super.onCreate();
-        loadFirstListProductFromServer();
+        loadProductFromServer();
     }
 
     @Override
@@ -40,22 +40,16 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
 
     }
 
-    @Override
-    public void loadFirstListProductFromServer() {
+    private void loadProductFromServer() {
         getListProduct(false);
     }
 
     @Override
-    public void loadMoreListProductFromServer() {
+    public void onLoadMore() {
         getListProduct(true);
     }
 
     private void getListProduct(final boolean isLoadMore) {
-        if (!isLoadMore) {
-            getView().showProgressDialog(true);
-        } else {
-            page += 1;
-        }
         AppClient.newInstance().getService().getListProduct(page, PAGE_SIZE,
                 ((ProductPageFragment) getView()).getCategoryId(), "")
                 .enqueue(new Callback<GetListProductRSP>() {
@@ -65,6 +59,7 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
                         List<Product> productList = listProductRSP.getData();
                         getView().notifyListProduct(productList);
                         if (!isLoadMore) getView().showProgressDialog(false);
+                        onLoadProductSuccess();
                     }
 
                     @Override
@@ -75,5 +70,9 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
                         }
                     }
                 });
+    }
+
+    private void onLoadProductSuccess() {
+        page += 1;
     }
 }
