@@ -1,6 +1,9 @@
 package com.unza.wipro;
 
 public interface AppConstans {
+
+    public static final int PAGE_SiZE = 10;
+
     String[] imagesDummy = new String[]
             {
                     "https://www.w3schools.com/w3css/img_fjords.jpg",
