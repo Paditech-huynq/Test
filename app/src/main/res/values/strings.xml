@@ -74,7 +74,7 @@
     <string name="last_week">Tuần trước</string>
     <string name="this_month">Tháng này</string>
     <string name="find">Tìm kiếm</string>
-    
+
     <!--profile fragment-->
     <string name="title_fragment_profile">Thông tin người dùng</string>
     <string name="order_profile_fragment">Đơn hàng</string>
