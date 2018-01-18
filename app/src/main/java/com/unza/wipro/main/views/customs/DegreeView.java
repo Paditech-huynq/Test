@@ -138,7 +138,7 @@ public class DegreeView extends View {
     public void reset() {
         setBackground1(R.color.white);
         setDisplayDegree(R.color.colorPrimaryDark);
-        setValue(10);
+        setValue(0);
         setMaxvalue(100);
         mPaintDrawBackground = new Paint();
         mPaintDrawDegree = new Paint();
