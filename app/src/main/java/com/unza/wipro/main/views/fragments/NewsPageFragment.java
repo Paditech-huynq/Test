@@ -21,9 +21,9 @@ import butterknife.BindView;
 public class NewsPageFragment extends MVPFragment<NewsPagePresenter> implements BaseRecycleViewAdapter.LoadMoreListener, NewsPageContract.ViewImpl {
     @BindView(R.id.rcvProduct)
     RecyclerView mRecyclerView;
-    NewsListAdapter mAdapter;
-    NewsCategory mCategory;
-    int mPage = 1;
+    private NewsListAdapter mAdapter;
+    private NewsCategory mCategory;
+    private int mPage = 1;
 
     public static NewsPageFragment newInstance(NewsCategory newsCategory) {
         Bundle args = new Bundle();
