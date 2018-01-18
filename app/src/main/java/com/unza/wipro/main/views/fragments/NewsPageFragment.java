@@ -9,6 +9,7 @@ import com.paditech.core.BaseFragment;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.NewsListAdapter;
+import com.unza.wipro.main.models.News;
 import com.unza.wipro.main.models.NewsCategory;
 import com.unza.wipro.main.views.customs.StaggeredSpacesItemDecoration;
 
@@ -58,7 +59,7 @@ public class NewsPageFragment extends BaseFragment {
         mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
-                switchFragment(NewsDetailFragment.newInstance(), true);
+                switchFragment(NewsDetailFragment.newInstance(new News()), true);
             }
         });
     }
