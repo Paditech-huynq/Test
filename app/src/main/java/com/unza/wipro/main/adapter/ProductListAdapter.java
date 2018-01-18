@@ -24,6 +24,7 @@ import butterknife.BindView;
 public class ProductListAdapter extends BaseRecycleViewAdapter implements AppConstans {
     private OnProductItemClickListenner mOnProductItemClickListenner;
     private List<Product> productList = new ArrayList<>();
+    private static final float DEFAULT_RATIO = (4F / 3F);
 
     public void setOnProductItemClickListenner(OnProductItemClickListenner mOnProductItemClickListenner) {
         this.mOnProductItemClickListenner = mOnProductItemClickListenner;
@@ -82,9 +83,14 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
         }
 
         private void updateImageSize(ProductThumbnail productThumbnail) {
-            float width = Float.parseFloat(productThumbnail.getWidth());
-            float height = Float.parseFloat(productThumbnail.getHeight());
-            float ratio = height / width;
+            float ratio = DEFAULT_RATIO;
+            try {
+                float width = Float.parseFloat(productThumbnail.getWidth());
+                float height = Float.parseFloat(productThumbnail.getHeight());
+                ratio = height / width;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             ViewGroup.LayoutParams rlp = imvProduct.getLayoutParams();
             rlp.height = (int) (rlp.width * ratio);
             imvProduct.setLayoutParams(rlp);
