@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vpgProduct"
@@ -14,6 +14,7 @@
             android:id="@+id/tabCategory"
             android:layout_width="match_parent"
             android:layout_height="@dimen/actionbar_button_size"
+            android:background="@android:color/white"
             app:tabBackground="@android:color/white"
             app:tabGravity="center"
             app:tabIndicatorColor="@color/colorPrimary"
@@ -21,6 +22,6 @@
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/colorPrimary"
             app:tabTextAppearance="@style/TabTeaxtAppearance"
-            app:tabTextColor="@color/gray" />
+            app:tabTextColor="@color/gray"/>
     </android.support.v4.view.ViewPager>
 </LinearLayout>
