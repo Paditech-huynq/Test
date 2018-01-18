@@ -75,6 +75,10 @@
     <string name="this_month">Tháng này</string>
     <string name="find">Tìm kiếm</string>
 
+    <!-- product detail -->
+    <string name="product_detail_code">Mã sản phẩm: %s</string>
+    <string name="product_detail_price">%s vnđ</string>
+
     <!-- time -->
     <string name="just_now">Vừa xong</string>
     <string name="some_seconds_ago">%s giây trước</string>

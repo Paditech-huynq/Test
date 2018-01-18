@@ -13,12 +13,20 @@ import com.paditech.core.image.GlideApp;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 
+import java.util.List;
+
 public class ProductImageAdapter extends PagerAdapter implements AppConstans {
 
+    private List mData;
     private LayoutInflater mLayoutInflater;
 
     public ProductImageAdapter(Context context) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public void setData(List mData) {
+        this.mData = mData;
+        notifyDataSetChanged();
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.unza.wipro.main.models.responses.GetNewsCategoriesRSP;
 import com.unza.wipro.main.models.responses.GetNewsDetailRSP;
 import com.unza.wipro.main.models.responses.GetNewsRSP;
 import com.unza.wipro.main.models.responses.GetProductCategoryRSP;
+import com.unza.wipro.main.models.responses.GetProductDetailRSP;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -33,4 +34,8 @@ public interface AppService {
     @POST("product/list")
     Call<GetListProductRSP> getListProduct(@Field("page") int page, @Field("page_size") int pageSize,
                                            @Field("category_id") int categoryID, @Field("key") String key);
+
+    @POST("product/detail")
+    @FormUrlEncoded
+    Call<GetProductDetailRSP> getProductDetail(@Field("product_id") String productId);
 }

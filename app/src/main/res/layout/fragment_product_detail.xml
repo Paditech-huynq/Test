@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="false"
-    android:background="@android:color/white"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white"
+              android:fitsSystemWindows="false"
+              android:orientation="vertical">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -26,21 +26,22 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/padding_small"
-                    android:text="Striped Maxi Dress Color - Show your of your life"
                     android:textColor="@color/colorPrimary"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <TextView
+                    android:id="@+id/tv_product_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/padding_normal"
-                    android:layout_marginTop="@dimen/padding_small"
-                    android:text="Mã sản phẩm: SKU002" />
+                    android:layout_marginTop="@dimen/padding_small"/>
 
                 <TextView
+                    android:id="@+id/tv_product_price"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
                     android:layout_marginLeft="@dimen/padding_normal"
@@ -49,9 +50,8 @@
                     android:gravity="center"
                     android:paddingLeft="@dimen/padding_normal"
                     android:paddingRight="@dimen/padding_normal"
-                    android:text="12.344.000 vnđ"
                     android:textColor="@android:color/white"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -60,11 +60,13 @@
                     android:layout_marginTop="@dimen/padding_normal"
                     android:text="@string/att_product_category"
                     android:textColor="@color/colorPrimary"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
 
-                <com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                <com.google.android.flexbox.FlexboxLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/layout_category"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/padding_normal"
@@ -72,82 +74,6 @@
                     app:alignItems="stretch"
                     app:flexWrap="wrap">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/padding_tiny"
-                        android:background="@drawable/bg_category_orange_rounded"
-                        android:paddingLeft="@dimen/padding_normal"
-                        android:paddingRight="@dimen/padding_normal"
-                        android:text="Mỹ phẩm"
-                        android:textColor="@android:color/white"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/padding_tiny"
-                        android:background="@drawable/bg_category_orange_rounded"
-                        android:paddingLeft="@dimen/padding_normal"
-                        android:paddingRight="@dimen/padding_normal"
-                        android:text="Làm đẹp"
-                        android:textColor="@android:color/white"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/padding_tiny"
-                        android:background="@drawable/bg_category_orange_rounded"
-                        android:paddingLeft="@dimen/padding_normal"
-                        android:paddingRight="@dimen/padding_normal"
-                        android:text="Dưỡng da"
-                        android:textColor="@android:color/white"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/padding_tiny"
-                        android:background="@drawable/bg_category_orange_rounded"
-                        android:paddingLeft="@dimen/padding_normal"
-                        android:paddingRight="@dimen/padding_normal"
-                        android:text="Làm trăng"
-                        android:textColor="@android:color/white"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/padding_tiny"
-                        android:background="@drawable/bg_category_orange_rounded"
-                        android:paddingLeft="@dimen/padding_normal"
-                        android:paddingRight="@dimen/padding_normal"
-                        android:text="Mỹ phẩm"
-                        android:textColor="@android:color/white"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/padding_tiny"
-                        android:background="@drawable/bg_category_orange_rounded"
-                        android:paddingLeft="@dimen/padding_normal"
-                        android:paddingRight="@dimen/padding_normal"
-                        android:text="Làm đẹp"
-                        android:textColor="@android:color/white"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/padding_tiny"
-                        android:background="@drawable/bg_category_orange_rounded"
-                        android:paddingLeft="@dimen/padding_normal"
-                        android:paddingRight="@dimen/padding_normal"
-                        android:text="Dưỡng da"
-                        android:textColor="@android:color/white"
-                        android:textStyle="bold" />
                 </com.google.android.flexbox.FlexboxLayout>
 
                 <TextView
@@ -157,37 +83,35 @@
                     android:layout_marginTop="@dimen/padding_small"
                     android:text="@string/att_product_available_at"
                     android:textColor="@color/colorPrimary"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
-                <include layout="@layout/view_product_available_at" />
+                <LinearLayout
+                    android:id="@+id/layout_shop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <include layout="@layout/view_product_available_at" />
-
-                <include layout="@layout/view_product_available_at" />
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/att_product_describe"
                     android:textColor="@color/colorPrimary"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <TextView
+                    android:id="@+id/tv_product_desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding_small"
-                    android:text="Classic là mùi hương đặc trưng của Romano.  Mùi
-hương Romano Classic là sự kết hợp giữa những
-hương gỗ tự nhiên, đặc biệt là gỗ đàn hương, tinh dầu
-thơm từ cây hoắc hương.
- " />
+                    android:layout_marginTop="@dimen/padding_small"/>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 
         <android.support.design.widget.AppBarLayout
-            android:background="@android:color/transparent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent">
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
@@ -195,9 +119,9 @@ thơm từ cây hoắc hương.
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <LinearLayout
-                    android:gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical"
                     app:layout_collapseMode="parallax">
 
@@ -205,15 +129,15 @@ thơm từ cây hoắc hương.
                         android:id="@+id/vpgProduct"
                         android:layout_width="match_parent"
                         android:layout_height="250dip"
-                        android:transitionName="@string/transition_list_product_to_product_detail"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/bg_test" />
+                        android:src="@drawable/bg_test"
+                        android:transitionName="@string/transition_list_product_to_product_detail"/>
 
                     <com.rd.PageIndicatorView
-                        android:layout_margin="@dimen/padding_normal"
                         android:id="@+id/pageIndicatorView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/padding_normal"
                         app:piv_animationType="slide"
                         app:piv_dynamicCount="true"
                         app:piv_interactiveAnimation="true"
@@ -221,28 +145,16 @@ thơm từ cây hoắc hương.
                         app:piv_radius="6.5dp"
                         app:piv_selectedColor="@color/colorPrimary"
                         app:piv_unselectedColor="@color/main_bg"
-                        app:piv_viewPager="@id/vpgProduct" />
+                        app:piv_viewPager="@id/vpgProduct"/>
                 </LinearLayout>
 
                 <RelativeLayout
-                    android:layout_marginTop="24dip"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    android:layout_marginTop="24dip"
                     android:elevation="5dp"
                     android:paddingLeft="@dimen/padding_normal"
                     app:layout_collapseMode="pin">
-
-                    <TextView
-                        android:id="@+id/tvTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:text="dfgfdgfdgfdgfdg"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/text_size_title"
-                        android:textStyle="bold" />
 
                     <ImageView
                         android:id="@+id/imvAvatar"
@@ -250,9 +162,10 @@ thơm từ cây hoắc hương.
                         android:layout_height="35dip"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        app:srcCompat="@drawable/ic_back" />
+                        app:srcCompat="@drawable/ic_back"/>
 
                     <LinearLayout
+                        android:id="@+id/view_cart"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
@@ -266,7 +179,7 @@ thơm từ cây hoắc hương.
                             android:layout_height="35dip"
                             android:paddingLeft="@dimen/padding_normal"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/ic_cart2" />
+                            android:src="@drawable/ic_cart2"/>
                     </LinearLayout>
                 </RelativeLayout>
             </android.support.design.widget.CollapsingToolbarLayout>
@@ -283,5 +196,5 @@ thơm từ cây hoắc hương.
         android:background="@color/colorPrimary"
         android:text="@string/action_add_to_cart"
         android:textColor="@android:color/white"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 </LinearLayout>
