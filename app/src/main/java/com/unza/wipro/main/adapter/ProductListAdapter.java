@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.paditech.core.common.BaseRecycleViewAdapter;
+import com.paditech.core.helper.StringUtil;
 import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.image.GlideApp;
 import com.unza.wipro.AppConstans;
@@ -66,7 +67,7 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
             final Product product = getItem(position);
             final ProductThumbnail productThumbnail = product.getProductThumbnail();
             ViewHelper.setText(tvDescription, product.getName(), null);
-            ViewHelper.setText(tvPrice, product.getPrice(), null);
+            ViewHelper.setText(tvPrice, StringUtil.formatMoney(product.getPrice()), null);
             updateImageSize(productThumbnail);
 
             GlideApp.with(itemView.getContext()).load(productThumbnail.getLink())
