@@ -22,11 +22,10 @@ public class DegreeView extends View {
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private Context context;
-    private static final float SCALE_NUMBER_DEGREE_WITH_VIEW_WHEN_HEIGHT_SMALLER = 6;
-    private static final float SCALE_NUMBER_DEGREE_WITH_VIEW_WHEN_WIDTH_SMALLER = 12;
-    private static final int DEGREE_180 = 180;
-    private static final int HALF = 2;
-    private static final int SCALE_NUMBER_IF_WIDTH_TOO_BIG_FOR_HEIGHT = 2;
+    private static final float SCALE_FACTOR_FOR_SMALLER_HEIGHT = 6;
+    private static final float SCALE_FACTOR_FOR_SMALLER_WIDTH = 12;
+    private static final int DEGREE_BALANCE = 180;
+    private static final int SCALE_FACTOR_FOR_BIG_WIDTH = 2;
     private Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
 
     public int getBackground1() {
@@ -79,33 +78,34 @@ public class DegreeView extends View {
         float coordinateXToDraw;
         float coordinateYToDraw;
         float radius;
-        if (width >= height * SCALE_NUMBER_IF_WIDTH_TOO_BIG_FOR_HEIGHT) {
+        if (width >= height * SCALE_FACTOR_FOR_BIG_WIDTH) {
             radius = height;
-            coordinateXToDraw = width / HALF;
+            coordinateXToDraw = width / 2;
             coordinateYToDraw = height;
-            text_size = (int) (height / SCALE_NUMBER_DEGREE_WITH_VIEW_WHEN_HEIGHT_SMALLER);
+            text_size = (int) (height / SCALE_FACTOR_FOR_SMALLER_HEIGHT);
         } else {
-            radius = width / HALF;
-            coordinateXToDraw = width / HALF;
-            coordinateYToDraw = height / HALF;
-            text_size = (int) (width * SCALE_NUMBER_DEGREE_WITH_VIEW_WHEN_WIDTH_SMALLER);
+            radius = width / 2;
+            coordinateXToDraw = width / 2;
+            coordinateYToDraw = height / 2;
+            text_size = (int) (width * SCALE_FACTOR_FOR_SMALLER_WIDTH
+);
         }
         final RectF oval = new RectF();
-        int sweepAngle = (int) ((DEGREE_180 * value) / maxvalue);
+        int sweepAngle = (int) ((DEGREE_BALANCE * value) / maxvalue);
         String text = String.valueOf(value * 100 / maxvalue) + " %";
         oval.set(coordinateXToDraw - radius,
                 coordinateYToDraw - radius,
                 coordinateXToDraw + radius,
                 coordinateYToDraw + radius);
-        mCanvas.drawArc(oval, DEGREE_180, DEGREE_180, true, mPaintDrawBackground);
-        mCanvas.drawArc(oval, DEGREE_180, sweepAngle, true, mPaintDrawDegree);
+        mCanvas.drawArc(oval, DEGREE_BALANCE, DEGREE_BALANCE, true, mPaintDrawBackground);
+        mCanvas.drawArc(oval, DEGREE_BALANCE, sweepAngle, true, mPaintDrawDegree);
         Paint paintDrawText = new Paint();
         paintDrawText.setAntiAlias(true);
         paintDrawText.setStyle(Paint.Style.FILL_AND_STROKE);
         paintDrawText.setTextSize(text_size);
         paintDrawText.setStrokeWidth(1);
         paintDrawText.setTextAlign(Paint.Align.CENTER);
-        mCanvas.drawText(text, coordinateXToDraw, coordinateYToDraw - (text_size / HALF), paintDrawText);
+        mCanvas.drawText(text, coordinateXToDraw, coordinateYToDraw - (text_size / 2), paintDrawText);
         canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
         canvas.restore();
     }
