@@ -14,7 +14,7 @@ import com.unza.wipro.main.contracts.ProfileContract;
 import com.unza.wipro.main.models.User;
 import com.unza.wipro.main.presenters.ProfilePresenter;
 import com.unza.wipro.main.views.customs.DegreeView;
-import com.unza.wipro.utils.DateTimeUntils;
+import com.unza.wipro.utils.DateTimeUtils;
 
 import java.util.Calendar;
 
@@ -97,8 +97,8 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     }
 
     private void updateUIForEmployee(User user) {
-        tvTime.setText(String.format("  %s - %s",DateTimeUntils.getStringDayMonthYear(user.getDateStart()),
-                DateTimeUntils.getStringDayMonthYear(Calendar.getInstance().getTime())));
+        tvTime.setText(String.format("  %s - %s", DateTimeUtils.getStringDayMonthYear(user.getDateStart()),
+                DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime())));
         tvSalesHave.setText(String.format("  %s  VNĐ",user.getSaleHave()));
         tvSalesWant.setText(String.format("  %s  VNĐ",user.getSaleWant()));
         degreeSale.setValue(R.color.white, R.color.colorPrimaryDark, user.getSaleHave(), user.getSaleWant());
