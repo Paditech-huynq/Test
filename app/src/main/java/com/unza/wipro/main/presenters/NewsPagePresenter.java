@@ -14,7 +14,7 @@ import retrofit2.Response;
 public class NewsPagePresenter extends BasePresenter<NewsPageContract.ViewImpl> implements NewsPageContract.Presenter, AppConstans {
     private int INDEX = 1;
     private int categoryId;
-    private boolean isFull = false;
+    private boolean isFull;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -41,6 +41,7 @@ public class NewsPagePresenter extends BasePresenter<NewsPageContract.ViewImpl> 
                     }
                     if (isRefresh) {
                         INDEX = 1;
+                        isFull = false;
                         getView().refreshList(response.body().getNews());
                     } else {
                         getView().updateItemToList(response.body().getNews());
