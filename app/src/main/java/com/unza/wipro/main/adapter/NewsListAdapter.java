@@ -22,7 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 
 public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConstans {
-    List<News> newsList = new ArrayList();
+    private List<News> newsList = new ArrayList();
     @Override
     public News getItem(int position) {
         return newsList.get(position);
