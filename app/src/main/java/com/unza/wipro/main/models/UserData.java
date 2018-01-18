@@ -11,14 +11,8 @@ import static com.unza.wipro.main.views.fragments.ProfileFragment.TYPE_USER_MANA
 
 public class UserData {
     public User getUserData(){
-        UserManager user = null;
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-        try {
-            user = new UserManager(160,160,"Nguyễn văn a", " dsdsd","sdsdsd", " sdsdsds", "R.drawable.bg_test", TYPE_USER_MANAGER, format.parse("2018/01/02"), 10000, 1000, 3 , new ArrayList<UserEmployee>());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return user;
+        UserManager userManager = new UserManager();
+        return userManager.getDummyData();
     }
 
 }

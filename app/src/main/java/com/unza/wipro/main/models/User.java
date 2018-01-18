@@ -11,21 +11,6 @@ public class User {
     private String avar;
     private int typeUse;
 
-    User(int typeUse) {
-        this.typeUse = typeUse;
-    }
-
-    User(int numberSales, int numberPoint, String name, String phoneNumber, String email, String address, String avar, int typeUse) {
-        this.numberSales = numberSales;
-        this.numberPoint = numberPoint;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.address = address;
-        this.avar = avar;
-        this.typeUse = typeUse;
-    }
-
     public int getNumberSales() {
         return numberSales;
     }
