@@ -12,8 +12,6 @@ import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.ProfileContract;
 import com.unza.wipro.main.models.User;
-import com.unza.wipro.main.models.UserEmployee;
-import com.unza.wipro.main.models.UserManager;
 import com.unza.wipro.main.presenters.ProfilePresenter;
 import com.unza.wipro.main.views.customs.DegreeView;
 import com.unza.wipro.utils.DateTimeUntils;
@@ -91,7 +89,7 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
             case TYPE_USER_MANAGER:
                 lnDegree.setVisibility(View.VISIBLE);
                 tvPoint.setText(getText(R.string.custom_profile_fragment));
-                tvNumberPoint.setText(String.valueOf(((UserManager) user).getNumberCustom()));
+                tvNumberPoint.setText(String.valueOf(((User) user).getNumberCustom()));
                 lnManagerSales.setVisibility(View.VISIBLE);
                 updateUIForEmployee(user);
                 break;

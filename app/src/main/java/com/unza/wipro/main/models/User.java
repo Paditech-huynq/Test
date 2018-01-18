@@ -1,7 +1,20 @@
 package com.unza.wipro.main.models;
 
 
+import android.annotation.SuppressLint;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import static com.unza.wipro.main.views.fragments.ProfileFragment.TYPE_USER_MANAGER;
+
 public class User {
+    private Date dateStart;
+    private long saleWant;
+    private long saleHave;
     private int numberSales;
     private int numberPoint;
     private String name;
@@ -10,6 +23,48 @@ public class User {
     private String address;
     private String avar;
     private int typeUse;
+    private int numberCustom;
+    private List<User> members = new ArrayList<>();
+
+    public List<User> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<User> members) {
+        this.members = members;
+    }
+
+    public int getNumberCustom() {
+        return numberCustom;
+    }
+
+    public void setNumberCustom(int numberCustom) {
+        this.numberCustom = numberCustom;
+    }
+
+    public Date getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public long getSaleWant() {
+        return saleWant;
+    }
+
+    public void setSaleWant(long saleWant) {
+        this.saleWant = saleWant;
+    }
+
+    public long getSaleHave() {
+        return saleHave;
+    }
+
+    public void setSaleHave(long saleHave) {
+        this.saleHave = saleHave;
+    }
 
     public int getNumberSales() {
         return numberSales;
@@ -26,15 +81,6 @@ public class User {
     public void setNumberPoint(int numberPoint) {
         this.numberPoint = numberPoint;
     }
-
-    public int getTypeUse() {
-        return typeUse;
-    }
-
-    public void setTypeUse(int typeUse) {
-        this.typeUse = typeUse;
-    }
-
 
     public String getName() {
         return name;
@@ -74,5 +120,13 @@ public class User {
 
     public void setAvar(String avar) {
         this.avar = avar;
+    }
+
+    public int getTypeUse() {
+        return typeUse;
+    }
+
+    public void setTypeUse(int typeUse) {
+        this.typeUse = typeUse;
     }
 }

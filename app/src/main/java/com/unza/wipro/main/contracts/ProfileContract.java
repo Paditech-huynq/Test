@@ -6,7 +6,7 @@ import com.unza.wipro.main.models.User;
 
 public interface ProfileContract {
     interface ViewImpl extends BaseViewImpl {
-        void updateUI(User user);
+        void updateUI(User dummyData);
     }
 
     interface Presenter extends BasePresenterImpl {
