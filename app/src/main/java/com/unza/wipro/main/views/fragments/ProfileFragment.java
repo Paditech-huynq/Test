@@ -86,6 +86,7 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
                 updateUIForEmployee(user);
             default:
                 tvNumberPoint.setText(user.getNumberPoint());
+                break;
         }
         tvNumberSales.setText(String.valueOf(user.getNumberSales()));
         tvName.setText(user.getName());
