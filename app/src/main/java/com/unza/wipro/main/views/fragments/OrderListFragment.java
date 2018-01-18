@@ -23,9 +23,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> implements OrderListContract.ViewImpl {
-
-    private OrderListAdapter mAdapter = new OrderListAdapter();
-
     @BindView(R.id.rcvOrder)
     RecyclerView rcvOrder;
     @BindView(R.id.bt_filter)
@@ -46,6 +43,8 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     Button btThisWeek;
     @BindView(R.id.bt_thismonth)
     Button btThisMonth;
+
+    private OrderListAdapter mAdapter = new OrderListAdapter();
 
     public static OrderListFragment newInstance() {
 
