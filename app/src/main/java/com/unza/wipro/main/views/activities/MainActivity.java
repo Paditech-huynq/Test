@@ -9,6 +9,7 @@ import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.MainContract;
 import com.unza.wipro.main.presenters.MainPresenter;
 import com.unza.wipro.main.views.fragments.HomeFragment;
+import com.unza.wipro.main.views.fragments.NotificationFragment;
 import com.unza.wipro.main.views.fragments.OrderDetailFragment;
 import com.unza.wipro.main.views.fragments.ProfileFragment;
 
@@ -58,6 +59,7 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
                 switchFragment(OrderDetailFragment.newInstance(), true);
                 break;
             case R.id.btnNotification:
+                switchFragment(NotificationFragment.newInstance(), true);
                 break;
             case R.id.imvAvatar:
                 Intent intent = new Intent(this, LoginActivity.class);

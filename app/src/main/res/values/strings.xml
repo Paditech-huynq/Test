@@ -76,6 +76,7 @@
     <string name="find">Tìm kiếm</string>
 
     <!-- product detail -->
+    <string name="product_detail_title">Chi tiết sản phẩm</string>
     <string name="product_detail_code">Mã sản phẩm: %s</string>
     <string name="product_detail_price">%s vnđ</string>
 
@@ -99,6 +100,9 @@
     <string name="questions_profile_fragment">Câu hỏi thường gặp</string>
     <string name="term_use_profile_fragment">Điều khoản sử dụng</string>
     <string name="log_out_profile_fragment">Đăng xuất</string>
+
+    <!-- notification -->
+    <string name="notification_title">Thông báo</string>
 
     <!-- time -->
     <string name="just_now">Vừa xong</string>

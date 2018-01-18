@@ -1,6 +1,5 @@
 package com.unza.wipro.main.views.fragments;
 
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -16,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.flexbox.FlexboxLayout;
-import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.StringUtil;
 import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
@@ -31,13 +29,11 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static android.content.ContentValues.TAG;
-
 public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> implements ProductDetailContract.ViewImpl {
     @BindView(R.id.vpgProduct)
     ViewPager mViewPager;
-    @BindView(R.id.tvTitle)
-    TextView mTitleText;
+    @BindView(R.id.tv_product_name)
+    TextView mNameText;
     @BindView(R.id.tv_product_code)
     TextView mCodeText;
     @BindView(R.id.tv_product_price)
@@ -127,7 +123,7 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
     @Override
     public void showProductDetail(Product product) {
         if (product == null) return;
-        mTitleText.setText(product.getName());
+        mNameText.setText(product.getName());
         mCodeText.setText(getString(R.string.product_detail_code, product.getCode()));
         mPriceText.setText(getString(R.string.product_detail_price, StringUtil.formatMoney(product.getPrice())));
         mDescText.setText(product.getNote());

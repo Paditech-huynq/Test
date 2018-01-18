@@ -1,0 +1,91 @@
+package com.unza.wipro.main.views.fragments;
+
+import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
+import com.paditech.core.common.BaseRecycleViewAdapter;
+import com.paditech.core.mvp.MVPFragment;
+import com.unza.wipro.R;
+import com.unza.wipro.main.adapter.NotificationAdapter;
+import com.unza.wipro.main.contracts.NotificationContract;
+import com.unza.wipro.main.presenters.NotificationPresenter;
+
+import java.util.List;
+
+import butterknife.BindView;
+
+/**
+ * wipro-crm-android
+ * <p>
+ * Created by Paditech on 1/18/2018.
+ * Copyright (c) 2018 Paditech. All rights reserved.
+ */
+
+public class NotificationFragment extends MVPFragment<NotificationPresenter> implements NotificationContract.ViewImpl,
+        SwipeRefreshLayout.OnRefreshListener, BaseRecycleViewAdapter.LoadMoreListener {
+
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    @BindView(R.id.rv_notification)
+    RecyclerView mRecyclerView;
+
+    private NotificationAdapter mAdapter;
+
+    public static NotificationFragment newInstance() {
+        Bundle args = new Bundle();
+        NotificationFragment fragment = new NotificationFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_notification;
+    }
+
+    @Override
+    public String getScreenTitle() {
+        return null;
+    }
+
+    @Override
+    public void initView() {
+        super.initView();
+        if (mAdapter == null) {
+            mAdapter = new NotificationAdapter();
+        }
+
+        mAdapter.setOnLoadMoreListener(this);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setAdapter(mAdapter);
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
+                NotificationAdapter.NotificationHolder notificationHolder = (NotificationAdapter.NotificationHolder) holder;
+                notificationHolder.updateView();
+            }
+        });
+    }
+
+    @Override
+    public void onRefresh() {
+        getPresenter().loadData(true);
+    }
+
+    @Override
+    public void onLoadMore() {
+        getPresenter().loadData(false);
+    }
+
+    @Override
+    public void showData(List data) {
+        String count = String.format("(%d)", mAdapter.getItemCount());
+        setScreenTitle(getString(R.string.notification_title) + count);
+    }
+}
