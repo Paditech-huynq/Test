@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -116,6 +118,9 @@ public class DegreeView extends View {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         mBitmap = Bitmap.createBitmap(getMeasuredWidth(), getMeasuredHeight(), Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
+        mCanvas.drawColor(
+                Color.TRANSPARENT,
+                PorterDuff.Mode.CLEAR);
     }
 
     public void setValue(int background, int displayDegree, long value, long maxvalue) {

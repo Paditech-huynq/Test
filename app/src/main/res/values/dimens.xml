@@ -39,4 +39,7 @@
     <dimen name="header_fragment_order_height">40dip</dimen>
     <dimen name="filter_fragment_order_height">150dip</dimen>
     <dimen name="child_recycle_view_size">100dip</dimen>
+
+    <!--orderfragment-->
+    <dimen name="size_ic_find">18dip</dimen>
 </resources>

@@ -154,7 +154,7 @@
                     android:paddingTop="@dimen/padding_normal">
 
                     <TextView
-                        android:id="@+id/text_name_default"
+                        android:id="@+id/tv_name_default"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
@@ -163,11 +163,11 @@
                         android:textSize="@dimen/text_size_normal" />
 
                     <TextView
-                        android:id="@+id/text_name"
+                        android:id="@+id/tv_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@+id/text_name_default"
+                        android:layout_toEndOf="@+id/tv_name_default"
                         android:ellipsize="end"
                         android:gravity="end"
                         android:maxLines="1"
@@ -191,7 +191,7 @@
                     android:paddingTop="@dimen/padding_normal">
 
                     <TextView
-                        android:id="@+id/text_phone_default"
+                        android:id="@+id/tv_phone_default"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
@@ -200,11 +200,11 @@
                         android:textSize="@dimen/text_size_normal" />
 
                     <TextView
-                        android:id="@+id/text_phone"
+                        android:id="@+id/tv_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@+id/text_phone_default"
+                        android:layout_toEndOf="@+id/tv_phone_default"
                         android:ellipsize="end"
                         android:gravity="end"
                         android:maxLines="1"
@@ -228,7 +228,7 @@
                     android:paddingTop="@dimen/padding_normal">
 
                     <TextView
-                        android:id="@+id/text_email_default"
+                        android:id="@+id/tv_email_default"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
@@ -237,11 +237,11 @@
                         android:textSize="@dimen/text_size_normal" />
 
                     <TextView
-                        android:id="@+id/text_email"
+                        android:id="@+id/tv_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@+id/text_email_default"
+                        android:layout_toEndOf="@+id/tv_email_default"
                         android:ellipsize="end"
                         android:gravity="end"
                         android:maxLines="1"
@@ -265,7 +265,7 @@
                     android:paddingTop="@dimen/padding_normal">
 
                     <TextView
-                        android:id="@+id/text_address_default"
+                        android:id="@+id/tv_address_default"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
@@ -274,11 +274,11 @@
                         android:textSize="@dimen/text_size_normal" />
 
                     <TextView
-                        android:id="@+id/text_address"
+                        android:id="@+id/tv_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@+id/text_address_default"
+                        android:layout_toEndOf="@+id/tv_address_default"
                         android:ellipsize="end"
                         android:gravity="end"
                         android:maxLines="1"
@@ -314,15 +314,7 @@
                     android:layout_marginBottom="@dimen/padding_small">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/time_profile_fragment"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/text_time_profile"
+                        android:id="@+id/tv_time_profile"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:textColor="@color/text_dark"
@@ -337,15 +329,7 @@
                     android:layout_marginBottom="@dimen/padding_small">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/sales_have_profile_fragment"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/text_sales_have"
+                        android:id="@+id/tv_sales_have"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:textColor="@color/text_dark"
@@ -360,16 +344,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-
-                        android:text="@string/sales_want_profile_fragment"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/text_sales_want"
+                        android:id="@+id/tv_sales_want"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:textColor="@color/text_dark"
@@ -398,7 +373,7 @@
                          />
 
                     <TextView
-                        android:id="@+id/text_manager_default"
+                        android:id="@+id/tv_manager_default"
                         android:layout_toRightOf="@id/ic_some_people"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -427,12 +402,12 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:text="@string/sales_member_profile_fragment"
-                        android:id="@+id/text_sales_member"
+                        android:id="@+id/tv_sales_member"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
                     <TextView
-                        android:layout_toEndOf="@+id/text_sales_member"
+                        android:layout_toEndOf="@+id/tv_sales_member"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -565,7 +540,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:text="@string/questions_profile_fragment"
-                        android:id="@+id/text_questions_default"
+                        android:id="@+id/tv_questions_default"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -602,7 +577,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:text="@string/term_use_profile_fragment"
-                        android:id="@+id/text_term_use_default"
+                        android:id="@+id/tv_term_use_default"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
@@ -639,7 +614,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:text="@string/log_out_profile_fragment"
-                        android:id="@+id/text_log_out_default"
+                        android:id="@+id/tv_log_out_default"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_normal" />
 
