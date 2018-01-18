@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
@@ -25,24 +24,20 @@ import butterknife.OnClick;
 public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> implements OrderListContract.ViewImpl {
     @BindView(R.id.rcvOrder)
     RecyclerView rcvOrder;
-    @BindView(R.id.bt_filter)
-    ImageButton btFilter;
     @BindView(R.id.view_up_rcv)
     View viewUp;
     @BindView(R.id.filter)
     LinearLayout filter;
     @BindView(R.id.cardview_header)
     CardView cardViewHeader;
-    @BindView(R.id.bt_search)
-    CardView btSearch;
     @BindView(R.id.bt_all)
-    Button btAll;
+    Button btnAll;
     @BindView(R.id.bt_lastweek)
-    Button btLastWeek;
+    Button btnLastWeek;
     @BindView(R.id.bt_thisweek)
-    Button btThisWeek;
+    Button btnThisWeek;
     @BindView(R.id.bt_thismonth)
-    Button btThisMonth;
+    Button btnThisMonth;
 
     private OrderListAdapter mAdapter = new OrderListAdapter();
 
@@ -83,39 +78,39 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     public void dismissFilter() {
         viewUp.setVisibility(View.GONE);
         filter.setVisibility(View.GONE);
-        cardViewHeader.setElevation(getResources().getDimensionPixelSize(R.dimen.cardview_default_elevation));
+        cardViewHeader.setElevation(getResources().getDimensionPixelOffset(R.dimen.cardview_default_elevation));
     }
 
     @Override
     public void changeColorButtonAll() {
-        btAll.setSelected(true);
-        btThisWeek.setSelected(false);
-        btLastWeek.setSelected(false);
-        btThisMonth.setSelected(false);
+        btnAll.setSelected(true);
+        btnThisWeek.setSelected(false);
+        btnLastWeek.setSelected(false);
+        btnThisMonth.setSelected(false);
     }
 
     @Override
     public void changeColorButtonThisWeek() {
-        btAll.setSelected(false);
-        btThisWeek.setSelected(true);
-        btLastWeek.setSelected(false);
-        btThisMonth.setSelected(false);
+        btnAll.setSelected(false);
+        btnThisWeek.setSelected(true);
+        btnLastWeek.setSelected(false);
+        btnThisMonth.setSelected(false);
     }
 
     @Override
     public void changeColorButtonLastWeek() {
-        btAll.setSelected(false);
-        btThisWeek.setSelected(false);
-        btLastWeek.setSelected(true);
-        btThisMonth.setSelected(false);
+        btnAll.setSelected(false);
+        btnThisWeek.setSelected(false);
+        btnLastWeek.setSelected(true);
+        btnThisMonth.setSelected(false);
     }
 
     @Override
     public void changeColorButtonThisMonth() {
-        btAll.setSelected(false);
-        btThisWeek.setSelected(false);
-        btLastWeek.setSelected(false);
-        btThisMonth.setSelected(true);
+        btnAll.setSelected(false);
+        btnThisWeek.setSelected(false);
+        btnLastWeek.setSelected(false);
+        btnThisMonth.setSelected(true);
     }
 
     @OnClick(R.id.bt_filter)
