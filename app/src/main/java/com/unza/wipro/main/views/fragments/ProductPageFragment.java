@@ -7,11 +7,9 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.transition.TransitionInflater;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.paditech.core.BaseFragment;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
@@ -153,7 +151,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
     }
 
     @Override
-    public void getListProduct(List<Product> productList) {
+    public void notifyListProduct(List<Product> productList) {
         mAdapter.addProductList(productList);
     }
 

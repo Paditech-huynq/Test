@@ -1,6 +1,5 @@
 package com.unza.wipro.main.adapter;
 
-import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

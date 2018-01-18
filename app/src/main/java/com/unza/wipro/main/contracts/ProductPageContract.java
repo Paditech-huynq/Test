@@ -8,11 +8,12 @@ import java.util.List;
 
 public interface ProductPageContract {
     interface ViewImpl extends BaseViewImpl {
-        void getListProduct(List<Product> products);
+        void notifyListProduct(List<Product> products);
     }
 
     interface Presenter extends BasePresenterImpl {
-        void getListProductFromServer();
+        void loadFirstListProductFromServer();
+
         void loadMoreListProductFromServer();
     }
 }
