@@ -19,6 +19,7 @@ import static com.unza.wipro.AppConstans.PAGE_SIZE;
 
 public class ProductPagePresenter extends BasePresenter<ProductPageContract.ViewImpl> implements ProductPageContract.Presenter {
     private int page = 1;
+    private boolean isFull;
 
     @Override
     public void onCreate() {
@@ -47,7 +48,9 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
 
     @Override
     public void onLoadMore() {
-        getListProduct(true);
+        if (!isFull) {
+            getListProduct(true);
+        }
     }
 
     private void getListProduct(final boolean isLoadMore) {
@@ -60,28 +63,27 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
                         GetListProductRSP listProductRSP = response.body();
                         List<Product> productList = listProductRSP.getData();
                         getView().notifyListProduct(productList);
-                        if (!isLoadMore) {
-                            if (getView() == null) {
-                                return;
-                            }
-                            getView().showProgressDialog(false);
+                        if (getView() == null) {
+                            return;
                         }
-                        onLoadProductSuccess();
+                        getView().showProgressDialog(false);
+                        onLoadProductSuccess(productList);
                     }
 
                     @Override
                     public void onFailure(Call<GetListProductRSP> call, Throwable t) {
-                        if (!isLoadMore) {
-                            if (getView() == null) {
-                                getView().showProgressDialog(false);
-                            }
-                            Toast.makeText(getView().getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        if (getView() == null) {
+                            getView().showProgressDialog(false);
                         }
+                        Toast.makeText(getView().getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    private void onLoadProductSuccess() {
+    private void onLoadProductSuccess(List<Product> productList) {
         page += 1;
+        if (productList.size() < 10) {
+            isFull = true;
+        }
     }
 }
