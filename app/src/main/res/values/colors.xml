@@ -11,4 +11,5 @@
     <color name="green">#28B56E</color>
     <color name="main_bg">#EDEDED</color>
     <color name="white">#ffffff</color>
+    <color name="bg_big_image">#c4ffffff</color>
 </resources>

@@ -17,4 +17,9 @@ public class DateTimeUntils {
     public static String getStringTimeAll(Date date){
         return new SimpleDateFormat("yyyy-MM-dd kk:mm").format(date);
     }
+
+    @SuppressLint("SimpleDateFormat")
+    public static String getStringDayMonthYear(Date date){
+        return new SimpleDateFormat("dd/MM/YYYY").format(date);
+    }
 }
