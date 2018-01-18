@@ -60,14 +60,21 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
                         GetListProductRSP listProductRSP = response.body();
                         List<Product> productList = listProductRSP.getData();
                         getView().notifyListProduct(productList);
-                        if (!isLoadMore) getView().showProgressDialog(false);
+                        if (!isLoadMore) {
+                            if (getView() == null) {
+                                return;
+                            }
+                            getView().showProgressDialog(false);
+                        }
                         onLoadProductSuccess();
                     }
 
                     @Override
                     public void onFailure(Call<GetListProductRSP> call, Throwable t) {
                         if (!isLoadMore) {
-                            getView().showProgressDialog(false);
+                            if (getView() == null) {
+                                getView().showProgressDialog(false);
+                            }
                             Toast.makeText(getView().getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
