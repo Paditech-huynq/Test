@@ -14,6 +14,12 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.unza.wipro.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class Utils {
     public static void checkCameraPermission(Activity activity) {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -65,4 +71,44 @@ public class Utils {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
     }
+
+    public static String getTimeCreated(Context context, long created) {
+        final long seconds = 1000;
+        long diff = Math.abs(System.currentTimeMillis() - created * 1000L);
+
+        if (diff < seconds * 3) {
+            return context.getString(R.string.just_now);
+        } else if (diff < seconds * 60) {
+            int d = (int) (diff / seconds);
+            return String.format(context.getString(R.string.some_seconds_ago), String.valueOf(d));
+        } else if (diff < seconds * 60 * 2) {
+            return context.getString(R.string.one_minute_ago);
+        } else if (diff < seconds * 60 * 60) {
+            int d = (int) (diff / (seconds * 60));
+            return String.format(context.getString(R.string.some_minute_ago), String.valueOf(d));
+        } else if (diff < seconds * 60 * 60 * 2) {
+            return context.getString(R.string.one_hour_ago);
+        } else if (diff < seconds * 60 * 60 * 12) {
+            int d = (int) (diff / (seconds * 60 * 60));
+            return String.format(context.getString(R.string.some_hour_ago), String.valueOf(d));
+        } else if (diff > seconds * 60 * 60 * 24 * 365) {
+            Date date = new Date(created * 1000L);
+            SimpleDateFormat format = new SimpleDateFormat("dd MMM, yy");
+            return format.format(date);
+        }
+        Date date = new Date(created * 1000L);
+        Date curr = new Date(System.currentTimeMillis());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        Calendar now = Calendar.getInstance();
+        calendar.setTime(curr);
+        if (now.get(Calendar.YEAR) > calendar.get(Calendar.YEAR)) {
+            SimpleDateFormat format = new SimpleDateFormat("dd MMM, yy");
+            return format.format(date);
+        } else {
+            SimpleDateFormat format = new SimpleDateFormat("dd MMM");
+            return format.format(date);
+        }
+    }
+
 }

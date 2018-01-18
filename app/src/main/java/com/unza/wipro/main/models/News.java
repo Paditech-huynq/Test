@@ -2,6 +2,8 @@ package com.unza.wipro.main.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * wipro-crm-android
  * <p>
@@ -19,9 +21,9 @@ public class News {
     @SerializedName("content")
     String content;
     @SerializedName("thumbnail")
-    String thunbnail;
+    Thumbnail thumbnail;
     @SerializedName("created_at")
-    String createdAt;
+    long createdAt;
 
     public int getId() {
         return id;
@@ -55,19 +57,19 @@ public class News {
         this.content = content;
     }
 
-    public String getThunbnail() {
-        return thunbnail;
+    public Thumbnail getThumbnail() {
+        return thumbnail;
     }
 
-    public void setThunbnail(String thunbnail) {
-        this.thunbnail = thunbnail;
+    public void setThumbnail(Thumbnail thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
-    public String getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 }

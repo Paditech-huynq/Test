@@ -77,4 +77,12 @@
 
     <!-- currency unit -->
     <string name="currency_unit">VNĐ</string>
+  
+    <!-- time -->
+    <string name="just_now">Vừa xong</string>
+    <string name="some_seconds_ago">%s giây trước</string>
+    <string name="one_minute_ago">1 phút trước</string>
+    <string name="some_minute_ago">%s phút trước</string>
+    <string name="one_hour_ago">1 giờ trước</string>
+    <string name="some_hour_ago">%s giờ trước</string>
 </resources>
