@@ -5,12 +5,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
 import com.paditech.core.BaseFragment;
-import com.paditech.core.common.BaseConstant;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.NewsFragmentPagerAdapter;
-import com.unza.wipro.main.models.responses.GetNewsCategoriesRSP;
-import com.unza.wipro.main.models.responses.GetNewsRSP;
 import com.unza.wipro.services.AppClient;
+import com.unza.wipro.main.models.responses.GetNewsCategoriesRSP;
 
 import butterknife.BindView;
 import retrofit2.Call;
