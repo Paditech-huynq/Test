@@ -84,7 +84,7 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
                 tvPoint.setText(getText(R.string.custom_profile_fragment));
                 lnDegree.setVisibility(View.VISIBLE);
                 updateUIForEmployee(user);
-            case TYPE_USER_CUSTOM:
+            default:
                 tvNumberPoint.setText(user.getNumberPoint());
         }
         tvNumberSales.setText(String.valueOf(user.getNumberSales()));
