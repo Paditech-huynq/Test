@@ -12,6 +12,7 @@ import com.paditech.core.image.GlideApp;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.News;
+import com.unza.wipro.main.models.Thumbnail;
 import com.unza.wipro.main.views.customs.DynamicHeightImageView;
 import com.unza.wipro.main.views.customs.PlaceHolderDrawableHelper;
 import com.unza.wipro.utils.Utils;
@@ -73,20 +74,33 @@ public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConsta
             if (newsItem != null) {
                 ViewHelper.setText(tvDescription, newsItem.getSummary(), null);
                 tvDate.setText(Utils.getTimeCreated(itemView.getContext(), newsItem.getCreatedAt()));
-                updateImageSize(position);
-                if (newsItem.getThumbnail() !=null) {
-                    GlideApp.with(itemView.getContext()).load(newsItem.getThumbnail().getLink())
-                            .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
-                            .into(imvNews);
+                updateImageSize(null);
+                String url = "";
+                if (newsItem.getThumbnail().getLink() != null) {
+                    url = newsItem.getThumbnail().getLink();
                 }
+                GlideApp.with(itemView.getContext()).load(url)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
+                        .error(R.drawable.bg_place_holder)
+                        .into(imvNews);
             }
         }
 
-        private void updateImageSize(int pos) {
+        private void updateImageSize(Thumbnail thumbnail) {
+            float thumbnaiRatio = 4f / 3;
             ViewGroup.LayoutParams rlp = imvNews.getLayoutParams();
-            rlp.height = (int) (rlp.width * ratios[pos]);
+            try {
+                if (thumbnail != null && thumbnail.getHeight() != null && thumbnail.getWidth() != null) {
+                    float thumbnailHeight = Float.parseFloat(thumbnail.getHeight());
+                    float thumbnailWidth = Float.parseFloat(thumbnail.getWidth());
+                    thumbnaiRatio = thumbnailHeight / thumbnailWidth;
+                }
+            } catch (NumberFormatException ex) {
+                ex.printStackTrace();
+            }
+            rlp.height = (int) (rlp.width * thumbnaiRatio);
             imvNews.setLayoutParams(rlp);
-            imvNews.setRatio(ratios[pos]);
+            imvNews.setRatio(thumbnaiRatio);
         }
     }
 
