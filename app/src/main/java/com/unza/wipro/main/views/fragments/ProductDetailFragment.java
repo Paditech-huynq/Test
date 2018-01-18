@@ -1,7 +1,9 @@
 package com.unza.wipro.main.views.fragments;
 
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.transition.Transition;
@@ -29,6 +31,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+import static android.content.ContentValues.TAG;
+
 public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> implements ProductDetailContract.ViewImpl {
     @BindView(R.id.vpgProduct)
     ViewPager mViewPager;
@@ -44,6 +48,8 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
     FlexboxLayout mCategoryLayout;
     @BindView(R.id.layout_shop)
     LinearLayout mShopLayout;
+    @BindView(R.id.layout_header)
+    CollapsingToolbarLayout mHeader;
 
     private ProductImageAdapter mImageAdapter;
     private Product mProduct;
@@ -80,11 +86,17 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
     public void initView() {
         super.initView();
         setupViewPager();
+        setupHeader();
     }
 
     private void setupViewPager() {
         mImageAdapter = new ProductImageAdapter(getActivity());
         mViewPager.setAdapter(mImageAdapter);
+    }
+
+    private void setupHeader() {
+        mHeader.setContentScrimColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
+        mHeader.setStatusBarScrimColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
     }
 
     @Override

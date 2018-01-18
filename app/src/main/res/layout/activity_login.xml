@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/layout_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
 
     <ImageView
         android:layout_width="match_parent"
@@ -20,7 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_margin="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_big"
+        android:layout_marginRight="@dimen/margin_normal"
         android:background="@drawable/ic_close"
         android:padding="@dimen/padding_big"/>
 
@@ -86,7 +85,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/margin_normal"
             android:background="@drawable/bg_primary_button"
-            android:textStyle="bold"
             android:gravity="center"
             android:paddingBottom="@dimen/padding_normal"
             android:paddingLeft="@dimen/padding_big"
@@ -95,7 +93,8 @@
             android:text="@string/login_button"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_normal"/>
+            android:textSize="@dimen/text_size_normal"
+            android:textStyle="bold"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -107,10 +106,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/view_center"
-                android:textStyle="bold"
                 android:text="@string/login_forgot_pass"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_normal"/>
+                android:textSize="@dimen/text_size_normal"
+                android:textStyle="bold"/>
 
             <View
                 android:id="@+id/view_center"
@@ -123,10 +122,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/view_center"
-                android:textStyle="bold"
                 android:text="@string/login_call_center"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_normal"/>
+                android:textSize="@dimen/text_size_normal"
+                android:textStyle="bold"/>
         </RelativeLayout>
 
         <TextView
@@ -135,10 +134,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
-            android:textStyle="bold"
             android:text="@string/login_term"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_normal"/>
+            android:textSize="@dimen/text_size_normal"
+            android:textStyle="bold"/>
 
         <View
             android:layout_width="@dimen/login_divider_width"
