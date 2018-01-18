@@ -13,7 +13,6 @@ import android.view.View;
 import com.unza.wipro.R;
 
 public class DegreeView extends View {
-
     private Paint mPaintDrawBackground;
     private Paint mPaintDrawDegree;
     private int background;
@@ -134,7 +133,7 @@ public class DegreeView extends View {
     public void reset() {
         setBackground1(R.color.white);
         setDisplayDegree(R.color.colorPrimaryDark);
-        setValue(30);
+        setValue(0);
         setMaxvalue(100);
         mPaintDrawBackground = new Paint();
         mPaintDrawDegree = new Paint();
