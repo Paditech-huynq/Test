@@ -11,15 +11,20 @@ import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.image.GlideApp;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
+import com.unza.wipro.main.models.News;
 import com.unza.wipro.main.views.customs.DynamicHeightImageView;
 import com.unza.wipro.main.views.customs.PlaceHolderDrawableHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
 public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConstans {
+    List<News> newsList = new ArrayList();
     @Override
-    public String getItem(int position) {
-        return imagesDummy[position];
+    public News getItem(int position) {
+        return newsList.get(position);
     }
 
     @Override
@@ -29,7 +34,7 @@ public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConsta
 
     @Override
     public int getItemCount() {
-        return imagesDummy.length;
+        return newsList == null ? 0 : newsList.size();
     }
 
     class NewsHolder extends BaseViewHolder {
@@ -50,14 +55,13 @@ public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConsta
 
         @Override
         protected void onBindingData(final int position) {
-            final String url = getItem(position);
-            ViewHelper.setText(tvDescription, position + " - " + url, null);
+            final News url = getItem(position);
+            ViewHelper.setText(tvDescription, url.getSummary(), null);
             tvDate.setText("4 giờ trước");
             updateImageSize(position);
-
-            GlideApp.with(itemView.getContext()).load(url)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
-                    .into(imvNews);
+//            GlideApp.with(itemView.getContext()).load(url)
+//                    .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
+//                    .into(imvNews);
         }
 
         private void updateImageSize(int pos) {
@@ -66,5 +70,19 @@ public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConsta
             imvNews.setLayoutParams(rlp);
             imvNews.setRatio(ratios[pos]);
         }
+    }
+
+    public void setNewsList(List<News> list) {
+        newsList = list;
+        notifyDataSetChanged();
+    }
+
+    public void addNewsList(List<News> list) {
+        newsList.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public List<News> getNewsList() {
+        return newsList;
     }
 }
