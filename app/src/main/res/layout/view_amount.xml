@@ -26,7 +26,6 @@
         android:maxWidth="45dp"
         android:minWidth="45dip"
         android:padding="@dimen/padding_small"
-        android:text="9999"
         android:textColor="@color/text_dark"
         android:textSize="@dimen/text_size_normal" />
 

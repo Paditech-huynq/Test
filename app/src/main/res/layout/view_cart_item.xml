@@ -52,7 +52,7 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/tvName"
                 android:layout_marginBottom="@dimen/padding_tiny"
-                android:layout_toLeftOf="@id/layoutAmount"
+                android:layout_toLeftOf="@id/av_amount"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
