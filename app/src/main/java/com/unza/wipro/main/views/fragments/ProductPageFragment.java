@@ -9,7 +9,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
+import com.paditech.core.DisableTouchView;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
@@ -30,6 +32,10 @@ import butterknife.BindView;
 public class ProductPageFragment extends MVPFragment<ProductPagePresenter> implements ProductPageContract.ViewImpl {
     @BindView(R.id.rcvProduct)
     RecyclerView mRecyclerView;
+    @BindView(R.id.layoutLoading)
+    ProgressBar layoutLoading;
+    @BindView(R.id.disableTouchView)
+    DisableTouchView disableTouchView;
 
     ProductListAdapter mAdapter;
     private int categoryId;
@@ -157,6 +163,12 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
 
     public int getCategoryId() {
         return categoryId;
+    }
+
+    @Override
+    public void showProgressDialog(boolean isShown) {
+        layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
+        disableTouchView.setVisibility(isShown ? View.VISIBLE : View.GONE);
     }
 }
 
