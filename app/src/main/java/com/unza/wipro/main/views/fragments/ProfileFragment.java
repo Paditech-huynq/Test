@@ -1,6 +1,7 @@
 package com.unza.wipro.main.views.fragments;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,19 +36,19 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     ImageView imgAvar;
     @BindView(R.id.img_avar_under)
     ImageView imgAvarUnder;
-    @BindView(R.id.text_name)
+    @BindView(R.id.tv_name)
     TextView tvName;
-    @BindView(R.id.text_phone)
+    @BindView(R.id.tv_phone)
     TextView tvPhone;
-    @BindView(R.id.text_email)
+    @BindView(R.id.tv_email)
     TextView tvEmail;
-    @BindView(R.id.text_address)
+    @BindView(R.id.tv_address)
     TextView tvAddress;
-    @BindView(R.id.text_time_profile)
+    @BindView(R.id.tv_time_profile)
     TextView tvTime;
-    @BindView(R.id.text_sales_want)
+    @BindView(R.id.tv_sales_want)
     TextView tvSalesWant;
-    @BindView(R.id.text_sales_have)
+    @BindView(R.id.tv_sales_have)
     TextView tvSalesHave;
     @BindView(R.id.degree_sale)
     DegreeView degreeSale;
@@ -97,10 +98,10 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     }
 
     private void updateUIForEmployee(User user) {
-        tvTime.setText(String.format("  %s - %s", DateTimeUtils.getStringDayMonthYear(user.getDateStart()),
-                DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime())));
-        tvSalesHave.setText(String.format("  %s  VNĐ",user.getSaleHave()));
-        tvSalesWant.setText(String.format("  %s  VNĐ",user.getSaleWant()));
+        tvTime.setText(Html.fromHtml(getResources().getString(R.string.time_profile_fragment,DateTimeUtils.getStringDayMonthYear(user.getDateStart()),
+                DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()))));
+        tvSalesHave.setText(Html.fromHtml(getResources().getString(R.string.sales_have_profile_fragment,String.valueOf(user.getSaleHave()))));
+        tvSalesWant.setText(Html.fromHtml(getResources().getString(R.string.sales_want_profile_fragment,String.valueOf(user.getSaleWant()))));
         degreeSale.setValue(R.color.white, R.color.colorPrimaryDark, user.getSaleHave(), user.getSaleWant());
     }
 }
