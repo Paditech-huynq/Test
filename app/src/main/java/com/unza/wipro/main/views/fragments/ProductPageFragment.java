@@ -38,7 +38,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
     DisableTouchView disableTouchView;
 
     ProductListAdapter mAdapter;
-    private int categoryId;
+    private String categoryId;
 
     public static ProductPageFragment newInstance() {
 
@@ -49,7 +49,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
         return fragment;
     }
 
-    public static ProductPageFragment newInstance(int categoryId) {
+    public static ProductPageFragment newInstance(String categoryId) {
         ProductPageFragment fragment = ProductPageFragment.newInstance();
         fragment.categoryId = categoryId;
         return fragment;
@@ -161,7 +161,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
         mAdapter.addProductList(productList);
     }
 
-    public int getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
