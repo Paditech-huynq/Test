@@ -2,8 +2,6 @@ package com.unza.wipro.main.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 /**
  * wipro-crm-android
  * <p>

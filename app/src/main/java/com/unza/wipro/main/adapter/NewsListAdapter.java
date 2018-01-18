@@ -11,15 +11,21 @@ import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.image.GlideApp;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
+import com.unza.wipro.main.models.News;
 import com.unza.wipro.main.views.customs.DynamicHeightImageView;
 import com.unza.wipro.main.views.customs.PlaceHolderDrawableHelper;
+import com.unza.wipro.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
 public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConstans {
+    private List<News> newsList = new ArrayList();
     @Override
-    public String getItem(int position) {
-        return imagesDummy[position];
+    public News getItem(int position) {
+        return newsList.get(position);
     }
 
     @Override
@@ -29,7 +35,20 @@ public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConsta
 
     @Override
     public int getItemCount() {
-        return imagesDummy.length;
+        return newsList == null ? 0 : newsList.size();
+    }
+
+    public void insertData(List<News> data) {
+        if (data == null) {
+            return;
+        }
+        newsList.addAll(data);
+        notifyDataSetChanged();
+    }
+
+    public void replaceData(List<News> news) {
+        newsList.clear();
+        insertData(news);
     }
 
     class NewsHolder extends BaseViewHolder {
@@ -50,14 +69,17 @@ public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConsta
 
         @Override
         protected void onBindingData(final int position) {
-            final String url = getItem(position);
-            ViewHelper.setText(tvDescription, position + " - " + url, null);
-            tvDate.setText("4 giờ trước");
-            updateImageSize(position);
-
-            GlideApp.with(itemView.getContext()).load(url)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
-                    .into(imvNews);
+            final News newsItem = getItem(position);
+            if (newsItem != null) {
+                ViewHelper.setText(tvDescription, newsItem.getSummary(), null);
+                tvDate.setText(Utils.getTimeCreated(itemView.getContext(), newsItem.getCreatedAt()));
+                updateImageSize(position);
+                if (newsItem.getThumbnail() !=null) {
+                    GlideApp.with(itemView.getContext()).load(newsItem.getThumbnail().getLink())
+                            .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
+                            .into(imvNews);
+                }
+            }
         }
 
         private void updateImageSize(int pos) {
@@ -66,5 +88,19 @@ public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConsta
             imvNews.setLayoutParams(rlp);
             imvNews.setRatio(ratios[pos]);
         }
+    }
+
+    public void setNewsList(List<News> list) {
+        newsList = list;
+        notifyDataSetChanged();
+    }
+
+    public void addNewsList(List<News> list) {
+        newsList.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public List<News> getNewsList() {
+        return newsList;
     }
 }

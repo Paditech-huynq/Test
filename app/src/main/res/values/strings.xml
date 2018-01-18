@@ -44,8 +44,8 @@
     <string name="message_pass_confirm_invalid">Xác nhận mật khẩu sai!</string>
     <string name="message_change_pass_failure">Đổi mật khẩu không thành công! Xin hãy thử lại!</string>
     <string name="action_change">Thay đổi</string>
-    <string name="att_address_with_input"><b>Đ/c: </b> Siêu Thị Minh Hoa 250 Cầu Giấy Hà Nội</string>
-    <string name="action_seller"><b>Người bán:</b> Phương Ly</string>
+    <string name="att_address_with_input">&lt;b>Đ/c: &lt;/b> Siêu Thị Minh Hoa 250 Cầu Giấy Hà Nội</string>
+    <string name="action_seller">&lt;b>Người bán:&lt;/b> Phương Ly</string>
     <string name="action_create_new_customer">Tạo khách hàng mới</string>
     <string name="title_profile_select">Chọn khách hàng</string>
     <string name="att_profile_register_full_name_required">Họ và tên (*)</string>
@@ -79,6 +79,27 @@
     <string name="product_detail_code">Mã sản phẩm: %s</string>
     <string name="product_detail_price">%s vnđ</string>
 
+    <!--profile fragment-->
+    <string name="title_fragment_profile">Thông tin người dùng</string>
+    <string name="order_profile_fragment">Đơn hàng</string>
+    <string name="point_profile_fragment">Điểm tích lũy</string>
+    <string name="custom_profile_fragment">Khách hàng</string>
+    <string name="name_profile_fragment">Họ tên</string>
+    <string name="phone_profile_fragment">Điện thoại</string>
+    <string name="mail_profile_fragment">Email</string>
+    <string name="address_profile_fragment">Địa chỉ</string>
+    <string name="setting_profile_fragment">Cài đặt</string>
+    <string name="time_profile_fragment">&lt;b>Thời gian&lt;/b>: %s - %s</string>
+    <string name="sales_want_profile_fragment">&lt;b>Doanh số yêu cầu&lt;/b>: %1$s</string>
+    <string name="sales_have_profile_fragment">&lt;b>Doanh số đã đạt&lt;/b>: %1$s</string>
+    <string name="manager_team_profile_fragment">Quản lý nhóm bán hàng</string>
+    <string name="sales_member_profile_fragment">Doanh số thành viên trong nhóm</string>
+    <string name="watch_order_list_profile_fragment">Xem danh sách đơn hàng</string>
+    <string name="change_pass_profile_fragment">Đổi mật khẩu</string>
+    <string name="questions_profile_fragment">Câu hỏi thường gặp</string>
+    <string name="term_use_profile_fragment">Điều khoản sử dụng</string>
+    <string name="log_out_profile_fragment">Đăng xuất</string>
+
     <!-- time -->
     <string name="just_now">Vừa xong</string>
     <string name="some_seconds_ago">%s giây trước</string>
@@ -86,4 +107,5 @@
     <string name="some_minute_ago">%s phút trước</string>
     <string name="one_hour_ago">1 giờ trước</string>
     <string name="some_hour_ago">%s giờ trước</string>
+
 </resources>

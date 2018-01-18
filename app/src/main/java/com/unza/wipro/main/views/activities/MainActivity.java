@@ -10,6 +10,7 @@ import com.unza.wipro.main.contracts.MainContract;
 import com.unza.wipro.main.presenters.MainPresenter;
 import com.unza.wipro.main.views.fragments.HomeFragment;
 import com.unza.wipro.main.views.fragments.OrderDetailFragment;
+import com.unza.wipro.main.views.fragments.ProfileFragment;
 
 import butterknife.BindView;
 

@@ -49,7 +49,6 @@ public class NewsDetailFragment extends BaseFragment implements SwipeRefreshLayo
     public static NewsDetailFragment newInstance(News news) {
         Bundle args = new Bundle();
         NewsDetailFragment fragment = new NewsDetailFragment();
-        news.setId(1);
         fragment.mNews = news;
         fragment.setArguments(args);
         return fragment;
