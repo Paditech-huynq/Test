@@ -15,8 +15,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.unza.wipro.AppConstans.PAGE_SIZE;
+
 public class ProductPagePresenter extends BasePresenter<ProductPageContract.ViewImpl> implements ProductPageContract.Presenter {
-    private static final int PAGE_SIZE = 10;
     private int page = 1;
 
     @Override
