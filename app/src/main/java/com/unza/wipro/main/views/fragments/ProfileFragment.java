@@ -78,21 +78,14 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     @Override
     public void updateUI(User user) {
         switch (user.getTypeUse()) {
+            case TYPE_USER_MANAGER:
+                lnManagerSales.setVisibility(View.VISIBLE);
+            case TYPE_USER_EMPLOYEE:
+                tvPoint.setText(getText(R.string.custom_profile_fragment));
+                lnDegree.setVisibility(View.VISIBLE);
+                updateUIForEmployee(user);
             case TYPE_USER_CUSTOM:
                 tvNumberPoint.setText(user.getNumberPoint());
-                break;
-            case TYPE_USER_EMPLOYEE:
-                lnDegree.setVisibility(View.VISIBLE);
-                tvNumberPoint.setText(user.getNumberPoint());
-                updateUIForEmployee(user);
-                break;
-            case TYPE_USER_MANAGER:
-                lnDegree.setVisibility(View.VISIBLE);
-                tvPoint.setText(getText(R.string.custom_profile_fragment));
-                tvNumberPoint.setText(String.valueOf(((User) user).getNumberCustom()));
-                lnManagerSales.setVisibility(View.VISIBLE);
-                updateUIForEmployee(user);
-                break;
         }
         tvNumberSales.setText(String.valueOf(user.getNumberSales()));
         tvName.setText(user.getName());
