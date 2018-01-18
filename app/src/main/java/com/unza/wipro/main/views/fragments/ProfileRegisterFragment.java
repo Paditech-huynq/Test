@@ -1,6 +1,7 @@
 package com.unza.wipro.main.views.fragments;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -123,6 +124,9 @@ public class ProfileRegisterFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
         if (requestCode == REQUEST_PHOTO_CAMERA) {
             galleryAddPic();
             ImageHelper.loadThumbCircleImage(this.getContext(), mCurrentPhotoPath, imgAvatar);
