@@ -2,7 +2,7 @@ package com.unza.wipro;
 
 public interface AppConstans {
 
-    public static final int PAGE_SiZE = 10;
+    public static final int PAGE_SIZE = 10;
 
     String[] imagesDummy = new String[]
             {
