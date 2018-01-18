@@ -14,7 +14,7 @@ public class UserManager extends UserEmployee {
     private int numberCustom;
     private List<UserEmployee> members = new ArrayList<>();
 
-    UserManager getDummyData(){
+    static UserManager getDummyData(){
         UserManager userManager = new UserManager();
         userManager.setTypeUse(TYPE_USER_MANAGER);
         userManager.setName("Nguyễn văn a");
