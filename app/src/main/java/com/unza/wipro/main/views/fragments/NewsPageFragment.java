@@ -25,7 +25,6 @@ public class NewsPageFragment extends MVPFragment<NewsPagePresenter> implements 
     RecyclerView mRecyclerView;
     private NewsListAdapter mAdapter;
     private NewsCategory mCategory;
-    private int mPage = 1;
 
     public static NewsPageFragment newInstance(NewsCategory newsCategory) {
         Bundle args = new Bundle();
@@ -50,7 +49,6 @@ public class NewsPageFragment extends MVPFragment<NewsPagePresenter> implements 
     public void initView() {
         super.initView();
         setupRecycleView();
-        getPresenter().loadData("", mCategory.getId(), mPage, PAGE_SIZE);
     }
 
     private void setupRecycleView() {
@@ -71,7 +69,6 @@ public class NewsPageFragment extends MVPFragment<NewsPagePresenter> implements 
         });
     }
 
-
     @Override
     protected boolean isKeepFragment() {
         return true;
@@ -79,20 +76,21 @@ public class NewsPageFragment extends MVPFragment<NewsPagePresenter> implements 
 
     @Override
     public void onLoadMore() {
-        getPresenter().loadData("", mCategory.getId(), mPage, PAGE_SIZE);
+        getPresenter().onLoadMore();
     }
 
+    @Override
+    public void updateItemToList(List<News> data) {
+        mAdapter.insertData(data);
+    }
 
     @Override
-    public void onGetData(List<News> data, boolean isLoadmode) {
-        if (isLoadmode) {
-            if (data.size() != 0) {
-                mAdapter.addNewsList(data);
-                mPage++;
-            }
-        } else {
-            mAdapter.setNewsList(data);
-            mPage++;
-        }
+    public NewsCategory getCategory() {
+        return mCategory;
+    }
+
+    @Override
+    public void refreshList(List<News> news) {
+        mAdapter.replaceData(news);
     }
 }
