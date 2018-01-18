@@ -14,6 +14,7 @@ import com.unza.wipro.R;
 import com.unza.wipro.main.models.News;
 import com.unza.wipro.main.views.customs.DynamicHeightImageView;
 import com.unza.wipro.main.views.customs.PlaceHolderDrawableHelper;
+import com.unza.wipro.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,13 +56,17 @@ public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConsta
 
         @Override
         protected void onBindingData(final int position) {
-            final News url = getItem(position);
-            ViewHelper.setText(tvDescription, url.getSummary(), null);
-            tvDate.setText("4 giờ trước");
-            updateImageSize(position);
-//            GlideApp.with(itemView.getContext()).load(url)
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
-//                    .into(imvNews);
+            final News newsItem = getItem(position);
+            if (newsItem != null) {
+                ViewHelper.setText(tvDescription, newsItem.getSummary(), null);
+                tvDate.setText(Utils.getTimeCreated(itemView.getContext(), newsItem.getCreatedAt()));
+                updateImageSize(position);
+                if (newsItem.getThumbnail() !=null) {
+                    GlideApp.with(itemView.getContext()).load(newsItem.getThumbnail().getLink())
+                            .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
+                            .into(imvNews);
+                }
+            }
         }
 
         private void updateImageSize(int pos) {

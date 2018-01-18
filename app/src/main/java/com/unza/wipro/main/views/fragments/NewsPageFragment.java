@@ -64,7 +64,7 @@ public class NewsPageFragment extends MVPFragment<NewsPagePresenter> implements 
         mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
-                switchFragment(NewsDetailFragment.newInstance(new News()), true);
+                switchFragment(NewsDetailFragment.newInstance(mAdapter.getItem(position)), true);
             }
         });
     }
@@ -77,7 +77,6 @@ public class NewsPageFragment extends MVPFragment<NewsPagePresenter> implements 
 
     @Override
     public void onLoadMore() {
-        mPage++;
         getPresenter().loadData("", mCategory.getId(), mPage, 10);
     }
 
@@ -87,9 +86,11 @@ public class NewsPageFragment extends MVPFragment<NewsPagePresenter> implements 
         if (isLoadmode) {
             if (data.size() != 0) {
                 mAdapter.addNewsList(data);
+                mPage++;
             }
         } else {
             mAdapter.setNewsList(data);
+            mPage++;
         }
     }
 }
