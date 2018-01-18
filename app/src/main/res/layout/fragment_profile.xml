@@ -6,6 +6,8 @@
     android:background="@color/gray">
 
     <include
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:id="@+id/view_header_profile"
         layout="@layout/view_header_profile" />
 
