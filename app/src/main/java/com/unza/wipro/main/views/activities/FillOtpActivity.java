@@ -1,11 +1,14 @@
 package com.unza.wipro.main.views.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.paditech.core.helper.StringUtil;
@@ -56,7 +59,6 @@ public class FillOtpActivity extends MVPActivity<OtpPresenter> implements OtpCon
     public void initView() {
         super.initView();
         Utils.dismissSoftKeyboard(findViewById(R.id.layout_main), this);
-        Utils.setStatusBarTranslucent(true, this);
 
         mCode1Text.setSelectAllOnFocus(true);
         mCode2Text.setSelectAllOnFocus(true);
@@ -76,6 +78,24 @@ public class FillOtpActivity extends MVPActivity<OtpPresenter> implements OtpCon
         mCode4Text.setOnKeyListener(new OnDelEditor(mCode3Text));
         mCode5Text.setOnKeyListener(new OnDelEditor(mCode4Text));
         mCode6Text.setOnKeyListener(new OnDelEditor(mCode5Text));
+    }
+
+    @Override
+    public void onViewAppear() {
+        super.onViewAppear();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window w = getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+    }
+
+    @Override
+    public void onViewDisappear() {
+        super.onViewDisappear();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window w = getWindow();
+            w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
     }
 
     @Override

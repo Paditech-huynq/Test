@@ -3,7 +3,9 @@
                 android:id="@+id/layout_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fitsSystemWindows="true">
+                android:focusable="true"
+                android:background="@drawable/bg_login"
+                android:focusableInTouchMode="true">
 
     <ImageView
         android:layout_width="match_parent"
@@ -17,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_margin="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_big"
+        android:layout_marginRight="@dimen/margin_normal"
         android:background="@drawable/ic_close"
         android:padding="@dimen/padding_big"/>
 
@@ -45,14 +48,14 @@
                 android:layout_marginRight="@dimen/margin_small"
                 android:layout_weight="1"
                 android:background="@drawable/bg_bottom_border"
-                android:textStyle="bold"
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:maxLength="1"
                 android:padding="@dimen/padding_small"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_normal"/>
+                android:textSize="@dimen/text_size_normal"
+                android:textStyle="bold"/>
 
             <EditText
                 android:id="@+id/tv_code_2"
@@ -62,14 +65,14 @@
                 android:layout_margin="@dimen/margin_small"
                 android:layout_weight="1"
                 android:background="@drawable/bg_bottom_border"
-                android:textStyle="bold"
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:maxLength="1"
                 android:padding="@dimen/padding_small"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_normal"/>
+                android:textSize="@dimen/text_size_normal"
+                android:textStyle="bold"/>
 
             <EditText
                 android:id="@+id/tv_code_3"
@@ -79,14 +82,14 @@
                 android:layout_margin="@dimen/margin_small"
                 android:layout_weight="1"
                 android:background="@drawable/bg_bottom_border"
-                android:textStyle="bold"
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:maxLength="1"
                 android:padding="@dimen/padding_small"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_normal"/>
+                android:textSize="@dimen/text_size_normal"
+                android:textStyle="bold"/>
 
             <EditText
                 android:id="@+id/tv_code_4"
@@ -96,14 +99,14 @@
                 android:layout_margin="@dimen/margin_small"
                 android:layout_weight="1"
                 android:background="@drawable/bg_bottom_border"
-                android:textStyle="bold"
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:maxLength="1"
                 android:padding="@dimen/padding_small"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_normal"/>
+                android:textSize="@dimen/text_size_normal"
+                android:textStyle="bold"/>
 
             <EditText
                 android:id="@+id/tv_code_5"
@@ -113,14 +116,14 @@
                 android:layout_margin="@dimen/margin_small"
                 android:layout_weight="1"
                 android:background="@drawable/bg_bottom_border"
-                android:textStyle="bold"
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:maxLength="1"
                 android:padding="@dimen/padding_small"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_normal"/>
+                android:textSize="@dimen/text_size_normal"
+                android:textStyle="bold"/>
 
             <EditText
                 android:id="@+id/tv_code_6"
@@ -130,14 +133,14 @@
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_weight="1"
                 android:background="@drawable/bg_bottom_border"
-                android:textStyle="bold"
                 android:gravity="center"
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:maxLength="1"
                 android:padding="@dimen/padding_small"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_normal"/>
+                android:textSize="@dimen/text_size_normal"
+                android:textStyle="bold"/>
 
         </LinearLayout>
 
@@ -145,11 +148,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_normal"
-            android:textStyle="bold"
             android:gravity="center"
             android:text="@string/otp_hint"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_normal"/>
+            android:textSize="@dimen/text_size_normal"
+            android:textStyle="bold"/>
 
         <View
             android:layout_width="@dimen/login_divider_width"
@@ -164,7 +167,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/margin_normal"
             android:background="@drawable/bg_primary_button"
-            android:textStyle="bold"
             android:gravity="center"
             android:paddingBottom="@dimen/padding_normal"
             android:paddingLeft="@dimen/padding_big"
@@ -173,7 +175,8 @@
             android:text="@string/otp_button"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_normal"/>
+            android:textSize="@dimen/text_size_normal"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
