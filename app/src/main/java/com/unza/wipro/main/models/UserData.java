@@ -10,10 +10,6 @@ import java.util.ArrayList;
 import static com.unza.wipro.main.views.fragments.ProfileFragment.TYPE_USER_MANAGER;
 
 public class UserData {
-
-    public UserData() {
-    }
-
     public User getUserData(){
         UserManager user = null;
         @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");

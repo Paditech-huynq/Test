@@ -4,7 +4,6 @@ package com.unza.wipro.main.models;
 import java.util.Date;
 
 public class UserEmployee extends User {
-
     private Date dateStart;
     private long saleWant;
     private long saleHave;
