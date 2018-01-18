@@ -1,5 +1,6 @@
 package com.unza.wipro.main.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +24,14 @@ import java.util.List;
 import butterknife.BindView;
 
 public class ProductListAdapter extends BaseRecycleViewAdapter implements AppConstans {
+    private Context context;
     private OnProductItemClickListenner mOnProductItemClickListenner;
     private List<Product> productList = new ArrayList<>();
     private static final float DEFAULT_RATIO = (4F / 3F);
+
+    public ProductListAdapter(Context context) {
+        this.context = context;
+    }
 
     public void setOnProductItemClickListenner(OnProductItemClickListenner mOnProductItemClickListenner) {
         this.mOnProductItemClickListenner = mOnProductItemClickListenner;
@@ -67,7 +73,9 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
             final Product product = getItem(position);
             final ProductThumbnail productThumbnail = product.getProductThumbnail();
             ViewHelper.setText(tvDescription, product.getName(), null);
-            ViewHelper.setText(tvPrice, StringUtil.formatMoney(product.getPrice()), null);
+            ViewHelper.setText(tvPrice,
+                    StringUtil.formatMoney(product.getPrice()) + " " + context.getString(R.string.currency_unit),
+                    null);
             updateImageSize(productThumbnail);
 
             GlideApp.with(itemView.getContext()).load(productThumbnail.getLink())

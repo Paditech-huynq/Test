@@ -75,7 +75,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         StaggeredSpacesItemDecoration spacesItemDecoration = new StaggeredSpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_small));
         if (mAdapter == null) {
-            mAdapter = new ProductListAdapter();
+            mAdapter = new ProductListAdapter(this.getContext());
         }
         mRecyclerView.addItemDecoration(spacesItemDecoration);
         mRecyclerView.setLayoutManager(staggeredGridLayoutManager);

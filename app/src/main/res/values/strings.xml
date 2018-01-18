@@ -74,4 +74,7 @@
     <string name="last_week">Tuần trước</string>
     <string name="this_month">Tháng này</string>
     <string name="find">Tìm kiếm</string>
+
+    <!-- currency unit -->
+    <string name="currency_unit">VNĐ</string>
 </resources>
