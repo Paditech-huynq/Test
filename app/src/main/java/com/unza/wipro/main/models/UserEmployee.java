@@ -8,17 +8,6 @@ public class UserEmployee extends User {
     private long saleWant;
     private long saleHave;
 
-    UserEmployee(int typeUse) {
-        super(typeUse);
-    }
-
-    UserEmployee(int number_sales, int number_point, String name, String phoneNumber, String email, String address, String avar, int type_use, Date dateStart, long saleWant, long saleHave) {
-        super(number_sales, number_point, name, phoneNumber, email, address, avar, type_use);
-        this.dateStart = dateStart;
-        this.saleWant = saleWant;
-        this.saleHave = saleHave;
-    }
-
     public Date getDateStart() {
         return dateStart;
     }
