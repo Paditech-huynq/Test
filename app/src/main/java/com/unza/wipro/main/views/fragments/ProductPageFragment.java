@@ -14,6 +14,7 @@ import com.paditech.core.BaseFragment;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProductListAdapter;
+import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.views.activities.MainActivity;
 import com.unza.wipro.main.views.customs.DynamicHeightImageView;
 import com.unza.wipro.main.views.customs.StaggeredSpacesItemDecoration;
@@ -83,7 +84,7 @@ public class ProductPageFragment extends BaseFragment {
         DynamicHeightImageView imvProduct = view.findViewById(R.id.imvProduct);
         ViewCompat.setTransitionName(imvProduct, Calendar.getInstance().getTimeInMillis() + "_");
 
-        ProductDetailFragment detailFragment = ProductDetailFragment.newInstance(TransitionInflater.from(ProductPageFragment.this.getContext()).
+        ProductDetailFragment detailFragment = ProductDetailFragment.newInstance(new Product(),TransitionInflater.from(ProductPageFragment.this.getContext()).
                 inflateTransition(R.transition.change_image_transform));
 
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();

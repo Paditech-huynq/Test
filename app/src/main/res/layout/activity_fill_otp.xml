@@ -38,7 +38,7 @@
             android:weightSum="6">
 
             <EditText
-                android:id="@+id/txt_code_1"
+                android:id="@+id/tv_code_1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -55,7 +55,7 @@
                 android:textSize="@dimen/text_size_normal"/>
 
             <EditText
-                android:id="@+id/txt_code_2"
+                android:id="@+id/tv_code_2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -72,7 +72,7 @@
                 android:textSize="@dimen/text_size_normal"/>
 
             <EditText
-                android:id="@+id/txt_code_3"
+                android:id="@+id/tv_code_3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -89,7 +89,7 @@
                 android:textSize="@dimen/text_size_normal"/>
 
             <EditText
-                android:id="@+id/txt_code_4"
+                android:id="@+id/tv_code_4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -106,7 +106,7 @@
                 android:textSize="@dimen/text_size_normal"/>
 
             <EditText
-                android:id="@+id/txt_code_5"
+                android:id="@+id/tv_code_5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -123,7 +123,7 @@
                 android:textSize="@dimen/text_size_normal"/>
 
             <EditText
-                android:id="@+id/txt_code_6"
+                android:id="@+id/tv_code_6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

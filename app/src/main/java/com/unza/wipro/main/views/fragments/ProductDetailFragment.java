@@ -2,34 +2,65 @@ package com.unza.wipro.main.views.fragments;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.transition.Transition;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.google.android.flexbox.FlexboxLayout;
 import com.paditech.core.BaseFragment;
+import com.paditech.core.helper.StringUtil;
+import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProductImageAdapter;
+import com.unza.wipro.main.contracts.ProductDetailContract;
+import com.unza.wipro.main.models.Product;
+import com.unza.wipro.main.presenters.ProductDetailPresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ProductDetailFragment extends BaseFragment {
+public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> implements ProductDetailContract.ViewImpl {
     @BindView(R.id.vpgProduct)
     ViewPager mViewPager;
+    @BindView(R.id.tvTitle)
+    TextView mTitleText;
+    @BindView(R.id.tv_product_code)
+    TextView mCodeText;
+    @BindView(R.id.tv_product_price)
+    TextView mPriceText;
+    @BindView(R.id.tv_product_desc)
+    TextView mDescText;
+    @BindView(R.id.layout_category)
+    FlexboxLayout mCategoryLayout;
+    @BindView(R.id.layout_shop)
+    LinearLayout mShopLayout;
 
-    public static ProductDetailFragment newInstance() {
+    private ProductImageAdapter mImageAdapter;
+    private Product mProduct;
+
+    public static ProductDetailFragment newInstance(Product product) {
 
         Bundle args = new Bundle();
 
         ProductDetailFragment fragment = new ProductDetailFragment();
+        product.setId("1");
+        fragment.mProduct = product;
         fragment.setArguments(args);
         return fragment;
     }
 
-    public static ProductDetailFragment newInstance(Transition transition) {
-        ProductDetailFragment fragment = ProductDetailFragment.newInstance();
+    public static ProductDetailFragment newInstance(Product product, Transition transition) {
+        ProductDetailFragment fragment = ProductDetailFragment.newInstance(product);
         fragment.setSharedElementEnterTransition(transition);
         fragment.setSharedElementReturnTransition(transition);
         return fragment;
@@ -52,7 +83,8 @@ public class ProductDetailFragment extends BaseFragment {
     }
 
     private void setupViewPager() {
-        mViewPager.setAdapter(new ProductImageAdapter(getActivity()));
+        mImageAdapter = new ProductImageAdapter(getActivity());
+        mViewPager.setAdapter(mImageAdapter);
     }
 
     @Override
@@ -72,6 +104,54 @@ public class ProductDetailFragment extends BaseFragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window w = getActivity().getWindow(); // in Activity's onCreate() for instance
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+    }
+
+    @Override
+    public Product getProduct() {
+        return mProduct;
+    }
+
+    @Override
+    public void showProductDetail(Product product) {
+        if (product == null) return;
+        mTitleText.setText(product.getName());
+        mCodeText.setText(getString(R.string.product_detail_code, product.getCode()));
+        mPriceText.setText(getString(R.string.product_detail_price, StringUtil.formatMoney(product.getPrice())));
+        mDescText.setText(product.getNote());
+        if (product.getImages() != null) {
+            mImageAdapter.setData(new ArrayList());
+        }
+        showCategories(product);
+        showShops(product);
+    }
+
+    private void showCategories(Product product) {
+        if (product == null) return;
+        mCategoryLayout.removeAllViews();
+        String[] categories = {"Sữa rửa mặt", "Nước hoa hồng", "Serum"};
+        for (String category : categories) {
+            TextView textView = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.view_product_category, null);
+            FlexboxLayout.LayoutParams params = new FlexboxLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            int margin = getResources().getDimensionPixelSize(R.dimen.padding_tiny);
+            params.setMargins(margin, margin, margin, margin);
+            textView.setText(category);
+            mCategoryLayout.addView(textView, params);
+        }
+    }
+
+    private void showShops(Product product) {
+        if (product == null) return;
+        mShopLayout.removeAllViews();
+        for (int i = 0; i < 3; i++) {
+            View view = LayoutInflater.from(getActivity()).inflate(R.layout.view_product_available_at, null);
+            TextView shopName = view.findViewById(R.id.tv_shop_name);
+            TextView shopAddress = view.findViewById(R.id.tv_shop_address);
+            TextView shopPhone = view.findViewById(R.id.tv_shop_phone);
+            shopName.setText("Siêu thị Điện máy HC");
+            shopAddress.setText("235 Nguyễn Ngọc Nại, Thanh Xuân, Hà Nội");
+            shopPhone.setText("ĐT: 02240474043 - Khoảng cách 580m");
+            mShopLayout.addView(view);
         }
     }
 

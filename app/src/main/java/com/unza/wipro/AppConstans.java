@@ -1,6 +1,8 @@
 package com.unza.wipro;
 
-public interface AppConstans {
+import com.paditech.core.common.BaseConstant;
+
+public interface AppConstans extends BaseConstant {
 
     public static final int PAGE_SIZE = 10;
 

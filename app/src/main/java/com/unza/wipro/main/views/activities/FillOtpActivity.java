@@ -29,17 +29,17 @@ public class FillOtpActivity extends MVPActivity<OtpPresenter> implements OtpCon
 
     private long mLastClickTime = 0;
 
-    @BindView(R.id.txt_code_1)
+    @BindView(R.id.tv_code_1)
     EditText mCode1Text;
-    @BindView(R.id.txt_code_2)
+    @BindView(R.id.tv_code_2)
     EditText mCode2Text;
-    @BindView(R.id.txt_code_3)
+    @BindView(R.id.tv_code_3)
     EditText mCode3Text;
-    @BindView(R.id.txt_code_4)
+    @BindView(R.id.tv_code_4)
     EditText mCode4Text;
-    @BindView(R.id.txt_code_5)
+    @BindView(R.id.tv_code_5)
     EditText mCode5Text;
-    @BindView(R.id.txt_code_6)
+    @BindView(R.id.tv_code_6)
     EditText mCode6Text;
 
     @Override
