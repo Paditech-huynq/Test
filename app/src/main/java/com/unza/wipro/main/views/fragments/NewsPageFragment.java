@@ -34,7 +34,6 @@ public class NewsPageFragment extends MVPFragment<NewsPagePresenter> implements 
         return fragment;
     }
 
-
     @Override
     protected int getLayoutResource() {
         return R.layout.fragment_home_product_page;
