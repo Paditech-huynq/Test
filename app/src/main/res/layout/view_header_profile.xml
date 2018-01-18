@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/colorPrimary"
+    android:elevation="@dimen/cardview_default_elevation"
+    android:paddingLeft="@dimen/padding_normal">
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_title"
+        android:text="@string/time_profile_fragment"/>
+
+    <ImageView
+        android:id="@+id/imvAvatar"
+        android:layout_width="@dimen/actionbar_button_size"
+        android:layout_height="@dimen/actionbar_button_size"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_back"/>
+
+</RelativeLayout>
