@@ -21,7 +21,7 @@ public class News {
     @SerializedName("content")
     String content;
     @SerializedName("thumbnail")
-    List thunbnail;
+    Thumbnail thumbnail;
     @SerializedName("created_at")
     long createdAt;
 
@@ -57,12 +57,12 @@ public class News {
         this.content = content;
     }
 
-    public List getThunbnail() {
-        return thunbnail;
+    public Thumbnail getThumbnail() {
+        return thumbnail;
     }
 
-    public void setThunbnail(List thunbnail) {
-        this.thunbnail = thunbnail;
+    public void setThumbnail(Thumbnail thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public long getCreatedAt() {

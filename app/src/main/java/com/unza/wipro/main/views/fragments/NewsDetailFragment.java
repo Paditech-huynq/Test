@@ -1,6 +1,8 @@
 package com.unza.wipro.main.views.fragments;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -29,8 +31,10 @@ import retrofit2.Response;
  * Copyright (c) 2018 Paditech. All rights reserved.
  */
 
-public class NewsDetailFragment extends BaseFragment {
+public class NewsDetailFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.tv_news_title)
     TextView mTitleText;
     @BindView(R.id.tv_news_desc)
@@ -42,9 +46,11 @@ public class NewsDetailFragment extends BaseFragment {
 
     News mNews;
 
-    public static NewsDetailFragment newInstance() {
+    public static NewsDetailFragment newInstance(News news) {
         Bundle args = new Bundle();
         NewsDetailFragment fragment = new NewsDetailFragment();
+        news.setId(1);
+        fragment.mNews = news;
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,8 +68,8 @@ public class NewsDetailFragment extends BaseFragment {
     @Override
     public void initView() {
         super.initView();
-        setupWebView();
-
+        setUpWebView();
+        setUpSwipeRefresh();
         getDetail();
     }
 
@@ -79,12 +85,17 @@ public class NewsDetailFragment extends BaseFragment {
         ((MainActivity) getActivity()).setShowHeader(true);
     }
 
+    @Override
+    public void onRefresh() {
+        getDetail();
+    }
+
     @OnClick(R.id.imv_back)
     protected void back() {
         getActivity().onBackPressed();
     }
 
-    private void setupWebView() {
+    private void setUpWebView() {
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         mWebView.setFocusableInTouchMode(false);
         mWebView.setFocusable(false);
@@ -97,23 +108,30 @@ public class NewsDetailFragment extends BaseFragment {
         settings.setDefaultFontSize((int) getResources().getDimension(R.dimen.text_size_normal));
     }
 
+    private void setUpSwipeRefresh() {
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
+    }
+
     private void showDetail(News news) {
         if (news == null) return;
         mNews = news;
         mTitleText.setText(mNews.getTitle());
         mDescText.setText(mNews.getSummary());
-        mDateText.setText(Utils.getTimeCreated(getContext(),mNews.getCreatedAt()));
+        mDateText.setText(Utils.getTimeCreated(getContext(), mNews.getCreatedAt()));
         if (!StringUtil.isEmpty(mNews.getContent()))
             mWebView.loadData(mNews.getContent(), "text/html; charset=UTF-8;", null);
     }
 
     private void getDetail() {
+        if (mNews == null) return;
         showProgressDialog(true);
-        AppClient.newInstance().getService().getNewsDetail(String.valueOf(1))
+        AppClient.newInstance().getService().getNewsDetail(String.valueOf(mNews.getId()))
                 .enqueue(new Callback<GetNewsDetailRSP>() {
                     @Override
                     public void onResponse(Call<GetNewsDetailRSP> call, Response<GetNewsDetailRSP> response) {
                         try {
+                            mSwipeRefreshLayout.setRefreshing(false);
                             showProgressDialog(false);
                             if (response.body() != null) {
                                 showDetail(response.body().getNews());
@@ -125,6 +143,7 @@ public class NewsDetailFragment extends BaseFragment {
 
                     @Override
                     public void onFailure(Call<GetNewsDetailRSP> call, Throwable t) {
+                        mSwipeRefreshLayout.setRefreshing(false);
                         showProgressDialog(false);
                         showToast(t.getLocalizedMessage());
                     }
