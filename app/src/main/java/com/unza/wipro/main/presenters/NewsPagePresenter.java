@@ -28,6 +28,9 @@ public class NewsPagePresenter extends BasePresenter<NewsPageContract.ViewImpl> 
         appClient.getService().getNews(BaseConstant.EMPTY, categoryId, INDEX, PAGE_SIZE).enqueue(new Callback<GetNewsRSP>() {
             @Override
             public void onResponse(Call<GetNewsRSP> call, Response<GetNewsRSP> response) {
+                if (getView() == null) {
+                    return;
+                }
                 getView().showProgressDialog(false);
                 if (response != null && response.body() != null && response.body().getNews() != null && response.body().getNews().size() > 0) {
                     if (isRefresh) {
@@ -42,6 +45,9 @@ public class NewsPagePresenter extends BasePresenter<NewsPageContract.ViewImpl> 
 
             @Override
             public void onFailure(Call<GetNewsRSP> call, Throwable t) {
+                if (getView() == null) {
+                    return;
+                }
                 getView().showProgressDialog(false);
             }
         });
