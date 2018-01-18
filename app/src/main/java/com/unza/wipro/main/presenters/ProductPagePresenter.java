@@ -51,6 +51,7 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
     }
 
     private void getListProduct(final boolean isLoadMore) {
+        if (!isLoadMore) getView().showProgressDialog(true);
         AppClient.newInstance().getService().getListProduct(page, PAGE_SIZE,
                 ((ProductPageFragment) getView()).getCategoryId(), "")
                 .enqueue(new Callback<GetListProductRSP>() {
