@@ -27,7 +27,7 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     LinearLayout lnManagerSales;
     @BindView(R.id.tx_point)
     TextView tvPoint;
-    @BindView(R.id.tx_number_point)
+    @BindView(R.id.tx_numbers_point)
     TextView tvNumberPoint;
     @BindView(R.id.tx_number_sales)
     TextView tvNumberSales;
@@ -85,7 +85,7 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
                 lnDegree.setVisibility(View.VISIBLE);
                 updateUIForEmployee(user);
             default:
-                tvNumberPoint.setText(user.getNumberPoint());
+                tvNumberPoint.setText(String.valueOf(user.getNumberPoint()));
                 break;
         }
         tvNumberSales.setText(String.valueOf(user.getNumberSales()));

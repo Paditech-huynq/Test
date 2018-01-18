@@ -120,7 +120,7 @@
                             android:text="1600"
                             android:textColor="@color/green"
                             android:textSize="@dimen/text_number_sales"
-                            android:id="@+id/tx_number_point"
+                            android:id="@+id/tx_numbers_point"
                             android:textStyle="bold"
                             tools:ignore="NestedWeights" />
 
