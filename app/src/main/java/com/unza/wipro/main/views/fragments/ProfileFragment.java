@@ -103,10 +103,10 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     }
 
     private void updateUIForEmployee(User user) {
-        tvTime.setText(String.format("  %s - %s",DateTimeUntils.getStringDayMonthYear(((UserEmployee) user).getDateStart()),
+        tvTime.setText(String.format("  %s - %s",DateTimeUntils.getStringDayMonthYear(user.getDateStart()),
                 DateTimeUntils.getStringDayMonthYear(Calendar.getInstance().getTime())));
-        tvSalesHave.setText(String.format("  %s  VNĐ",((UserEmployee) user).getSaleHave()));
-        tvSalesWant.setText(String.format("  %s  VNĐ",((UserEmployee) user).getSaleWant()));
-        degreeSale.setValue(R.color.white, R.color.colorPrimaryDark, ((UserEmployee) user).getSaleHave(), ((UserEmployee) user).getSaleWant());
+        tvSalesHave.setText(String.format("  %s  VNĐ",user.getSaleHave()));
+        tvSalesWant.setText(String.format("  %s  VNĐ",user.getSaleWant()));
+        degreeSale.setValue(R.color.white, R.color.colorPrimaryDark, user.getSaleHave(), user.getSaleWant());
     }
 }

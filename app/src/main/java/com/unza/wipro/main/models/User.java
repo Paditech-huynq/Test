@@ -1,15 +1,9 @@
 package com.unza.wipro.main.models;
 
 
-import android.annotation.SuppressLint;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static com.unza.wipro.main.views.fragments.ProfileFragment.TYPE_USER_MANAGER;
 
 public class User {
     private Date dateStart;
