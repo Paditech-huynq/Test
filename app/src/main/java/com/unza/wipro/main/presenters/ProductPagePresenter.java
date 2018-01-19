@@ -3,6 +3,7 @@ package com.unza.wipro.main.presenters;
 import android.widget.Toast;
 
 import com.paditech.core.mvp.BasePresenter;
+import com.unza.wipro.AppConstans;
 import com.unza.wipro.main.contracts.ProductPageContract;
 import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.models.responses.GetListProductRSP;
@@ -15,9 +16,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.unza.wipro.AppConstans.PAGE_SIZE;
-
-public class ProductPagePresenter extends BasePresenter<ProductPageContract.ViewImpl> implements ProductPageContract.Presenter {
+public class ProductPagePresenter extends BasePresenter<ProductPageContract.ViewImpl> implements ProductPageContract.Presenter, AppConstans {
     private int page = 1;
     private boolean isFull;
 
@@ -60,11 +59,15 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
                 .enqueue(new Callback<GetListProductRSP>() {
                     @Override
                     public void onResponse(Call<GetListProductRSP> call, Response<GetListProductRSP> response) {
-                        GetListProductRSP listProductRSP = response.body();
-                        List<Product> productList = listProductRSP.getData();
-                        getView().notifyListProduct(productList);
                         if (getView() == null) {
                             return;
+                        }
+                        GetListProductRSP listProductRSP = response.body();
+                        List<Product> productList = listProductRSP.getData();
+                        if (isLoadMore) {
+                            getView().updateItemToList(productList);
+                        } else {
+                            getView().refreshList(productList);
                         }
                         getView().showProgressDialog(false);
                         onLoadProductSuccess(productList);

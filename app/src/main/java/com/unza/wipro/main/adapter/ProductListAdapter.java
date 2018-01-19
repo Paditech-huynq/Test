@@ -1,6 +1,5 @@
 package com.unza.wipro.main.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,20 +17,13 @@ import com.unza.wipro.main.models.ProductThumbnail;
 import com.unza.wipro.main.views.customs.DynamicHeightImageView;
 import com.unza.wipro.main.views.customs.PlaceHolderDrawableHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
 public class ProductListAdapter extends BaseRecycleViewAdapter implements AppConstans {
-    private Context context;
     private OnProductItemClickListenner mOnProductItemClickListenner;
-    private List<Product> productList = new ArrayList<>();
-    private static final float DEFAULT_RATIO = (4F / 3F);
-
-    public ProductListAdapter(Context context) {
-        this.context = context;
-    }
+    private List<Product> productList;
 
     public void setOnProductItemClickListenner(OnProductItemClickListenner mOnProductItemClickListenner) {
         this.mOnProductItemClickListenner = mOnProductItemClickListenner;
@@ -49,6 +41,9 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
 
     @Override
     public int getItemCount() {
+        if (productList == null) {
+            return 0;
+        }
         return productList.size();
     }
 
@@ -74,7 +69,7 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
             final ProductThumbnail productThumbnail = product.getProductThumbnail();
             ViewHelper.setText(tvDescription, product.getName(), null);
             ViewHelper.setText(tvPrice,
-                    StringUtil.formatMoney(product.getPrice()) + " " + context.getString(R.string.currency_unit),
+                    String.format(itemView.getContext().getString(R.string.currency_unit), StringUtil.formatMoney(product.getPrice())),
                     null);
             updateImageSize(productThumbnail);
 
@@ -92,7 +87,7 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
         }
 
         private void updateImageSize(ProductThumbnail productThumbnail) {
-            float ratio = DEFAULT_RATIO;
+            float ratio = 4 / 3F;
             try {
                 float width = Float.parseFloat(productThumbnail.getWidth());
                 float height = Float.parseFloat(productThumbnail.getHeight());
@@ -111,9 +106,14 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
         void onAddCartButtonClick(View view, int index);
     }
 
-    public void addProductList(List<Product> productList) {
+    public void updateItemToList(List<Product> productList) {
         int lastProductCount = this.productList.size();
         this.productList.addAll(productList);
         notifyItemRangeInserted(lastProductCount, this.productList.size());
+    }
+
+    public void refreshList(List<Product> productList) {
+        this.productList = productList;
+        notifyDataSetChanged();
     }
 }

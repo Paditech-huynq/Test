@@ -16,7 +16,6 @@ import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProductListAdapter;
-import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.contracts.ProductPageContract;
 import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.presenters.ProductPagePresenter;
@@ -76,7 +75,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         StaggeredSpacesItemDecoration spacesItemDecoration = new StaggeredSpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_small));
         if (mAdapter == null) {
-            mAdapter = new ProductListAdapter(this.getContext());
+            mAdapter = new ProductListAdapter();
         }
         mRecyclerView.addItemDecoration(spacesItemDecoration);
         mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
@@ -108,7 +107,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
         DynamicHeightImageView imvProduct = view.findViewById(R.id.imvProduct);
         ViewCompat.setTransitionName(imvProduct, Calendar.getInstance().getTimeInMillis() + "_");
 
-        ProductDetailFragment detailFragment = ProductDetailFragment.newInstance(new Product(),TransitionInflater.from(ProductPageFragment.this.getContext()).
+        ProductDetailFragment detailFragment = ProductDetailFragment.newInstance(new Product(), TransitionInflater.from(ProductPageFragment.this.getContext()).
                 inflateTransition(R.transition.change_image_transform));
 
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -158,8 +157,13 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
     }
 
     @Override
-    public void notifyListProduct(List<Product> productList) {
-        mAdapter.addProductList(productList);
+    public void updateItemToList(List<Product> productList) {
+        mAdapter.updateItemToList(productList);
+    }
+
+    @Override
+    public void refreshList(List<Product> products) {
+        mAdapter.refreshList(products);
     }
 
     public String getCategoryId() {
