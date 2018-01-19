@@ -31,7 +31,7 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
     public void initView() {
         super.initView();
         switchFragment(HomeFragment.newInstance(), false);
-        addToAction(R.id.btnCart, R.id.btnNotification, R.id.imvAvatar);
+        addToAction(R.id.btnCart, R.id.btnNotification, R.id.imvAvatar, R.id.btnTrash);
     }
 
     @Override

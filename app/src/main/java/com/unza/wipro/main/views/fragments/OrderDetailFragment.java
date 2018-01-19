@@ -62,6 +62,14 @@ public class OrderDetailFragment extends BaseFragment {
         bottomBar.setVisibility(cartId == 0 ? View.VISIBLE : View.GONE);
     }
 
+    @Override
+    public boolean isActionShow(int resId) {
+        if (resId == R.id.btnTrash) {
+            return (cartId == 0);
+        }
+        return super.isActionShow(resId);
+    }
+
     private void setupRecycleView() {
         mAdapter = new CartItemsAdapter(cartId == 0);
         mAdapter.setOnViewClickListener(new BaseRecycleViewAdapter.ViewClickListener() {

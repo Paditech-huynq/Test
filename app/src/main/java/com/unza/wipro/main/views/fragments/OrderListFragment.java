@@ -74,6 +74,14 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
                 //todo
             }
         });
+        mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
+                // todo: get
+                OrderDetailFragment orderDetailFragment = OrderDetailFragment.newInstance(1);
+                OrderListFragment.this.switchFragment(orderDetailFragment, true);
+            }
+        });
         rcvOrder.setAdapter(mAdapter);
     }
 
