@@ -42,6 +42,7 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
         super.initView();
         setUpViewPagger();
         setUpBottomBar();
+        ((MainActivity) getActivity()).updateActionButtonAppearance(this);
         super.setScreenTitle(getString(R.string.title_home_product));
     }
 
@@ -104,11 +105,9 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
     public void setScreenTitle(String title) {
     }
 
-
     @Override
     public boolean isActionShow(int resId) {
-        if (resId == R.id.btnCart)
-        {
+        if (resId == R.id.btnTrash) {
             return false;
         }
         return true;
