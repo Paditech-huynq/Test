@@ -9,26 +9,37 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
-import com.paditech.core.BaseFragment;
+import com.paditech.core.DisableTouchView;
 import com.paditech.core.common.BaseRecycleViewAdapter;
+import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProductListAdapter;
 import com.unza.wipro.main.models.Product;
+import com.unza.wipro.main.contracts.ProductPageContract;
+import com.unza.wipro.main.models.Product;
+import com.unza.wipro.main.presenters.ProductPagePresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
 import com.unza.wipro.main.views.customs.DynamicHeightImageView;
 import com.unza.wipro.main.views.customs.StaggeredSpacesItemDecoration;
 import com.unza.wipro.utils.AddToCartAnimation;
 
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 
-public class ProductPageFragment extends BaseFragment {
+public class ProductPageFragment extends MVPFragment<ProductPagePresenter> implements ProductPageContract.ViewImpl {
     @BindView(R.id.rcvProduct)
     RecyclerView mRecyclerView;
+    @BindView(R.id.layoutLoading)
+    ProgressBar layoutLoading;
+    @BindView(R.id.disableTouchView)
+    DisableTouchView disableTouchView;
 
     ProductListAdapter mAdapter;
+    private String categoryId;
 
     public static ProductPageFragment newInstance() {
 
@@ -36,6 +47,12 @@ public class ProductPageFragment extends BaseFragment {
 
         ProductPageFragment fragment = new ProductPageFragment();
         fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static ProductPageFragment newInstance(String categoryId) {
+        ProductPageFragment fragment = ProductPageFragment.newInstance();
+        fragment.categoryId = categoryId;
         return fragment;
     }
 
@@ -59,7 +76,7 @@ public class ProductPageFragment extends BaseFragment {
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         StaggeredSpacesItemDecoration spacesItemDecoration = new StaggeredSpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_small));
         if (mAdapter == null) {
-            mAdapter = new ProductListAdapter();
+            mAdapter = new ProductListAdapter(this.getContext());
         }
         mRecyclerView.addItemDecoration(spacesItemDecoration);
         mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
@@ -69,6 +86,13 @@ public class ProductPageFragment extends BaseFragment {
             @Override
             public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
                 startTransition(view);
+            }
+        });
+
+        mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                getPresenter().onLoadMore();
             }
         });
 
@@ -131,6 +155,21 @@ public class ProductPageFragment extends BaseFragment {
                     }
                 }).startAnimation();
 
+    }
+
+    @Override
+    public void notifyListProduct(List<Product> productList) {
+        mAdapter.addProductList(productList);
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    @Override
+    public void showProgressDialog(boolean isShown) {
+        layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
+        disableTouchView.setVisibility(isShown ? View.VISIBLE : View.GONE);
     }
 }
 
