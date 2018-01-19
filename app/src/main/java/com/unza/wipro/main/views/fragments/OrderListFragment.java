@@ -36,13 +36,13 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     View viewUpRecycleView;
     @BindView(R.id.filter)
     LinearLayout filter;
-    @BindView(R.id.cardview_header)
+    @BindView(R.id.card_view_header)
     CardView cardViewHeader;
     @BindView(R.id.bt_all)
     Button btnAll;
     @BindView(R.id.bt_lastweek)
     Button btnLastWeek;
-    @BindView(R.id.bt_thisweek)
+    @BindView(R.id.bt_this_week)
     Button btnThisWeek;
     @BindView(R.id.bt_thismonth)
     Button btnThisMonth;
@@ -197,7 +197,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         getPresenter().onBtAllClick();
     }
 
-    @OnClick(R.id.bt_thisweek)
+    @OnClick(R.id.bt_this_week)
     public void onBtThisWeekClick() {
         getPresenter().onBtThisWeekClick();
     }
