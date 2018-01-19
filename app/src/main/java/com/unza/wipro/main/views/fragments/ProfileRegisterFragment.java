@@ -10,11 +10,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.Toast;
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.ImageHelper;
 import com.unza.wipro.R;
@@ -23,7 +25,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -48,9 +49,7 @@ public class ProfileRegisterFragment extends BaseFragment {
     ImageView imgAvatar;
 
     public static ProfileRegisterFragment newInstance() {
-
         Bundle args = new Bundle();
-
         ProfileRegisterFragment fragment = new ProfileRegisterFragment();
         fragment.setArguments(args);
         return fragment;
@@ -74,9 +73,16 @@ public class ProfileRegisterFragment extends BaseFragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (permissions.length * grantResults.length == 0) {
+            return;
+        }
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode == REQUEST_WRITE_EXTERNAL_STORAGE) {
             Log.v("My Log : ", "Permission: " + permissions[0] + "was " + grantResults[0]);
             takePicture();
+        }
+        if (grantResults[0] == PackageManager.PERMISSION_DENIED && requestCode == REQUEST_WRITE_EXTERNAL_STORAGE) {
+            Toast.makeText(getActivity(), "Must allow permision WRITE_EXTERNAL_STORAGE",
+                    Toast.LENGTH_LONG).show();
         }
     }
 
@@ -85,13 +91,18 @@ public class ProfileRegisterFragment extends BaseFragment {
         File f = null;
         try {
             f = setUpPhotoFile();
-            mCurrentPhotoPath = f.getAbsolutePath();
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                Uri photoUri = FileProvider.getUriForFile(getContext(), "com.example.file.provider", f);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+            } else {
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+            }
         } catch (IOException e) {
             e.printStackTrace();
             f = null;
             mCurrentPhotoPath = null;
         }
+        takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivityForResult(takePictureIntent, REQUEST_PHOTO_CAMERA);
     }
 
@@ -119,7 +130,6 @@ public class ProfileRegisterFragment extends BaseFragment {
     protected void openCancel() {
         slideDown();
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -183,18 +193,14 @@ public class ProfileRegisterFragment extends BaseFragment {
     }
 
     private File setUpPhotoFile() throws IOException {
-
         File f = createImageFile();
         mCurrentPhotoPath = f.getAbsolutePath();
-
         return f;
     }
 
     private File getAlbumDir() {
         File storageDir = null;
-
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
                 storageDir = new File(Environment.getExternalStoragePublicDirectory
                         (Environment.DIRECTORY_PICTURES), "CameraSample");
@@ -209,11 +215,9 @@ public class ProfileRegisterFragment extends BaseFragment {
                     }
                 }
             }
-
         } else {
             Log.v(getString(R.string.app_name), "External storage is not mounted READ/WRITE.");
         }
-
         return storageDir;
     }
 
