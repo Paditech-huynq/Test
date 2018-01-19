@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.paditech.core.BaseFragment;
 import com.unza.wipro.R;
+import com.unza.wipro.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
     public void initView() {
         super.initView();
         setupFormats();
+        Utils.checkCameraPermission(this.getActivity());
         mScannerView.startCamera();
     }
 
@@ -59,9 +61,7 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
     @Override
     public void onViewAppear() {
         super.onViewAppear();
-        if (mScannerView != null) {
-            mScannerView.startCamera();
-        }
+        mScannerView.startCamera();
     }
 
     @Override
@@ -84,6 +84,7 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
         showToast(rawResult.getContents());
 //        mScannerView.resumeCameraPreview(this);
     }
+
 
     public void openCamera() {
         mScannerView.startCamera();
