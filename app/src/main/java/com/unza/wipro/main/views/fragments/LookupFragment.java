@@ -10,14 +10,20 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
-import com.paditech.core.BaseFragment;
+import com.paditech.core.common.BaseRecycleViewAdapter;
+import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.LookupAdaper;
+import com.unza.wipro.main.contracts.LookupContract;
+import com.unza.wipro.main.models.Product;
+import com.unza.wipro.main.presenters.LookupPresent;
 import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
+
+import java.util.List;
 
 import butterknife.BindView;
 
-public class LookupFragment extends BaseFragment {
+public class LookupFragment extends MVPFragment<LookupPresent> implements LookupContract.ViewImpl, BaseRecycleViewAdapter.LoadMoreListener {
     @BindView(R.id.edtSearch)
     EditText edtSearch;
 
@@ -67,7 +73,7 @@ public class LookupFragment extends BaseFragment {
                 final int DRAWABLE_BOTTOM = 3;
 
                 if (event.getAction() == MotionEvent.ACTION_UP && edtSearch.getCompoundDrawables()[DRAWABLE_RIGHT] != null) {
-                    if (event.getRawX() >= (edtSearch.getRight() - edtSearch.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width() - edtSearch.getCompoundDrawablePadding()*2)) {
+                    if (event.getRawX() >= (edtSearch.getRight() - edtSearch.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width() - edtSearch.getCompoundDrawablePadding() * 2)) {
                         // your action here
                         edtSearch.setText("");
 
@@ -96,6 +102,7 @@ public class LookupFragment extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                getPresenter().searchByText();
                 if (edtSearch.getText().length() > 0) {
                     edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, R.drawable.ic_cancel, 0);
                 } else {
@@ -119,10 +126,24 @@ public class LookupFragment extends BaseFragment {
 
     @Override
     public boolean isActionShow(int resId) {
-        if(resId == R.id.btnCart)
-        {
+        if (resId == R.id.btnCart) {
             return true;
         }
         return super.isActionShow(resId);
+    }
+
+    @Override
+    public void updateToListItem(List<Product> data) {
+        mAdaper.setListProduct(data);
+    }
+
+    @Override
+    public String getTextSearch() {
+        return edtSearch.getText().toString();
+    }
+
+    @Override
+    public void onLoadMore() {
+        getPresenter().loadMore();
     }
 }

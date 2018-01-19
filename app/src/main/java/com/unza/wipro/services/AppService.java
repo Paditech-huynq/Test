@@ -39,4 +39,5 @@ public interface AppService {
     @POST("product/list")
     Call<GetListProductRSP> getListProduct(@Query("page") int page, @Query("page_size") int pageSize,
                                            @Query("category_id") String categoryID, @Query("key") String key);
+
 }
