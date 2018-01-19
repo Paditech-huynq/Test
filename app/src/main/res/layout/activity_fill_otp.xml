@@ -4,7 +4,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusable="true"
-                android:background="@drawable/bg_login"
                 android:focusableInTouchMode="true">
 
     <ImageView
@@ -54,8 +53,7 @@
                 android:maxLength="1"
                 android:padding="@dimen/padding_small"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_normal"
-                android:textStyle="bold"/>
+                android:textSize="@dimen/text_size_otp"/>
 
             <EditText
                 android:id="@+id/tv_code_2"
@@ -71,8 +69,7 @@
                 android:maxLength="1"
                 android:padding="@dimen/padding_small"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_normal"
-                android:textStyle="bold"/>
+                android:textSize="@dimen/text_size_otp"/>
 
             <EditText
                 android:id="@+id/tv_code_3"
@@ -88,8 +85,7 @@
                 android:maxLength="1"
                 android:padding="@dimen/padding_small"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_normal"
-                android:textStyle="bold"/>
+                android:textSize="@dimen/text_size_otp"/>
 
             <EditText
                 android:id="@+id/tv_code_4"
@@ -105,8 +101,7 @@
                 android:maxLength="1"
                 android:padding="@dimen/padding_small"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_normal"
-                android:textStyle="bold"/>
+                android:textSize="@dimen/text_size_otp"/>
 
             <EditText
                 android:id="@+id/tv_code_5"
@@ -122,8 +117,7 @@
                 android:maxLength="1"
                 android:padding="@dimen/padding_small"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_normal"
-                android:textStyle="bold"/>
+                android:textSize="@dimen/text_size_otp"/>
 
             <EditText
                 android:id="@+id/tv_code_6"
@@ -139,8 +133,7 @@
                 android:maxLength="1"
                 android:padding="@dimen/padding_small"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_normal"
-                android:textStyle="bold"/>
+                android:textSize="@dimen/text_size_otp"/>
 
         </LinearLayout>
 

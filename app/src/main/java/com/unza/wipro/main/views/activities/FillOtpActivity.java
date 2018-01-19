@@ -59,6 +59,10 @@ public class FillOtpActivity extends MVPActivity<OtpPresenter> implements OtpCon
     public void initView() {
         super.initView();
         Utils.dismissSoftKeyboard(findViewById(R.id.layout_main), this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window w = getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
 
         mCode1Text.setSelectAllOnFocus(true);
         mCode2Text.setSelectAllOnFocus(true);
@@ -83,19 +87,6 @@ public class FillOtpActivity extends MVPActivity<OtpPresenter> implements OtpCon
     @Override
     public void onViewAppear() {
         super.onViewAppear();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window w = getWindow();
-            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-    }
-
-    @Override
-    public void onViewDisappear() {
-        super.onViewDisappear();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window w = getWindow();
-            w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
     }
 
     @Override
