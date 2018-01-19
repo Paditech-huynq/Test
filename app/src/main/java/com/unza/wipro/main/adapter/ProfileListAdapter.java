@@ -55,6 +55,7 @@ public class ProfileListAdapter extends BaseRecycleViewAdapter implements AppCon
 
         @Override
         protected void onBindingData(int position) {
+            Customer customer = customerList.get(position);
             GlideApp.with(imvAvatar.getContext()).load(imagesDummy[position]).centerCrop().thumbnail(0.2f).into(imvAvatar);
 //            ImageHelper.loadThumbImage(imvAvatar.getContext(), imagesDummy[position], imvAvatar);
         }

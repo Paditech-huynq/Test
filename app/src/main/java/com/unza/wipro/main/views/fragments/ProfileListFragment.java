@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
@@ -14,7 +15,6 @@ import com.unza.wipro.main.adapter.ProfileListAdapter;
 import com.unza.wipro.main.contracts.ProfileListContract;
 import com.unza.wipro.main.models.Customer;
 import com.unza.wipro.main.presenters.ProfileListPresenter;
-import com.unza.wipro.main.presenters.ProfilePresenter;
 import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
 
 import java.util.List;
@@ -59,6 +59,12 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
         mAdapter = new ProfileListAdapter();
         mRecyclerView.addItemDecoration(new VerticalSpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_normal)));
         ViewHelper.setupRecycle(mRecyclerView, new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false), mAdapter);
+        mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                getPresenter().onLoadMore();
+            }
+        });
     }
 
     @OnClick(R.id.btnRegister)
