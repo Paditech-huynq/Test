@@ -44,23 +44,9 @@ public class LoginActivity extends MVPActivity<LoginPresenter> implements LoginC
     public void initView() {
         super.initView();
         Utils.dismissSoftKeyboard(findViewById(R.id.layout_main), this);
-    }
-
-    @Override
-    public void onViewAppear() {
-        super.onViewAppear();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window w = getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-    }
-
-    @Override
-    public void onViewDisappear() {
-        super.onViewDisappear();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window w = getWindow();
-            w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
     }
 
