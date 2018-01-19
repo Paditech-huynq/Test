@@ -99,6 +99,6 @@ public class ProductListFragment extends BaseFragment {
         if (resId == R.id.btnTrash) {
             return false;
         }
-        return false;
+        return true;
     }
 }

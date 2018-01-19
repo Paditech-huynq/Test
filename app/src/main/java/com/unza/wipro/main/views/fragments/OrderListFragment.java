@@ -81,7 +81,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
             @Override
             public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
                 // todo: get
-                OrderDetailFragment orderDetailFragment = OrderDetailFragment.newInstance(1);
+                OrderDetailFragment orderDetailFragment = OrderDetailFragment.newInstance(OrderDetailFragment.VIEW_MODE.SEE_MODE);
                 OrderListFragment.this.switchFragment(orderDetailFragment, true);
             }
         });

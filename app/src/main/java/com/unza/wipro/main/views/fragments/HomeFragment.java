@@ -42,6 +42,7 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
         super.initView();
         setUpViewPagger();
         setUpBottomBar();
+        ((MainActivity) getActivity()).updateActionButtonAppearance(this);
         super.setScreenTitle(getString(R.string.title_home_product));
     }
 

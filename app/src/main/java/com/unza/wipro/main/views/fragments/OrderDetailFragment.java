@@ -22,10 +22,14 @@ public class OrderDetailFragment extends BaseFragment {
     @BindView(R.id.bottomBar)
     View bottomBar;
 
+    public enum VIEW_MODE{
+        CREATE_MODE, SEE_MODE
+    }
+    private VIEW_MODE viewMode;
+
     private int scrollX, scrollY;
 
     private CartItemsAdapter mAdapter;
-    private int cartId;
 
     public static OrderDetailFragment newInstance() {
 
@@ -36,9 +40,9 @@ public class OrderDetailFragment extends BaseFragment {
         return fragment;
     }
 
-    public static OrderDetailFragment newInstance(int cartId) {
+    public static OrderDetailFragment newInstance(VIEW_MODE viewMode) {
         OrderDetailFragment fragment = newInstance();
-        fragment.cartId = cartId;
+        fragment.viewMode = viewMode;
         return fragment;
     }
 
@@ -60,13 +64,13 @@ public class OrderDetailFragment extends BaseFragment {
     }
 
     private void setupCreateCart() {
-        bottomBar.setVisibility(cartId == 0 ? View.VISIBLE : View.GONE);
+        bottomBar.setVisibility(viewMode == VIEW_MODE.CREATE_MODE ? View.VISIBLE : View.GONE);
     }
 
     @Override
     public boolean isActionShow(int resId) {
         if (resId == R.id.btnTrash) {
-            return (cartId == 0);
+            return (viewMode == VIEW_MODE.CREATE_MODE);
         }
         return super.isActionShow(resId);
     }
