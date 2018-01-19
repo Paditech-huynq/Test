@@ -10,6 +10,7 @@ import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.ViewHelper;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.CartItemsAdapter;
+import com.unza.wipro.main.models.Cart;
 import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
 
 import butterknife.BindView;
@@ -71,7 +72,7 @@ public class OrderDetailFragment extends BaseFragment {
     }
 
     private void setupRecycleView() {
-        mAdapter = new CartItemsAdapter(cartId == 0);
+        mAdapter = new CartItemsAdapter();
         mAdapter.setOnViewClickListener(new BaseRecycleViewAdapter.ViewClickListener() {
             @Override
             public void onViewItemClock(int resId, BaseRecycleViewAdapter.BaseViewHolder holder, int position) {
@@ -104,7 +105,7 @@ public class OrderDetailFragment extends BaseFragment {
 
     @OnClick(R.id.btnSubmit)
     void onSubmitBtnClick() {
-        getActivity().onBackPressed();
+        Cart.getInstance().clear();
     }
 
     @OnClick(R.id.btnLookup)
