@@ -9,6 +9,7 @@ import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.ViewHelper;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.CartItemsAdapter;
+import com.unza.wipro.main.models.Cart;
 import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
 
 import butterknife.BindView;
@@ -84,6 +85,7 @@ public class OrderDetailFragment extends BaseFragment {
     @OnClick(R.id.btnSubmit)
     void onSubmitBtnClick()
     {
+        Cart.getInstance().clear();
         getActivity().onBackPressed();
     }
 

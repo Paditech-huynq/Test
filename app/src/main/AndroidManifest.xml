@@ -32,7 +32,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/FullScreenTheme"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateVisible"/>
         <activity
             android:name=".main.views.activities.ForgotPasswordActivity"
             android:label="@string/app_name"

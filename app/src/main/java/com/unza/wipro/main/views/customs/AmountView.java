@@ -40,6 +40,7 @@ public class AmountView extends RelativeLayout {
     private int interval = 1;
     private int minValue = 0;
     private int maxValue = Integer.MAX_VALUE;
+    private OnValueChangeListener mOnValueChangeListener;
 
     private float timeRatio = 0.5F;
     private int countValueChange = 0;
@@ -107,6 +108,10 @@ public class AmountView extends RelativeLayout {
         });
     }
 
+    public void setOnValueChangeListener(OnValueChangeListener onValueChangeListener) {
+        this.mOnValueChangeListener = onValueChangeListener;
+    }
+
     private void changeValue(View v, MotionEvent motionEvent, boolean increase) {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             this.isIncrease = increase;
@@ -138,6 +143,7 @@ public class AmountView extends RelativeLayout {
         if (value > minValue) {
             value -= interval;
             countValueChange += interval;
+            if (mOnValueChangeListener != null) mOnValueChangeListener.onValueChange(value);
         }
         setValue(value);
     }
@@ -146,6 +152,7 @@ public class AmountView extends RelativeLayout {
         if (value < maxValue) {
             value += interval;
             countValueChange += interval;
+            if (mOnValueChangeListener != null) mOnValueChangeListener.onValueChange(value);
         }
         setValue(value);
     }
@@ -173,5 +180,9 @@ public class AmountView extends RelativeLayout {
     public AmountView setMaxValue(int maxValue) {
         this.maxValue = maxValue;
         return this;
+    }
+
+    public interface OnValueChangeListener {
+        void onValueChange(int value);
     }
 }
