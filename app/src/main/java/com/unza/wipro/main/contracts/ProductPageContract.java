@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface ProductPageContract {
     interface ViewImpl extends BaseViewImpl {
-        void updateItemToList(List<Product> products);
+        void addItemToList(List<Product> products);
 
-        void clearProductList(boolean isClear);
+        void refreshData(List<Product> products);
     }
 
     interface Presenter extends BasePresenterImpl {

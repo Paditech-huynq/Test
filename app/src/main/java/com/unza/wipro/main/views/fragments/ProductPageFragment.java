@@ -155,13 +155,13 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
     }
 
     @Override
-    public void updateItemToList(List<Product> productList) {
-        mAdapter.updateItemToList(productList);
+    public void addItemToList(List<Product> productList) {
+        mAdapter.insertData(productList);
     }
 
     @Override
-    public void clearProductList(boolean isClear) {
-
+    public void refreshData(List<Product> productList) {
+        mAdapter.replaceData(productList);
     }
 
     public String getCategoryId() {

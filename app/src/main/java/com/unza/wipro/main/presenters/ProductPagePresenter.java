@@ -17,32 +17,26 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProductPagePresenter extends BasePresenter<ProductPageContract.ViewImpl> implements ProductPageContract.Presenter, AppConstans {
-    private int page = 1;
+    private static final int FIRST_PAGE = 1;
+    private int page = FIRST_PAGE;
     private boolean isFull;
+    private boolean isPending;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        loadProductFromServer(true);
-    }
-
-    @Override
-    public void onViewAppear() {
-
-    }
-
-    @Override
-    public void onViewDisAppear() {
-
-    }
-
-    @Override
-    public void onDestroy() {
-
+        loadProductFromServer(false);
     }
 
     private void loadProductFromServer(final boolean isRefresh) {
-        getView().showProgressDialog(isRefresh);
+        if (isPending || isFull) {
+            return;
+        }
+        if (isRefresh) {
+            resetData();
+        }
+        isPending = true;
+        getView().showProgressDialog(page == FIRST_PAGE);
         AppClient.newInstance().getService().getListProduct(page, PAGE_SIZE,
                 ((ProductPageFragment) getView()).getCategoryId(), EMPTY)
                 .enqueue(new Callback<GetListProductRSP>() {
@@ -51,12 +45,10 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
                         if (getView() == null) {
                             return;
                         }
+                        getView().showProgressDialog(false);
                         GetListProductRSP listProductRSP = response.body();
                         List<Product> productList = listProductRSP.getData();
-                        getView().clearProductList(isRefresh);
-                        getView().updateItemToList(productList);
-                        getView().showProgressDialog(false);
-                        onLoadProductSuccess(productList);
+                        onLoadProductSuccess(isRefresh, productList);
                     }
 
                     @Override
@@ -69,11 +61,13 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
                 });
     }
 
+    private void resetData() {
+        page = FIRST_PAGE;
+    }
+
     @Override
     public void onLoadMore() {
-        if (!isFull) {
-            loadProductFromServer(false);
-        }
+        loadProductFromServer(false);
     }
 
     @Override
@@ -81,10 +75,16 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
         loadProductFromServer(true);
     }
 
-    private void onLoadProductSuccess(List<Product> productList) {
+    private void onLoadProductSuccess(boolean isRefresh, List<Product> productList) {
         page++;
+        isPending = false;
         if (productList.size() < PAGE_SIZE) {
             isFull = true;
+        }
+        if (isRefresh) {
+            getView().refreshData(productList);
+        } else {
+            getView().addItemToList(productList);
         }
     }
 }

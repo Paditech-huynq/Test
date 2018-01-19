@@ -108,15 +108,17 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
         void onAddCartButtonClick(View view, int index);
     }
 
-    public void updateItemToList(List<Product> productList) {
+    public void insertData(List<Product> productList) {
+        if (productList == null) {
+            return;
+        }
         int lastProductCount = this.productList.size();
         this.productList.addAll(productList);
         notifyItemRangeInserted(lastProductCount, this.productList.size());
     }
 
-    public void clearProductList(boolean isClear) {
-        if (isClear) {
-            productList.clear();
-        }
+    public void replaceData(List<Product> productList) {
+        productList.clear();
+        insertData(productList);
     }
 }
