@@ -12,11 +12,14 @@ import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.ImageHelper;
@@ -68,6 +71,24 @@ public class ProfileRegisterFragment extends BaseFragment {
         ProfileRegisterFragment fragment = new ProfileRegisterFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void initView() {
+        super.initView();
+        Utils.showKeyboard(getActivity());
+
+        edtAddress.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    submitRegister();
+                    Utils.hideSoftKeyboard(getActivity());
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -244,7 +265,7 @@ public class ProfileRegisterFragment extends BaseFragment {
     }
 
     @OnClick(R.id.btnRegister)
-    void sutmitRegister() {
+    void submitRegister() {
 
         if (dataIsValid()) {
             //todo: handle logic register hre

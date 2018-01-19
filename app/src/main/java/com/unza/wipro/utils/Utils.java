@@ -115,4 +115,13 @@ public class Utils {
     public static boolean checkEmailValid(String email) {
         return Pattern.compile(".+@.+\\.[a-z]+").matcher(email).matches();
     }
+
+    public static void showKeyboard(Context context) {
+        try {
+            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
