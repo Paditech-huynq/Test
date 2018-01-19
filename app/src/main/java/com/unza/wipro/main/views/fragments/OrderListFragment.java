@@ -235,6 +235,9 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public boolean isActionShow(int resId) {
+        if (resId == R.id.btnTrash) {
+            return false;
+        }
         return true;
     }
 }

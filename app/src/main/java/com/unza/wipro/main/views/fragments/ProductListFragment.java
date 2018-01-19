@@ -96,6 +96,9 @@ public class ProductListFragment extends BaseFragment {
 
     @Override
     public boolean isActionShow(int resId) {
-        return true;
+        if (resId == R.id.btnTrash) {
+            return false;
+        }
+        return false;
     }
 }

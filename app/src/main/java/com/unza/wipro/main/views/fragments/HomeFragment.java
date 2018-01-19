@@ -104,9 +104,11 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
     public void setScreenTitle(String title) {
     }
 
-
     @Override
     public boolean isActionShow(int resId) {
+        if (resId == R.id.btnTrash) {
+            return false;
+        }
         return true;
     }
 }
