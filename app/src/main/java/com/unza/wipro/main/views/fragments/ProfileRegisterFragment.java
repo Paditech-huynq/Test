@@ -226,4 +226,11 @@ public class ProfileRegisterFragment extends BaseFragment {
         mediaScanIntent.setData(contentUri);
         this.getActivity().sendBroadcast(mediaScanIntent);
     }
+
+    @OnClick(R.id.btnRegister)
+    void sutmitRegister()
+    {
+        //todo: handle logic register hre
+        getActivity().onBackPressed();
+    }
 }
