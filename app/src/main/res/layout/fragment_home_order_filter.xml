@@ -88,14 +88,14 @@
                 android:layout_width="match_parent"
                 android:gravity="center"
                 android:layout_height="wrap_content"
-                android:layout_toStartOf="@+id/calender_left"
+                android:layout_toStartOf="@+id/btn_calender_left_filter"
                 android:layout_centerVertical="true"
                 android:text="22/12/2012"
                 android:textColor="@color/text_dark"
                 android:textSize="@dimen/text_size_normal" />
 
             <ImageButton
-                android:id="@+id/calender_left"
+                android:id="@+id/btn_calender_left_filter"
                 android:layout_width="@dimen/text_size_title"
                 android:layout_height="@dimen/text_size_title"
                 android:layout_alignParentEnd="true"
@@ -120,14 +120,14 @@
                 android:layout_width="match_parent"
                 android:gravity="center"
                 android:layout_height="wrap_content"
-                android:layout_toStartOf="@+id/calender_right"
+                android:layout_toStartOf="@+id/btn_calender_right_filter"
                 android:layout_centerVertical="true"
                 android:text="22/12/2012"
                 android:textSize="@dimen/text_size_normal" />
 
             <ImageButton
                 android:layout_centerVertical="true"
-                android:id="@+id/calender_right"
+                android:id="@+id/btn_calender_right_filter"
                 android:layout_width="@dimen/text_size_title"
                 android:layout_height="@dimen/text_size_title"
                 android:layout_alignParentEnd="true"

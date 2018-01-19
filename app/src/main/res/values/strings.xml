@@ -100,6 +100,7 @@
     <string name="questions_profile_fragment">Câu hỏi thường gặp</string>
     <string name="term_use_profile_fragment">Điều khoản sử dụng</string>
     <string name="log_out_profile_fragment">Đăng xuất</string>
+    <string name="display_time_day_month_year">%1$d/%2$d/%3$d</string>
 
     <!-- notification -->
     <string name="notification_title">Thông báo</string>
