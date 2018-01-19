@@ -20,7 +20,7 @@ public interface OrderListContract {
         void updateDayInFilter(String toDay);
         void displayDatePicker(int whatCalenderInFilter, int day, int month, int year);
         void displayDateChose(int whatCalenderInFilter, String day);
-        void goToItemDetailScreen();
+        void goToOrderDetailScreen();
     }
 
     interface Presenter extends BasePresenterImpl {

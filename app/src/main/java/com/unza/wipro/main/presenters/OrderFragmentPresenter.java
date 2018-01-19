@@ -75,6 +75,6 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
 
     @Override
     public void onItemClick() {
-        getView().goToItemDetailScreen();
+        getView().goToOrderDetailScreen();
     }
 }

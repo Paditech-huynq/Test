@@ -171,7 +171,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     }
 
     @Override
-    public void goToItemDetailScreen() {
+    public void goToOrderDetailScreen() {
         switchFragment(OrderDetailFragment.newInstance(), true);
     }
 
