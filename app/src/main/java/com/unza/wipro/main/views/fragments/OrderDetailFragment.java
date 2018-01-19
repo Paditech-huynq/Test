@@ -46,7 +46,6 @@ public class OrderDetailFragment extends BaseFragment {
     public void initView() {
         super.initView();
         setupRecycleView();
-
     }
 
     private void setupRecycleView() {

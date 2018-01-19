@@ -12,6 +12,7 @@ public interface OrderListContract {
         void updateRecycleView(List<OrderClass> data);
         void updateFilterAppearance();
         void dismissFilter();
+        void appearFilter();
         void changeColorButtonAll();
         void changeColorButtonThisWeek();
         void changeColorButtonLastWeek();
@@ -19,6 +20,7 @@ public interface OrderListContract {
         void updateDayInFilter(String toDay);
         void displayDatePicker(int whatCalenderInFilter, int day, int month, int year);
         void displayDateChose(int whatCalenderInFilter, String day);
+        void goToOrderDetailScreen();
     }
 
     interface Presenter extends BasePresenterImpl {
@@ -31,5 +33,6 @@ public interface OrderListContract {
         void onBtThisMonthClick();
         void onBtCalenderClick(int whatCalenderInFilter, String dayCalenderFilter);
         void onChooseDate(int whatCalenderInFilter, int day, int month, int year);
+        void onItemClick();
     }
 }

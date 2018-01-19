@@ -12,11 +12,10 @@ import com.paditech.core.helper.ImageHelper;
 import com.paditech.core.helper.StringUtil;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
+
 import com.unza.wipro.main.models.Cart;
 import com.unza.wipro.main.models.CartItem;
 import com.unza.wipro.main.views.customs.AmountView;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -63,6 +62,8 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         TextView tvTotalPrice;
         @BindView(R.id.av_amount)
         AmountView amountView;
+        @BindView(R.id.tvCount)
+        TextView tvCount;
 
         CartItemHolder(View itemView) {
             super(itemView);
@@ -73,6 +74,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
             final Context context = itemView.getContext();
             final CartItem item = getItem(position - 1);
             if (item == null) return;
+            tvCount.setVisibility(View.GONE);
             if (item.getProduct() != null) {
                 tvName.setText(item.getProduct().getName());
                 if (item.getProduct().getProductThumbnail() != null && !StringUtil.isEmpty(item.getProduct().getProductThumbnail().getLink()))
@@ -102,7 +104,6 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         @Override
         protected void onBindingData(int position) {
 //            ImageHelper.loadThumbCircleImage(itemView.getContext(), imagesDummy[15], imvAvatar);
-
         }
 
         @OnClick(R.id.btnChange)

@@ -6,6 +6,8 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
@@ -18,11 +20,8 @@ import com.unza.wipro.main.adapter.OrderListAdapter;
 import com.unza.wipro.main.contracts.OrderListContract;
 import com.unza.wipro.main.models.OrderClass;
 import com.unza.wipro.main.presenters.OrderFragmentPresenter;
-import com.unza.wipro.utils.DateTimeUtils;
 
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -66,6 +65,12 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     public void updateRecycleView(List<OrderClass> data) {
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mAdapter.addData(data);
+        mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
+                getPresenter().onItemClick();
+            }
+        });
         mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
             public void onLoadMore() {
@@ -78,9 +83,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @Override
     public void updateFilterAppearance() {
         if (filter.getVisibility() == View.GONE) {
-            viewUp.setVisibility(View.VISIBLE);
-            filter.setVisibility(View.VISIBLE);
-            cardViewHeader.setElevation(0);
+            appearFilter();
         } else {
             dismissFilter();
         }
@@ -88,9 +91,20 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public void dismissFilter() {
+        Animation slideUp = AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_up);
         viewUp.setVisibility(View.GONE);
+        filter.setAnimation(slideUp);
         filter.setVisibility(View.GONE);
         cardViewHeader.setElevation(getResources().getDimensionPixelOffset(R.dimen.cardview_default_elevation));
+    }
+
+    @Override
+    public void appearFilter() {
+        Animation slideDown = AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_down);
+        viewUp.setVisibility(View.VISIBLE);
+        filter.startAnimation(slideDown);
+        filter.setVisibility(View.VISIBLE);
+        cardViewHeader.setElevation(0);
     }
 
     @Override
@@ -154,6 +168,11 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
                 tvCalenderRightFilter.setText(day);
                 break;
         }
+    }
+
+    @Override
+    public void goToOrderDetailScreen() {
+        switchFragment(OrderDetailFragment.newInstance(), true);
     }
 
     @OnClick(R.id.bt_filter)
