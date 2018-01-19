@@ -12,6 +12,7 @@ public interface OrderListContract {
         void updateRecycleView(List<OrderClass> data);
         void updateFilterAppearance();
         void dismissFilter();
+        void appearFilter();
         void changeColorButtonAll();
         void changeColorButtonThisWeek();
         void changeColorButtonLastWeek();

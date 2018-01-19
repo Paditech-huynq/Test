@@ -6,6 +6,8 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
@@ -78,9 +80,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @Override
     public void updateFilterAppearance() {
         if (filter.getVisibility() == View.GONE) {
-            viewUp.setVisibility(View.VISIBLE);
-            filter.setVisibility(View.VISIBLE);
-            cardViewHeader.setElevation(0);
+            appearFilter();
         } else {
             dismissFilter();
         }
@@ -88,9 +88,20 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public void dismissFilter() {
+        Animation slideUp = AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_up);
         viewUp.setVisibility(View.GONE);
+        filter.setAnimation(slideUp);
         filter.setVisibility(View.GONE);
         cardViewHeader.setElevation(getResources().getDimensionPixelOffset(R.dimen.cardview_default_elevation));
+    }
+
+    @Override
+    public void appearFilter() {
+        Animation slideDown = AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_down);
+        viewUp.setVisibility(View.VISIBLE);
+        filter.startAnimation(slideDown);
+        filter.setVisibility(View.VISIBLE);
+        cardViewHeader.setElevation(0);
     }
 
     @Override
