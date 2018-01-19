@@ -18,7 +18,7 @@ public interface OrderListContract {
         void changeColorButtonThisMonth();
         void updateDayInFilter(String toDay);
         void displayDatePicker(int whatCalenderInFilter, int day, int month, int year);
-        void displayDateChose(int whatCalenderInFilter, int day, int month, int year);
+        void displayDateChose(int whatCalenderInFilter, String day);
     }
 
     interface Presenter extends BasePresenterImpl {

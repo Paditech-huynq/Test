@@ -3,6 +3,7 @@ package com.unza.wipro.main.presenters;
 import android.util.Log;
 
 import com.paditech.core.mvp.BasePresenter;
+import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.OrderListContract;
 import com.unza.wipro.main.models.OrderData;
 import com.unza.wipro.utils.DateTimeUtils;
@@ -72,6 +73,6 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
 
     @Override
     public void onChooseDate(int whatCalenderInFilter, int day, int month, int year) {
-        getView().displayDateChose(whatCalenderInFilter, day, month, year);
+        getView().displayDateChose(whatCalenderInFilter, DateTimeUtils.getStringDayMonthYear(getView().getContext().getResources().getString(R.string.display_time_day_month_year,day,month,year)));
     }
 }
