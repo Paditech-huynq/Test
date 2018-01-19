@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.paditech.core.DisableTouchView;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
@@ -35,7 +34,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
     @BindView(R.id.layoutLoading)
     ProgressBar layoutLoading;
     @BindView(R.id.disableTouchView)
-    DisableTouchView disableTouchView;
+    View disableTouchView;
 
     ProductListAdapter mAdapter;
     private String categoryId;
@@ -105,7 +104,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
 
     private void startTransition(View view) {
         DynamicHeightImageView imvProduct = view.findViewById(R.id.imvProduct);
-        ViewCompat.setTransitionName(imvProduct, Calendar.getInstance().getTimeInMillis() + "_");
+        ViewCompat.setTransitionName(imvProduct, String.valueOf(Calendar.getInstance().getTimeInMillis()));
 
         ProductDetailFragment detailFragment = ProductDetailFragment.newInstance(new Product(), TransitionInflater.from(ProductPageFragment.this.getContext()).
                 inflateTransition(R.transition.change_image_transform));
@@ -159,11 +158,6 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
     @Override
     public void updateItemToList(List<Product> productList) {
         mAdapter.updateItemToList(productList);
-    }
-
-    @Override
-    public void refreshList(List<Product> products) {
-        mAdapter.refreshList(products);
     }
 
     public String getCategoryId() {

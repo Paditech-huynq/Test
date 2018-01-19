@@ -17,13 +17,15 @@ import com.unza.wipro.main.models.ProductThumbnail;
 import com.unza.wipro.main.views.customs.DynamicHeightImageView;
 import com.unza.wipro.main.views.customs.PlaceHolderDrawableHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
 public class ProductListAdapter extends BaseRecycleViewAdapter implements AppConstans {
     private OnProductItemClickListenner mOnProductItemClickListenner;
-    private List<Product> productList;
+    private List<Product> productList = new ArrayList<>();
+    private static final float DEFAULT_RATIO = 4F / 3F;
 
     public void setOnProductItemClickListenner(OnProductItemClickListenner mOnProductItemClickListenner) {
         this.mOnProductItemClickListenner = mOnProductItemClickListenner;
@@ -87,7 +89,7 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
         }
 
         private void updateImageSize(ProductThumbnail productThumbnail) {
-            float ratio = 4 / 3F;
+            float ratio = DEFAULT_RATIO;
             try {
                 float width = Float.parseFloat(productThumbnail.getWidth());
                 float height = Float.parseFloat(productThumbnail.getHeight());
@@ -110,10 +112,5 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
         int lastProductCount = this.productList.size();
         this.productList.addAll(productList);
         notifyItemRangeInserted(lastProductCount, this.productList.size());
-    }
-
-    public void refreshList(List<Product> productList) {
-        this.productList = productList;
-        notifyDataSetChanged();
     }
 }

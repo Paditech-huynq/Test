@@ -81,8 +81,8 @@
     <string name="product_detail_price">%s vnđ</string>
 
     <!-- currency unit -->
-    <string name="currency_unit">VNĐ</string>
-  
+    <string name="currency_unit">%1s VNĐ</string>
+
     <!--profile fragment-->
     <string name="title_fragment_profile">Thông tin người dùng</string>
     <string name="order_profile_fragment">Đơn hàng</string>

@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface ProductPageContract {
     interface ViewImpl extends BaseViewImpl {
-        void refreshList(List<Product> products);
-
         void updateItemToList(List<Product> products);
     }
 
