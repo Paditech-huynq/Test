@@ -20,11 +20,8 @@ import com.unza.wipro.main.adapter.OrderListAdapter;
 import com.unza.wipro.main.contracts.OrderListContract;
 import com.unza.wipro.main.models.OrderClass;
 import com.unza.wipro.main.presenters.OrderFragmentPresenter;
-import com.unza.wipro.utils.DateTimeUtils;
 
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -71,7 +68,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
-                getPresenter().onItemRcvClick();
+                getPresenter().onItemClick();
             }
         });
         mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
@@ -174,7 +171,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     }
 
     @Override
-    public void changeFragmentWhenClickItem() {
+    public void goToItemDetailScreen() {
         switchFragment(OrderDetailFragment.newInstance(), true);
     }
 

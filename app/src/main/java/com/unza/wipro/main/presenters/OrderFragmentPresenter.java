@@ -74,7 +74,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     }
 
     @Override
-    public void onItemRcvClick() {
-        getView().changeFragmentWhenClickItem();
+    public void onItemClick() {
+        getView().goToItemDetailScreen();
     }
 }

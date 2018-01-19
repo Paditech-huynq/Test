@@ -20,7 +20,7 @@ public interface OrderListContract {
         void updateDayInFilter(String toDay);
         void displayDatePicker(int whatCalenderInFilter, int day, int month, int year);
         void displayDateChose(int whatCalenderInFilter, String day);
-        void changeFragmentWhenClickItem();
+        void goToItemDetailScreen();
     }
 
     interface Presenter extends BasePresenterImpl {
@@ -33,6 +33,6 @@ public interface OrderListContract {
         void onBtThisMonthClick();
         void onBtCalenderClick(int whatCalenderInFilter, String dayCalenderFilter);
         void onChooseDate(int whatCalenderInFilter, int day, int month, int year);
-        void onItemRcvClick();
+        void onItemClick();
     }
 }
