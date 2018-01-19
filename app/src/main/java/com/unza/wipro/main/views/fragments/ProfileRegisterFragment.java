@@ -16,7 +16,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
-import android.widget.Toast;
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.ImageHelper;
 import com.unza.wipro.R;
@@ -81,8 +80,7 @@ public class ProfileRegisterFragment extends BaseFragment {
             takePicture();
         }
         if (grantResults[0] == PackageManager.PERMISSION_DENIED && requestCode == REQUEST_WRITE_EXTERNAL_STORAGE) {
-            Toast.makeText(getActivity(), "Must allow permision WRITE_EXTERNAL_STORAGE",
-                    Toast.LENGTH_LONG).show();
+            showToast("Must allow write external storage pemission");
         }
     }
 
