@@ -3,6 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_light">
+    <android.support.v7.widget.RecyclerView
+        android:paddingEnd="@dimen/padding_normal"
+        android:paddingStart="@dimen/padding_normal"
+        android:paddingTop="@dimen/padding_small"
+        android:id="@+id/rcvOrder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/cardview_header"/>
+    <View
+        android:clickable="true"
+        android:visibility="gone"
+        android:background="#a8404040"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/cardview_header"
+        android:id="@+id/view_up_rcv"
+        android:focusable="true" />
+    <include
+        android:visibility="gone"
+        layout="@layout/fragment_home_order_filter"
+        android:id="@+id/filter"
+        android:layout_below="@+id/cardview_header"
+        android:layout_height="@dimen/filter_fragment_order_height"
+        android:layout_width="match_parent" />
     <android.support.v7.widget.CardView
         android:id="@+id/cardview_header"
         android:layout_width="wrap_content"
@@ -52,29 +76,4 @@
             />
     </RelativeLayout>
     </android.support.v7.widget.CardView>
-    <android.support.v7.widget.RecyclerView
-        android:paddingEnd="@dimen/padding_normal"
-        android:paddingStart="@dimen/padding_normal"
-        android:paddingTop="@dimen/padding_small"
-        android:id="@+id/rcvOrder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/cardview_header"/>
-    <View
-        android:clickable="true"
-        android:visibility="gone"
-        android:background="#a8404040"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/cardview_header"
-        android:id="@+id/view_up_rcv"
-        android:focusable="true" />
-    <include
-        android:visibility="gone"
-        layout="@layout/fragment_home_order_filter"
-        android:id="@+id/filter"
-        android:layout_below="@+id/cardview_header"
-        android:layout_height="@dimen/filter_fragment_order_height"
-        android:layout_width="match_parent" />
-
 </RelativeLayout>
