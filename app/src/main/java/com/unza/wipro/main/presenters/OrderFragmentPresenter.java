@@ -1,7 +1,5 @@
 package com.unza.wipro.main.presenters;
 
-import android.util.Log;
-
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.OrderListContract;
@@ -9,7 +7,6 @@ import com.unza.wipro.main.models.OrderData;
 import com.unza.wipro.utils.DateTimeUtils;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class OrderFragmentPresenter extends BasePresenter<OrderListContract.ViewImpl>  implements OrderListContract.Presenter {
 
