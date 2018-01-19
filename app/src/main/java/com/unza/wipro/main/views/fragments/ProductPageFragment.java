@@ -160,6 +160,11 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
         mAdapter.updateItemToList(productList);
     }
 
+    @Override
+    public void clearProductList(boolean isClear) {
+
+    }
+
     public String getCategoryId() {
         return categoryId;
     }

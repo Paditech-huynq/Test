@@ -113,4 +113,10 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
         this.productList.addAll(productList);
         notifyItemRangeInserted(lastProductCount, this.productList.size());
     }
+
+    public void clearProductList(boolean isClear) {
+        if (isClear) {
+            productList.clear();
+        }
+    }
 }

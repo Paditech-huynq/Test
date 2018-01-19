@@ -23,7 +23,7 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
     @Override
     public void onCreate() {
         super.onCreate();
-        loadProductFromServer();
+        loadProductFromServer(true);
     }
 
     @Override
@@ -41,19 +41,8 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
 
     }
 
-    private void loadProductFromServer() {
-        getListProduct(false);
-    }
-
-    @Override
-    public void onLoadMore() {
-        if (!isFull) {
-            getListProduct(true);
-        }
-    }
-
-    private void getListProduct(final boolean isLoadMore) {
-        if (!isLoadMore) getView().showProgressDialog(true);
+    private void loadProductFromServer(final boolean isRefresh) {
+        getView().showProgressDialog(isRefresh);
         AppClient.newInstance().getService().getListProduct(page, PAGE_SIZE,
                 ((ProductPageFragment) getView()).getCategoryId(), EMPTY)
                 .enqueue(new Callback<GetListProductRSP>() {
@@ -64,6 +53,7 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
                         }
                         GetListProductRSP listProductRSP = response.body();
                         List<Product> productList = listProductRSP.getData();
+                        getView().clearProductList(isRefresh);
                         getView().updateItemToList(productList);
                         getView().showProgressDialog(false);
                         onLoadProductSuccess(productList);
@@ -79,9 +69,21 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
                 });
     }
 
+    @Override
+    public void onLoadMore() {
+        if (!isFull) {
+            loadProductFromServer(false);
+        }
+    }
+
+    @Override
+    public void onRefresh(List<Product> products) {
+        loadProductFromServer(true);
+    }
+
     private void onLoadProductSuccess(List<Product> productList) {
-        page += 1;
-        if (productList.size() < 10) {
+        page++;
+        if (productList.size() < PAGE_SIZE) {
             isFull = true;
         }
     }
