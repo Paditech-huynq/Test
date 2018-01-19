@@ -51,7 +51,7 @@
             android:background="@android:color/transparent"
             />
         <TextView
-            android:id="@+id/text_time"
+            android:id="@+id/tv_time_in_header_filter"
             android:textSize="@dimen/text_size_normal"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
@@ -64,7 +64,7 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="@color/dark_light"
-            android:layout_toEndOf="@+id/text_time"/>
+            android:layout_toEndOf="@+id/tv_time_in_header_filter"/>
         <ImageButton
             android:layout_marginTop="@dimen/padding_normal"
             android:layout_marginBottom="@dimen/padding_normal"

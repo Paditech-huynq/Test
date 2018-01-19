@@ -50,6 +50,8 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     TextView tvCalenderLeftFilter;
     @BindView(R.id.tv_calender_right_filter)
     TextView tvCalenderRightFilter;
+    @BindView(R.id.tv_time_in_header_filter)
+    TextView tvTimeInHeaderFilter;
 
     private OrderListAdapter mAdapter = new OrderListAdapter();
     private static final int DAY_LEFT_CALENDER_FILTER = 0;
@@ -147,9 +149,9 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     }
 
     @Override
-    public void updateDayInFilter(String toDay) {
-        tvCalenderLeftFilter.setText(toDay);
-        tvCalenderRightFilter.setText(toDay);
+    public void updateDayInFilter(String dayInLeft, String dayInRight) {
+        tvCalenderLeftFilter.setText(dayInLeft);
+        tvCalenderRightFilter.setText(dayInRight);
     }
 
     @Override
@@ -175,11 +177,18 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
                 tvCalenderRightFilter.setText(day);
                 break;
         }
+        updateDayInHeaderOfFilter(tvCalenderLeftFilter.getText().toString(),tvCalenderRightFilter.getText().toString());
     }
 
     @Override
     public void goToOrderDetailScreen() {
         switchFragment(OrderDetailFragment.newInstance(), true);
+    }
+
+    @Override
+    public void updateDayInHeaderOfFilter(String firstDayInMonth, String lastDayInMonth) {
+        tvTimeInHeaderFilter.setText(getResources().getString(R.string.display_time_day_month_year_in_header_filter,firstDayInMonth,
+                lastDayInMonth));
     }
 
     @OnClick(R.id.bt_filter)

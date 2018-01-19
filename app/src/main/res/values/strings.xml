@@ -104,6 +104,7 @@
     <string name="term_use_profile_fragment">Điều khoản sử dụng</string>
     <string name="log_out_profile_fragment">Đăng xuất</string>
     <string name="display_time_day_month_year">%1$d/%2$d/%3$d</string>
+    <string name="display_time_day_month_year_in_header_filter">%1$s - %2$s</string>
 
     <!-- notification -->
     <string name="notification_title">Thông báo</string>

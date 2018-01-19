@@ -17,10 +17,11 @@ public interface OrderListContract {
         void changeColorButtonThisWeek();
         void changeColorButtonLastWeek();
         void changeColorButtonThisMonth();
-        void updateDayInFilter(String toDay);
+        void updateDayInFilter(String dayInLeft, String dayInRight);
         void displayDatePicker(int whatCalenderInFilter, int day, int month, int year);
         void displayDateChose(int whatCalenderInFilter, String day);
         void goToOrderDetailScreen();
+        void updateDayInHeaderOfFilter(String firstDayInMonth, String lastDayInMonth);
     }
 
     interface Presenter extends BasePresenterImpl {

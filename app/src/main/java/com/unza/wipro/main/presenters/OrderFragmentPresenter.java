@@ -1,5 +1,7 @@
 package com.unza.wipro.main.presenters;
 
+import android.util.Log;
+
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.OrderListContract;
@@ -25,8 +27,16 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     }
 
     private void loadUI() {
-        Date toDay = Calendar.getInstance().getTime();
-        getView().updateDayInFilter(DateTimeUtils.getStringDayMonthYear(toDay));
+        Calendar calendar = Calendar.getInstance();
+        int numberDayOfMonth = calendar.getActualMaximum(Calendar.DATE);
+        String firstDay = getView().getContext().getResources().getString(R.string.display_time_day_month_year,
+                1, calendar.get(Calendar.MONTH)+ 1, calendar.get(Calendar.YEAR));
+        String lastDay = getView().getContext().getResources().getString(R.string.display_time_day_month_year,
+                numberDayOfMonth, calendar.get(Calendar.MONTH)+ 1, calendar.get(Calendar.YEAR));
+        getView().updateDayInFilter(DateTimeUtils.getStringDayMonthYear(firstDay),DateTimeUtils.getStringDayMonthYear(lastDay));
+        getView().updateDayInHeaderOfFilter(DateTimeUtils.getStringDayMonthYear(firstDay),
+                DateTimeUtils.getStringDayMonthYear(lastDay));
+        getView().changeColorButtonThisMonth();
     }
 
     @Override
