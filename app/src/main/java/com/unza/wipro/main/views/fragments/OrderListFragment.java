@@ -236,6 +236,16 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         getPresenter().onRecycleViewWhenDisTouchClick();
     }
 
+    @OnClick(R.id.tv_calender_left_filter)
+    public void onTvCalenderLeftFilterClick(){
+        getPresenter().onBtCalenderClick(DAY_LEFT_CALENDER_FILTER, tvCalenderLeftFilter.getText().toString());
+    }
+
+    @OnClick(R.id.tv_calender_right_filter)
+    public void onTvCalenderRightFilterClick(){
+        getPresenter().onBtCalenderClick(DAY_RIGHT_CALENDER_FILTER, tvCalenderRightFilter.getText().toString());
+    }
+
     @Override
     protected int getLayoutResource() {
         return R.layout.fragment_home_order;
