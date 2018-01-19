@@ -106,11 +106,10 @@ public class ProfileRegisterFragment extends BaseFragment {
 
     @OnClick(R.id.btnCamera)
     protected void openCamera() {
-
+        Utils.checkCameraPermission(this.getActivity());
         boolean hasWritePermission = (ContextCompat.checkSelfPermission(this.getActivity(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         if (!hasWritePermission) {
-            Utils.checkCameraPermission(this.getActivity());
             this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_EXTERNAL_STORAGE);
         } else {
             takePicture();
