@@ -64,10 +64,9 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onBtCalenderClick(int whatCalenderInFilter, String dayCalenderFilter) {
         String[] time = dayCalenderFilter.split("/");
-        Log.e("onBtCalenderClick: ", dayCalenderFilter);
-        int day = Integer.getInteger(time[0]);
-        int month = Integer.getInteger(time[1]);
-        int year = Integer.getInteger(time[2]);
+        int day = Integer.parseInt(time[0]);
+        int month = Integer.parseInt(time[1]);
+        int year = Integer.parseInt(time[2]);
         getView().displayDatePicker(whatCalenderInFilter,day,month,year);
     }
 

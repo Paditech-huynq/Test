@@ -140,14 +140,20 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
                                           int monthOfYear, int dayOfMonth) {
                         getPresenter().onChooseDate(whatCalenderInFilter, dayOfMonth, monthOfYear + 1, year);
                     }
-                }, today, thisMonth, thisYear);
+                }, thisYear, thisMonth-1, today);
         datePickerDialog.show();
     }
 
     @Override
     public void displayDateChose(int whatCalenderInFilter, int day, int month, int year) {
-        tvCalenderLeftFilter.setText(getResources().getString(R.string.display_time_day_month_year, day, month, year));
-        tvCalenderRightFilter.setText(getResources().getString(R.string.display_time_day_month_year, day, month, year));
+        switch (whatCalenderInFilter){
+            case DAY_LEFT_CALENDER_FILTER:
+                tvCalenderLeftFilter.setText(getResources().getString(R.string.display_time_day_month_year, day, month, year));
+                break;
+            case DAY_RIGHT_CALENDER_FILTER:
+                tvCalenderRightFilter.setText(getResources().getString(R.string.display_time_day_month_year, day, month, year));
+                break;
+        }
     }
 
     @OnClick(R.id.bt_filter)
