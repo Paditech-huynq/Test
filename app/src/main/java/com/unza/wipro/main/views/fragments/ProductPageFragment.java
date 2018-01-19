@@ -15,6 +15,7 @@ import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProductListAdapter;
 import com.unza.wipro.main.contracts.ProductPageContract;
+import com.unza.wipro.main.models.Cart;
 import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.presenters.ProductPagePresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
@@ -82,7 +83,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
         mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
-                startTransition(view);
+                startTransition(view, position);
             }
         });
 
@@ -96,16 +97,17 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
         mAdapter.setOnProductItemClickListenner(new ProductListAdapter.OnProductItemClickListenner() {
             @Override
             public void onAddCartButtonClick(View view, int index) {
+                Cart.getInstance().addProduct(mAdapter.getItem(index));
                 makeFlyAnimation((ImageView) view);
             }
         });
     }
 
-    private void startTransition(View view) {
+    private void startTransition(View view, int position) {
         DynamicHeightImageView imvProduct = view.findViewById(R.id.imvProduct);
         ViewCompat.setTransitionName(imvProduct, String.valueOf(Calendar.getInstance().getTimeInMillis()));
 
-        ProductDetailFragment detailFragment = ProductDetailFragment.newInstance(new Product(), TransitionInflater.from(ProductPageFragment.this.getContext()).
+        ProductDetailFragment detailFragment = ProductDetailFragment.newInstance(mAdapter.getItem(position), TransitionInflater.from(ProductPageFragment.this.getContext()).
                 inflateTransition(R.transition.change_image_transform));
 
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -138,7 +140,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        showToast("Add to Cart");
+                        showToast(getString(R.string.product_add_to_cart));
                     }
 
                     @Override

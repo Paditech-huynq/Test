@@ -9,29 +9,44 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Priority;
 import com.paditech.core.BaseApplication;
+import com.paditech.core.helper.StringUtil;
 import com.paditech.core.image.GlideApp;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
+import com.unza.wipro.main.models.ProductThumbnail;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductImageAdapter extends PagerAdapter implements AppConstans {
 
-    private List mData;
+    private List<ProductThumbnail> mData;
     private LayoutInflater mLayoutInflater;
 
     public ProductImageAdapter(Context context) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void setData(List mData) {
+    public void addData(ProductThumbnail thumbnail) {
+        if (this.mData == null) this.mData = new ArrayList<>();
+        this.mData.add(thumbnail);
+        notifyDataSetChanged();
+    }
+
+    public void setData(List<ProductThumbnail> mData) {
         this.mData = mData;
         notifyDataSetChanged();
     }
 
+    private ProductThumbnail getThumbnail(int position) {
+        if (mData != null && position >= 0 && position < mData.size())
+            return mData.get(position);
+        return null;
+    }
+
     @Override
     public int getCount() {
-        return 4;
+        return mData != null ? mData.size() : 1;
     }
 
     @Override
@@ -41,16 +56,21 @@ public class ProductImageAdapter extends PagerAdapter implements AppConstans {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+        ProductThumbnail thumbnail = getThumbnail(position);
         View itemView = mLayoutInflater.inflate(R.layout.view_product_image, container, false);
         container.addView(itemView);
-        GlideApp
-                .with(BaseApplication.getAppContext())
-                .load(imagesDummy[position]).priority(Priority.IMMEDIATE)
-                .thumbnail(0.5f)
-                .override(itemView.getWidth() / 2, itemView.getHeight() / 2)
-                .centerCrop()
-                .into((ImageView) itemView.findViewById(R.id.imvProduct));
-
+        if (thumbnail != null && !StringUtil.isEmpty(thumbnail.getLink())) {
+            GlideApp
+                    .with(BaseApplication.getAppContext())
+                    .load(thumbnail.getLink()).priority(Priority.IMMEDIATE)
+                    .placeholder(R.drawable.bg_place_holder)
+                    .thumbnail(0.5f)
+                    .override(itemView.getWidth() / 2, itemView.getHeight() / 2)
+                    .centerCrop()
+                    .into((ImageView) itemView.findViewById(R.id.imvProduct));
+        } else {
+            ((ImageView) itemView.findViewById(R.id.imvProduct)).setImageResource(R.drawable.bg_place_holder);
+        }
         return itemView;
     }
 
