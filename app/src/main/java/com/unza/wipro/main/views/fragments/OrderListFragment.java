@@ -68,6 +68,12 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     public void updateRecycleView(List<OrderClass> data) {
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mAdapter.addData(data);
+        mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
+                getPresenter().onItemRcvClick();
+            }
+        });
         mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
             public void onLoadMore() {
@@ -165,6 +171,11 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
                 tvCalenderRightFilter.setText(day);
                 break;
         }
+    }
+
+    @Override
+    public void changeFragmentWhenClickItem() {
+        switchFragment(OrderDetailFragment.newInstance(), true);
     }
 
     @OnClick(R.id.bt_filter)

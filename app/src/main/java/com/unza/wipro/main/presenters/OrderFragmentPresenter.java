@@ -1,7 +1,5 @@
 package com.unza.wipro.main.presenters;
 
-import android.util.Log;
-
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.OrderListContract;
@@ -54,7 +52,6 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onBtLastWeekClick() {
         getView().changeColorButtonLastWeek();
-
     }
 
     @Override
@@ -74,5 +71,10 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onChooseDate(int whatCalenderInFilter, int day, int month, int year) {
         getView().displayDateChose(whatCalenderInFilter, DateTimeUtils.getStringDayMonthYear(getView().getContext().getResources().getString(R.string.display_time_day_month_year,day,month,year)));
+    }
+
+    @Override
+    public void onItemRcvClick() {
+        getView().changeFragmentWhenClickItem();
     }
 }
