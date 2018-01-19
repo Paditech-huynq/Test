@@ -107,6 +107,10 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
 
     @Override
     public boolean isActionShow(int resId) {
+        if (resId == R.id.btnCart)
+        {
+            return false;
+        }
         return true;
     }
 }

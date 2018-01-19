@@ -21,6 +21,7 @@ import com.unza.wipro.R;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 public class Utils {
     public static void checkCameraPermission(Activity activity) {
@@ -113,4 +114,16 @@ public class Utils {
         }
     }
 
+    public static boolean checkEmailValid(String email) {
+        return Pattern.compile(".+@.+\\.[a-z]+").matcher(email).matches();
+    }
+
+    public static void showKeyboard(Context context) {
+        try {
+            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
