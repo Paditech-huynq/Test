@@ -46,7 +46,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
     @Override
     public int getItemCount() {
-        if (viewMode == OrderDetailFragment.ViewMode.CREATE_MODE) {
+        if (viewMode == OrderDetailFragment.ViewMode.MODE_CREATE) {
             return Cart.getInstance().getTotalProduct() + 1;
         } else {
             // todo real data
@@ -82,29 +82,15 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         }
 
         private void setupViewMode() {
-            amountView.setVisibility(viewMode == OrderDetailFragment.ViewMode.CREATE_MODE ? View.VISIBLE : View.GONE);
-            tvCount.setVisibility(viewMode == OrderDetailFragment.ViewMode.CREATE_MODE ? View.GONE : View.VISIBLE);
+            amountView.setVisibility(viewMode == OrderDetailFragment.ViewMode.MODE_CREATE ? View.VISIBLE : View.GONE);
+            tvCount.setVisibility(viewMode == OrderDetailFragment.ViewMode.MODE_CREATE ? View.GONE : View.VISIBLE);
         }
 
         @Override
         protected void onBindingData(int position) {
             final Context context = itemView.getContext();
-            if (viewMode == OrderDetailFragment.ViewMode.CREATE_MODE) {
-                onBindingDataWhenCreate(context, position);
-            } else {
-                onBindingDataWhenSee(context, position);
-            }
-        }
-
-        private void onBindingDataWhenSee(Context context, int position) {
-            // todo: update real data
-            tvName.setText(imagesDummy[position]);
-        }
-
-        private void onBindingDataWhenCreate(final Context context, int position) {
             final CartItem item = getItem(position - 1);
             if (item == null) return;
-            tvCount.setVisibility(View.GONE);
             if (item.getProduct() != null) {
                 tvName.setText(item.getProduct().getName());
                 if (item.getProduct().getProductThumbnail() != null && !StringUtil.isEmpty(item.getProduct().getProductThumbnail().getLink()))
@@ -113,6 +99,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
                 tvTotalPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getTotalPrice())));
             }
             amountView.setValue(item.getAmount());
+            tvCount.setText(item.getAmount());
             amountView.setOnValueChangeListener(new AmountView.OnValueChangeListener() {
                 @Override
                 public void onValueChange(int value) {
@@ -120,6 +107,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
                     tvTotalPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getTotalPrice())));
                 }
             });
+
         }
     }
 

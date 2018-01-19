@@ -23,7 +23,7 @@ public class OrderDetailFragment extends BaseFragment {
     View bottomBar;
 
     public enum ViewMode {
-        CREATE_MODE, SEE_MODE
+        MODE_CREATE, MODE_SEE
     }
     private ViewMode viewMode;
 
@@ -64,13 +64,13 @@ public class OrderDetailFragment extends BaseFragment {
     }
 
     private void setupCreateCart() {
-        bottomBar.setVisibility(viewMode == ViewMode.CREATE_MODE ? View.VISIBLE : View.GONE);
+        bottomBar.setVisibility(viewMode == ViewMode.MODE_CREATE ? View.VISIBLE : View.GONE);
     }
 
     @Override
     public boolean isActionShow(int resId) {
         if (resId == R.id.btnTrash) {
-            return (viewMode == ViewMode.CREATE_MODE);
+            return (viewMode == ViewMode.MODE_CREATE);
         }
         return super.isActionShow(resId);
     }
