@@ -15,15 +15,19 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
+import android.widget.EditText;
 import android.widget.ImageView;
+
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.ImageHelper;
 import com.unza.wipro.R;
 import com.unza.wipro.utils.Utils;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -34,6 +38,18 @@ public class ProfileRegisterFragment extends BaseFragment {
     private static final String JPEG_FILE_PREFIX = "IMG_";
     private static final String JPEG_FILE_SUFFIX = ".jpg";
     private String mCurrentPhotoPath;
+
+    @BindView(R.id.edtUserName)
+    EditText edtUserName;
+
+    @BindView(R.id.edtPhoneNumber)
+    EditText edtPhoneNumber;
+
+    @BindView(R.id.edtEmail)
+    EditText edtEmail;
+
+    @BindView(R.id.edtAddress)
+    EditText edtAddress;
 
     @BindView(R.id.layoutDisable)
     View layoutDisable;
@@ -228,9 +244,26 @@ public class ProfileRegisterFragment extends BaseFragment {
     }
 
     @OnClick(R.id.btnRegister)
-    void sutmitRegister()
-    {
-        //todo: handle logic register hre
-        getActivity().onBackPressed();
+    void sutmitRegister() {
+
+        if (dataIsValid()) {
+            //todo: handle logic register hre
+            getActivity().onBackPressed();
+        }
+    }
+
+    private boolean dataIsValid() {
+        String userName = edtUserName.getText().toString();
+        String phoneNumber = edtPhoneNumber.getText().toString();
+        String email = edtEmail.getText().toString();
+
+        if (userName.length() * phoneNumber.length() == 0) {
+            showToast("Họ tên và số điện thoại không được để trống");
+            return false;
+        } else if (!Utils.checkEmailValid(email)) {
+            showToast("Email không hợp lệ");
+            return false;
+        }
+        return true;
     }
 }
