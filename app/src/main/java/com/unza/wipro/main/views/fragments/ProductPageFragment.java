@@ -10,25 +10,33 @@ import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.paditech.core.BaseFragment;
 import com.paditech.core.common.BaseRecycleViewAdapter;
+import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProductListAdapter;
+import com.unza.wipro.main.contracts.ProductPageContract;
 import com.unza.wipro.main.models.Product;
+import com.unza.wipro.main.presenters.ProductPagePresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
 import com.unza.wipro.main.views.customs.DynamicHeightImageView;
 import com.unza.wipro.main.views.customs.StaggeredSpacesItemDecoration;
 import com.unza.wipro.utils.AddToCartAnimation;
 
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 
-public class ProductPageFragment extends BaseFragment {
+public class ProductPageFragment extends MVPFragment<ProductPagePresenter> implements ProductPageContract.ViewImpl {
     @BindView(R.id.rcvProduct)
     RecyclerView mRecyclerView;
+    @BindView(R.id.layoutLoading)
+    View layoutLoading;
+    @BindView(R.id.disableTouchView)
+    View disableTouchView;
 
-    ProductListAdapter mAdapter;
+    private ProductListAdapter mAdapter;
+    private String categoryId;
 
     public static ProductPageFragment newInstance() {
 
@@ -36,6 +44,12 @@ public class ProductPageFragment extends BaseFragment {
 
         ProductPageFragment fragment = new ProductPageFragment();
         fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static ProductPageFragment newInstance(String categoryId) {
+        ProductPageFragment fragment = ProductPageFragment.newInstance();
+        fragment.categoryId = categoryId;
         return fragment;
     }
 
@@ -72,6 +86,13 @@ public class ProductPageFragment extends BaseFragment {
             }
         });
 
+        mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                getPresenter().onLoadMore();
+            }
+        });
+
         mAdapter.setOnProductItemClickListenner(new ProductListAdapter.OnProductItemClickListenner() {
             @Override
             public void onAddCartButtonClick(View view, int index) {
@@ -82,9 +103,9 @@ public class ProductPageFragment extends BaseFragment {
 
     private void startTransition(View view) {
         DynamicHeightImageView imvProduct = view.findViewById(R.id.imvProduct);
-        ViewCompat.setTransitionName(imvProduct, Calendar.getInstance().getTimeInMillis() + "_");
+        ViewCompat.setTransitionName(imvProduct, String.valueOf(Calendar.getInstance().getTimeInMillis()));
 
-        ProductDetailFragment detailFragment = ProductDetailFragment.newInstance(new Product(),TransitionInflater.from(ProductPageFragment.this.getContext()).
+        ProductDetailFragment detailFragment = ProductDetailFragment.newInstance(new Product(), TransitionInflater.from(ProductPageFragment.this.getContext()).
                 inflateTransition(R.transition.change_image_transform));
 
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -131,6 +152,26 @@ public class ProductPageFragment extends BaseFragment {
                     }
                 }).startAnimation();
 
+    }
+
+    @Override
+    public void addItemToList(List<Product> productList) {
+        mAdapter.insertData(productList);
+    }
+
+    @Override
+    public void refreshData(List<Product> productList) {
+        mAdapter.replaceData(productList);
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    @Override
+    public void showProgressDialog(boolean isShown) {
+        layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
+        disableTouchView.setVisibility(isShown ? View.VISIBLE : View.GONE);
     }
 }
 
