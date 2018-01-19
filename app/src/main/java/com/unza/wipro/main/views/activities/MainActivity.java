@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.paditech.core.BaseFragment;
 import com.paditech.core.mvp.MVPActivity;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.MainContract;
@@ -11,7 +12,6 @@ import com.unza.wipro.main.presenters.MainPresenter;
 import com.unza.wipro.main.views.fragments.HomeFragment;
 import com.unza.wipro.main.views.fragments.NotificationFragment;
 import com.unza.wipro.main.views.fragments.OrderDetailFragment;
-import com.unza.wipro.main.views.fragments.ProfileFragment;
 
 import butterknife.BindView;
 
@@ -75,5 +75,9 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
 
     public View getCartView() {
         return findViewById(R.id.btnCart);
+    }
+
+    public void updateActionButtonAppearance(BaseFragment targetFragment) {
+        updateActionAppearance(targetFragment);
     }
 }

@@ -93,4 +93,9 @@ public class ProductListFragment extends BaseFragment {
     protected boolean isKeepFragment() {
         return true;
     }
+
+    @Override
+    public boolean isActionShow(int resId) {
+        return true;
+    }
 }

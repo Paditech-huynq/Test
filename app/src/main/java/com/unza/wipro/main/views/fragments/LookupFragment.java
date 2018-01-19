@@ -100,7 +100,6 @@ public class LookupFragment extends BaseFragment {
                     edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, R.drawable.ic_cancel, 0);
                 } else {
                     edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, 0, 0);
-
                 }
             }
         });
@@ -116,5 +115,14 @@ public class LookupFragment extends BaseFragment {
     @Override
     protected boolean isKeepFragment() {
         return true;
+    }
+
+    @Override
+    public boolean isActionShow(int resId) {
+        if(resId == R.id.btnCart)
+        {
+            return true;
+        }
+        return super.isActionShow(resId);
     }
 }

@@ -4,6 +4,7 @@
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorPrimary"
     android:elevation="5dp"
+    android:paddingRight="@dimen/padding_small"
     android:paddingLeft="@dimen/padding_normal">
 
     <TextView
@@ -45,20 +46,18 @@
         android:gravity="center_vertical">
 
         <ImageView
+            android:padding="3dip"
             android:id="@+id/btnCart"
             android:layout_width="35dip"
             android:layout_height="35dip"
-            android:paddingLeft="@dimen/padding_normal"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_cart2" />
 
         <ImageView
+            android:visibility="visible"
             android:id="@+id/btnNotification"
             android:layout_width="35dip"
             android:layout_height="35dip"
-            android:layout_marginLeft="@dimen/padding_tiny"
-            android:layout_marginTop="@dimen/padding_tiny"
-            android:scaleType="fitCenter"
             android:src="@drawable/ic_notification" />
     </LinearLayout>
 </RelativeLayout>

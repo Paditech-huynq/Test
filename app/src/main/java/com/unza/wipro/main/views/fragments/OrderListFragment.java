@@ -214,4 +214,8 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         return true;
     }
 
+    @Override
+    public boolean isActionShow(int resId) {
+        return true;
+    }
 }

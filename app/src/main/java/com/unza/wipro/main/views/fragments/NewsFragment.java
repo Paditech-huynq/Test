@@ -87,4 +87,9 @@ public class NewsFragment extends BaseFragment {
                     }
                 });
     }
+
+    @Override
+    public boolean isActionShow(int resId) {
+        return false;
+    }
 }

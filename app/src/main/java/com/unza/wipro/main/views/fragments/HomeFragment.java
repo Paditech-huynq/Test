@@ -10,6 +10,7 @@ import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.HomeFragmentPagerAdapter;
 import com.unza.wipro.main.contracts.HomeContract;
 import com.unza.wipro.main.presenters.HomePresenter;
+import com.unza.wipro.main.views.activities.MainActivity;
 
 import butterknife.BindView;
 
@@ -45,7 +46,7 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
     }
 
     private void setUpViewPagger() {
-        if(mAdapter== null) {
+        if (mAdapter == null) {
             mAdapter = new HomeFragmentPagerAdapter(getChildFragmentManager());
         }
         mViewPager.setAdapter(mAdapter);
@@ -60,6 +61,7 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
             public void onPageSelected(int position) {
                 mBottomBar.selectTabAtPosition(position);
                 mAdapter.onViewAppear(position);
+                ((MainActivity) getActivity()).updateActionButtonAppearance(mAdapter.getItem(position));
             }
 
             @Override
