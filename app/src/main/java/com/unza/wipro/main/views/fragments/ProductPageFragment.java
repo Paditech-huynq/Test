@@ -9,7 +9,6 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.mvp.MVPFragment;
@@ -32,7 +31,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
     @BindView(R.id.rcvProduct)
     RecyclerView mRecyclerView;
     @BindView(R.id.layoutLoading)
-    ProgressBar layoutLoading;
+    View layoutLoading;
     @BindView(R.id.disableTouchView)
     View disableTouchView;
 
