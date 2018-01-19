@@ -16,6 +16,7 @@ import com.unza.wipro.R;
 import com.unza.wipro.main.models.Cart;
 import com.unza.wipro.main.models.CartItem;
 import com.unza.wipro.main.views.customs.AmountView;
+import com.unza.wipro.main.views.fragments.OrderDetailFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -24,6 +25,11 @@ import butterknife.OnClick;
 public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConstans {
     private final static int TYPE_INFO = 0;
     private final static int TYPE_ITEM = 1;
+    private OrderDetailFragment.ViewMode viewMode;
+
+    public CartItemsAdapter(OrderDetailFragment.ViewMode viewMode) {
+        this.viewMode = viewMode;
+    }
 
     @Override
     public CartItem getItem(int position) {
@@ -40,7 +46,12 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
     @Override
     public int getItemCount() {
-        return Cart.getInstance().getTotalProduct() + 1;
+        if (viewMode == OrderDetailFragment.ViewMode.CREATE_MODE) {
+            return Cart.getInstance().getTotalProduct() + 1;
+        } else {
+            // todo real data
+            return imagesDummy.length + 1;
+        }
     }
 
     @Override
@@ -67,11 +78,30 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         CartItemHolder(View itemView) {
             super(itemView);
+            setupViewMode();
+        }
+
+        private void setupViewMode() {
+            amountView.setVisibility(viewMode == OrderDetailFragment.ViewMode.CREATE_MODE ? View.VISIBLE : View.GONE);
+            tvCount.setVisibility(viewMode == OrderDetailFragment.ViewMode.CREATE_MODE ? View.GONE : View.VISIBLE);
         }
 
         @Override
         protected void onBindingData(int position) {
             final Context context = itemView.getContext();
+            if (viewMode == OrderDetailFragment.ViewMode.CREATE_MODE) {
+                onBindingDataWhenCreate(context, position);
+            } else {
+                onBindingDataWhenSee(context, position);
+            }
+        }
+
+        private void onBindingDataWhenSee(Context context, int position) {
+            // todo: update real data
+            tvName.setText(imagesDummy[position]);
+        }
+
+        private void onBindingDataWhenCreate(final Context context, int position) {
             final CartItem item = getItem(position - 1);
             if (item == null) return;
             tvCount.setVisibility(View.GONE);

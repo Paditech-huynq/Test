@@ -76,7 +76,7 @@ public class OrderDetailFragment extends BaseFragment {
     }
 
     private void setupRecycleView() {
-        mAdapter = new CartItemsAdapter();
+        mAdapter = new CartItemsAdapter(viewMode);
         mAdapter.setOnViewClickListener(new BaseRecycleViewAdapter.ViewClickListener() {
             @Override
             public void onViewItemClock(int resId, BaseRecycleViewAdapter.BaseViewHolder holder, int position) {
