@@ -73,6 +73,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
         int month = Integer.parseInt(time[1]);
         int year = Integer.parseInt(time[2]);
         getView().displayDatePicker(whatCalenderInFilter,day,month,year);
+        getView().changeColorButtonToDefault();
     }
 
     @Override

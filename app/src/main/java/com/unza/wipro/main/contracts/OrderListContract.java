@@ -22,6 +22,7 @@ public interface OrderListContract {
         void displayDateChose(int whatCalenderInFilter, String day);
         void goToOrderDetailScreen();
         void updateDayInHeaderOfFilter(String firstDayInMonth, String lastDayInMonth);
+        void changeColorButtonToDefault();
     }
 
     interface Presenter extends BasePresenterImpl {

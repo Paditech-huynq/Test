@@ -191,6 +191,14 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
                 lastDayInMonth));
     }
 
+    @Override
+    public void changeColorButtonToDefault() {
+        btnAll.setSelected(false);
+        btnThisWeek.setSelected(false);
+        btnLastWeek.setSelected(false);
+        btnThisMonth.setSelected(false);
+    }
+
     @OnClick(R.id.bt_filter)
     public void onFilterClick() {
         getPresenter().onFilterClick();
