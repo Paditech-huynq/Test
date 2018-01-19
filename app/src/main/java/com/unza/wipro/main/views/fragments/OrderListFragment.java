@@ -20,11 +20,8 @@ import com.unza.wipro.main.adapter.OrderListAdapter;
 import com.unza.wipro.main.contracts.OrderListContract;
 import com.unza.wipro.main.models.OrderClass;
 import com.unza.wipro.main.presenters.OrderFragmentPresenter;
-import com.unza.wipro.utils.DateTimeUtils;
 
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -68,6 +65,12 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     public void updateRecycleView(List<OrderClass> data) {
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mAdapter.addData(data);
+        mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
+                getPresenter().onItemClick();
+            }
+        });
         mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
             public void onLoadMore() {
@@ -165,6 +168,11 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
                 tvCalenderRightFilter.setText(day);
                 break;
         }
+    }
+
+    @Override
+    public void goToOrderDetailScreen() {
+        switchFragment(OrderDetailFragment.newInstance(), true);
     }
 
     @OnClick(R.id.bt_filter)
