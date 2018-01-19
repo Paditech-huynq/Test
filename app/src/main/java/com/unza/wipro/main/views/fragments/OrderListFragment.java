@@ -30,7 +30,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @BindView(R.id.rcvOrder)
     RecyclerView rcvOrder;
     @BindView(R.id.view_up_rcv)
-    View viewUp;
+    View viewUpRecycleView;
     @BindView(R.id.filter)
     LinearLayout filter;
     @BindView(R.id.cardview_header)
@@ -92,7 +92,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @Override
     public void dismissFilter() {
         Animation slideUp = AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_up);
-        viewUp.setVisibility(View.GONE);
+        viewUpRecycleView.setVisibility(View.GONE);
         filter.setAnimation(slideUp);
         filter.setVisibility(View.GONE);
         cardViewHeader.setElevation(getResources().getDimensionPixelOffset(R.dimen.cardview_default_elevation));
@@ -101,7 +101,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @Override
     public void appearFilter() {
         Animation slideDown = AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_down);
-        viewUp.setVisibility(View.VISIBLE);
+        viewUpRecycleView.setVisibility(View.VISIBLE);
         filter.startAnimation(slideDown);
         filter.setVisibility(View.VISIBLE);
         cardViewHeader.setElevation(0);
@@ -213,6 +213,11 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @OnClick(R.id.btn_calender_right_filter)
     public void onBtCalenderRightClick() {
         getPresenter().onBtCalenderClick(DAY_RIGHT_CALENDER_FILTER, tvCalenderRightFilter.getText().toString());
+    }
+
+    @OnClick(R.id.view_up_rcv)
+    public void onRecycleViewWhenDisTouchClick(){
+        getPresenter().onRecycleViewWhenDisTouchClick();
     }
 
     @Override

@@ -77,4 +77,9 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     public void onItemClick() {
         getView().goToOrderDetailScreen();
     }
+
+    @Override
+    public void onRecycleViewWhenDisTouchClick() {
+        getView().dismissFilter();
+    }
 }

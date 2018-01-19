@@ -34,5 +34,6 @@ public interface OrderListContract {
         void onBtCalenderClick(int whatCalenderInFilter, String dayCalenderFilter);
         void onChooseDate(int whatCalenderInFilter, int day, int month, int year);
         void onItemClick();
+        void onRecycleViewWhenDisTouchClick();
     }
 }
