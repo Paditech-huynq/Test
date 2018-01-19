@@ -35,7 +35,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
     @BindView(R.id.disableTouchView)
     View disableTouchView;
 
-    ProductListAdapter mAdapter;
+    private ProductListAdapter mAdapter;
     private String categoryId;
 
     public static ProductPageFragment newInstance() {

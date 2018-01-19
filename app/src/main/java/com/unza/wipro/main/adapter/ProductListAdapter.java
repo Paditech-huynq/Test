@@ -43,9 +43,6 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
 
     @Override
     public int getItemCount() {
-        if (productList == null) {
-            return 0;
-        }
         return productList.size();
     }
 
