@@ -1,6 +1,8 @@
 package com.unza.wipro.main.views.fragments;
 
 import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -102,8 +104,10 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @Override
     public void appearFilter() {
         Animation slideDown = AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_down);
-        TransitionDrawable transition = (TransitionDrawable) viewUpRecycleView.getBackground();
-        transition.startTransition(500);
+        ColorDrawable[] color = {new ColorDrawable(Color.TRANSPARENT), new ColorDrawable(getResources().getColor(R.color.bg_view_up_recycle_view_screen_list_order))};
+        TransitionDrawable trans = new TransitionDrawable(color);
+        viewUpRecycleView.setBackground(trans);
+        trans.startTransition(500);
         viewUpRecycleView.setVisibility(View.VISIBLE);
         filter.startAnimation(slideDown);
         filter.setVisibility(View.VISIBLE);

@@ -14,7 +14,6 @@
     <View
         android:clickable="true"
         android:visibility="gone"
-        android:background="@drawable/bg_change_color"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/cardview_header"
