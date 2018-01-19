@@ -9,10 +9,16 @@ import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.image.GlideApp;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
+import com.unza.wipro.main.models.Customer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
 public class ProfileListAdapter extends BaseRecycleViewAdapter implements AppConstans {
+    private List<Customer> customerList = new ArrayList<>();
+
     @Override
     public Object getItem(int position) {
         return null;
@@ -26,6 +32,17 @@ public class ProfileListAdapter extends BaseRecycleViewAdapter implements AppCon
     @Override
     public int getItemCount() {
         return imagesDummy.length;
+    }
+
+    public void addItemToList(List<Customer> customerList) {
+        int lastCustomerCount = customerList.size();
+        customerList.addAll(customerList);
+        notifyItemRangeInserted(lastCustomerCount, customerList.size());
+    }
+
+    public void refreshData(List<Customer> customerList) {
+        customerList.clear();
+        addItemToList(customerList);
     }
 
     class ProfileHolder extends BaseRecycleViewAdapter.BaseViewHolder {

@@ -7,22 +7,28 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.ViewHelper;
+import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProfileListAdapter;
+import com.unza.wipro.main.contracts.ProfileListContract;
+import com.unza.wipro.main.models.Customer;
+import com.unza.wipro.main.presenters.ProfileListPresenter;
+import com.unza.wipro.main.presenters.ProfilePresenter;
 import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ProfileListFragment extends BaseFragment {
+public class ProfileListFragment extends MVPFragment<ProfileListPresenter> implements ProfileListContract.ViewImpl {
     @BindView(R.id.rcvProfile)
     RecyclerView mRecyclerView;
 
     private final static String LAST_SCROLL_Y = "last_scroll_y";
 
-    ProfileListAdapter mAdapter;
+    private ProfileListAdapter mAdapter;
 
     public static ProfileListFragment newInstance() {
 
@@ -75,5 +81,15 @@ public class ProfileListFragment extends BaseFragment {
         if (savedInstanceState != null) {
             mRecyclerView.scrollBy(0, savedInstanceState.getInt(LAST_SCROLL_Y));
         }
+    }
+
+    @Override
+    public void addItemToList(List<Customer> customerList) {
+        mAdapter.addItemToList(customerList);
+    }
+
+    @Override
+    public void refreshData(List<Customer> customerList) {
+        mAdapter.refreshData(customerList);
     }
 }
