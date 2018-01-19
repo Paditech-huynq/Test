@@ -55,16 +55,16 @@
                 <TextView
                     android:id="@+id/tvCount"
                     android:layout_width="wrap_content"
-                    android:layout_height="34dip"
+                    android:layout_height="28dip"
                     android:layout_centerVertical="true"
                     android:background="@drawable/bg_green_rounded"
                     android:gravity="center"
-                    android:minWidth="34dip"
+                    android:minWidth="28dip"
                     android:paddingLeft="@dimen/padding_normal"
                     android:paddingRight="@dimen/padding_normal"
-                    android:text="5"
+                    android:text="5,000"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_title"
+                    android:textSize="@dimen/text_size_normal"
                     android:textStyle="bold" />
             </RelativeLayout>
 
