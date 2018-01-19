@@ -4,6 +4,7 @@ import com.paditech.core.mvp.BasePresenterImpl;
 import com.paditech.core.mvp.BaseViewImpl;
 import com.unza.wipro.main.models.OrderClass;
 
+import java.util.Date;
 import java.util.List;
 
 public interface OrderListContract {
@@ -15,6 +16,9 @@ public interface OrderListContract {
         void changeColorButtonThisWeek();
         void changeColorButtonLastWeek();
         void changeColorButtonThisMonth();
+        void updateDayInFilter(String toDay);
+        void displayDatePicker(int whatCalenderInFilter, int day, int month, int year);
+        void displayDateChose(int whatCalenderInFilter, String day);
     }
 
     interface Presenter extends BasePresenterImpl {
@@ -25,5 +29,7 @@ public interface OrderListContract {
         void onBtThisWeekClick();
         void onBtLastWeekClick();
         void onBtThisMonthClick();
+        void onBtCalenderClick(int whatCalenderInFilter, String dayCalenderFilter);
+        void onChooseDate(int whatCalenderInFilter, int day, int month, int year);
     }
 }
