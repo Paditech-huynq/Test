@@ -7,11 +7,6 @@ import com.unza.wipro.main.models.OrderData;
 import com.unza.wipro.utils.DateTimeUtils;
 
 public class OrderFragmentPresenter extends BasePresenter<OrderListContract.ViewImpl>  implements OrderListContract.Presenter {
-    private static final int BUTTON_ALL = 0;
-    private static final int BUTTON_THIS_MONTH = 1;
-    private static final int BUTTON_LAST_WEEK = 2;
-    private static final int BUTTON_THIS_WEEK = 3;
-
     @Override
     public void loadData() {
         OrderData orderData = new OrderData();
