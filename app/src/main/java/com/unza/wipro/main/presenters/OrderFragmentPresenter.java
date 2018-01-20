@@ -31,8 +31,6 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
         String lastDay = getView().getContext().getResources().getString(R.string.display_time_day_month_year,
                 numberDayOfMonth, calendar.get(Calendar.MONTH)+ 1, calendar.get(Calendar.YEAR));
         getView().updateDayInFilter(DateTimeUtils.getStringDayMonthYear(firstDay),DateTimeUtils.getStringDayMonthYear(lastDay));
-        getView().updateDayInHeaderOfFilter(DateTimeUtils.getStringDayMonthYear(firstDay),
-                DateTimeUtils.getStringDayMonthYear(lastDay));
         getView().changeColorButtonThisMonth();
     }
 

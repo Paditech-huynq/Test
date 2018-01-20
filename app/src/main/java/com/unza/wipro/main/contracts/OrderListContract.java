@@ -21,7 +21,6 @@ public interface OrderListContract {
         void displayDatePicker(int whatCalenderInFilter, int day, int month, int year);
         void displayDateChose(int whatCalenderInFilter, String day);
         void goToOrderDetailScreen();
-        void updateDayInHeaderOfFilter(String firstDayInMonth, String lastDayInMonth);
         void changeColorButtonToDefault();
     }
 
