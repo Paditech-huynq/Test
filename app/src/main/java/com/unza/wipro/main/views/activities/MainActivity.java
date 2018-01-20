@@ -112,4 +112,8 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
         }
         return ret;
     }
+
+    public void openCamera(boolean isOpen) {
+        findViewById(R.id.layoutCamera).setVisibility(isOpen ? View.VISIBLE : View.GONE);
+    }
 }

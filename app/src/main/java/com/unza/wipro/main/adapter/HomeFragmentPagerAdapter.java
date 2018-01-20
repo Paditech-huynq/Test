@@ -5,11 +5,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.paditech.core.BaseFragment;
+import com.unza.wipro.main.views.fragments.FakeScannerFragment;
 import com.unza.wipro.main.views.fragments.LookupFragment;
 import com.unza.wipro.main.views.fragments.NewsFragment;
 import com.unza.wipro.main.views.fragments.OrderListFragment;
 import com.unza.wipro.main.views.fragments.ProductListFragment;
-import com.unza.wipro.main.views.fragments.ScannerFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
         super(fm);
         fragments.add(ProductListFragment.newInstance());
         fragments.add(OrderListFragment.newInstance());
-        fragments.add(ScannerFragment.newInstance());
+        fragments.add(FakeScannerFragment.newInstance());
         fragments.add(LookupFragment.newInstance());
         fragments.add(NewsFragment.newInstance());
     }
@@ -36,24 +36,6 @@ public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
         return fragments.size();
     }
 
-    public void onViewAppear() {
-        for (BaseFragment fragment : fragments) {
-            fragment.onViewAppear();
-        }
-    }
-
-    public void onViewDisApear() {
-        for (BaseFragment fragment : fragments) {
-            fragment.onViewDisappear();
-        }
-    }
-
-    public void onResumeFromBackStack() {
-        for (BaseFragment fragment : fragments) {
-            fragment.onResumeFromBackStack();
-        }
-    }
-
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
@@ -61,6 +43,19 @@ public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
     }
 
     public void onViewAppear(int position) {
+        if (position < 0) {
+            if (position == -1) {
+                for (int i = 0; i < fragments.size(); i++) {
+                    BaseFragment fragment = fragments.get(i);
+                    if (i == -1) {
+                        fragment.onViewAppear();
+                    } else if (i == -2) {
+                        fragment.onViewDisappear();
+                    }
+                }
+            }
+            return;
+        }
         for (int i = 0; i < fragments.size(); i++) {
             BaseFragment fragment = fragments.get(i);
             if (i == position) {

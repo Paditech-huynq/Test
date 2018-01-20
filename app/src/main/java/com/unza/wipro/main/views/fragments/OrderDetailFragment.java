@@ -104,7 +104,7 @@ public class OrderDetailFragment extends BaseFragment {
 
     @OnClick(R.id.btnScan)
     void onScanBtnClick() {
-        switchFragment(ScannerFragment.newInstance(), true);
+        switchFragment(FakeScannerFragment.newInstance(), true);
     }
 
     @OnClick(R.id.btnSubmit)
