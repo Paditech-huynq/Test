@@ -78,6 +78,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvPrice"
                     android:layout_width="match_parent"
                     android:layout_height="0dip"
                     android:layout_marginLeft="@dimen/padding_small"
@@ -88,7 +89,7 @@
                     android:textSize="11sp" />
 
                 <TextView
-                    android:id="@+id/tvPrice"
+                    android:id="@+id/tvTotalPrice"
                     android:layout_width="match_parent"
                     android:layout_height="0dip"
                     android:layout_marginLeft="@dimen/padding_small"

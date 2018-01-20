@@ -1,7 +1,11 @@
 package com.unza.wipro.main.views.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.paditech.core.BaseFragment;
@@ -31,7 +35,7 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
     public void initView() {
         super.initView();
         switchFragment(HomeFragment.newInstance(), false);
-        addToAction(R.id.btnCart, R.id.btnNotification, R.id.imvAvatar);
+        addToAction(R.id.btnCart, R.id.btnNotification, R.id.imvAvatar, R.id.btnTrash);
     }
 
     @Override
@@ -56,7 +60,7 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
         super.onActionSelected(resId);
         switch (resId) {
             case R.id.btnCart:
-                switchFragment(OrderDetailFragment.newInstance(), true);
+                switchFragment(OrderDetailFragment.newInstance(OrderDetailFragment.ViewMode.MODE_CREATE), true);
                 break;
             case R.id.btnNotification:
                 switchFragment(NotificationFragment.newInstance(), true);
@@ -79,5 +83,33 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
 
     public void updateActionButtonAppearance(BaseFragment targetFragment) {
         updateActionAppearance(targetFragment);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        View v = getCurrentFocus();
+        boolean ret = super.dispatchTouchEvent(event);
+        if (v instanceof EditText) {
+            View w = getCurrentFocus();
+            int scrCoords[] = new int[2];
+            if (w != null) {
+                w.getLocationOnScreen(scrCoords);
+            }
+            float x = 0;
+            if (w != null) {
+                x = event.getRawX() + w.getLeft() - scrCoords[0];
+            }
+            float y = 0;
+            if (w != null) {
+                y = event.getRawY() + w.getTop() - scrCoords[1];
+            }
+            if (w != null && event.getAction() == MotionEvent.ACTION_UP && (x < w.getLeft() || x >= w.getRight() || y < w.getTop() || y > w.getBottom())) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
+                }
+            }
+        }
+        return ret;
     }
 }

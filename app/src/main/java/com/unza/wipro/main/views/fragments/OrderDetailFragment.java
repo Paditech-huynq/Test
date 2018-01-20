@@ -3,12 +3,14 @@ package com.unza.wipro.main.views.fragments;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.paditech.core.BaseFragment;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.ViewHelper;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.CartItemsAdapter;
+import com.unza.wipro.main.models.Cart;
 import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
 
 import butterknife.BindView;
@@ -17,6 +19,13 @@ import butterknife.OnClick;
 public class OrderDetailFragment extends BaseFragment {
     @BindView(R.id.rcvProduct)
     RecyclerView mRecyclerView;
+    @BindView(R.id.bottomBar)
+    View bottomBar;
+
+    public enum ViewMode {
+        MODE_CREATE, MODE_SEE
+    }
+    private ViewMode viewMode;
 
     private int scrollX, scrollY;
 
@@ -28,6 +37,12 @@ public class OrderDetailFragment extends BaseFragment {
 
         OrderDetailFragment fragment = new OrderDetailFragment();
         fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static OrderDetailFragment newInstance(ViewMode viewMode) {
+        OrderDetailFragment fragment = newInstance();
+        fragment.viewMode = viewMode;
         return fragment;
     }
 
@@ -45,11 +60,23 @@ public class OrderDetailFragment extends BaseFragment {
     public void initView() {
         super.initView();
         setupRecycleView();
+        setupCreateCart();
+    }
 
+    private void setupCreateCart() {
+        bottomBar.setVisibility(viewMode == ViewMode.MODE_CREATE ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public boolean isActionShow(int resId) {
+        if (resId == R.id.btnTrash) {
+            return (viewMode == ViewMode.MODE_CREATE);
+        }
+        return super.isActionShow(resId);
     }
 
     private void setupRecycleView() {
-        mAdapter = new CartItemsAdapter(true);
+        mAdapter = new CartItemsAdapter(viewMode);
         mAdapter.setOnViewClickListener(new BaseRecycleViewAdapter.ViewClickListener() {
             @Override
             public void onViewItemClock(int resId, BaseRecycleViewAdapter.BaseViewHolder holder, int position) {
@@ -63,7 +90,7 @@ public class OrderDetailFragment extends BaseFragment {
         mRecyclerView.post(new Runnable() {
             @Override
             public void run() {
-                mRecyclerView.scrollBy(scrollX,scrollY);
+                mRecyclerView.scrollBy(scrollX, scrollY);
             }
         });
     }
@@ -76,20 +103,17 @@ public class OrderDetailFragment extends BaseFragment {
     }
 
     @OnClick(R.id.btnScan)
-    void onScanBtnClick()
-    {
-        switchFragment(ScannerFragment.newInstance(),true);
+    void onScanBtnClick() {
+        switchFragment(ScannerFragment.newInstance(), true);
     }
 
     @OnClick(R.id.btnSubmit)
-    void onSubmitBtnClick()
-    {
-        getActivity().onBackPressed();
+    void onSubmitBtnClick() {
+        Cart.getInstance().clear();
     }
 
     @OnClick(R.id.btnLookup)
-    void onLookupBtnClick()
-    {
-        switchFragment(LookupFragment.newInstance(),true);
+    void onLookupBtnClick() {
+        switchFragment(LookupFragment.newInstance(), true);
     }
 }

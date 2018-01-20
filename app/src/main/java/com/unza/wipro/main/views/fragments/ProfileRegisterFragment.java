@@ -12,18 +12,25 @@ import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.ImageHelper;
 import com.unza.wipro.R;
 import com.unza.wipro.utils.Utils;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -34,6 +41,18 @@ public class ProfileRegisterFragment extends BaseFragment {
     private static final String JPEG_FILE_PREFIX = "IMG_";
     private static final String JPEG_FILE_SUFFIX = ".jpg";
     private String mCurrentPhotoPath;
+
+    @BindView(R.id.edtUserName)
+    EditText edtUserName;
+
+    @BindView(R.id.edtPhoneNumber)
+    EditText edtPhoneNumber;
+
+    @BindView(R.id.edtEmail)
+    EditText edtEmail;
+
+    @BindView(R.id.edtAddress)
+    EditText edtAddress;
 
     @BindView(R.id.layoutDisable)
     View layoutDisable;
@@ -52,6 +71,24 @@ public class ProfileRegisterFragment extends BaseFragment {
         ProfileRegisterFragment fragment = new ProfileRegisterFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void initView() {
+        super.initView();
+        Utils.showKeyboard(getActivity());
+
+        edtAddress.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    submitRegister();
+                    Utils.hideSoftKeyboard(getActivity());
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -106,11 +143,10 @@ public class ProfileRegisterFragment extends BaseFragment {
 
     @OnClick(R.id.btnCamera)
     protected void openCamera() {
-
+        Utils.checkCameraPermission(this.getActivity());
         boolean hasWritePermission = (ContextCompat.checkSelfPermission(this.getActivity(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         if (!hasWritePermission) {
-            Utils.checkCameraPermission(this.getActivity());
             this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_EXTERNAL_STORAGE);
         } else {
             takePicture();
@@ -225,5 +261,29 @@ public class ProfileRegisterFragment extends BaseFragment {
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         this.getActivity().sendBroadcast(mediaScanIntent);
+    }
+
+    @OnClick(R.id.btnRegister)
+    void submitRegister() {
+
+        if (dataIsValid()) {
+            //todo: handle logic register hre
+            getActivity().onBackPressed();
+        }
+    }
+
+    private boolean dataIsValid() {
+        String userName = edtUserName.getText().toString();
+        String phoneNumber = edtPhoneNumber.getText().toString();
+        String email = edtEmail.getText().toString();
+
+        if (userName.length() * phoneNumber.length() == 0) {
+            showToast("Họ tên và số điện thoại không được để trống");
+            return false;
+        } else if (!Utils.checkEmailValid(email)) {
+            showToast("Email không hợp lệ");
+            return false;
+        }
+        return true;
     }
 }

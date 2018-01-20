@@ -1,5 +1,6 @@
 package com.unza.wipro.main.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +9,14 @@ import android.widget.TextView;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.ImageHelper;
+import com.paditech.core.helper.StringUtil;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
+
+import com.unza.wipro.main.models.Cart;
+import com.unza.wipro.main.models.CartItem;
 import com.unza.wipro.main.views.customs.AmountView;
+import com.unza.wipro.main.views.fragments.OrderDetailFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -19,15 +25,15 @@ import butterknife.OnClick;
 public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConstans {
     private final static int TYPE_INFO = 0;
     private final static int TYPE_ITEM = 1;
-    private boolean isCreateCart;
+    private OrderDetailFragment.ViewMode viewMode;
 
-    public CartItemsAdapter(boolean isCreateCart) {
-        this.isCreateCart = isCreateCart;
+    public CartItemsAdapter(OrderDetailFragment.ViewMode viewMode) {
+        this.viewMode = viewMode;
     }
 
     @Override
-    public String getItem(int position) {
-        return imagesDummy[position];
+    public CartItem getItem(int position) {
+        return Cart.getInstance().getCartItem(position);
     }
 
     @Override
@@ -40,7 +46,12 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
     @Override
     public int getItemCount() {
-        return imagesDummy.length + 1;
+        if (viewMode == OrderDetailFragment.ViewMode.MODE_CREATE) {
+            return Cart.getInstance().getTotalProduct() + 1;
+        } else {
+            // todo real data
+            return imagesDummy.length + 1;
+        }
     }
 
     @Override
@@ -54,25 +65,49 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
     class CartItemHolder extends BaseRecycleViewAdapter.BaseViewHolder {
         @BindView(R.id.imvProduct)
         ImageView imvProduct;
+        @BindView(R.id.tvName)
+        TextView tvName;
+        @BindView(R.id.tvPrice)
+        TextView tvPrice;
+        @BindView(R.id.tvTotalPrice)
+        TextView tvTotalPrice;
         @BindView(R.id.av_amount)
-        AmountView avAmount;
+        AmountView amountView;
         @BindView(R.id.tvCount)
         TextView tvCount;
 
         CartItemHolder(View itemView) {
             super(itemView);
-            setupCreateCart();
+            setupViewMode();
         }
 
-        private void setupCreateCart() {
-            avAmount.setVisibility(isCreateCart ? View.VISIBLE : View.GONE);
-            tvCount.setVisibility(isCreateCart ? View.GONE : View.VISIBLE);
+        private void setupViewMode() {
+            amountView.setVisibility(viewMode == OrderDetailFragment.ViewMode.MODE_CREATE ? View.VISIBLE : View.GONE);
+            tvCount.setVisibility(viewMode == OrderDetailFragment.ViewMode.MODE_CREATE ? View.GONE : View.VISIBLE);
         }
 
         @Override
         protected void onBindingData(int position) {
-            String url = getItem(position - 1);
-            ImageHelper.loadThumbImage(itemView.getContext(), url, imvProduct);
+            final Context context = itemView.getContext();
+            final CartItem item = getItem(position - 1);
+            if (item == null) return;
+            if (item.getProduct() != null) {
+                tvName.setText(item.getProduct().getName());
+                if (item.getProduct().getProductThumbnail() != null && !StringUtil.isEmpty(item.getProduct().getProductThumbnail().getLink()))
+                    ImageHelper.loadThumbImage(itemView.getContext(), item.getProduct().getProductThumbnail().getLink(), imvProduct);
+                tvPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getProduct().getPrice())));
+                tvTotalPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getTotalPrice())));
+            }
+            amountView.setValue(item.getAmount());
+            tvCount.setText(item.getAmount());
+            amountView.setOnValueChangeListener(new AmountView.OnValueChangeListener() {
+                @Override
+                public void onValueChange(int value) {
+                    item.setAmount(value);
+                    tvTotalPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getTotalPrice())));
+                }
+            });
+
         }
     }
 

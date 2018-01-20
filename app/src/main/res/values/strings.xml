@@ -53,7 +53,7 @@
     <string name="att_profile_register_email">Email</string>
     <string name="att_profile_register_address">Địa chỉ</string>
     <string name="title_profile_register">Tạo khách hàng</string>
-    <string name="action_add_to_cart">Thêm vào giở hàng</string>
+    <string name="action_add_to_cart">Thêm vào giỏ hàng</string>
     <string name="att_product_category">Danh mục sản phẩm</string>
     <string name="att_product_available_at">Đang sẵn hàng tại</string>
     <string name="att_product_describe">Mô tả sản phẩm</string>
@@ -79,9 +79,12 @@
     <string name="product_detail_title">Chi tiết sản phẩm</string>
     <string name="product_detail_code">Mã sản phẩm: %s</string>
     <string name="product_detail_price">%s vnđ</string>
+    <string name="product_add_to_cart">Thêm 1 vào giỏ hàng</string>
 
     <!-- currency unit -->
     <string name="currency_unit">%1s VNĐ</string>
+    <string name="cart_item_price">Đơn giá: %s VNĐ</string>
+    <string name="cart_item_total">Tổng: %s VNĐ</string>
 
     <!--profile fragment-->
     <string name="title_fragment_profile">Thông tin người dùng</string>

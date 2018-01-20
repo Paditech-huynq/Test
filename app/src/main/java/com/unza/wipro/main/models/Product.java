@@ -24,9 +24,24 @@ public class Product {
     @SerializedName("cate_id")
     @Expose
     private String cateId;
+    @SerializedName("category")
+    @Expose
+    private List<ProductCategory> categories;
+    @SerializedName("stock")
+    @Expose
+    private List<ProductStock> stocks;
+    @SerializedName("brand")
+    @Expose
+    private String brand;
+    @SerializedName("sub_brand")
+    @Expose
+    private String subBrand;
+    @SerializedName("unit")
+    @Expose
+    private String unit;
     @SerializedName("images")
     @Expose
-    private List<Object> images = null;
+    private List<ProductThumbnail> images = null;
     @SerializedName("thumbnail")
     @Expose
     private ProductThumbnail productThumbnail;
@@ -82,11 +97,51 @@ public class Product {
         this.cateId = cateId;
     }
 
-    public List<Object> getImages() {
+    public List<ProductCategory> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<ProductCategory> categories) {
+        this.categories = categories;
+    }
+
+    public List<ProductStock> getStocks() {
+        return stocks;
+    }
+
+    public void setStocks(List<ProductStock> stocks) {
+        this.stocks = stocks;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getSubBrand() {
+        return subBrand;
+    }
+
+    public void setSubBrand(String subBrand) {
+        this.subBrand = subBrand;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public List<ProductThumbnail> getImages() {
         return images;
     }
 
-    public void setImages(List<Object> images) {
+    public void setImages(List<ProductThumbnail> images) {
         this.images = images;
     }
 

@@ -20,11 +20,14 @@ import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProductImageAdapter;
 import com.unza.wipro.main.contracts.ProductDetailContract;
+import com.unza.wipro.main.models.Cart;
 import com.unza.wipro.main.models.Product;
+import com.unza.wipro.main.models.ProductCategory;
+import com.unza.wipro.main.models.ProductStock;
 import com.unza.wipro.main.presenters.ProductDetailPresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -55,7 +58,6 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
         Bundle args = new Bundle();
 
         ProductDetailFragment fragment = new ProductDetailFragment();
-        product.setId("1");
         fragment.mProduct = product;
         fragment.setArguments(args);
         return fragment;
@@ -88,6 +90,9 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
     private void setupViewPager() {
         mImageAdapter = new ProductImageAdapter(getActivity());
         mViewPager.setAdapter(mImageAdapter);
+        if (mProduct != null && mProduct.getProductThumbnail() != null) {
+            mImageAdapter.addData(mProduct.getProductThumbnail());
+        }
     }
 
     private void setupHeader() {
@@ -123,12 +128,13 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
     @Override
     public void showProductDetail(Product product) {
         if (product == null) return;
+        mProduct = product;
         mNameText.setText(product.getName());
         mCodeText.setText(getString(R.string.product_detail_code, product.getCode()));
         mPriceText.setText(getString(R.string.product_detail_price, StringUtil.formatMoney(product.getPrice())));
         mDescText.setText(product.getNote());
         if (product.getImages() != null) {
-            mImageAdapter.setData(new ArrayList());
+            mImageAdapter.setData(product.getImages());
         }
         showCategories(product);
         showShops(product);
@@ -137,27 +143,29 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
     private void showCategories(Product product) {
         if (product == null) return;
         mCategoryLayout.removeAllViews();
-        String[] categories = {"Sữa rửa mặt", "Nước hoa hồng", "Serum"};
-        for (String category : categories) {
-            TextView textView = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.view_product_category, null);
-            FlexboxLayout.LayoutParams params = new FlexboxLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            int margin = getResources().getDimensionPixelSize(R.dimen.padding_tiny);
-            params.setMargins(margin, margin, margin, margin);
-            textView.setText(category);
-            mCategoryLayout.addView(textView, params);
+        List<ProductCategory> categories = product.getCategories();
+        for (ProductCategory category : categories) {
+            if (!StringUtil.isEmpty(category.getName())) {
+                TextView textView = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.view_product_category, null);
+                FlexboxLayout.LayoutParams params = new FlexboxLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                int margin = getResources().getDimensionPixelSize(R.dimen.padding_tiny);
+                params.setMargins(margin, margin, margin, margin);
+                textView.setText(category.getName());
+                mCategoryLayout.addView(textView, params);
+            }
         }
     }
 
     private void showShops(Product product) {
         if (product == null) return;
         mShopLayout.removeAllViews();
-        for (int i = 0; i < 3; i++) {
+        for (ProductStock stock : product.getStocks()) {
             View view = LayoutInflater.from(getActivity()).inflate(R.layout.view_product_available_at, null);
             TextView shopName = view.findViewById(R.id.tv_shop_name);
             TextView shopAddress = view.findViewById(R.id.tv_shop_address);
             TextView shopPhone = view.findViewById(R.id.tv_shop_phone);
-            shopName.setText("Siêu thị Điện máy HC");
-            shopAddress.setText("235 Nguyễn Ngọc Nại, Thanh Xuân, Hà Nội");
+            shopName.setText(stock.getName());
+            shopAddress.setText(stock.getAddress());
             shopPhone.setText("ĐT: 02240474043 - Khoảng cách 580m");
             mShopLayout.addView(view);
         }
@@ -166,5 +174,12 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
     @OnClick(R.id.imvAvatar)
     protected void back() {
         getActivity().onBackPressed();
+    }
+
+    @OnClick(R.id.btnRegister)
+    protected void addToCart() {
+        if (mProduct == null) return;
+        Cart.getInstance().addProduct(mProduct);
+        showToast(getString(R.string.product_add_to_cart));
     }
 }
