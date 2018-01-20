@@ -118,5 +118,8 @@
     <string name="some_minute_ago">%s phút trước</string>
     <string name="one_hour_ago">1 giờ trước</string>
     <string name="some_hour_ago">%s giờ trước</string>
+    <string name="phone_with_format">Phone: %1s</string>
+    <string name="email_with_format">Email: %1s</string>
+    <string name="anddress_with_format">Địa chỉ: %1s</string>
 
 </resources>

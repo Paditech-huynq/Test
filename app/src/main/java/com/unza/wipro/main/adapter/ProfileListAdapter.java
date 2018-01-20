@@ -1,9 +1,11 @@
 package com.unza.wipro.main.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.image.GlideApp;
@@ -20,8 +22,8 @@ public class ProfileListAdapter extends BaseRecycleViewAdapter implements AppCon
     private List<Customer> customerList = new ArrayList<>();
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public Customer getItem(int position) {
+        return customerList.get(position);
     }
 
     @Override
@@ -36,7 +38,7 @@ public class ProfileListAdapter extends BaseRecycleViewAdapter implements AppCon
 
     public void addItemToList(List<Customer> customerList) {
         int lastCustomerCount = this.customerList.size();
-        customerList.addAll(customerList);
+        this.customerList.addAll(customerList);
         notifyItemRangeInserted(lastCustomerCount, this.customerList.size());
     }
 
@@ -48,6 +50,14 @@ public class ProfileListAdapter extends BaseRecycleViewAdapter implements AppCon
     class ProfileHolder extends BaseRecycleViewAdapter.BaseViewHolder {
         @BindView(R.id.imvAvatar)
         ImageView imvAvatar;
+        @BindView(R.id.tvPhone)
+        TextView tvPhone;
+        @BindView(R.id.tvName)
+        TextView tvName;
+        @BindView(R.id.tvEmail)
+        TextView tvEmail;
+        @BindView(R.id.tvAddress)
+        TextView tvAddress;
 
         public ProfileHolder(View itemView) {
             super(itemView);
@@ -55,9 +65,17 @@ public class ProfileListAdapter extends BaseRecycleViewAdapter implements AppCon
 
         @Override
         protected void onBindingData(int position) {
+            Context context = itemView.getContext();
             Customer customer = customerList.get(position);
-            GlideApp.with(imvAvatar.getContext()).load(imagesDummy[position]).centerCrop().thumbnail(0.2f).into(imvAvatar);
-//            ImageHelper.loadThumbImage(imvAvatar.getContext(), imagesDummy[position], imvAvatar);
+            GlideApp.with(context)
+                    .load(customer.getAvatar())
+                    .centerCrop()
+                    .thumbnail(0.2f)
+                    .into(imvAvatar);
+            tvName.setText(customer.getName());
+            tvPhone.setText(String.format(context.getString(R.string.phone_with_format), customer.getPhone()));
+            tvEmail.setText(String.format(context.getString(R.string.email_with_format), customer.getEmail()));
+            tvAddress.setText(String.format(context.getString(R.string.anddress_with_format), customer.getAddress()));
         }
     }
 }
