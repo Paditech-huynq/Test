@@ -6,6 +6,8 @@ import com.unza.wipro.main.contracts.OrderListContract;
 import com.unza.wipro.main.models.OrderData;
 import com.unza.wipro.utils.DateTimeUtils;
 
+import java.util.Date;
+
 public class OrderFragmentPresenter extends BasePresenter<OrderListContract.ViewImpl>  implements OrderListContract.Presenter {
     @Override
     public void loadData() {
@@ -31,9 +33,13 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     }
 
     @Override
-    public void onSearchClick() {
-        getView().dismissFilter();
-
+    public void onSearchClick(String dayInLeft, String dayInRight) {
+        if(DateTimeUtils.getDateFromStringDayMonthYear(dayInLeft).before(DateTimeUtils.getDateFromStringDayMonthYear(dayInRight))) {
+            getView().findOrder(true);
+            getView().dismissFilter();
+        } else {
+            getView().findOrder(false);
+        }
     }
 
     @Override

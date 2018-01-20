@@ -22,12 +22,13 @@ public interface OrderListContract {
         void displayDateChose(int whatCalenderInFilter, String day);
         void goToOrderDetailScreen();
         void changeColorButtonToDefault();
+        void findOrder(boolean canFind);
     }
 
     interface Presenter extends BasePresenterImpl {
         void loadData();
         void onFilterClick();
-        void onSearchClick();
+        void onSearchClick(String dayInLeft, String dayInRight);
         void onBtAllClick();
         void onBtThisWeekClick();
         void onBtLastWeekClick();

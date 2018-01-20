@@ -41,6 +41,16 @@ public class DateTimeUtils {
         return new SimpleDateFormat("dd/MM/yyyy").format(date);
     }
 
+    @SuppressLint("SimpleDateFormat")
+    public static Date getDateFromStringDayMonthYear(String dateString) {
+        try {
+            return new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @NonNull
     public static String getStringFirstDayInCurrentMonth(Context context) {
         return getStringDayMonthYear(context.getResources().getString(R.string.display_time_day_month_year,

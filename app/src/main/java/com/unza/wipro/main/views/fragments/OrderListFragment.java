@@ -202,6 +202,15 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         btnThisMonth.setSelected(false);
     }
 
+    @Override
+    public void findOrder(boolean canFind) {
+        if(canFind){
+            //todo
+        } else {
+            showToast("The day in left must before the day in right, please choose again");
+        }
+    }
+
     @OnClick(R.id.bt_filter)
     public void onFilterClick() {
         getPresenter().onFilterClick();
@@ -209,7 +218,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @OnClick(R.id.bt_search)
     public void onSearchClick() {
-        getPresenter().onSearchClick();
+        getPresenter().onSearchClick(tvCalenderLeftFilter.getText().toString(),tvCalenderRightFilter.getText().toString());
     }
 
     @OnClick(R.id.bt_all)
