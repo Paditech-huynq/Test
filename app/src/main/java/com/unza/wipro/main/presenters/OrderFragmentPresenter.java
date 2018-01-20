@@ -21,7 +21,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     }
 
     private void loadUI() {
-        getView().updateDayInFilter(DateTimeUtils.getFirstDayInCurrentMonth(getView().getContext()),DateTimeUtils.getLastDayInCurrentMonth(getView().getContext()));
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(getView().getContext()),DateTimeUtils.getStringLastDayInCurrentMonth(getView().getContext()));
         getView().changeColorButtonThisMonth();
     }
 
@@ -33,6 +33,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onSearchClick() {
         getView().dismissFilter();
+
     }
 
     @Override
@@ -43,21 +44,21 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onBtThisWeekClick() {
         getView().changeColorButtonThisWeek();
-        getView().updateDayInFilter(DateTimeUtils.getFirstDayInCurrentWeek(getView().getContext()),DateTimeUtils.getLastDayInCurrentWeek(getView().getContext()));
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentWeek(getView().getContext()),DateTimeUtils.getStringLastDayInCurrentWeek(getView().getContext()));
         getView().changeColorButtonThisWeek();
     }
 
     @Override
     public void onBtLastWeekClick() {
         getView().changeColorButtonLastWeek();
-        getView().updateDayInFilter(DateTimeUtils.getFirstDayInLastWeek(getView().getContext()),DateTimeUtils.getLastDayInLastWeek(getView().getContext()));
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInLastWeek(getView().getContext()),DateTimeUtils.getStringLastDayInLastWeek(getView().getContext()));
         getView().changeColorButtonLastWeek();
     }
 
     @Override
     public void onBtThisMonthClick() {
         getView().changeColorButtonThisMonth();
-        getView().updateDayInFilter(DateTimeUtils.getFirstDayInCurrentMonth(getView().getContext()),DateTimeUtils.getLastDayInCurrentMonth(getView().getContext()));
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(getView().getContext()),DateTimeUtils.getStringLastDayInCurrentMonth(getView().getContext()));
         getView().changeColorButtonThisMonth();
     }
 

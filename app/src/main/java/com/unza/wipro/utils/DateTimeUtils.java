@@ -42,13 +42,13 @@ public class DateTimeUtils {
     }
 
     @NonNull
-    public static String getFirstDayInCurrentMonth(Context context) {
+    public static String getStringFirstDayInCurrentMonth(Context context) {
         return getStringDayMonthYear(context.getResources().getString(R.string.display_time_day_month_year,
                 1, calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)));
     }
 
     @NonNull
-    public static String getLastDayInCurrentMonth(Context context) {
+    public static String getStringLastDayInCurrentMonth(Context context) {
         int numberDayOfMonth = calendar.getActualMaximum(Calendar.DATE);
         return getStringDayMonthYear(context.getResources().getString(R.string.display_time_day_month_year,
                 numberDayOfMonth, calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)));
@@ -67,28 +67,28 @@ public class DateTimeUtils {
     }
 
     @NonNull
-    public static String getFirstDayInCurrentWeek(Context context) {
+    public static String getStringFirstDayInCurrentWeek(Context context) {
         int lastDayInCurrentWeek = getTheFirstDayInCurrentWeek();
         return getStringDayMonthYear(context.getResources().getString(R.string.display_time_day_month_year,
                 lastDayInCurrentWeek, calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)));
     }
 
     @NonNull
-    public static String getLastDayInCurrentWeek(Context context) {
+    public static String getStringLastDayInCurrentWeek(Context context) {
         int lastDayInCurrentWeek = getTheFirstDayInCurrentWeek() + 6;
         return getStringDayMonthYear(context.getResources().getString(R.string.display_time_day_month_year,
                 lastDayInCurrentWeek, calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)));
     }
 
     @NonNull
-    public static String getFirstDayInLastWeek(Context context) {
+    public static String getStringFirstDayInLastWeek(Context context) {
         int lastDayInLastWeek = getTheFirstDayInCurrentWeek() - 7;
         return getStringDayMonthYear(context.getResources().getString(R.string.display_time_day_month_year,
                 lastDayInLastWeek, calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)));
     }
 
     @NonNull
-    public static String getLastDayInLastWeek(Context context) {
+    public static String getStringLastDayInLastWeek(Context context) {
         int lastDayInLastWeek = getTheFirstDayInCurrentWeek() - 1;
         return getStringDayMonthYear(context.getResources().getString(R.string.display_time_day_month_year,
                 lastDayInLastWeek, calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)));
