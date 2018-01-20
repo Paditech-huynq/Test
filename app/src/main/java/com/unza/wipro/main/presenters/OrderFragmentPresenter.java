@@ -6,9 +6,11 @@ import com.unza.wipro.main.contracts.OrderListContract;
 import com.unza.wipro.main.models.OrderData;
 import com.unza.wipro.utils.DateTimeUtils;
 
-import java.util.Calendar;
-
 public class OrderFragmentPresenter extends BasePresenter<OrderListContract.ViewImpl>  implements OrderListContract.Presenter {
+    private static final int BUTTON_ALL = 0;
+    private static final int BUTTON_THIS_MONTH = 1;
+    private static final int BUTTON_LAST_WEEK = 2;
+    private static final int BUTTON_THIS_WEEK = 3;
 
     @Override
     public void loadData() {
@@ -24,13 +26,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     }
 
     private void loadUI() {
-        Calendar calendar = Calendar.getInstance();
-        int numberDayOfMonth = calendar.getActualMaximum(Calendar.DATE);
-        String firstDay = getView().getContext().getResources().getString(R.string.display_time_day_month_year,
-                1, calendar.get(Calendar.MONTH)+ 1, calendar.get(Calendar.YEAR));
-        String lastDay = getView().getContext().getResources().getString(R.string.display_time_day_month_year,
-                numberDayOfMonth, calendar.get(Calendar.MONTH)+ 1, calendar.get(Calendar.YEAR));
-        getView().updateDayInFilter(DateTimeUtils.getStringDayMonthYear(firstDay),DateTimeUtils.getStringDayMonthYear(lastDay));
+        getView().updateDayInFilter(DateTimeUtils.getFirstDayInCurrentMonth(getView().getContext()),DateTimeUtils.getLastDayInCurrentMonth(getView().getContext()));
         getView().changeColorButtonThisMonth();
     }
 
@@ -52,15 +48,21 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onBtThisWeekClick() {
         getView().changeColorButtonThisWeek();
+        getView().updateDayInFilter(DateTimeUtils.getFirstDayInCurrentWeek(getView().getContext()),DateTimeUtils.getLastDayInCurrentWeek(getView().getContext()));
+        getView().changeColorButtonThisWeek();
     }
 
     @Override
     public void onBtLastWeekClick() {
         getView().changeColorButtonLastWeek();
+        getView().updateDayInFilter(DateTimeUtils.getFirstDayInLastWeek(getView().getContext()),DateTimeUtils.getLastDayInLastWeek(getView().getContext()));
+        getView().changeColorButtonLastWeek();
     }
 
     @Override
     public void onBtThisMonthClick() {
+        getView().changeColorButtonThisMonth();
+        getView().updateDayInFilter(DateTimeUtils.getFirstDayInCurrentMonth(getView().getContext()),DateTimeUtils.getLastDayInCurrentMonth(getView().getContext()));
         getView().changeColorButtonThisMonth();
     }
 
