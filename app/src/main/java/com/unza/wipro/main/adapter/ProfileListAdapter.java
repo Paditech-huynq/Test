@@ -31,13 +31,13 @@ public class ProfileListAdapter extends BaseRecycleViewAdapter implements AppCon
 
     @Override
     public int getItemCount() {
-        return imagesDummy.length;
+        return customerList.size();
     }
 
     public void addItemToList(List<Customer> customerList) {
-        int lastCustomerCount = customerList.size();
+        int lastCustomerCount = this.customerList.size();
         customerList.addAll(customerList);
-        notifyItemRangeInserted(lastCustomerCount, customerList.size());
+        notifyItemRangeInserted(lastCustomerCount, this.customerList.size());
     }
 
     public void refreshData(List<Customer> customerList) {
