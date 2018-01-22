@@ -38,13 +38,13 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     LinearLayout filter;
     @BindView(R.id.card_view_header)
     CardView cardViewHeader;
-    @BindView(R.id.bt_all)
+    @BindView(R.id.btb_all)
     Button btnAll;
-    @BindView(R.id.bt_lastweek)
+    @BindView(R.id.btn_last_week)
     Button btnLastWeek;
-    @BindView(R.id.bt_this_week)
+    @BindView(R.id.btn_this_week)
     Button btnThisWeek;
-    @BindView(R.id.bt_thismonth)
+    @BindView(R.id.btn_this_month)
     Button btnThisMonth;
     @BindView(R.id.tv_calender_left_filter)
     TextView tvCalenderLeftFilter;
@@ -216,27 +216,27 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         getPresenter().onFilterClick();
     }
 
-    @OnClick(R.id.bt_search)
+    @OnClick(R.id.btn_search)
     public void onSearchClick() {
         getPresenter().onSearchClick(tvCalenderLeftFilter.getText().toString(),tvCalenderRightFilter.getText().toString());
     }
 
-    @OnClick(R.id.bt_all)
+    @OnClick(R.id.btb_all)
     public void onBtAllClick() {
         getPresenter().onBtAllClick();
     }
 
-    @OnClick(R.id.bt_this_week)
+    @OnClick(R.id.btn_this_week)
     public void onBtThisWeekClick() {
         getPresenter().onBtThisWeekClick();
     }
 
-    @OnClick(R.id.bt_lastweek)
+    @OnClick(R.id.btn_last_week)
     public void onBtLastWeekClick() {
         getPresenter().onBtLastWeekClick();
     }
 
-    @OnClick(R.id.bt_thismonth)
+    @OnClick(R.id.btn_this_month)
     public void onBtThisMonthClick() {
         getPresenter().onBtThisMonthClick();
     }
