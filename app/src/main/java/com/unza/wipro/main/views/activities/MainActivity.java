@@ -6,9 +6,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.paditech.core.BaseFragment;
+import com.paditech.core.helper.ImageHelper;
+import com.paditech.core.helper.StringUtil;
+import com.paditech.core.image.GlideApp;
 import com.paditech.core.mvp.MVPActivity;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.MainContract;
@@ -16,6 +20,8 @@ import com.unza.wipro.main.presenters.MainPresenter;
 import com.unza.wipro.main.views.fragments.HomeFragment;
 import com.unza.wipro.main.views.fragments.NotificationFragment;
 import com.unza.wipro.main.views.fragments.OrderDetailFragment;
+import com.unza.wipro.main.views.fragments.ProfileFragment;
+import com.unza.wipro.utils.Utils;
 
 import butterknife.BindView;
 
@@ -51,8 +57,32 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
         }
     }
 
+    @Override
+    public void onViewAppear() {
+        super.onViewAppear();
+        updateAvatar();
+    }
+
     public void setShowHeader(boolean isShowHeader) {
         layoutHeader.setVisibility(isShowHeader ? View.VISIBLE : View.GONE);
+    }
+
+    protected void updateAvatar() {
+        ImageView imageView = findViewById(R.id.imvAvatar);
+        if (imageView == null) return;
+        if (Utils.isLogin(this)) {
+            if (!StringUtil.isEmpty(Utils.getLoginInfo(this).getAvatar())) {
+                GlideApp.with(this)
+                        .load(Utils.getLoginInfo(this).getAvatar())
+                        .placeholder(R.drawable.ic_avatar_holder)
+                        .thumbnail(0.5f).circleCrop()
+                        .into(imageView);
+            } else {
+                imageView.setImageResource(R.drawable.ic_avatar_holder);
+            }
+        } else {
+            imageView.setImageResource(R.mipmap.ic_launcher);
+        }
     }
 
     @Override
@@ -66,8 +96,12 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
                 switchFragment(NotificationFragment.newInstance(), true);
                 break;
             case R.id.imvAvatar:
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
+                if (Utils.isLogin(this)) {
+                    switchFragment(ProfileFragment.newInstance(), true);
+                } else {
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }
