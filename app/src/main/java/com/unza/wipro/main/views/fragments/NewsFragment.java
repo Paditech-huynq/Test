@@ -3,12 +3,13 @@ package com.unza.wipro.main.views.fragments;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.paditech.core.BaseFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.NewsFragmentPagerAdapter;
-import com.unza.wipro.services.AppClient;
 import com.unza.wipro.main.models.responses.GetNewsCategoriesRSP;
+import com.unza.wipro.services.AppClient;
 
 import butterknife.BindView;
 import retrofit2.Call;
@@ -21,6 +22,9 @@ public class NewsFragment extends BaseFragment {
 
     @BindView(R.id.tabCategory)
     TabLayout mTabLayout;
+
+    @BindView(R.id.layoutLoading)
+    View layoutLoading;
 
     public static NewsFragment newInstance() {
 
@@ -91,5 +95,10 @@ public class NewsFragment extends BaseFragment {
     @Override
     public boolean isActionShow(int resId) {
         return false;
+    }
+
+    @Override
+    public void showProgressDialog(boolean isShown) {
+        layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
     }
 }

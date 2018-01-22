@@ -19,7 +19,6 @@ import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.OrderListAdapter;
 import com.unza.wipro.main.contracts.OrderListContract;
 import com.unza.wipro.main.models.Order;
-import com.unza.wipro.main.models.OrderClass;
 import com.unza.wipro.main.presenters.OrderFragmentPresenter;
 
 import java.util.List;
@@ -28,24 +27,36 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> implements OrderListContract.ViewImpl {
+    @BindView(R.id.layoutLoading)
+    View layoutLoading;
+
     @BindView(R.id.rcvOrder)
     RecyclerView rcvOrder;
+
     @BindView(R.id.view_up_rcv)
     View viewUp;
+
     @BindView(R.id.filter)
     LinearLayout filter;
+
     @BindView(R.id.cardview_header)
     CardView cardViewHeader;
+
     @BindView(R.id.bt_all)
     Button btnAll;
+
     @BindView(R.id.bt_lastweek)
     Button btnLastWeek;
+
     @BindView(R.id.bt_thisweek)
     Button btnThisWeek;
+
     @BindView(R.id.bt_thismonth)
     Button btnThisMonth;
+
     @BindView(R.id.tv_calender_left_filter)
     TextView tvCalenderLeftFilter;
+
     @BindView(R.id.tv_calender_right_filter)
     TextView tvCalenderRightFilter;
 
@@ -258,5 +269,10 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void showProgressDialog(boolean isShown) {
+        layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
     }
 }

@@ -31,10 +31,9 @@ import butterknife.BindView;
 public class ProductPageFragment extends MVPFragment<ProductPagePresenter> implements ProductPageContract.ViewImpl {
     @BindView(R.id.rcvProduct)
     RecyclerView mRecyclerView;
+
     @BindView(R.id.layoutLoading)
     View layoutLoading;
-    @BindView(R.id.disableTouchView)
-    View disableTouchView;
 
     private ProductListAdapter mAdapter;
     private String categoryId;
@@ -173,7 +172,6 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
     @Override
     public void showProgressDialog(boolean isShown) {
         layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
-        disableTouchView.setVisibility(isShown ? View.VISIBLE : View.GONE);
     }
 }
 
