@@ -27,14 +27,11 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
     }
 
     private void loadListCustomerFromServer(final boolean isRefresh) {
-        if (isPending) {
-            return;
-        }
         if (isRefresh) {
             getView().setRefreshing(true);
             resetData();
         }
-        if (isFull) {
+        if (isFull || isPending) {
             getView().setRefreshing(false);
             return;
         }
@@ -44,6 +41,7 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
                 .enqueue(new Callback<GetListCustomerRSP>() {
                     @Override
                     public void onResponse(Call<GetListCustomerRSP> call, Response<GetListCustomerRSP> response) {
+                        isPending = false;
                         if (getView() == null) {
                             return;
                         }
@@ -56,11 +54,12 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
 
                     @Override
                     public void onFailure(Call<GetListCustomerRSP> call, Throwable t) {
-                        if (getView() == null) {
-                            getView().showProgressDialog(false);
-                            getView().setRefreshing(false);
-                        }
                         isPending = false;
+                        if (getView() == null) {
+                            return;
+                        }
+                        getView().showProgressDialog(false);
+                        getView().setRefreshing(false);
                     }
                 });
     }
@@ -72,7 +71,6 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
 
     private void loadListCustomerSuccess(boolean isRefresh, List<Customer> customerList) {
         page++;
-        isPending = false;
         if (customerList.size() < PAGE_SIZE) {
             isFull = true;
         }
