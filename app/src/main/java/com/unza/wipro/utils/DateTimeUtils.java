@@ -23,7 +23,6 @@ public class DateTimeUtils {
 
     @SuppressLint("SimpleDateFormat")
     public static String getStringDayMonthYear(Date date) {
-        Log.e("getStringDayMonthYear: ", new SimpleDateFormat("dd/MM/yyyy hh:MM:ss").format(date) );
         return new SimpleDateFormat("dd/MM/yyyy").format(date);
     }
 
