@@ -1,5 +1,6 @@
 package com.unza.wipro.services;
 
+import com.unza.wipro.main.models.responses.CreateCustomerRSP;
 import com.unza.wipro.main.models.responses.GetListCustomerRSP;
 import com.unza.wipro.main.models.responses.GetListProductRSP;
 import com.unza.wipro.main.models.responses.GetNewsCategoriesRSP;
@@ -43,4 +44,8 @@ public interface AppService {
 
     @POST("customer/list")
     Call<GetListCustomerRSP> getListCustomer(@Query("page") int page, @Query("page_size") int pageSize, @Query("key") String key);
+
+    @POST("customer/create")
+    Call<CreateCustomerRSP> createCustomer(@Field("name") String name, @Field("phone") String phone, @Field("email") String email,
+                                           @Field("address") String address, @Field("avatar") String avatar);
 }
