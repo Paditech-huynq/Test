@@ -16,14 +16,19 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
+import com.paditech.core.helper.PrefUtils;
+import com.paditech.core.helper.StringUtil;
+import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
+import com.unza.wipro.main.models.LoginInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 
-public class Utils {
+public class Utils implements AppConstans {
     public static void checkCameraPermission(Activity activity) {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
@@ -125,5 +130,21 @@ public class Utils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean isLogin(Context context) {
+        return !StringUtil.isEmpty(PrefUtils.getPreferences(context, PREF_TOKEN, EMPTY)) &&
+                !StringUtil.isEmpty(PrefUtils.getPreferences(context, PREF_APPKEY, EMPTY)) &&
+                !StringUtil.isEmpty(PrefUtils.getPreferences(context, PREF_INFO, EMPTY));
+    }
+
+    public static LoginInfo getLoginInfo(Context context) {
+        if (!StringUtil.isEmpty(PrefUtils.getPreferences(context, PREF_INFO, EMPTY))) {
+            try {
+                return new Gson().fromJson(PrefUtils.getPreferences(context, PREF_INFO, EMPTY), LoginInfo.class);
+            } catch (Exception e) {
+            }
+        }
+        return null;
     }
 }
