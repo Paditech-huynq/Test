@@ -170,7 +170,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
                                           int monthOfYear, int dayOfMonth) {
                         Calendar calendar = Calendar.getInstance();
                         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                        calendar.set(Calendar.MONTH, monthOfYear + 1);
+                        calendar.set(Calendar.MONTH, monthOfYear);
                         calendar.set(Calendar.YEAR, year);
                         getPresenter().onChooseDate(whatCalenderInFilter, calendar.getTime());
                     }

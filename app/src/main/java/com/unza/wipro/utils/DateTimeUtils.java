@@ -2,6 +2,7 @@ package com.unza.wipro.utils;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,17 +23,7 @@ public class DateTimeUtils {
 
     @SuppressLint("SimpleDateFormat")
     public static String getStringDayMonthYear(Date date) {
-        return new SimpleDateFormat("dd/MM/yyyy").format(date);
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    public static String getStringDayMonthYear(String dateString) {
-        Date date = null;
-        try {
-            date = new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        Log.e("getStringDayMonthYear: ", new SimpleDateFormat("dd/MM/yyyy hh:MM:ss").format(date) );
         return new SimpleDateFormat("dd/MM/yyyy").format(date);
     }
 
