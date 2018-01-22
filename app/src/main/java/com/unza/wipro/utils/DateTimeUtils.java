@@ -12,8 +12,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateTimeUtils {
-    private static Calendar calendar = Calendar.getInstance();
-
     @SuppressLint("SimpleDateFormat")
     public static String getStringMonthYear(Date date) {
         return new SimpleDateFormat("MM/yyyy").format(date);
@@ -52,19 +50,21 @@ public class DateTimeUtils {
     }
 
     @NonNull
-    public static String getStringFirstDayInCurrentMonth(Context context) {
-        return getStringDayMonthYear(context.getResources().getString(R.string.display_time_day_month_year,
-                1, calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)));
+    public static String getStringFirstDayInCurrentMonth() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        return getStringDayMonthYear(calendar.getTime());
     }
 
     @NonNull
-    public static String getStringLastDayInCurrentMonth(Context context) {
-        int numberDayOfMonth = calendar.getActualMaximum(Calendar.DATE);
-        return getStringDayMonthYear(context.getResources().getString(R.string.display_time_day_month_year,
-                numberDayOfMonth, calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)));
+    public static String getStringLastDayInCurrentMonth() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DATE));
+        return getStringDayMonthYear(calendar.getTime());
     }
 
     private static int getTheFirstDayInCurrentWeek() {
+        Calendar calendar = Calendar.getInstance();
         int dayOfWeekOfCurrentWeek = calendar.get(Calendar.DAY_OF_WEEK);
         int firstDayInCurrentWeek;
         if (dayOfWeekOfCurrentWeek == Calendar.SUNDAY) {
@@ -77,30 +77,33 @@ public class DateTimeUtils {
     }
 
     @NonNull
-    public static String getStringFirstDayInCurrentWeek(Context context) {
-        int lastDayInCurrentWeek = getTheFirstDayInCurrentWeek();
-        return getStringDayMonthYear(context.getResources().getString(R.string.display_time_day_month_year,
-                lastDayInCurrentWeek, calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)));
+    public static String getStringFirstDayInCurrentWeek() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, getTheFirstDayInCurrentWeek());
+        return getStringDayMonthYear(calendar.getTime());
     }
 
     @NonNull
-    public static String getStringLastDayInCurrentWeek(Context context) {
+    public static String getStringLastDayInCurrentWeek() {
         int lastDayInCurrentWeek = getTheFirstDayInCurrentWeek() + 6;
-        return getStringDayMonthYear(context.getResources().getString(R.string.display_time_day_month_year,
-                lastDayInCurrentWeek, calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)));
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, lastDayInCurrentWeek);
+        return getStringDayMonthYear(calendar.getTime());
     }
 
     @NonNull
-    public static String getStringFirstDayInLastWeek(Context context) {
-        int lastDayInLastWeek = getTheFirstDayInCurrentWeek() - 7;
-        return getStringDayMonthYear(context.getResources().getString(R.string.display_time_day_month_year,
-                lastDayInLastWeek, calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)));
+    public static String getStringFirstDayInLastWeek() {
+        int firstDayInLastWeek = getTheFirstDayInCurrentWeek() - 7;
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, firstDayInLastWeek);
+        return getStringDayMonthYear(calendar.getTime());
     }
 
     @NonNull
-    public static String getStringLastDayInLastWeek(Context context) {
+    public static String getStringLastDayInLastWeek() {
         int lastDayInLastWeek = getTheFirstDayInCurrentWeek() - 1;
-        return getStringDayMonthYear(context.getResources().getString(R.string.display_time_day_month_year,
-                lastDayInLastWeek, calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)));
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, lastDayInLastWeek);
+        return getStringDayMonthYear(calendar.getTime());
     }
 }

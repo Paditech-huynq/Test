@@ -157,11 +157,11 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     }
 
     @Override
-    public void updateDayInFilter(String dayInLeft, String dayInRight) {
-        tvCalenderLeftFilter.setText(dayInLeft);
-        tvCalenderRightFilter.setText(dayInRight);
-        tvTimeInHeaderFilter.setText(getResources().getString(R.string.display_time_day_month_year_in_header_filter,dayInLeft,
-                dayInRight));
+    public void updateDayInFilter(String from, String to) {
+        tvCalenderLeftFilter.setText(from);
+        tvCalenderRightFilter.setText(to);
+        tvTimeInHeaderFilter.setText(getResources().getString(R.string.display_time_day_month_year_in_header_filter, from,
+                to));
     }
 
     @Override
@@ -253,7 +253,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @OnClick(R.id.view_up_rcv)
     public void onRecycleViewWhenDisTouchClick(){
-        getPresenter().onRecycleViewWhenDisTouchClick();
+        getPresenter().onUserTouchOutside();
     }
 
     @OnClick(R.id.tv_calender_left_filter)

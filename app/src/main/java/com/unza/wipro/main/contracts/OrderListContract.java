@@ -17,7 +17,7 @@ public interface OrderListContract {
         void changeColorButtonThisWeek();
         void changeColorButtonLastWeek();
         void changeColorButtonThisMonth();
-        void updateDayInFilter(String dayInLeft, String dayInRight);
+        void updateDayInFilter(String from, String to);
         void displayDatePicker(int whatCalenderInFilter, int day, int month, int year);
         void displayDateChose(int whatCalenderInFilter, String day);
         void goToOrderDetailScreen();
@@ -28,7 +28,7 @@ public interface OrderListContract {
     interface Presenter extends BasePresenterImpl {
         void loadData();
         void onFilterClick();
-        void onSearchClick(String dayInLeft, String dayInRight);
+        void onSearchClick(String from, String to);
         void onBtAllClick();
         void onBtThisWeekClick();
         void onBtLastWeekClick();
@@ -36,6 +36,6 @@ public interface OrderListContract {
         void onBtCalenderClick(int whatCalenderInFilter, String dayCalenderFilter);
         void onChooseDate(int whatCalenderInFilter, int day, int month, int year);
         void onItemClick();
-        void onRecycleViewWhenDisTouchClick();
+        void onUserTouchOutside();
     }
 }
