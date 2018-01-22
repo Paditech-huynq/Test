@@ -1,10 +1,7 @@
 package com.unza.wipro.utils;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.support.annotation.NonNull;
-
-import com.unza.wipro.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
