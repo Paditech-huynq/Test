@@ -54,21 +54,18 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     public void onBtThisWeekClick() {
         getView().changeColorButtonThisWeek();
         getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentWeek(),DateTimeUtils.getStringLastDayInCurrentWeek());
-        getView().changeColorButtonThisWeek();
     }
 
     @Override
     public void onBtLastWeekClick() {
         getView().changeColorButtonLastWeek();
         getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInLastWeek(),DateTimeUtils.getStringLastDayInLastWeek());
-        getView().changeColorButtonLastWeek();
     }
 
     @Override
     public void onBtThisMonthClick() {
         getView().changeColorButtonThisMonth();
         getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(),DateTimeUtils.getStringLastDayInCurrentMonth());
-        getView().changeColorButtonThisMonth();
     }
 
     @Override
@@ -82,8 +79,8 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     }
 
     @Override
-    public void onChooseDate(int whatCalenderInFilter, int day, int month, int year) {
-        getView().displayDateChose(whatCalenderInFilter, DateTimeUtils.getStringDayMonthYear(getView().getContext().getResources().getString(R.string.display_time_day_month_year,day,month,year)));
+    public void onChooseDate(int whatCalenderInFilter, Date dayChose) {
+        getView().displayDateChose(whatCalenderInFilter, DateTimeUtils.getStringDayMonthYear(dayChose));
     }
 
     @Override

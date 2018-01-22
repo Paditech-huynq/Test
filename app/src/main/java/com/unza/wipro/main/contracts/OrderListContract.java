@@ -34,7 +34,7 @@ public interface OrderListContract {
         void onBtLastWeekClick();
         void onBtThisMonthClick();
         void onBtCalenderClick(int whatCalenderInFilter, String dayCalenderFilter);
-        void onChooseDate(int whatCalenderInFilter, int day, int month, int year);
+        void onChooseDate(int whatCalenderInFilter, Date dayChose);
         void onItemClick();
         void onUserTouchOutside();
     }
