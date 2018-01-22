@@ -18,6 +18,7 @@ import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.OrderListAdapter;
 import com.unza.wipro.main.contracts.OrderListContract;
+import com.unza.wipro.main.models.Order;
 import com.unza.wipro.main.models.OrderClass;
 import com.unza.wipro.main.presenters.OrderFragmentPresenter;
 
@@ -62,25 +63,32 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     }
 
     @Override
-    public void updateRecycleView(List<OrderClass> data) {
+    public void initView() {
+        super.initView();
+        setupRecycleView();
+    }
+
+    @Override
+    public void addItemToList(List<Order> orders) {
+        mAdapter.insertData(orders);
+    }
+
+    @Override
+    public void refreshData(List<Order> orders) {
+        mAdapter.replaceData(orders);
+    }
+
+    public void setupRecycleView() {
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        mAdapter.addData(data);
-        mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
-                getPresenter().onItemClick();
-            }
-        });
         mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
             public void onLoadMore() {
-                //todo
+                getPresenter().loadMore();
             }
         });
         mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
-                // todo: get
                 OrderDetailFragment orderDetailFragment = OrderDetailFragment.newInstance(OrderDetailFragment.ViewMode.MODE_SEE);
                 OrderListFragment.this.switchFragment(orderDetailFragment, true);
             }

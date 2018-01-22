@@ -1,10 +1,12 @@
 package com.unza.wipro.services;
 
+import com.unza.wipro.main.models.responses.BaseRSP;
 import com.unza.wipro.main.models.responses.GetListCustomerRSP;
 import com.unza.wipro.main.models.responses.GetListProductRSP;
 import com.unza.wipro.main.models.responses.GetNewsCategoriesRSP;
 import com.unza.wipro.main.models.responses.GetNewsDetailRSP;
 import com.unza.wipro.main.models.responses.GetNewsRSP;
+import com.unza.wipro.main.models.responses.GetOrdersRSP;
 import com.unza.wipro.main.models.responses.GetProductCategoryRSP;
 import com.unza.wipro.main.models.responses.GetProductDetailRSP;
 import com.unza.wipro.main.models.responses.LoginRSP;
@@ -12,6 +14,7 @@ import com.unza.wipro.main.models.responses.LoginRSP;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -53,5 +56,10 @@ public interface AppService {
 
     @POST("customer/list")
     Call<GetListCustomerRSP> getListCustomer(@Query("page") int page, @Query("page_size") int pageSize, @Query("key") String key);
+
+    @POST("order/list")
+    @FormUrlEncoded
+    Call<GetOrdersRSP> getOrders(@Header("Authorization") String token, @Header("AppKey") String appKey,
+                                 @Field("page") Integer page, @Field("page_size") Integer pageSize);
 
 }
