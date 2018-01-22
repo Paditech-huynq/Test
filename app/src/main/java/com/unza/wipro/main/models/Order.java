@@ -28,6 +28,12 @@ public class Order {
     private long createdAt;
     @SerializedName("updated_at")
     private long updateddAt;
+    @SerializedName("creator")
+    private String creator;
+    @SerializedName("updater")
+    private String updater;
+    @SerializedName("customer")
+    private String customer;
 
     public int getId() {
         return id;
@@ -83,5 +89,29 @@ public class Order {
 
     public void setUpdateddAt(long updateddAt) {
         this.updateddAt = updateddAt;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public String getUpdater() {
+        return updater;
+    }
+
+    public void setUpdater(String updater) {
+        this.updater = updater;
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
     }
 }

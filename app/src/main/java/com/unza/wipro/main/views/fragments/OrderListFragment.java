@@ -89,8 +89,11 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
-                OrderDetailFragment orderDetailFragment = OrderDetailFragment.newInstance(OrderDetailFragment.ViewMode.MODE_SEE);
-                OrderListFragment.this.switchFragment(orderDetailFragment, true);
+                if (mAdapter.getItem(position) instanceof Order) {
+                    OrderDetailFragment orderDetailFragment = OrderDetailFragment
+                            .newInstance(OrderDetailFragment.ViewMode.MODE_SEE, (Order) mAdapter.getItem(position));
+                    OrderListFragment.this.switchFragment(orderDetailFragment, true);
+                }
             }
         });
         rcvOrder.setAdapter(mAdapter);

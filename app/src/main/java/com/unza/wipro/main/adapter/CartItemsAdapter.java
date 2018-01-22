@@ -59,7 +59,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         if (viewMode == OrderDetailFragment.ViewMode.MODE_CREATE) {
             return Cart.getInstance().getTotalProduct() + 1;
         } else {
-            return mData != null ? mData.size() : 0;
+            return mData != null ? mData.size() + 1 : 0;
         }
     }
 
