@@ -45,7 +45,7 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
                         getView().showProgressDialog(false);
                         GetListCustomerRSP getListCustomerRSP = response.body();
                         List<Customer> customerList = getListCustomerRSP.getData();
-                        oadListCustomerSuccess(isRefresh, customerList);
+                        loadListCustomerSuccess(isRefresh, customerList);
                     }
 
                     @Override
@@ -61,7 +61,7 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
         page = FIRST_PAGE;
     }
 
-    private void oadListCustomerSuccess(boolean isRefresh, List<Customer> customerList) {
+    private void loadListCustomerSuccess(boolean isRefresh, List<Customer> customerList) {
         page++;
         isPending = false;
         if (customerList.size() < PAGE_SIZE) {
