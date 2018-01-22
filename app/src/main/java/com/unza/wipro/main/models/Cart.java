@@ -15,7 +15,7 @@ import java.util.List;
 public class Cart {
 
     private static Cart mInstance;
-    private List<CartItem> mCartData = new ArrayList<>();
+    private List<Product> mCartData = new ArrayList<>();
 
     public static Cart getInstance() {
         if (mInstance == null) mInstance = new Cart();
@@ -26,14 +26,14 @@ public class Cart {
         mCartData = new ArrayList<>();
     }
 
-    public List<CartItem> getCartData() {
+    public List<Product> getCartData() {
         return mCartData;
     }
 
     private int isExist(Product product) {
         int index = -1;
         for (int i = 0; i < mCartData.size(); i++) {
-            if (mCartData.get(i).product.getId().equalsIgnoreCase(product.getId())) {
+            if (mCartData.get(i).getId().equalsIgnoreCase(product.getId())) {
                 index = i;
                 break;
             }
@@ -48,18 +48,21 @@ public class Cart {
     public void addProduct(Product product, int amount) {
         int index = isExist(product);
         if (index > -1 && index < mCartData.size()) {
-            mCartData.get(index).setAmount(mCartData.get(index).getAmount() + amount);
+            int quantity = mCartData.get(index).getQuantity() + amount;
+            mCartData.get(index).setQuantity(quantity);
         } else {
-            mCartData.add(new CartItem(product, amount));
+            product.setQuantity(amount);
+            mCartData.add(product);
         }
     }
 
     public void updateProduct(Product product, int amount) {
         int index = isExist(product);
         if (index > -1 && index < mCartData.size()) {
-            mCartData.get(index).setAmount(amount);
+            product.setQuantity(amount);
         } else {
-            mCartData.add(new CartItem(product, amount));
+            product.setQuantity(amount);
+            mCartData.add(product);
         }
     }
 
@@ -72,7 +75,7 @@ public class Cart {
         mCartData.clear();
     }
 
-    public CartItem getCartItem(int position) {
+    public Product getCartItem(int position) {
         if (position >= 0 && position < mCartData.size()) return mCartData.get(position);
         return null;
     }
@@ -83,15 +86,15 @@ public class Cart {
 
     public int getTotalAmount() {
         int total = 0;
-        for (CartItem item : mCartData) {
-            total += item.getAmount();
+        for (Product item : mCartData) {
+            total += Integer.valueOf(item.getQuantity());
         }
         return total;
     }
 
     public double getTotalPrice() {
         double total = 0;
-        for (CartItem item : mCartData) {
+        for (Product item : mCartData) {
             total += item.getTotalPrice();
         }
         return total;

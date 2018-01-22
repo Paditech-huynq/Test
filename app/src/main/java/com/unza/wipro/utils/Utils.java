@@ -23,12 +23,13 @@ import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.LoginInfo;
 
+import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 
-public class Utils implements AppConstans {
+public class Utils {
     public static void checkCameraPermission(Activity activity) {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
@@ -132,19 +133,20 @@ public class Utils implements AppConstans {
         }
     }
 
-    public static boolean isLogin(Context context) {
-        return !StringUtil.isEmpty(PrefUtils.getPreferences(context, PREF_TOKEN, EMPTY)) &&
-                !StringUtil.isEmpty(PrefUtils.getPreferences(context, PREF_APPKEY, EMPTY)) &&
-                !StringUtil.isEmpty(PrefUtils.getPreferences(context, PREF_INFO, EMPTY));
-    }
-
-    public static LoginInfo getLoginInfo(Context context) {
-        if (!StringUtil.isEmpty(PrefUtils.getPreferences(context, PREF_INFO, EMPTY))) {
-            try {
-                return new Gson().fromJson(PrefUtils.getPreferences(context, PREF_INFO, EMPTY), LoginInfo.class);
-            } catch (Exception e) {
+    public static String getSha1Hex(String string) {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-1");
+            messageDigest.update(string.getBytes("UTF-8"));
+            byte[] bytes = messageDigest.digest();
+            StringBuilder buffer = new StringBuilder();
+            for (byte b : bytes) {
+                buffer.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
             }
+            return buffer.toString();
         }
-        return null;
+        catch (Exception ex) {
+            ex.printStackTrace();
+            return "";
+        }
     }
 }

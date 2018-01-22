@@ -16,6 +16,7 @@ import com.paditech.core.image.GlideApp;
 import com.paditech.core.mvp.MVPActivity;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.MainContract;
+import com.unza.wipro.main.models.LoginClient;
 import com.unza.wipro.main.presenters.MainPresenter;
 import com.unza.wipro.main.views.fragments.HomeFragment;
 import com.unza.wipro.main.views.fragments.NotificationFragment;
@@ -70,10 +71,10 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
     protected void updateAvatar() {
         ImageView imageView = findViewById(R.id.imvAvatar);
         if (imageView == null) return;
-        if (Utils.isLogin(this)) {
-            if (!StringUtil.isEmpty(Utils.getLoginInfo(this).getAvatar())) {
+        if (LoginClient.isLogin(this)) {
+            if (!StringUtil.isEmpty(LoginClient.getLoginInfo(this).getAvatar())) {
                 GlideApp.with(this)
-                        .load(Utils.getLoginInfo(this).getAvatar())
+                        .load(LoginClient.getLoginInfo(this).getAvatar())
                         .placeholder(R.drawable.ic_avatar_holder)
                         .thumbnail(0.5f).circleCrop()
                         .into(imageView);
@@ -96,7 +97,7 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
                 switchFragment(NotificationFragment.newInstance(), true);
                 break;
             case R.id.imvAvatar:
-                if (Utils.isLogin(this)) {
+                if (LoginClient.isLogin(this)) {
                     switchFragment(ProfileFragment.newInstance(), true);
                 } else {
                     Intent intent = new Intent(this, LoginActivity.class);
