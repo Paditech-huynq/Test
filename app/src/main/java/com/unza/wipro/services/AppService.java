@@ -1,5 +1,6 @@
 package com.unza.wipro.services;
 
+import com.unza.wipro.main.models.responses.GetListCustomerRSP;
 import com.unza.wipro.main.models.responses.GetListProductRSP;
 import com.unza.wipro.main.models.responses.GetNewsCategoriesRSP;
 import com.unza.wipro.main.models.responses.GetNewsDetailRSP;
@@ -49,4 +50,8 @@ public interface AppService {
                          @Field("phone") String phone,
                          @Field("password") String password,
                          @Field("device_token") String device_token);
+
+    @POST("customer/list")
+    Call<GetListCustomerRSP> getListCustomer(@Query("page") int page, @Query("page_size") int pageSize, @Query("key") String key);
+
 }
