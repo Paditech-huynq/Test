@@ -9,6 +9,8 @@ import com.unza.wipro.main.models.responses.GetNewsRSP;
 import com.unza.wipro.main.models.responses.GetProductCategoryRSP;
 import com.unza.wipro.main.models.responses.GetProductDetailRSP;
 
+import java.io.File;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -47,5 +49,5 @@ public interface AppService {
 
     @POST("customer/create")
     Call<CreateCustomerRSP> createCustomer(@Field("name") String name, @Field("phone") String phone, @Field("email") String email,
-                                           @Field("address") String address, @Field("avatar") String avatar);
+                                           @Field("address") String address, @Field("avatar") File avatar);
 }

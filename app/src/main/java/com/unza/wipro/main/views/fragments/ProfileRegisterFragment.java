@@ -24,6 +24,9 @@ import android.widget.TextView;
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.ImageHelper;
 import com.unza.wipro.R;
+import com.unza.wipro.main.models.Customer;
+import com.unza.wipro.main.models.responses.CreateCustomerRSP;
+import com.unza.wipro.services.AppClient;
 import com.unza.wipro.utils.Utils;
 
 import java.io.File;
@@ -33,6 +36,9 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfileRegisterFragment extends BaseFragment {
     public final static int REQUEST_PHOTO_CAMERA = 100;
@@ -41,6 +47,7 @@ public class ProfileRegisterFragment extends BaseFragment {
     private static final String JPEG_FILE_PREFIX = "IMG_";
     private static final String JPEG_FILE_SUFFIX = ".jpg";
     private String mCurrentPhotoPath;
+    private boolean isPending;
 
     @BindView(R.id.edtUserName)
     EditText edtUserName;
@@ -265,10 +272,41 @@ public class ProfileRegisterFragment extends BaseFragment {
 
     @OnClick(R.id.btnRegister)
     void submitRegister() {
-
         if (dataIsValid()) {
-            //todo: handle logic register hre
-            getActivity().onBackPressed();
+            if (isPending == true) {
+                return;
+            }
+            isPending = true;
+            showProgressDialog(true);
+
+            String name = edtUserName.getText().toString();
+            String phone = edtPhoneNumber.getText().toString();
+            String email = edtEmail.getText().toString();
+            String address = edtAddress.getText().toString();
+            File avatarFile = null;
+            if (mCurrentPhotoPath != null) {
+                avatarFile = new File(mCurrentPhotoPath);
+            }
+            AppClient.newInstance().getService().createCustomer(name, phone, email, address, avatarFile)
+                    .enqueue(new Callback<CreateCustomerRSP>() {
+                        @Override
+                        public void onResponse(Call<CreateCustomerRSP> call, Response<CreateCustomerRSP> response) {
+                            isPending = false;
+                            showProgressDialog(false);
+                            CreateCustomerRSP createCustomerRSP = response.body();
+                            Customer customer = createCustomerRSP.getCustomer();
+                            showToast(createCustomerRSP.getMessage());
+                            if (customer != null) {
+                                getActivity().onBackPressed();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<CreateCustomerRSP> call, Throwable t) {
+                            isPending = false;
+                            showProgressDialog(false);
+                        }
+                    });
         }
     }
 
