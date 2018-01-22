@@ -4,7 +4,12 @@ import com.paditech.core.common.BaseConstant;
 
 public interface AppConstans extends BaseConstant {
 
+    public static final String PREF_TOKEN = "login::token";
+    public static final String PREF_APPKEY = "login::appkey";
+    public static final String PREF_INFO = "login::info";
+    public static final String AUTHORIZATION = "WiproCrmApp %s";
     public static final int PAGE_SIZE = 10;
+
 
     String[] imagesDummy = new String[]
             {

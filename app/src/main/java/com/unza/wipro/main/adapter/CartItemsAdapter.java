@@ -12,10 +12,12 @@ import com.paditech.core.helper.ImageHelper;
 import com.paditech.core.helper.StringUtil;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
-
 import com.unza.wipro.main.models.Cart;
-import com.unza.wipro.main.models.CartItem;
+import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.views.customs.AmountView;
+import com.unza.wipro.main.views.fragments.OrderDetailFragment;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -24,10 +26,24 @@ import butterknife.OnClick;
 public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConstans {
     private final static int TYPE_INFO = 0;
     private final static int TYPE_ITEM = 1;
+    private OrderDetailFragment.ViewMode viewMode;
+
+    List<Product> mData;
+
+    public void setData(List<Product> mData) {
+        this.mData = mData;
+        notifyDataSetChanged();
+    }
+
+    public CartItemsAdapter(OrderDetailFragment.ViewMode viewMode) {
+        this.viewMode = viewMode;
+    }
 
     @Override
-    public CartItem getItem(int position) {
-        return Cart.getInstance().getCartItem(position);
+    public Product getItem(int position) {
+        if (viewMode == OrderDetailFragment.ViewMode.MODE_CREATE)
+            return Cart.getInstance().getCartItem(position);
+        return mData.get(position);
     }
 
     @Override
@@ -40,7 +56,11 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
     @Override
     public int getItemCount() {
-        return Cart.getInstance().getTotalProduct() + 1;
+        if (viewMode == OrderDetailFragment.ViewMode.MODE_CREATE) {
+            return Cart.getInstance().getTotalProduct() + 1;
+        } else {
+            return mData != null ? mData.size() + 1 : 0;
+        }
     }
 
     @Override
@@ -67,29 +87,34 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         CartItemHolder(View itemView) {
             super(itemView);
+            setupViewMode();
+        }
+
+        private void setupViewMode() {
+            amountView.setVisibility(viewMode == OrderDetailFragment.ViewMode.MODE_CREATE ? View.VISIBLE : View.GONE);
+            tvCount.setVisibility(viewMode == OrderDetailFragment.ViewMode.MODE_CREATE ? View.GONE : View.VISIBLE);
         }
 
         @Override
         protected void onBindingData(int position) {
             final Context context = itemView.getContext();
-            final CartItem item = getItem(position - 1);
+            final Product item = getItem(position - 1);
             if (item == null) return;
-            tvCount.setVisibility(View.GONE);
-            if (item.getProduct() != null) {
-                tvName.setText(item.getProduct().getName());
-                if (item.getProduct().getProductThumbnail() != null && !StringUtil.isEmpty(item.getProduct().getProductThumbnail().getLink()))
-                    ImageHelper.loadThumbImage(itemView.getContext(), item.getProduct().getProductThumbnail().getLink(), imvProduct);
-                tvPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getProduct().getPrice())));
-                tvTotalPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getTotalPrice())));
-            }
-            amountView.setValue(item.getAmount());
+            tvName.setText(item.getName());
+            if (item.getProductThumbnail() != null && !StringUtil.isEmpty(item.getProductThumbnail().getLink()))
+                ImageHelper.loadThumbImage(itemView.getContext(), item.getProductThumbnail().getLink(), imvProduct);
+            tvPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getPrice())));
+            tvTotalPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getTotalPrice())));
+            amountView.setValue(item.getQuantity());
+            tvCount.setText(String.valueOf(item.getQuantity()));
             amountView.setOnValueChangeListener(new AmountView.OnValueChangeListener() {
                 @Override
                 public void onValueChange(int value) {
-                    item.setAmount(value);
+                    item.setQuantity(value);
                     tvTotalPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getTotalPrice())));
                 }
             });
+
         }
     }
 
