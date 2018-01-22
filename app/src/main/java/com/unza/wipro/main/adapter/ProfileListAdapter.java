@@ -59,7 +59,7 @@ public class ProfileListAdapter extends BaseRecycleViewAdapter implements AppCon
         @BindView(R.id.tvAddress)
         TextView tvAddress;
 
-        public ProfileHolder(View itemView) {
+        private ProfileHolder(View itemView) {
             super(itemView);
         }
 
@@ -69,8 +69,8 @@ public class ProfileListAdapter extends BaseRecycleViewAdapter implements AppCon
             Customer customer = customerList.get(position);
             GlideApp.with(context)
                     .load(customer.getAvatar())
+                    .placeholder(R.drawable.bg_place_holder)
                     .centerCrop()
-                    .thumbnail(0.2f)
                     .into(imvAvatar);
             tvName.setText(customer.getName());
             tvPhone.setText(String.format(context.getString(R.string.phone_with_format), customer.getPhone()));
