@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -24,6 +26,15 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 public class Utils {
+    private static final int DURATION_TIME_DEFAULT = 500;
+
+    public static TransitionDrawable getTransitionChangeColor(int colorBefore, int colorAfter){
+        ColorDrawable[] color = {new ColorDrawable(colorBefore), new ColorDrawable(colorAfter)};
+        TransitionDrawable trans = new TransitionDrawable(color);
+        trans.startTransition(DURATION_TIME_DEFAULT);
+        return trans;
+    }
+
     public static void checkCameraPermission(Activity activity) {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
