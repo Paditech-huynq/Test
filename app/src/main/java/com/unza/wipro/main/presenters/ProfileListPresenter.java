@@ -27,11 +27,16 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
     }
 
     private void loadListCustomerFromServer(final boolean isRefresh) {
-        if (isFull || isPending) {
+        if (isPending) {
             return;
         }
         if (isRefresh) {
+            getView().setRefreshing(true);
             resetData();
+        }
+        if (isFull) {
+            getView().setRefreshing(false);
+            return;
         }
         isPending = true;
         getView().showProgressDialog(page == FIRST_PAGE);
@@ -43,6 +48,7 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
                             return;
                         }
                         getView().showProgressDialog(false);
+                        getView().setRefreshing(false);
                         GetListCustomerRSP getListCustomerRSP = response.body();
                         List<Customer> customerList = getListCustomerRSP.getData();
                         loadListCustomerSuccess(isRefresh, customerList);
@@ -52,13 +58,16 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
                     public void onFailure(Call<GetListCustomerRSP> call, Throwable t) {
                         if (getView() == null) {
                             getView().showProgressDialog(false);
+                            getView().setRefreshing(false);
                         }
+                        isPending = false;
                     }
                 });
     }
 
     private void resetData() {
         page = FIRST_PAGE;
+        isFull = false;
     }
 
     private void loadListCustomerSuccess(boolean isRefresh, List<Customer> customerList) {
@@ -81,21 +90,6 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
 
     @Override
     public void onRefresh(List<Customer> customerList) {
-
-    }
-
-    @Override
-    public void onViewAppear() {
-
-    }
-
-    @Override
-    public void onViewDisAppear() {
-
-    }
-
-    @Override
-    public void onDestroy() {
-
+        // TODO: on pull to refresh
     }
 }

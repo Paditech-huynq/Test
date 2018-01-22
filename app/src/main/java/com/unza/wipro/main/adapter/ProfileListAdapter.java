@@ -12,6 +12,7 @@ import com.paditech.core.image.GlideApp;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.Customer;
+import com.unza.wipro.main.views.customs.PlaceHolderDrawableHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,7 @@ public class ProfileListAdapter extends BaseRecycleViewAdapter implements AppCon
     }
 
     public void refreshData(List<Customer> customerList) {
-        customerList.clear();
+        this.customerList.clear();
         addItemToList(customerList);
     }
 
@@ -69,7 +70,8 @@ public class ProfileListAdapter extends BaseRecycleViewAdapter implements AppCon
             Customer customer = customerList.get(position);
             GlideApp.with(context)
                     .load(customer.getAvatar())
-                    .placeholder(R.drawable.bg_place_holder)
+                    .placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
+                    .error(R.drawable.bg_place_holder)
                     .centerCrop()
                     .into(imvAvatar);
             tvName.setText(customer.getName());
