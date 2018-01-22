@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
+import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.image.GlideApp;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
@@ -74,10 +75,10 @@ public class ProfileListAdapter extends BaseRecycleViewAdapter implements AppCon
                     .error(R.drawable.bg_place_holder)
                     .centerCrop()
                     .into(imvAvatar);
-            tvName.setText(customer.getName());
-            tvPhone.setText(String.format(context.getString(R.string.phone_with_format), customer.getPhone()));
-            tvEmail.setText(String.format(context.getString(R.string.email_with_format), customer.getEmail()));
-            tvAddress.setText(String.format(context.getString(R.string.anddress_with_format), customer.getAddress()));
+            ViewHelper.setText(tvName, customer.getName(), null);
+            ViewHelper.setText(tvPhone, String.format(context.getString(R.string.phone_with_format), customer.getPhone()), null);
+            ViewHelper.setText(tvEmail, String.format(context.getString(R.string.email_with_format), customer.getEmail()), null);
+            ViewHelper.setText(tvAddress, String.format(context.getString(R.string.anddress_with_format), customer.getAddress()), null);
         }
     }
 }
