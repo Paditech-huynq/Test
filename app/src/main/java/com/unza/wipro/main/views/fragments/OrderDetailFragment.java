@@ -11,6 +11,7 @@ import com.paditech.core.helper.ViewHelper;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.CartItemsAdapter;
 import com.unza.wipro.main.models.Cart;
+import com.unza.wipro.main.models.Order;
 import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
 
 import butterknife.BindView;
@@ -25,7 +26,9 @@ public class OrderDetailFragment extends BaseFragment {
     public enum ViewMode {
         MODE_CREATE, MODE_SEE
     }
+
     private ViewMode viewMode;
+    private Order mOrder;
 
     private int scrollX, scrollY;
 
@@ -40,9 +43,10 @@ public class OrderDetailFragment extends BaseFragment {
         return fragment;
     }
 
-    public static OrderDetailFragment newInstance(ViewMode viewMode) {
+    public static OrderDetailFragment newInstance(ViewMode viewMode, Order order) {
         OrderDetailFragment fragment = newInstance();
         fragment.viewMode = viewMode;
+        fragment.mOrder = order;
         return fragment;
     }
 
@@ -65,6 +69,7 @@ public class OrderDetailFragment extends BaseFragment {
 
     private void setupCreateCart() {
         bottomBar.setVisibility(viewMode == ViewMode.MODE_CREATE ? View.VISIBLE : View.GONE);
+        if (viewMode == ViewMode.MODE_SEE && mOrder != null) mAdapter.setData(mOrder.getProducts());
     }
 
     @Override
