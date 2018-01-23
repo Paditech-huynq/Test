@@ -1,21 +1,18 @@
 package com.unza.wipro.main.presenters;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
-import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.OrderListContract;
 import com.unza.wipro.main.models.LoginClient;
-import com.unza.wipro.main.models.OrderData;
-import com.unza.wipro.main.models.responses.BaseRSP;
 import com.unza.wipro.main.models.responses.GetOrdersRSP;
 import com.unza.wipro.services.AppClient;
 import com.unza.wipro.utils.DateTimeUtils;
 
 import java.util.Calendar;
 import java.util.Date;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -80,8 +77,8 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     }
 
     private void loadUI() {
-        Date toDay = Calendar.getInstance().getTime();
-        getView().updateDayInFilter(DateTimeUtils.getStringDayMonthYear(toDay));
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(),DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
+        getView().changeColorButtonThisMonth();
     }
 
     @Override
@@ -90,9 +87,16 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     }
 
     @Override
-    public void onSearchClick() {
-        getView().dismissFilter();
-        loadData();
+    public void onSearchClick(String from, String to) {
+        Date startDate = DateTimeUtils.getDateFromStringDayMonthYear(from);
+        Date endDate = DateTimeUtils.getDateFromStringDayMonthYear(to);
+        assert startDate != null;
+        if (startDate.before(endDate)) {
+            getView().findOrder(true);
+            getView().dismissFilter();
+        } else {
+            getView().findOrder(false);
+        }
     }
 
     @Override
@@ -103,16 +107,19 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onBtThisWeekClick() {
         getView().changeColorButtonThisWeek();
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentWeek(),DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
     }
 
     @Override
     public void onBtLastWeekClick() {
         getView().changeColorButtonLastWeek();
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInLastWeek(),DateTimeUtils.getStringLastDayInLastWeek());
     }
 
     @Override
     public void onBtThisMonthClick() {
         getView().changeColorButtonThisMonth();
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(),DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
     }
 
     @Override
@@ -121,16 +128,22 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
         int day = Integer.parseInt(time[0]);
         int month = Integer.parseInt(time[1]);
         int year = Integer.parseInt(time[2]);
-        getView().displayDatePicker(whatCalenderInFilter, day, month, year);
+        getView().displayDatePicker(whatCalenderInFilter,day,month,year);
+        getView().changeColorButtonToDefault();
     }
 
     @Override
-    public void onChooseDate(int whatCalenderInFilter, int day, int month, int year) {
-        getView().displayDateChose(whatCalenderInFilter, DateTimeUtils.getStringDayMonthYear(getView().getContext().getResources().getString(R.string.display_time_day_month_year, day, month, year)));
+    public void onChooseDate(int whatCalenderInFilter, Date dayChose) {
+        getView().displayDateChose(whatCalenderInFilter, DateTimeUtils.getStringDayMonthYear(dayChose));
     }
 
     @Override
     public void onItemClick() {
         getView().goToOrderDetailScreen();
+    }
+
+    @Override
+    public void onUserTouchOutside() {
+        getView().dismissFilter();
     }
 }

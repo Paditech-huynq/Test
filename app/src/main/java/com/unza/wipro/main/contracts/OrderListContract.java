@@ -20,23 +20,26 @@ public interface OrderListContract {
         void changeColorButtonThisWeek();
         void changeColorButtonLastWeek();
         void changeColorButtonThisMonth();
-        void updateDayInFilter(String toDay);
+        void updateDayInFilter(String from, String to);
         void displayDatePicker(int whatCalenderInFilter, int day, int month, int year);
         void displayDateChose(int whatCalenderInFilter, String day);
         void goToOrderDetailScreen();
+        void changeColorButtonToDefault();
+        void findOrder(boolean canFind);
     }
 
     interface Presenter extends BasePresenterImpl {
         void loadData();
         void loadMore();
         void onFilterClick();
-        void onSearchClick();
+        void onSearchClick(String from, String to);
         void onBtAllClick();
         void onBtThisWeekClick();
         void onBtLastWeekClick();
         void onBtThisMonthClick();
         void onBtCalenderClick(int whatCalenderInFilter, String dayCalenderFilter);
-        void onChooseDate(int whatCalenderInFilter, int day, int month, int year);
+        void onChooseDate(int whatCalenderInFilter, Date dayChose);
         void onItemClick();
+        void onUserTouchOutside();
     }
 }

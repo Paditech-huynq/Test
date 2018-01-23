@@ -1,6 +1,9 @@
 package com.unza.wipro.main.views.fragments;
 
 import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,7 +23,9 @@ import com.unza.wipro.main.adapter.OrderListAdapter;
 import com.unza.wipro.main.contracts.OrderListContract;
 import com.unza.wipro.main.models.Order;
 import com.unza.wipro.main.presenters.OrderFragmentPresenter;
+import com.unza.wipro.utils.Utils;
 
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,31 +39,34 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     RecyclerView rcvOrder;
 
     @BindView(R.id.view_up_rcv)
-    View viewUp;
+    View viewUpRecycleView;
+
+    @BindView(R.id.card_view_header)
+    CardView cardViewHeader;
+
+    @BindView(R.id.btb_all)
+    Button btnAll;
+
+    @BindView(R.id.btn_last_week)
+    Button btnLastWeek;
+
+    @BindView(R.id.btn_this_week)
+    Button btnThisWeek;
+
+    @BindView(R.id.btn_this_month)
+    Button btnThisMonth;
 
     @BindView(R.id.filter)
     LinearLayout filter;
-
-    @BindView(R.id.cardview_header)
-    CardView cardViewHeader;
-
-    @BindView(R.id.bt_all)
-    Button btnAll;
-
-    @BindView(R.id.bt_lastweek)
-    Button btnLastWeek;
-
-    @BindView(R.id.bt_thisweek)
-    Button btnThisWeek;
-
-    @BindView(R.id.bt_thismonth)
-    Button btnThisMonth;
 
     @BindView(R.id.tv_calender_left_filter)
     TextView tvCalenderLeftFilter;
 
     @BindView(R.id.tv_calender_right_filter)
     TextView tvCalenderRightFilter;
+
+    @BindView(R.id.tv_time_in_header_filter)
+    TextView tvTimeInHeaderFilter;
 
     private OrderListAdapter mAdapter = new OrderListAdapter();
     private static final int DAY_LEFT_CALENDER_FILTER = 0;
@@ -121,18 +129,17 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public void dismissFilter() {
-        Animation slideUp = AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_up);
-        viewUp.setVisibility(View.GONE);
-        filter.setAnimation(slideUp);
+        viewUpRecycleView.setVisibility(View.GONE);
+        filter.setAnimation(AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_up));
         filter.setVisibility(View.GONE);
         cardViewHeader.setElevation(getResources().getDimensionPixelOffset(R.dimen.cardview_default_elevation));
     }
 
     @Override
     public void appearFilter() {
-        Animation slideDown = AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_down);
-        viewUp.setVisibility(View.VISIBLE);
-        filter.startAnimation(slideDown);
+        viewUpRecycleView.setBackground(Utils.getTransitionChangeColor(Color.TRANSPARENT, R.color.bg_view_up_recycle_view_screen_list_order));
+        viewUpRecycleView.setVisibility(View.VISIBLE);
+        filter.startAnimation(AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_down));
         filter.setVisibility(View.VISIBLE);
         cardViewHeader.setElevation(0);
     }
@@ -170,9 +177,11 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     }
 
     @Override
-    public void updateDayInFilter(String toDay) {
-        tvCalenderLeftFilter.setText(toDay);
-        tvCalenderRightFilter.setText(toDay);
+    public void updateDayInFilter(String from, String to) {
+        tvCalenderLeftFilter.setText(from);
+        tvCalenderRightFilter.setText(to);
+        tvTimeInHeaderFilter.setText(getResources().getString(R.string.display_time_day_month_year_in_header_filter, from,
+                to));
     }
 
     @Override
@@ -182,7 +191,11 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        getPresenter().onChooseDate(whatCalenderInFilter, dayOfMonth, monthOfYear + 1, year);
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        calendar.set(Calendar.MONTH, monthOfYear);
+                        calendar.set(Calendar.YEAR, year);
+                        getPresenter().onChooseDate(whatCalenderInFilter, calendar.getTime());
                     }
                 }, thisYear, thisMonth - 1, today);
         datePickerDialog.show();
@@ -192,10 +205,10 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     public void displayDateChose(int whatCalenderInFilter, String day) {
         switch (whatCalenderInFilter) {
             case DAY_LEFT_CALENDER_FILTER:
-                tvCalenderLeftFilter.setText(day);
+                updateDayInFilter(day, tvCalenderRightFilter.getText().toString());
                 break;
             case DAY_RIGHT_CALENDER_FILTER:
-                tvCalenderRightFilter.setText(day);
+                updateDayInFilter(tvCalenderLeftFilter.getText().toString(), day);
                 break;
         }
     }
@@ -205,32 +218,49 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         switchFragment(OrderDetailFragment.newInstance(), true);
     }
 
+    @Override
+    public void changeColorButtonToDefault() {
+        btnAll.setSelected(false);
+        btnThisWeek.setSelected(false);
+        btnLastWeek.setSelected(false);
+        btnThisMonth.setSelected(false);
+    }
+
+    @Override
+    public void findOrder(boolean canFind) {
+        if (canFind) {
+            //todo
+        } else {
+            showToast("The day in left must before the day in right, please choose again");
+        }
+    }
+
     @OnClick(R.id.bt_filter)
     public void onFilterClick() {
         getPresenter().onFilterClick();
     }
 
-    @OnClick(R.id.bt_search)
+    @OnClick(R.id.btn_search)
     public void onSearchClick() {
-        getPresenter().onSearchClick();
+        getPresenter().onSearchClick(tvCalenderLeftFilter.getText().toString(), tvCalenderRightFilter.getText().toString());
     }
 
-    @OnClick(R.id.bt_all)
+    @OnClick(R.id.btb_all)
     public void onBtAllClick() {
         getPresenter().onBtAllClick();
     }
 
-    @OnClick(R.id.bt_thisweek)
+    @OnClick(R.id.btn_this_week)
     public void onBtThisWeekClick() {
         getPresenter().onBtThisWeekClick();
     }
 
-    @OnClick(R.id.bt_lastweek)
+    @OnClick(R.id.btn_last_week)
     public void onBtLastWeekClick() {
         getPresenter().onBtLastWeekClick();
     }
 
-    @OnClick(R.id.bt_thismonth)
+    @OnClick(R.id.btn_this_month)
     public void onBtThisMonthClick() {
         getPresenter().onBtThisMonthClick();
     }
@@ -242,6 +272,21 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @OnClick(R.id.btn_calender_right_filter)
     public void onBtCalenderRightClick() {
+        getPresenter().onBtCalenderClick(DAY_RIGHT_CALENDER_FILTER, tvCalenderRightFilter.getText().toString());
+    }
+
+    @OnClick(R.id.view_up_rcv)
+    public void onRecycleViewWhenDisTouchClick() {
+        getPresenter().onUserTouchOutside();
+    }
+
+    @OnClick(R.id.tv_calender_left_filter)
+    public void onTvCalenderLeftFilterClick() {
+        getPresenter().onBtCalenderClick(DAY_LEFT_CALENDER_FILTER, tvCalenderLeftFilter.getText().toString());
+    }
+
+    @OnClick(R.id.tv_calender_right_filter)
+    public void onTvCalenderRightFilterClick() {
         getPresenter().onBtCalenderClick(DAY_RIGHT_CALENDER_FILTER, tvCalenderRightFilter.getText().toString());
     }
 

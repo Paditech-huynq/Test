@@ -10,25 +10,26 @@
         android:id="@+id/rcvOrder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/cardview_header"/>
+        android:layout_below="@+id/card_view_header"/>
     <View
         android:clickable="true"
         android:visibility="gone"
-        android:background="#a8404040"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/cardview_header"
+        android:layout_below="@+id/card_view_header"
         android:id="@+id/view_up_rcv"
         android:focusable="true" />
     <include
+        android:clickable="true"
         android:visibility="gone"
         layout="@layout/fragment_home_order_filter"
         android:id="@+id/filter"
-        android:layout_below="@+id/cardview_header"
-        android:layout_height="@dimen/filter_fragment_order_height"
-        android:layout_width="match_parent" />
+        android:layout_below="@+id/card_view_header"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:focusable="true" />
     <android.support.v7.widget.CardView
-        android:id="@+id/cardview_header"
+        android:id="@+id/card_view_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="@dimen/cardview_default_elevation">
@@ -38,7 +39,8 @@
         android:layout_height="@dimen/header_fragment_order_height"
         android:background="@android:color/white">
         <ImageButton
-            android:layout_margin="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:layout_marginBottom="@dimen/padding_normal"
             android:id="@+id/bt_time"
             android:layout_width="@dimen/header_fragment_order_height"
             android:layout_height="@dimen/header_fragment_order_height"
@@ -49,7 +51,7 @@
             android:background="@android:color/transparent"
             />
         <TextView
-            android:id="@+id/text_time"
+            android:id="@+id/tv_time_in_header_filter"
             android:textSize="@dimen/text_size_normal"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
@@ -62,9 +64,10 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="@color/dark_light"
-            android:layout_toEndOf="@+id/text_time"/>
+            android:layout_toEndOf="@+id/tv_time_in_header_filter"/>
         <ImageButton
-            android:padding="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:layout_marginBottom="@dimen/padding_normal"
             android:id="@+id/bt_filter"
             android:layout_width="@dimen/header_fragment_order_height"
             android:layout_height="@dimen/header_fragment_order_height"
