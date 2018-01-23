@@ -5,16 +5,10 @@
     android:layout_height="match_parent"
     android:background="@color/gray">
 
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:id="@+id/view_header_profile"
-        layout="@layout/view_header_profile" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/view_header_profile">
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
