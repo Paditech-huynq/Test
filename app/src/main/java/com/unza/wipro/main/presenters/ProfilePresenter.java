@@ -12,6 +12,26 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
     }
 
     @Override
+    public void onChangePassClick() {
+        getView().goToChangePassFragment();
+    }
+
+    @Override
+    public void onListOrderClick() {
+        getView().goToOrderFragment();
+    }
+
+    @Override
+    public void onManagerSalesClick() {
+        getView().goToListProfileFragment();
+    }
+
+    @Override
+    public void onLogOutClick() {
+        getView().goToHomeProfile();
+    }
+
+    @Override
     public void onCreate() {
         super.onCreate();
         getUserDataFromServer();

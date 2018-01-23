@@ -102,6 +102,26 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
         GlideApp.with(this).load(R.drawable.bg_test).into(imgAvarUnder);
     }
 
+    @Override
+    public void goToChangePassFragment() {
+        switchFragment(UpdatePasswordFragment.newInstance(),true);
+    }
+
+    @Override
+    public void goToOrderFragment() {
+        switchFragment(LookupFragment.newInstance(), true);
+    }
+
+    @Override
+    public void goToListProfileFragment() {
+        switchFragment(ProfileListFragment.newInstance(), true);
+    }
+
+    @Override
+    public void goToHomeProfile() {
+        switchFragment(HomeFragment.newInstance(), false);
+    }
+
     private void updateUIForEmployee(User user) {
         tvTime.setText(Html.fromHtml(getResources().getString(R.string.time_profile_fragment,DateTimeUtils.getStringDayMonthYear(user.getDateStart()),
                 DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()))));
@@ -118,5 +138,35 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
         getActivity().finish();
+    }
+
+    @OnClick(R.id.rlt_change_pass)
+    public void onChangePassClick(){
+        getPresenter().onChangePassClick();
+    }
+
+    @OnClick(R.id.rlt_list_order)
+    public void onListOrderClick(){
+        getPresenter().onListOrderClick();
+    }
+
+    @OnClick(R.id.rlt_logout)
+    public void onLogoutClick(){
+        getPresenter().onLogOutClick();
+    }
+
+    @OnClick(R.id.rlt_manager_sales)
+    public void onManagerSalesClick(){
+        getPresenter().onManagerSalesClick();
+    }
+
+    @OnClick(R.id.rlt_policy_permis)
+    public void onPolicyPermisClick(){
+
+    }
+
+    @OnClick(R.id.rlt_questions)
+    public void onQuestionClick(){
+
     }
 }
