@@ -6,6 +6,7 @@ import com.unza.wipro.main.contracts.OrderListContract;
 import com.unza.wipro.main.models.OrderData;
 import com.unza.wipro.utils.DateTimeUtils;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class OrderFragmentPresenter extends BasePresenter<OrderListContract.ViewImpl>  implements OrderListContract.Presenter {
@@ -23,7 +24,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     }
 
     private void loadUI() {
-        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(),DateTimeUtils.getStringLastDayInCurrentMonth());
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(),DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
         getView().changeColorButtonThisMonth();
     }
 
@@ -53,7 +54,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onBtThisWeekClick() {
         getView().changeColorButtonThisWeek();
-        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentWeek(),DateTimeUtils.getStringLastDayInCurrentWeek());
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentWeek(),DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
     }
 
     @Override
@@ -65,7 +66,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onBtThisMonthClick() {
         getView().changeColorButtonThisMonth();
-        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(),DateTimeUtils.getStringLastDayInCurrentMonth());
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(),DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
     }
 
     @Override
