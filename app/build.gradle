@@ -10,6 +10,12 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        android.applicationVariants.all { variant ->
+            variant.outputs.all {
+                outputFileName = "${variant.applicationId}_${variant.baseName}.apk"
+            }
+        }
     }
     buildTypes {
         release {
