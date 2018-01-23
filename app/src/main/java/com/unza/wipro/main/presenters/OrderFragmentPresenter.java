@@ -2,6 +2,7 @@ package com.unza.wipro.main.presenters;
 
 import android.content.Context;
 
+import com.paditech.core.helper.StringUtil;
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.main.contracts.OrderListContract;
@@ -22,6 +23,8 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
 
     private boolean isFull;
     private int mPage = 1;
+    private Long fromDate;
+    private Long toDate;
 
     @Override
     public void loadData() {
@@ -47,7 +50,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
         if (isRefresh) getView().showProgressDialog(true);
         mPage = isRefresh ? 1 : mPage;
         AppClient.newInstance().getService().getOrders(LoginClient.getToken(context),
-                LoginClient.getAppKey(context), mPage, PAGE_SIZE)
+                LoginClient.getAppKey(context), fromDate, toDate, mPage, PAGE_SIZE)
                 .enqueue(new Callback<GetOrdersRSP>() {
                     @Override
                     public void onResponse(Call<GetOrdersRSP> call, Response<GetOrdersRSP> response) {
@@ -88,12 +91,21 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
 
     @Override
     public void onSearchClick(String from, String to) {
+        if (StringUtil.isEmpty(from) && StringUtil.isEmpty(to)) {
+            fromDate = null;
+            toDate = null;
+            loadData();
+            return;
+        }
         Date startDate = DateTimeUtils.getDateFromStringDayMonthYear(from);
         Date endDate = DateTimeUtils.getDateFromStringDayMonthYear(to);
         assert startDate != null;
         if (startDate.before(endDate)) {
             getView().findOrder(true);
             getView().dismissFilter();
+            fromDate = startDate.getTime() / 1000;
+            toDate = endDate.getTime() / 1000;
+            loadData();
         } else {
             getView().findOrder(false);
         }

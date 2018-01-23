@@ -61,6 +61,7 @@ public interface AppService {
     @POST("order/list")
     @FormUrlEncoded
     Call<GetOrdersRSP> getOrders(@Header("Authorization") String token, @Header("AppKey") String appKey,
+                                 @Field("from") Long from, @Field("to") Long to,
                                  @Field("page") Integer page, @Field("page_size") Integer pageSize);
 
     @POST("order/detail")
