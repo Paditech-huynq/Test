@@ -21,6 +21,9 @@ public class LookupFragment extends BaseFragment {
     @BindView(R.id.edtSearch)
     EditText edtSearch;
 
+    @BindView(R.id.layoutLoading)
+    View layoutLoading;
+
     public static LookupFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -67,7 +70,7 @@ public class LookupFragment extends BaseFragment {
                 final int DRAWABLE_BOTTOM = 3;
 
                 if (event.getAction() == MotionEvent.ACTION_UP && edtSearch.getCompoundDrawables()[DRAWABLE_RIGHT] != null) {
-                    if (event.getRawX() >= (edtSearch.getRight() - edtSearch.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width() - edtSearch.getCompoundDrawablePadding()*2)) {
+                    if (event.getRawX() >= (edtSearch.getRight() - edtSearch.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width() - edtSearch.getCompoundDrawablePadding() * 2)) {
                         // your action here
                         edtSearch.setText("");
 
@@ -119,10 +122,14 @@ public class LookupFragment extends BaseFragment {
 
     @Override
     public boolean isActionShow(int resId) {
-        if(resId == R.id.btnCart)
-        {
+        if (resId == R.id.btnCart) {
             return true;
         }
         return super.isActionShow(resId);
+    }
+
+    @Override
+    public void showProgressDialog(boolean isShown) {
+        layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
     }
 }

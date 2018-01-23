@@ -30,7 +30,7 @@
     <string name="message_otp_failure">Mã số không hợp lệ! Xin hãy thử lại!</string>
 
     <!-- forgot password -->
-    <string name="forgot_pass_hint">Vui lòng nhập số tài khoản của bạn, hệ thống sẽ gửi yêu cầu mật khẩu mới về số điện thoại của bạn</string>
+    <string name="forgot_pass_hint">Vui lòng nhập số tài khoản của bạn, hệ thống sẽ gửi\n yêu cầu mật khẩu mới về số điện thoại của bạn</string>
     <string name="forgot_pass_username_hint">Username</string>
     <string name="forgot_pass_button">Xác nhận</string>
     <string name="message_forgot_pass_failure">Yêu cầu không thành công! Xin hãy thử lại!</string>
@@ -106,7 +106,7 @@
     <string name="questions_profile_fragment">Câu hỏi thường gặp</string>
     <string name="term_use_profile_fragment">Điều khoản sử dụng</string>
     <string name="log_out_profile_fragment">Đăng xuất</string>
-    <string name="display_time_day_month_year">%1$d/%2$d/%3$d</string>
+    <string name="display_time_day_month_year_in_header_filter">%1$s - %2$s</string>
 
     <!-- notification -->
     <string name="notification_title">Thông báo</string>

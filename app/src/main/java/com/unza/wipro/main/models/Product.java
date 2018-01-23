@@ -48,6 +48,13 @@ public class Product {
     @SerializedName("created_at")
     @Expose
     private String createdAt;
+    @SerializedName("quantity")
+    @Expose
+    private int quantity;
+    @SerializedName("money")
+    @Expose
+    private double money;
+
 
     public String getId() {
         return id;
@@ -159,5 +166,25 @@ public class Product {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
+    }
+
+    public double getTotalPrice() {
+        return price * quantity;
     }
 }

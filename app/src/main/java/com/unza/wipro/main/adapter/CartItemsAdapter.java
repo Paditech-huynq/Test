@@ -12,11 +12,15 @@ import com.paditech.core.helper.ImageHelper;
 import com.paditech.core.helper.StringUtil;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
-
 import com.unza.wipro.main.models.Cart;
-import com.unza.wipro.main.models.CartItem;
+import com.unza.wipro.main.models.Customer;
+import com.unza.wipro.main.models.Order;
+import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.views.customs.AmountView;
 import com.unza.wipro.main.views.fragments.OrderDetailFragment;
+
+import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -27,13 +31,28 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
     private final static int TYPE_ITEM = 1;
     private OrderDetailFragment.ViewMode viewMode;
 
+    private Order mOrder;
+    List<Product> mData;
+
+    public void setOrder(Order mOrder) {
+        this.mOrder = mOrder;
+        notifyDataSetChanged();
+    }
+
+    public void setData(List<Product> mData) {
+        this.mData = mData;
+        notifyDataSetChanged();
+    }
+
     public CartItemsAdapter(OrderDetailFragment.ViewMode viewMode) {
         this.viewMode = viewMode;
     }
 
     @Override
-    public CartItem getItem(int position) {
-        return Cart.getInstance().getCartItem(position);
+    public Product getItem(int position) {
+        if (viewMode == OrderDetailFragment.ViewMode.MODE_CREATE)
+            return Cart.getInstance().getCartItem(position);
+        return mData.get(position);
     }
 
     @Override
@@ -49,8 +68,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         if (viewMode == OrderDetailFragment.ViewMode.MODE_CREATE) {
             return Cart.getInstance().getTotalProduct() + 1;
         } else {
-            // todo real data
-            return imagesDummy.length + 1;
+            return mData != null ? mData.size() + 1 : 0;
         }
     }
 
@@ -89,21 +107,19 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         @Override
         protected void onBindingData(int position) {
             final Context context = itemView.getContext();
-            final CartItem item = getItem(position - 1);
+            final Product item = getItem(position - 1);
             if (item == null) return;
-            if (item.getProduct() != null) {
-                tvName.setText(item.getProduct().getName());
-                if (item.getProduct().getProductThumbnail() != null && !StringUtil.isEmpty(item.getProduct().getProductThumbnail().getLink()))
-                    ImageHelper.loadThumbImage(itemView.getContext(), item.getProduct().getProductThumbnail().getLink(), imvProduct);
-                tvPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getProduct().getPrice())));
-                tvTotalPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getTotalPrice())));
-            }
-            amountView.setValue(item.getAmount());
-            tvCount.setText(item.getAmount());
+            tvName.setText(item.getName());
+            if (item.getProductThumbnail() != null && !StringUtil.isEmpty(item.getProductThumbnail().getLink()))
+                ImageHelper.loadThumbImage(itemView.getContext(), item.getProductThumbnail().getLink(), imvProduct);
+            tvPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getPrice())));
+            tvTotalPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getTotalPrice())));
+            amountView.setValue(item.getQuantity());
+            tvCount.setText(String.valueOf(item.getQuantity()));
             amountView.setOnValueChangeListener(new AmountView.OnValueChangeListener() {
                 @Override
                 public void onValueChange(int value) {
-                    item.setAmount(value);
+                    item.setQuantity(value);
                     tvTotalPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getTotalPrice())));
                 }
             });
@@ -114,6 +130,16 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
     class CartInfoHolder extends BaseViewHolder {
         @BindView(R.id.imvAvatar)
         ImageView imvAvatar;
+        @BindView(R.id.tvName)
+        TextView tvName;
+        @BindView(R.id.tvPrice)
+        TextView tvPrice;
+        @BindView(R.id.tvDate)
+        TextView tvDate;
+        @BindView(R.id.tvShop)
+        TextView tvShop;
+        @BindView(R.id.tvAddress)
+        TextView tvAddress;
 
         CartInfoHolder(View itemView) {
             super(itemView);
@@ -121,7 +147,20 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @Override
         protected void onBindingData(int position) {
-//            ImageHelper.loadThumbCircleImage(itemView.getContext(), imagesDummy[15], imvAvatar);
+            Context context = itemView.getContext();
+            double price = mOrder != null ? mOrder.getMoney() : 0;
+            String priceString = viewMode == OrderDetailFragment.ViewMode.MODE_CREATE ?
+                    context.getString(R.string.currency_unit, StringUtil.formatMoney(Cart.getInstance().getTotalPrice())) :
+                    context.getString(R.string.currency_unit, StringUtil.formatMoney(price));
+            tvPrice.setText(priceString);
+            String shop =  mOrder != null ? mOrder.getCreator() : "";
+            tvShop.setText(shop);
+//            if (mOrder == null && mOrder.getCustomer() != null) return;
+//            if (!StringUtil.isEmpty(mOrder.getCustomer().getAvatar()))
+//                ImageHelper.loadThumbCircleImage(itemView.getContext(), mOrder.getCustomer().getAvatar(), imvAvatar);
+//            tvName.setText(mOrder.getCustomer().getName());
+//            tvDate.setText(StringUtil.formatDate(new Date()));
+//            tvAddress.setText(mOrder.getCustomer().getAddress());
         }
 
         @OnClick(R.id.btnChange)

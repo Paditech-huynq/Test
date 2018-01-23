@@ -56,8 +56,9 @@ public class LoginActivity extends MVPActivity<LoginPresenter> implements LoginC
             @Override
             public void run() {
                 if (result) {
-                    Intent intent = new Intent(LoginActivity.this, FillOtpActivity.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(LoginActivity.this, FillOtpActivity.class);
+//                    startActivity(intent);
+                    finish();
                 } else {
                     String alert = StringUtil.isEmpty(message) ? getString(R.string.message_login_failure) : message;
                     showToast(alert);
