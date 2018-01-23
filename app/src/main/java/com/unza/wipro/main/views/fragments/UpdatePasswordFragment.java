@@ -1,5 +1,6 @@
 package com.unza.wipro.main.views.fragments;
 
+import android.os.Bundle;
 import android.widget.EditText;
 
 import com.paditech.core.helper.StringUtil;
@@ -16,8 +17,23 @@ public class UpdatePasswordFragment extends MVPFragment<UpdatePasswordPresenter>
     EditText edtOldPass;
     @BindView(R.id.edt_new_pass)
     EditText edtNewPass;
-    @BindView(R.id.edt_confirm_password)
+    @BindView(R.id.edt_confirm_pass)
     EditText edtConfirmPass;
+
+    private String userName;
+
+    public UpdatePasswordFragment newIntance() {
+        Bundle args = new Bundle();
+        UpdatePasswordFragment fragment = new UpdatePasswordFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public UpdatePasswordFragment newIntance(String userName) {
+        UpdatePasswordFragment fragment = this.newIntance();
+        fragment.userName = userName;
+        return fragment;
+    }
 
     @Override
     protected int getLayoutResource() {
@@ -26,7 +42,7 @@ public class UpdatePasswordFragment extends MVPFragment<UpdatePasswordPresenter>
 
     @Override
     public String getScreenTitle() {
-        return null;
+        return userName;
     }
 
     @Override
@@ -34,7 +50,7 @@ public class UpdatePasswordFragment extends MVPFragment<UpdatePasswordPresenter>
         super.initView();
     }
 
-    @OnClick(R.id.btn_confirm)
+    @OnClick(R.id.btn_change_pass)
     protected void changePassword() {
         String oldPass = edtOldPass.getText().toString();
         String newPass = edtNewPass.getText().toString();
