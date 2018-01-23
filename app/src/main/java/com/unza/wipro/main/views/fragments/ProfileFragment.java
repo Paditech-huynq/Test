@@ -99,7 +99,6 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
         tvEmail.setText(user.getEmail());
         tvAddress.setText(user.getAddress());
         GlideApp.with(this).load(R.drawable.bg_test).apply(RequestOptions.circleCropTransform()).into(imgAvar);
-        GlideApp.with(this).load(R.drawable.bg_test).into(imgAvarUnder);
     }
 
     @Override
