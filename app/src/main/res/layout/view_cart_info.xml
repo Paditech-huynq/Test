@@ -47,14 +47,15 @@
             android:padding="@dimen/padding_small">
 
             <TextView
+                android:id="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tôn Ngộ Không"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
                 android:layout_marginTop="@dimen/padding_small"
@@ -62,29 +63,28 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/padding_normal"
                 android:paddingRight="@dimen/padding_normal"
-                android:text="12.344.000 vnđ"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_small"
-                android:text="Ngày bán: 29/12/2018 15:34" />
+                android:layout_marginTop="@dimen/padding_small"/>
 
 
             <TextView
+                android:id="@+id/tvShop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_small"
-                android:text="@string/action_seller" />
+                android:layout_marginTop="@dimen/padding_small"/>
 
 
             <TextView
+                android:id="@+id/tvAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_small"
-                android:text="@string/att_address_with_input" />
+                android:layout_marginTop="@dimen/padding_small"/>
 
         </LinearLayout>
     </LinearLayout>
