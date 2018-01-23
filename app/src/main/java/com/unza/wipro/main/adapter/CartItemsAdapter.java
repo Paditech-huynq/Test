@@ -13,10 +13,13 @@ import com.paditech.core.helper.StringUtil;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.Cart;
+import com.unza.wipro.main.models.Customer;
+import com.unza.wipro.main.models.Order;
 import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.views.customs.AmountView;
 import com.unza.wipro.main.views.fragments.OrderDetailFragment;
 
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,7 +31,13 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
     private final static int TYPE_ITEM = 1;
     private OrderDetailFragment.ViewMode viewMode;
 
+    private Order mOrder;
     List<Product> mData;
+
+    public void setOrder(Order mOrder) {
+        this.mOrder = mOrder;
+        notifyDataSetChanged();
+    }
 
     public void setData(List<Product> mData) {
         this.mData = mData;
@@ -121,6 +130,16 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
     class CartInfoHolder extends BaseViewHolder {
         @BindView(R.id.imvAvatar)
         ImageView imvAvatar;
+        @BindView(R.id.tvName)
+        TextView tvName;
+        @BindView(R.id.tvPrice)
+        TextView tvPrice;
+        @BindView(R.id.tvDate)
+        TextView tvDate;
+        @BindView(R.id.tvShop)
+        TextView tvShop;
+        @BindView(R.id.tvAddress)
+        TextView tvAddress;
 
         CartInfoHolder(View itemView) {
             super(itemView);
@@ -128,7 +147,20 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @Override
         protected void onBindingData(int position) {
-//            ImageHelper.loadThumbCircleImage(itemView.getContext(), imagesDummy[15], imvAvatar);
+            Context context = itemView.getContext();
+            double price = mOrder != null ? mOrder.getMoney() : 0;
+            String priceString = viewMode == OrderDetailFragment.ViewMode.MODE_CREATE ?
+                    context.getString(R.string.currency_unit, StringUtil.formatMoney(Cart.getInstance().getTotalPrice())) :
+                    context.getString(R.string.currency_unit, StringUtil.formatMoney(price));
+            tvPrice.setText(priceString);
+            String shop =  mOrder != null ? mOrder.getCreator() : "";
+            tvShop.setText(shop);
+//            if (mOrder == null && mOrder.getCustomer() != null) return;
+//            if (!StringUtil.isEmpty(mOrder.getCustomer().getAvatar()))
+//                ImageHelper.loadThumbCircleImage(itemView.getContext(), mOrder.getCustomer().getAvatar(), imvAvatar);
+//            tvName.setText(mOrder.getCustomer().getName());
+//            tvDate.setText(StringUtil.formatDate(new Date()));
+//            tvAddress.setText(mOrder.getCustomer().getAddress());
         }
 
         @OnClick(R.id.btnChange)

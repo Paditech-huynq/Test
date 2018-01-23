@@ -10,7 +10,7 @@
     <string name="title_home_qr">Scan</string>
     <string name="title_profile">Thông tin cá nhân</string>
 
-    <string name="hint_lookup_input">Vui lòng nhập tên hoặc mã sản phẩm</string>
+    <string name="hint_lookup_input">Vui lòng nhập tên hoặc số điện thoại</string>
 
     <!-- login -->
     <string name="login_username_hint">Username</string>
@@ -30,7 +30,7 @@
     <string name="message_otp_failure">Mã số không hợp lệ! Xin hãy thử lại!</string>
 
     <!-- forgot password -->
-    <string name="forgot_pass_hint">Vui lòng nhập số tài khoản của bạn, hệ thống sẽ gửi yêu cầu mật khẩu mới về số điện thoại của bạn</string>
+    <string name="forgot_pass_hint">Vui lòng nhập số tài khoản của bạn, hệ thống sẽ gửi\n yêu cầu mật khẩu mới về số điện thoại của bạn</string>
     <string name="forgot_pass_username_hint">Username</string>
     <string name="forgot_pass_button">Xác nhận</string>
     <string name="message_forgot_pass_failure">Yêu cầu không thành công! Xin hãy thử lại!</string>

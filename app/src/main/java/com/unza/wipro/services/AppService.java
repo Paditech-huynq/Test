@@ -6,6 +6,7 @@ import com.unza.wipro.main.models.responses.GetListProductRSP;
 import com.unza.wipro.main.models.responses.GetNewsCategoriesRSP;
 import com.unza.wipro.main.models.responses.GetNewsDetailRSP;
 import com.unza.wipro.main.models.responses.GetNewsRSP;
+import com.unza.wipro.main.models.responses.GetOrderDetailRSP;
 import com.unza.wipro.main.models.responses.GetOrdersRSP;
 import com.unza.wipro.main.models.responses.GetProductCategoryRSP;
 import com.unza.wipro.main.models.responses.GetProductDetailRSP;
@@ -62,4 +63,7 @@ public interface AppService {
     Call<GetOrdersRSP> getOrders(@Header("Authorization") String token, @Header("AppKey") String appKey,
                                  @Field("page") Integer page, @Field("page_size") Integer pageSize);
 
+    @POST("order/detail")
+    @FormUrlEncoded
+    Call<GetOrderDetailRSP> getOrderDetail(@Header("Authorization") String token, @Header("AppKey") String appKey, @Field("order_id") int orderId);
 }

@@ -32,8 +32,8 @@ public class Order {
     private String creator;
     @SerializedName("updater")
     private String updater;
-    @SerializedName("customer")
-    private String customer;
+//    @SerializedName("customer")
+//    private Customer customer;
 
     public int getId() {
         return id;
@@ -107,11 +107,11 @@ public class Order {
         this.updater = updater;
     }
 
-    public String getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(String customer) {
-        this.customer = customer;
-    }
+//    public Customer getCustomer() {
+//        return customer;
+//    }
+//
+//    public void setCustomer(Customer customer) {
+//        this.customer = customer;
+//    }
 }

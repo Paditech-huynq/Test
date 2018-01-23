@@ -5,19 +5,21 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.paditech.core.BaseFragment;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.ViewHelper;
+import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.CartItemsAdapter;
+import com.unza.wipro.main.contracts.OrderDetailContract;
 import com.unza.wipro.main.models.Cart;
 import com.unza.wipro.main.models.Order;
+import com.unza.wipro.main.presenters.OrderDetailPresenter;
 import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class OrderDetailFragment extends BaseFragment {
+public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> implements OrderDetailContract.ViewImpl {
     @BindView(R.id.rcvProduct)
     RecyclerView mRecyclerView;
     @BindView(R.id.bottomBar)
@@ -78,6 +80,18 @@ public class OrderDetailFragment extends BaseFragment {
             return (viewMode == ViewMode.MODE_CREATE);
         }
         return super.isActionShow(resId);
+    }
+
+    @Override
+    public Order getOrder() {
+        return mOrder;
+    }
+
+    @Override
+    public void showOrderDetail(Order order) {
+        if (order == null) return;
+        mAdapter.setOrder(order);
+        mAdapter.setData(order.getProducts());
     }
 
     private void setupRecycleView() {
