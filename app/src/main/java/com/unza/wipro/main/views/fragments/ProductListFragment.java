@@ -3,6 +3,7 @@ package com.unza.wipro.main.views.fragments;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.Toast;
 
 import com.paditech.core.BaseFragment;
@@ -20,6 +21,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProductListFragment extends BaseFragment {
+    @BindView(R.id.layoutLoading)
+    View layoutLoading;
+
     @BindView(R.id.vpgProduct)
     ViewPager mViewPager;
 
@@ -100,5 +104,10 @@ public class ProductListFragment extends BaseFragment {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void showProgressDialog(boolean isShown) {
+        layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
     }
 }

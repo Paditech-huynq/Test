@@ -1,74 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:foreground="?attr/selectableItemBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <android.support.v7.widget.CardView
-        android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="@dimen/child_recycle_view_size"
         app:cardCornerRadius="@dimen/card_radius_small"
         android:layout_marginBottom="@dimen/padding_small"
-        android:layout_marginTop="@dimen/padding_small">
+        android:layout_marginTop="@dimen/padding_small"
+        android:layout_centerInParent="true">
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             >
+
             <ImageView
                 android:id="@+id/img_product_order"
                 android:layout_width="@dimen/child_recycle_view_size"
                 android:layout_height="@dimen/child_recycle_view_size"
-                android:scaleType="centerCrop"
                 android:layout_centerVertical="true"
+                android:scaleType="centerCrop"
                 android:src="@drawable/bg_test"
                 />
+
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_toEndOf="@id/img_product_order"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_toEndOf="@id/img_product_order"
+                android:orientation="vertical"
                 android:padding="@dimen/padding_small">
+
                 <TextView
                     android:id="@+id/tx_title"
-                    android:layout_weight="2"
-                    android:textStyle="bold"
-                    android:maxLines="2"
-                    android:textSize="@dimen/text_size_normal"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp" />
-                <TextView
-                    android:id="@+id/tx_time"
-                    android:textSize="@dimen/text_size_small"
-                    android:layout_weight="1.5"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:gravity="center_vertical"/>
-                <LinearLayout
-                    android:layout_weight="1.5"
-                    android:orientation="horizontal"
+                    android:layout_weight="2"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textSize="@dimen/text_size_normal"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tx_time"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp">
+                    android:layout_height="0dp"
+                    android:layout_weight="1.5"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/text_size_small"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.5"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/tx_price"
-                        android:textSize="@dimen/text_size_small"
-                        android:textStyle="bold"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textColor="@color/text_orange"
-                        tools:ignore="NestedWeights" />
-                    <TextView
-                        android:textColor="@color/green"
-                        android:id="@+id/tx_number"
                         android:textSize="@dimen/text_size_small"
                         android:textStyle="bold"
+                        tools:ignore="NestedWeights"/>
+
+                    <TextView
+                        android:id="@+id/tx_number"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/text_size_small"
+                        android:textStyle="bold"/>
                 </LinearLayout>
             </LinearLayout>
 

@@ -79,4 +79,15 @@
             />
     </RelativeLayout>
     </android.support.v7.widget.CardView>
+    <com.paditech.core.DisableTouchView
+        android:id="@+id/layoutLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="@dimen/actionbar_button_size"
+            android:layout_height="@dimen/actionbar_button_size"
+            android:layout_centerInParent="true" />
+    </com.paditech.core.DisableTouchView>
 </RelativeLayout>

@@ -21,7 +21,7 @@ import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.OrderListAdapter;
 import com.unza.wipro.main.contracts.OrderListContract;
-import com.unza.wipro.main.models.OrderClass;
+import com.unza.wipro.main.models.Order;
 import com.unza.wipro.main.presenters.OrderFragmentPresenter;
 import com.unza.wipro.utils.Utils;
 
@@ -32,26 +32,39 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> implements OrderListContract.ViewImpl {
+    @BindView(R.id.layoutLoading)
+    View layoutLoading;
+
     @BindView(R.id.rcvOrder)
     RecyclerView rcvOrder;
+
     @BindView(R.id.view_up_rcv)
     View viewUpRecycleView;
-    @BindView(R.id.filter)
-    LinearLayout filter;
+
     @BindView(R.id.card_view_header)
     CardView cardViewHeader;
+
     @BindView(R.id.btb_all)
     Button btnAll;
+
     @BindView(R.id.btn_last_week)
     Button btnLastWeek;
+
     @BindView(R.id.btn_this_week)
     Button btnThisWeek;
+
     @BindView(R.id.btn_this_month)
     Button btnThisMonth;
+
+    @BindView(R.id.filter)
+    LinearLayout filter;
+
     @BindView(R.id.tv_calender_left_filter)
     TextView tvCalenderLeftFilter;
+
     @BindView(R.id.tv_calender_right_filter)
     TextView tvCalenderRightFilter;
+
     @BindView(R.id.tv_time_in_header_filter)
     TextView tvTimeInHeaderFilter;
 
@@ -69,27 +82,37 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     }
 
     @Override
-    public void updateRecycleView(List<OrderClass> data) {
+    public void initView() {
+        super.initView();
+        setupRecycleView();
+    }
+
+    @Override
+    public void addItemToList(List<Order> orders) {
+        mAdapter.insertData(orders);
+    }
+
+    @Override
+    public void refreshData(List<Order> orders) {
+        mAdapter.replaceData(orders);
+    }
+
+    public void setupRecycleView() {
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        mAdapter.addData(data);
-        mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
-                getPresenter().onItemClick();
-            }
-        });
         mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
             public void onLoadMore() {
-                //todo
+                getPresenter().loadMore();
             }
         });
         mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
-                // todo: get
-                OrderDetailFragment orderDetailFragment = OrderDetailFragment.newInstance(OrderDetailFragment.ViewMode.MODE_SEE);
-                OrderListFragment.this.switchFragment(orderDetailFragment, true);
+                if (mAdapter.getItem(position) instanceof Order) {
+                    OrderDetailFragment orderDetailFragment = OrderDetailFragment
+                            .newInstance(OrderDetailFragment.ViewMode.MODE_SEE, (Order) mAdapter.getItem(position));
+                    OrderListFragment.this.switchFragment(orderDetailFragment, true);
+                }
             }
         });
         rcvOrder.setAdapter(mAdapter);
@@ -291,5 +314,10 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void showProgressDialog(boolean isShown) {
+        layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
     }
 }
