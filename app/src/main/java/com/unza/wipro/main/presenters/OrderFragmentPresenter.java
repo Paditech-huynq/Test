@@ -4,11 +4,8 @@ import android.content.Context;
 
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
-import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.OrderListContract;
 import com.unza.wipro.main.models.LoginClient;
-import com.unza.wipro.main.models.OrderData;
-import com.unza.wipro.main.models.responses.BaseRSP;
 import com.unza.wipro.main.models.responses.GetOrdersRSP;
 import com.unza.wipro.services.AppClient;
 import com.unza.wipro.utils.DateTimeUtils;
