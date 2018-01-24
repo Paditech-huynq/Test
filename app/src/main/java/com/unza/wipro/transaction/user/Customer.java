@@ -1,19 +1,19 @@
 package com.unza.wipro.transaction.user;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Customer extends User implements CustomerInfo {
-    @SerializedName("phone")
-    @Expose
-    private String phone;
+    @SerializedName("point")
+    private String numberOrders;
 
-    public String getPhone() {
-        return phone;
+    @Override
+    public String getNumberOrders() {
+        return numberOrders;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    @Override
+    public void setNumberOrders(String numberOrders) {
+        this.numberOrders = numberOrders;
     }
 
     @Override
