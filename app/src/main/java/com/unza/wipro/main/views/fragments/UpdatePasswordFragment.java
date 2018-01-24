@@ -1,5 +1,6 @@
 package com.unza.wipro.main.views.fragments;
 
+import android.os.Bundle;
 import android.widget.EditText;
 
 import com.paditech.core.helper.StringUtil;
@@ -18,6 +19,15 @@ public class UpdatePasswordFragment extends MVPFragment<UpdatePasswordPresenter>
     EditText edtNewPass;
     @BindView(R.id.edt_confirm_password)
     EditText edtConfirmPass;
+
+    public static UpdatePasswordFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        UpdatePasswordFragment fragment = new UpdatePasswordFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     protected int getLayoutResource() {
