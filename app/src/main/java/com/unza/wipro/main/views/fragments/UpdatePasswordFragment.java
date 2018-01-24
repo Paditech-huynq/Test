@@ -29,8 +29,8 @@ public class UpdatePasswordFragment extends MVPFragment<UpdatePasswordPresenter>
         return fragment;
     }
 
-    public UpdatePasswordFragment newIntance(String userName) {
-        UpdatePasswordFragment fragment = this.newIntance();
+    public static UpdatePasswordFragment newInstance(String userName) {
+        UpdatePasswordFragment fragment = UpdatePasswordFragment.newInstance();
         fragment.userName = userName;
         return fragment;
     }
