@@ -58,13 +58,13 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
                 .enqueue(new Callback<GetListProductRSP>() {
                     @Override
                     public void onResponse(Call<GetListProductRSP> call, Response<GetListProductRSP> response) {
-                        if (getView() == null) {
-                            return;
-                        }
+                        isPending = false;
                         if (!keyword.equals(getView().getCurrentKeyword())) {
                             return;
                         }
-                        isPending = false;
+                        if (getView() == null) {
+                            return;
+                        }
                         getView().setRefreshing(false);
                         getView().showProgressDialog(false);
                         if (response == null || response.body() == null) {
