@@ -5,7 +5,9 @@ import android.util.SparseArray;
 
 import com.unza.wipro.main.models.Product;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * wipro-crm-android
@@ -15,8 +17,27 @@ import java.util.List;
  */
 
 public class Cart implements CartImpl, CartInfo {
-    static final String TAG = "CART";
+    private static final String TAG = "CART";
     private SparseArray<Product> productSparseArray = new SparseArray<>();
+    private Set<CartChangeListener> listenerSet = new LinkedHashSet<>();
+
+    public void addListener(CartChangeListener listener) {
+        listenerSet.add(listener);
+    }
+
+    public void removeListener(CartChangeListener listener) {
+        listenerSet.remove(listener);
+    }
+
+    public void removeAllListener() {
+        listenerSet.clear();
+    }
+
+    private void notifyDataChange() {
+        for (CartChangeListener listener : listenerSet) {
+            listener.onCartUpdate();
+        }
+    }
 
     @Override
     public SparseArray<Product> getProducts() {
@@ -70,6 +91,8 @@ public class Cart implements CartImpl, CartInfo {
     @Override
     public void clear() {
         productSparseArray.clear();
+        Log.i(TAG, String.format("Clear all item in current Cart"));
+        notifyDataChange();
     }
 
     @Override
@@ -78,6 +101,7 @@ public class Cart implements CartImpl, CartInfo {
             if (productSparseArray.get(productId) != null) {
                 productSparseArray.delete(productId);
                 Log.i(TAG, String.format("Remove item from Cart: %s", productId));
+                notifyDataChange();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,6 +122,7 @@ public class Cart implements CartImpl, CartInfo {
                 if (newQuantity > 0) {
                     product.setQuantity(newQuantity);
                     Log.i(TAG, String.format("Reduce item %s by %s", product.getId(), newQuantity));
+                    notifyDataChange();
                 } else {
                     return reduce(productId);
                 }
@@ -117,6 +142,7 @@ public class Cart implements CartImpl, CartInfo {
                 product.setQuantity(1);
                 productSparseArray.put(product.getId(), product);
                 Log.i(TAG, String.format("Insert new Item to Cart: %s", product.getId()));
+                notifyDataChange();
             } else {
                 return insert(product.getId(), 1);
             }
@@ -136,6 +162,7 @@ public class Cart implements CartImpl, CartInfo {
                 int currentAmount = product.getQuantity();
                 productSparseArray.get(productId).setQuantity(inputAmount + currentAmount);
                 Log.i(TAG, String.format("Add one item to Cart: %s", product.getId()));
+                notifyDataChange();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,6 +178,7 @@ public class Cart implements CartImpl, CartInfo {
             if (contain(product.getId())) {
                 productSparseArray.put(product.getId(), product);
                 Log.i(TAG, String.format("Update item: %s", product.getId()));
+                notifyDataChange();
             } else {
                 Log.i(TAG, String.format("Item not found: %s", product.getId()));
             }
@@ -166,6 +194,7 @@ public class Cart implements CartImpl, CartInfo {
     public void update(int productId, int value) {
         if (contain(productId)) {
             findItem(productId).setQuantity(value);
+            notifyDataChange();
         }
     }
 
@@ -175,11 +204,16 @@ public class Cart implements CartImpl, CartInfo {
             for (int i = 0; i < products.size(); i++) {
                 Product product = products.get(i);
                 productSparseArray.put(product.getId(), product);
+                notifyDataChange();
             }
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
         return true;
+    }
+
+    public interface CartChangeListener {
+        void onCartUpdate();
     }
 }

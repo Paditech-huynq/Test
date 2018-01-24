@@ -9,7 +9,7 @@ import com.unza.wipro.transaction.user.User;
 public class AppState {
     private static AppState instance;
 
-    public static synchronized AppState getInstance() {
+    static synchronized AppState getInstance() {
         if (instance == null) {
             instance = new AppState();
         }
@@ -39,5 +39,23 @@ public class AppState {
             currentCart = new Cart();
         }
         return currentCart;
+    }
+
+    public void addCartChangeListener(Cart.CartChangeListener listener) {
+        currentCart.addListener(listener);
+    }
+
+    public void removeCartChangeListener(Cart.CartChangeListener listener) {
+        currentCart.removeListener(listener);
+    }
+
+    void release() {
+        currentCart.removeAllListener();
+        currentCart = null;
+        currentUser = null;
+    }
+
+    public void loadFromCache() {
+        //todo: Load default data from cache
     }
 }

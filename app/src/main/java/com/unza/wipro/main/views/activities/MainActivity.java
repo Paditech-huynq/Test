@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.paditech.core.BaseFragment;
-import com.paditech.core.helper.ImageHelper;
 import com.paditech.core.helper.StringUtil;
 import com.paditech.core.image.GlideApp;
 import com.paditech.core.mvp.MVPActivity;
@@ -22,7 +21,6 @@ import com.unza.wipro.main.views.fragments.HomeFragment;
 import com.unza.wipro.main.views.fragments.NotificationFragment;
 import com.unza.wipro.main.views.fragments.OrderDetailFragment;
 import com.unza.wipro.main.views.fragments.ProfileFragment;
-import com.unza.wipro.utils.Utils;
 
 import butterknife.BindView;
 

@@ -90,6 +90,15 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     }
 
     @Override
+    public void onActionSelected(int resId) {
+        if (resId == R.id.btnTrash) {
+            AppConstans.app.editCart().clear();
+            mAdapter.notifyDataSetChanged();
+        }
+        super.onActionSelected(resId);
+    }
+
+    @Override
     public Order getOrder() {
         return mOrder;
     }

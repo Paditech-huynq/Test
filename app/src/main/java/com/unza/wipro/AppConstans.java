@@ -4,12 +4,12 @@ import com.paditech.core.common.BaseConstant;
 
 public interface AppConstans extends BaseConstant {
     AppState app = AppState.getInstance();
-    
-    public static final String PREF_TOKEN = "login::token";
-    public static final String PREF_APPKEY = "login::appkey";
-    public static final String PREF_INFO = "login::info";
-    public static final String AUTHORIZATION = "WiproCrmApp %s";
-    public static final int PAGE_SIZE = 10;
+
+    String PREF_TOKEN = "login::token";
+    String PREF_APPKEY = "login::appkey";
+    String PREF_INFO = "login::info";
+    String AUTHORIZATION = "WiproCrmApp %s";
+    int PAGE_SIZE = 10;
 
 
     String[] imagesDummy = new String[]
@@ -45,36 +45,4 @@ public interface AppConstans extends BaseConstant {
                     "https://i.pinimg.com/736x/4f/9b/08/4f9b08073a74e24acf412fb0ae6bb6a5--series-animes-black-goku.jpg"
             };
 
-    float[] ratios = new float[]
-            {
-                    0.6666667f,
-                    0.67021275f,
-                    0.6666667f,
-                    0.75f,
-                    0.62376237f,
-                    0.68108106f,
-                    0.79746836f,
-                    0.6923077f,
-                    0.67021275f,
-                    0.4f,
-                    0.6659836f,
-                    0.6642512f,
-                    0.6659836f,
-                    1.4976958f,
-                    1.0863787f,
-                    1.375f,
-                    1.4523809f,
-                    1.5022625f,
-                    1.4975369f,
-                    0.6270492f,
-                    0.5635246f,
-                    1.4130435f,
-                    1.9005848f,
-                    0.5635246f,
-                    1.3811475f,
-                    1.295082f,
-                    1.6986899f,
-                    1.3589743f,
-                    1.4688797f
-            };
 }

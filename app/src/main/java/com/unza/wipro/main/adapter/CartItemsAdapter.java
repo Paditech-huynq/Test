@@ -15,6 +15,7 @@ import com.unza.wipro.R;
 import com.unza.wipro.main.models.Order;
 import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.views.customs.AmountView;
+import com.unza.wipro.transaction.cart.Cart;
 import com.unza.wipro.transaction.cart.CartInfo;
 
 import java.util.Date;
@@ -128,7 +129,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         }
     }
 
-    class CartInfoHolder extends BaseViewHolder {
+    class CartInfoHolder extends BaseViewHolder implements Cart.CartChangeListener {
         @BindView(R.id.imvAvatar)
         ImageView imvAvatar;
         @BindView(R.id.tvName)
@@ -141,6 +142,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         TextView tvShop;
         @BindView(R.id.tvAddress)
         TextView tvAddress;
+        boolean isOrder = mOrder != null;
 
         CartInfoHolder(View itemView) {
             super(itemView);
@@ -149,8 +151,6 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         @Override
         protected void onBindingData(int position) {
             updatePrice();
-            String shop = mOrder != null ? mOrder.getCreator() : "";
-            tvShop.setText(shop);
             Date date = mOrder != null ? new Date(mOrder.getCreatedAt()) : new Date();
             tvDate.setText(StringUtil.formatDate(date));
             if (mOrder == null || mOrder.getCustomer() == null) return;
@@ -158,6 +158,19 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
                 ImageHelper.loadThumbCircleImage(itemView.getContext(), mOrder.getCustomer().getAvatar(), imvAvatar);
             tvName.setText(mOrder.getCustomer().getName());
             tvAddress.setText(mOrder.getCustomer().getAddress());
+            String shop = isOrder ? mOrder.getCreator() : "";
+            tvShop.setText(shop);
+//            if (mOrder == null && mOrder.getCustomer() != null) return;
+//            if (!StringUtil.isEmpty(mOrder.getCustomer().getAvatar()))
+//                ImageHelper.loadThumbCircleImage(itemView.getContext(), mOrder.getCustomer().getAvatar(), imvAvatar);
+//            tvName.setText(mOrder.getCustomer().getName());
+//            tvDate.setText(StringUtil.formatDate(new Date()));
+//            tvAddress.setText(mOrder.getCustomer().getAddress());
+
+            if (!isOrder) {
+                app.addCartChangeListener(this);
+            }
+            updatePrice();
         }
 
         @OnClick(R.id.btnChange)
@@ -167,13 +180,18 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         void updatePrice() {
             double totalPrice;
-            if (mOrder == null) {
-                totalPrice = app.getCurrentCart().getTotalPrice();
-            } else {
+            if (isOrder) {
                 totalPrice = mOrder.getMoney();
+            } else {
+                totalPrice = app.getCurrentCart().getTotalPrice();
             }
             String currentTotalPrice = StringUtil.formatMoney(totalPrice);
             tvPrice.setText(itemView.getContext().getString(R.string.currency_unit, currentTotalPrice));
+        }
+
+        @Override
+        public void onCartUpdate() {
+            updatePrice();
         }
     }
 }

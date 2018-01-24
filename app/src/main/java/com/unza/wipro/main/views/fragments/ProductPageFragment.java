@@ -147,7 +147,6 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        showToast(getString(R.string.product_add_to_cart));
                     }
 
                     @Override
