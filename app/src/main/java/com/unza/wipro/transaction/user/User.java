@@ -106,14 +106,14 @@ public abstract class User implements UserInfo {
         return super.equals(obj);
     }
 
-    class Builder {
+    public static class Builder {
         private LoginInfo loginInfo;
 
         public Builder(LoginInfo loginInfo) {
             this.loginInfo = loginInfo;
         }
 
-        User build() {
+        public User build() {
             switch (loginInfo.getMemberType()) {
                 case TYPE_CUSTOMER:
                     return new Customer();

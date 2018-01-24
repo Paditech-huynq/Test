@@ -1,5 +1,7 @@
 package com.unza.wipro.main.presenters;
 
+import android.util.Log;
+
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.main.contracts.ProfileContract;
@@ -19,6 +21,7 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
     @Override
     public void getUserDataFromServer() {
         if (AppConstans.app.getCurrentUser() == null ){
+            Log.e("getUserDataFromServer: ", "ko co" );
             return;
         }
         AppClient.newInstance().getService().getUserProfile(LoginClient.getToken(getView().getContext()),

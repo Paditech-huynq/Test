@@ -5,15 +5,14 @@ import android.content.Context;
 import com.paditech.core.helper.StringUtil;
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
+import com.unza.wipro.AppState;
 import com.unza.wipro.main.contracts.OrderListContract;
-import com.unza.wipro.main.models.LoginClient;
 import com.unza.wipro.main.models.responses.GetOrdersRSP;
 import com.unza.wipro.services.AppClient;
 import com.unza.wipro.utils.DateTimeUtils;
 
 import java.util.Calendar;
 import java.util.Date;
-
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,11 +45,11 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     private void getOrders(final boolean isRefresh) {
         if (isFull && !isRefresh) return;
         Context context = getView().getContext();
-        if (!LoginClient.isLogin(context)) return;
+        if (!AppState.getInstance().isLogin()) return;
         if (isRefresh) getView().showProgressDialog(true);
         mPage = isRefresh ? 1 : mPage;
-        AppClient.newInstance().getService().getOrders(LoginClient.getToken(context),
-                LoginClient.getAppKey(context), fromDate, toDate, mPage, PAGE_SIZE)
+        AppClient.newInstance().getService().getOrders(AppState.getInstance().getToken(),
+                AppState.getInstance().getAppKey(), fromDate, toDate, mPage, PAGE_SIZE)
                 .enqueue(new Callback<GetOrdersRSP>() {
                     @Override
                     public void onResponse(Call<GetOrdersRSP> call, Response<GetOrdersRSP> response) {

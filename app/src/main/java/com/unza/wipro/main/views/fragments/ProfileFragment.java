@@ -12,9 +12,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.paditech.core.image.GlideApp;
 import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.AppConstans;
+import com.unza.wipro.AppState;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.ProfileContract;
-import com.unza.wipro.main.models.LoginClient;
 import com.unza.wipro.main.presenters.ProfilePresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
 import com.unza.wipro.main.views.customs.DegreeView;
@@ -127,7 +127,7 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
 
     @OnClick(R.id.rlt_logout)
     protected void logout() {
-        LoginClient.logout(getActivity());
+        AppState.getInstance().logout();
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
         getActivity().finish();

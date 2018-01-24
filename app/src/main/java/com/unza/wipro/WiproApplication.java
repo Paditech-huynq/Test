@@ -15,6 +15,14 @@ public class WiproApplication extends BaseApplication {
     }
 
     @Override
+    public void onActivityStarted(Activity activity) {
+        if (activity instanceof MainActivity) {
+            AppState.getInstance().loadFromCache();
+        }
+        super.onActivityStarted(activity);
+    }
+
+    @Override
     public void onActivityDestroyed(Activity activity) {
         if (activity instanceof MainActivity) {
             AppState.getInstance().release();
