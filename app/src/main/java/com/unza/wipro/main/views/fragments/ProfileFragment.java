@@ -19,6 +19,10 @@ import com.unza.wipro.main.models.User_;
 import com.unza.wipro.main.presenters.ProfilePresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
 import com.unza.wipro.main.views.customs.DegreeView;
+import com.unza.wipro.transaction.user.Customer;
+import com.unza.wipro.transaction.user.Promoter;
+import com.unza.wipro.transaction.user.PromoterLeader;
+import com.unza.wipro.transaction.user.User;
 import com.unza.wipro.utils.DateTimeUtils;
 
 import java.util.Calendar;
@@ -58,10 +62,6 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     @BindView(R.id.degree_sale)
     DegreeView degreeSale;
 
-    public static final int TYPE_USER_CUSTOM = 0;
-    public static final int TYPE_USER_EMPLOYEE = 1;
-    public static final int TYPE_USER_MANAGER = 2;
-
     @Override
     protected int getLayoutResource() {
         return R.layout.fragment_profile;
@@ -82,23 +82,31 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     }
 
     @Override
-    public void updateUI(User_ user) {
-        switch (user.getTypeUse()) {
-            case TYPE_USER_MANAGER:
-                lnManagerSales.setVisibility(View.VISIBLE);
-            case TYPE_USER_EMPLOYEE:
-                tvPoint.setText(getText(R.string.custom_profile_fragment));
-                lnDegree.setVisibility(View.VISIBLE);
-                updateUIForEmployee(user);
-            default:
-                tvNumberPoint.setText(String.valueOf(user.getNumberPoint()));
-                break;
-        }
-        tvNumberSales.setText(String.valueOf(user.getNumberSales()));
+    public void updateUI(User user) {
         tvName.setText(user.getName());
         tvEmail.setText(user.getEmail());
         tvAddress.setText(user.getAddress());
-        GlideApp.with(this).load(R.drawable.bg_test).apply(RequestOptions.circleCropTransform()).into(imgAvar);
+        tvPhone.setText(user.getName());
+        tvNumberSales.setText(user.getNumberOrders());
+        GlideApp.with(this).load(user.getAvatar()).apply(RequestOptions.circleCropTransform()).into(imgAvar);
+    }
+
+    @Override
+    public void updateUIForPromoter(Promoter user) {
+        lnDegree.setVisibility(View.VISIBLE);
+        tvPoint.setText(getResources().getString(R.string.custom_profile_fragment));
+        tvNumberPoint.setText(user.getNumberCustomers());
+    }
+
+    @Override
+    public void updateUIForPromoterLeader(PromoterLeader user) {
+        lnManagerSales.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void updateUIForCustomer(Customer user) {
+        tvPoint.setText(getResources().getString(R.string.point_profile_fragment));
+        tvNumberPoint.setText(user.getPoint());
     }
 
     @Override
@@ -119,14 +127,6 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     @Override
     public void goToHomeProfile() {
         switchFragment(HomeFragment.newInstance(), false);
-    }
-
-    private void updateUIForEmployee(User_ user) {
-        tvTime.setText(Html.fromHtml(getResources().getString(R.string.time_profile_fragment, DateTimeUtils.getStringDayMonthYear(user.getDateStart()),
-                DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()))));
-        tvSalesHave.setText(Html.fromHtml(getResources().getString(R.string.sales_have_profile_fragment, String.valueOf(user.getSaleHave()))));
-        tvSalesWant.setText(Html.fromHtml(getResources().getString(R.string.sales_want_profile_fragment, String.valueOf(user.getSaleWant()))));
-        degreeSale.setValue(R.color.white, R.color.colorPrimaryDark, user.getSaleHave(), user.getSaleWant());
     }
 
     @OnClick(R.id.rlt_logout)
