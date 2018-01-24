@@ -2,7 +2,6 @@ package com.unza.wipro.main.views.fragments;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.Application;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -10,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -187,15 +187,33 @@ public class ProfileRegisterFragment extends BaseFragment {
         if (requestCode == REQUEST_PHOTO_CAMERA) {
             galleryAddPic();
             ImageHelper.loadThumbCircleImage(this.getContext(), mCurrentPhotoPath, imgAvatar);
-//            mCurrentPhotoPath = null;
         }
         if (requestCode == REQUEST_PHOTO_GALLERY) {
             Uri imageUri = data.getData();
             ImageHelper.loadThumbCircleImage(this.getContext(), imageUri.toString(), imgAvatar);
 
-            mCurrentPhotoPath = imageUri.toString();
+            mCurrentPhotoPath = getRealImagePath(imageUri);
         }
         slideDown();
+    }
+
+    private String getRealImagePath(Uri imageUri) {
+        String wholeID = DocumentsContract.getDocumentId(imageUri);
+        String id = wholeID.split(":")[1];
+        String[] column = {MediaStore.Images.Media.DATA};
+
+        Cursor cursor = getContext().getContentResolver().query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                column,
+                MediaStore.Images.Media._ID + "=?",
+                new String[]{id},
+                null);
+        int columnIndex = cursor.getColumnIndex(column[0]);
+        if (cursor.moveToFirst()) {
+            mCurrentPhotoPath = cursor.getString(columnIndex);
+        }
+        cursor.close();
+        return null;
     }
 
     public void slideUp() {
@@ -280,6 +298,10 @@ public class ProfileRegisterFragment extends BaseFragment {
 
     @OnClick(R.id.btnRegister)
     void submitRegister() {
+        if (!LoginClient.isLogin(getView().getContext())) {
+            showToast(getString(R.string.require_login));
+            return;
+        }
         if (dataIsValid()) {
             if (isPending) {
                 return;
@@ -297,6 +319,7 @@ public class ProfileRegisterFragment extends BaseFragment {
                 RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                 body = MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
             }
+
             AppClient.newInstance().getService().createCustomer(
                     LoginClient.getToken(getView().getContext()),
                     LoginClient.getAppKey(getView().getContext()),
@@ -312,14 +335,12 @@ public class ProfileRegisterFragment extends BaseFragment {
                             if (customer != null) {
                                 getActivity().onBackPressed();
                             }
-                            Log.e("TAG", "onResponse: " + customer.getAvatar() );
                         }
 
                         @Override
                         public void onFailure(Call<CreateCustomerRSP> call, Throwable t) {
                             isPending = false;
                             showProgressDialog(false);
-                            Log.e("TAG", "onFailure: ");
                         }
                     });
         }

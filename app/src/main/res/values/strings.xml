@@ -121,5 +121,6 @@
     <string name="phone_with_format">Phone: %1s</string>
     <string name="email_with_format">Email: %1s</string>
     <string name="anddress_with_format">Địa chỉ: %1s</string>
+    <string name="require_login">Yêu cầu đăng nhập</string>
 
 </resources>
