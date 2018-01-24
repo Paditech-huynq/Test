@@ -2,11 +2,12 @@ package com.unza.wipro.main.presenters;
 
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
+import com.unza.wipro.AppState;
 import com.unza.wipro.main.contracts.ProfileListContract;
-import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.main.models.responses.GetListCustomerRSP;
 import com.unza.wipro.main.views.fragments.ProfileListFragment;
 import com.unza.wipro.services.AppClient;
+import com.unza.wipro.transaction.user.Customer;
 
 import java.util.List;
 
@@ -37,7 +38,10 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
         }
         isPending = true;
         getView().showProgressDialog(page == FIRST_PAGE);
-        AppClient.newInstance().getService().getListCustomer(page, PAGE_SIZE, EMPTY)
+        AppClient.newInstance().getService().getListCustomer(
+                AppState.getInstance().getToken(),
+                AppState.getInstance().getAppKey(),
+                page, PAGE_SIZE, EMPTY)
                 .enqueue(new Callback<GetListCustomerRSP>() {
                     @Override
                     public void onResponse(Call<GetListCustomerRSP> call, Response<GetListCustomerRSP> response) {
