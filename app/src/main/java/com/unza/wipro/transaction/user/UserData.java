@@ -42,6 +42,36 @@ public class UserData {
     @SerializedName("point")
     @Expose
     private String point;
+    @SerializedName("from")
+    @Expose
+    private String from;
+    @SerializedName("to")
+    @Expose
+    private String to;
+
+    public String getSaleWant() {
+        return saleWant;
+    }
+
+    public void setSaleWant(String saleWant) {
+        this.saleWant = saleWant;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
 
     public String getPoint() {
         return point;
