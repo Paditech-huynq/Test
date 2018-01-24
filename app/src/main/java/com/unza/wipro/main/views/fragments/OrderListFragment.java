@@ -110,9 +110,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
             @Override
             public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
                 if (mAdapter.getItem(position) instanceof Order) {
-                    OrderDetailFragment orderDetailFragment = OrderDetailFragment
-                            .newInstance(OrderDetailFragment.ViewMode.MODE_SEE, (Order) mAdapter.getItem(position));
-                    OrderListFragment.this.switchFragment(orderDetailFragment, true);
+                    getPresenter().onItemClick(position);
                 }
             }
         });
@@ -181,7 +179,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     public void updateDayInFilter(String from, String to) {
         tvCalenderLeftFilter.setText(from);
         tvCalenderRightFilter.setText(to);
-        if(StringUtil.isEmpty(from)&&StringUtil.isEmpty(to)){
+        if (StringUtil.isEmpty(from) && StringUtil.isEmpty(to)) {
             tvTimeInHeaderFilter.setText("");
             return;
         }
@@ -219,8 +217,10 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     }
 
     @Override
-    public void goToOrderDetailScreen() {
-        switchFragment(OrderDetailFragment.newInstance(), true);
+    public void goToOrderDetailScreen(int position) {
+        OrderDetailFragment orderDetailFragment = OrderDetailFragment
+                .newInstance(OrderDetailFragment.ViewMode.MODE_SEE, (Order) mAdapter.getItem(position));
+        OrderListFragment.this.switchFragment(orderDetailFragment, true);
     }
 
     @Override

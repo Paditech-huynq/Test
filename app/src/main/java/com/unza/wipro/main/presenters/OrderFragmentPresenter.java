@@ -57,7 +57,8 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
                         getView().showProgressDialog(false);
                         try {
                             if (response.body() != null) {
-                                if (response.body().getData() != null && response.body().getData().size() > 0) mPage++;
+                                if (response.body().getData() != null && response.body().getData().size() > 0)
+                                    mPage++;
                                 isFull = response.body().getData().size() < PAGE_SIZE;
                                 if (isRefresh) {
                                     isFull = false;
@@ -66,7 +67,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
                                     getView().addItemToList(response.body().getData());
                                 }
                             }
-                        }catch (Exception e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -80,7 +81,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     }
 
     private void loadUI() {
-        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(),DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(), DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
         getView().changeColorButtonThisMonth();
     }
 
@@ -98,7 +99,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
             getView().dismissFilter();
             return;
         }
-        if (StringUtil.isEmpty(from) || StringUtil.isEmpty(to)){
+        if (StringUtil.isEmpty(from) || StringUtil.isEmpty(to)) {
             getView().findOrder(false);
             return;
         }
@@ -119,31 +120,31 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onBtAllClick() {
         getView().changeColorButtonAll();
-        getView().updateDayInFilter("","");
+        getView().updateDayInFilter("", "");
     }
 
     @Override
     public void onBtThisWeekClick() {
         getView().changeColorButtonThisWeek();
-        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentWeek(),DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentWeek(), DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
     }
 
     @Override
     public void onBtLastWeekClick() {
         getView().changeColorButtonLastWeek();
-        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInLastWeek(),DateTimeUtils.getStringLastDayInLastWeek());
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInLastWeek(), DateTimeUtils.getStringLastDayInLastWeek());
     }
 
     @Override
     public void onBtThisMonthClick() {
         getView().changeColorButtonThisMonth();
-        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(),DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(), DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
     }
 
     @Override
     public void onBtCalenderClick(int whatCalenderInFilter, String dayCalenderFilter) {
-        if(StringUtil.isEmpty(dayCalenderFilter)){
-            getView().displayDatePicker(whatCalenderInFilter,Calendar.getInstance().get(Calendar.DAY_OF_MONTH),Calendar.getInstance().get(Calendar.MONTH),Calendar.getInstance().get(Calendar.YEAR));
+        if (StringUtil.isEmpty(dayCalenderFilter)) {
+            getView().displayDatePicker(whatCalenderInFilter, Calendar.getInstance().get(Calendar.DAY_OF_MONTH), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR));
         } else {
             String[] time = dayCalenderFilter.split("/");
             getView().displayDatePicker(whatCalenderInFilter, Integer.parseInt(time[0]), Integer.parseInt(time[1]), Integer.parseInt(time[2]));
@@ -157,12 +158,12 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     }
 
     @Override
-    public void onItemClick() {
-        getView().goToOrderDetailScreen();
+    public void onUserTouchOutside() {
+        getView().dismissFilter();
     }
 
     @Override
-    public void onUserTouchOutside() {
-        getView().dismissFilter();
+    public void onItemClick(int position) {
+        getView().goToOrderDetailScreen(position);
     }
 }
