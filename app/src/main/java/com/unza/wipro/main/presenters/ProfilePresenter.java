@@ -4,15 +4,11 @@ import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.main.contracts.ProfileContract;
 import com.unza.wipro.main.models.LoginClient;
-import com.unza.wipro.main.models.UserData;
-import com.unza.wipro.main.models.responses.GetOrderDetailRSP;
 import com.unza.wipro.main.models.responses.GetUserProfileRSP;
 import com.unza.wipro.services.AppClient;
-import com.unza.wipro.services.AppService;
 import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.transaction.user.Promoter;
 import com.unza.wipro.transaction.user.PromoterLeader;
-import com.unza.wipro.transaction.user.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;

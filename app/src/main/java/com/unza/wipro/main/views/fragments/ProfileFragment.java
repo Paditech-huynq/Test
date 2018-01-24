@@ -15,7 +15,6 @@ import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.ProfileContract;
 import com.unza.wipro.main.models.LoginClient;
-import com.unza.wipro.main.models.User_;
 import com.unza.wipro.main.presenters.ProfilePresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
 import com.unza.wipro.main.views.customs.DegreeView;
@@ -23,9 +22,6 @@ import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.transaction.user.Promoter;
 import com.unza.wipro.transaction.user.PromoterLeader;
 import com.unza.wipro.transaction.user.User;
-import com.unza.wipro.utils.DateTimeUtils;
-
-import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.OnClick;
