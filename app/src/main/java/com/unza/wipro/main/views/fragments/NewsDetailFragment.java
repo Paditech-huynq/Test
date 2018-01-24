@@ -67,8 +67,8 @@ public class NewsDetailFragment extends BaseFragment implements SwipeRefreshLayo
     @Override
     public void initView() {
         super.initView();
-        setUpWebView();
-        setUpSwipeRefresh();
+        setupWebView();
+        setupSwipeRefresh();
         getDetail();
     }
 
@@ -94,7 +94,7 @@ public class NewsDetailFragment extends BaseFragment implements SwipeRefreshLayo
         getActivity().onBackPressed();
     }
 
-    private void setUpWebView() {
+    private void setupWebView() {
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         mWebView.setFocusableInTouchMode(false);
         mWebView.setFocusable(false);
@@ -107,7 +107,7 @@ public class NewsDetailFragment extends BaseFragment implements SwipeRefreshLayo
         settings.setDefaultFontSize((int) getResources().getDimension(R.dimen.text_size_normal));
     }
 
-    private void setUpSwipeRefresh() {
+    private void setupSwipeRefresh() {
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
     }

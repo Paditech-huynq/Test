@@ -10,7 +10,7 @@
     <string name="title_home_qr">Scan</string>
     <string name="title_profile">Thông tin cá nhân</string>
 
-    <string name="hint_lookup_input">Vui lòng nhập tên hoặc mã sản phẩm</string>
+    <string name="hint_lookup_input">Vui lòng nhập tên hoặc số điện thoại</string>
 
     <!-- login -->
     <string name="login_username_hint">Username</string>
@@ -30,7 +30,7 @@
     <string name="message_otp_failure">Mã số không hợp lệ! Xin hãy thử lại!</string>
 
     <!-- forgot password -->
-    <string name="forgot_pass_hint">Vui lòng nhập số tài khoản của bạn, hệ thống sẽ gửi yêu cầu mật khẩu mới về số điện thoại của bạn</string>
+    <string name="forgot_pass_hint">Vui lòng nhập số tài khoản của bạn, hệ thống sẽ gửi\n yêu cầu mật khẩu mới về số điện thoại của bạn</string>
     <string name="forgot_pass_username_hint">Username</string>
     <string name="forgot_pass_button">Xác nhận</string>
     <string name="message_forgot_pass_failure">Yêu cầu không thành công! Xin hãy thử lại!</string>
@@ -75,6 +75,9 @@
     <string name="this_month">Tháng này</string>
     <string name="find">Tìm kiếm</string>
 
+    <!--order detail-->
+    <string name="order_detail_title">Đơn hàng số #%s</string>
+
     <!-- product detail -->
     <string name="product_detail_title">Chi tiết sản phẩm</string>
     <string name="product_detail_code">Mã sản phẩm: %s</string>
@@ -97,8 +100,8 @@
     <string name="address_profile_fragment">Địa chỉ</string>
     <string name="setting_profile_fragment">Cài đặt</string>
     <string name="time_profile_fragment">&lt;b>Thời gian&lt;/b>: %s - %s</string>
-    <string name="sales_want_profile_fragment">&lt;b>Doanh số yêu cầu&lt;/b>: %1$s</string>
-    <string name="sales_have_profile_fragment">&lt;b>Doanh số đã đạt&lt;/b>: %1$s</string>
+    <string name="sales_want_profile_fragment">&lt;b>Doanh số yêu cầu&lt;/b>: %1$s VND</string>
+    <string name="sales_have_profile_fragment">&lt;b>Doanh số đã đạt&lt;/b>: %1$s VND</string>
     <string name="manager_team_profile_fragment">Quản lý nhóm bán hàng</string>
     <string name="sales_member_profile_fragment">Doanh số thành viên trong nhóm</string>
     <string name="watch_order_list_profile_fragment">Xem danh sách đơn hàng</string>
@@ -106,7 +109,7 @@
     <string name="questions_profile_fragment">Câu hỏi thường gặp</string>
     <string name="term_use_profile_fragment">Điều khoản sử dụng</string>
     <string name="log_out_profile_fragment">Đăng xuất</string>
-    <string name="display_time_day_month_year">%1$d/%2$d/%3$d</string>
+    <string name="display_time_day_month_year_in_header_filter">%1$s - %2$s</string>
 
     <!-- notification -->
     <string name="notification_title">Thông báo</string>
@@ -118,5 +121,9 @@
     <string name="some_minute_ago">%s phút trước</string>
     <string name="one_hour_ago">1 giờ trước</string>
     <string name="some_hour_ago">%s giờ trước</string>
+    <string name="phone_with_format">Phone: %1s</string>
+    <string name="email_with_format">Email: %1s</string>
+    <string name="anddress_with_format">Địa chỉ: %1s</string>
+    <string name="not_found_user">Không tìm thấy user</string>
 
 </resources>

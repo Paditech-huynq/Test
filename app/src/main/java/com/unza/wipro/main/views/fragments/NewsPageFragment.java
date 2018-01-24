@@ -21,8 +21,12 @@ import java.util.List;
 import butterknife.BindView;
 
 public class NewsPageFragment extends MVPFragment<NewsPagePresenter> implements BaseRecycleViewAdapter.LoadMoreListener, NewsPageContract.ViewImpl, AppConstans {
+    @BindView(R.id.layoutLoading)
+    View layoutLoading;
+
     @BindView(R.id.rcvProduct)
     RecyclerView mRecyclerView;
+
     private NewsListAdapter mAdapter;
     private NewsCategory mCategory;
 
@@ -91,5 +95,10 @@ public class NewsPageFragment extends MVPFragment<NewsPagePresenter> implements 
     @Override
     public void refreshList(List<News> news) {
         mAdapter.replaceData(news);
+    }
+
+    @Override
+    public void showProgressDialog(boolean isShown) {
+        layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
     }
 }

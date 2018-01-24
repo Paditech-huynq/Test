@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -16,13 +18,29 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
+import com.paditech.core.helper.PrefUtils;
+import com.paditech.core.helper.StringUtil;
+import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
+import com.unza.wipro.main.models.LoginInfo;
 
+import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 public class Utils {
+    private static final int DURATION_TIME_DEFAULT = 500;
+
+    public static TransitionDrawable getTransitionChangeColor(int colorBefore, int colorAfter){
+        ColorDrawable[] color = {new ColorDrawable(colorBefore), new ColorDrawable(colorAfter)};
+        TransitionDrawable trans = new TransitionDrawable(color);
+        trans.startTransition(DURATION_TIME_DEFAULT);
+        return trans;
+    }
+
     public static void checkCameraPermission(Activity activity) {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
@@ -113,4 +131,33 @@ public class Utils {
         }
     }
 
+    public static boolean checkEmailValid(String email) {
+        return Pattern.compile(".+@.+\\.[a-z]+").matcher(email).matches();
+    }
+
+    public static void showKeyboard(Context context) {
+        try {
+            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getSha1Hex(String string) {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-1");
+            messageDigest.update(string.getBytes("UTF-8"));
+            byte[] bytes = messageDigest.digest();
+            StringBuilder buffer = new StringBuilder();
+            for (byte b : bytes) {
+                buffer.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
+            }
+            return buffer.toString();
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            return "";
+        }
+    }
 }

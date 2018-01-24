@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutProfileRegister"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/layoutProfileRegister" >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,11 +13,11 @@
 
         <ImageView
             android:id="@+id/avatar"
-            android:scaleType="centerCrop"
             android:layout_width="120dip"
             android:layout_height="120dip"
             android:layout_margin="@dimen/padding_normal"
-            android:src="@drawable/ic_avatar_holder_circle"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_avatar_holder_circle" />
 
         <android.support.v7.widget.CardView
             android:id="@+id/registView"
@@ -40,63 +40,84 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:singleLine="true"
+                    android:id="@+id/edtUserName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/padding_normal"
                     android:background="@drawable/bg_edt_state"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:nextFocusDown="@+id/edtPhoneNumberfsdf"
                     android:paddingBottom="@dimen/text_size_tiny"
                     android:paddingLeft="@dimen/text_size_tiny"
-                    android:paddingTop="@dimen/text_size_tiny"
-                    android:text="sdfsdfsdf" />
+                    android:paddingTop="@dimen/text_size_tiny">
+
+                    <requestFocus />
+                </EditText>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_normal"
                     android:text="@string/att_profile_register_phone_required"
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/edtPhoneNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/padding_normal"
                     android:background="@drawable/bg_edt_state"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:nextFocusDown="@+id/edtEmail"
                     android:paddingBottom="@dimen/text_size_tiny"
                     android:paddingLeft="@dimen/text_size_tiny"
-                    android:paddingTop="@dimen/text_size_tiny"
-                    android:text="sdfsdfsdf" />
+                    android:paddingTop="@dimen/text_size_tiny" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_normal"
                     android:text="@string/att_profile_register_email"
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/edtEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/padding_normal"
                     android:background="@drawable/bg_edt_state"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:nextFocusDown="@+id/edtAddress"
                     android:paddingBottom="@dimen/text_size_tiny"
                     android:paddingLeft="@dimen/text_size_tiny"
-                    android:paddingTop="@dimen/text_size_tiny"
-                    android:text="sdfsdfsdf" />
+                    android:paddingTop="@dimen/text_size_tiny" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_normal"
                     android:text="@string/att_profile_register_address"
                     android:textStyle="bold" />
 
                 <EditText
+                    android:singleLine="true"
+                    android:id="@+id/edtAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/padding_normal"
                     android:layout_marginTop="@dimen/padding_normal"
                     android:background="@drawable/bg_edt_state"
+                    android:imeOptions="actionDone"
+                    android:maxLines="1"
                     android:paddingBottom="@dimen/text_size_tiny"
                     android:paddingLeft="@dimen/text_size_tiny"
-                    android:paddingTop="@dimen/text_size_tiny"
-                    android:text="sdfsdfsdf" />
+                    android:paddingTop="@dimen/text_size_tiny" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 

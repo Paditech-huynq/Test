@@ -1,17 +1,26 @@
 package com.unza.wipro.main.views.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.paditech.core.BaseFragment;
+import com.paditech.core.helper.StringUtil;
+import com.paditech.core.image.GlideApp;
 import com.paditech.core.mvp.MVPActivity;
+import com.unza.wipro.AppState;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.MainContract;
 import com.unza.wipro.main.presenters.MainPresenter;
 import com.unza.wipro.main.views.fragments.HomeFragment;
 import com.unza.wipro.main.views.fragments.NotificationFragment;
 import com.unza.wipro.main.views.fragments.OrderDetailFragment;
+import com.unza.wipro.main.views.fragments.ProfileFragment;
 
 import butterknife.BindView;
 
@@ -31,7 +40,7 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
     public void initView() {
         super.initView();
         switchFragment(HomeFragment.newInstance(), false);
-        addToAction(R.id.btnCart, R.id.btnNotification, R.id.imvAvatar);
+        addToAction(R.id.btnCart, R.id.btnNotification, R.id.imvAvatar, R.id.btnTrash);
     }
 
     @Override
@@ -47,8 +56,32 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
         }
     }
 
+    @Override
+    public void onViewAppear() {
+        super.onViewAppear();
+        updateAvatar();
+    }
+
     public void setShowHeader(boolean isShowHeader) {
         layoutHeader.setVisibility(isShowHeader ? View.VISIBLE : View.GONE);
+    }
+
+    protected void updateAvatar() {
+        ImageView imageView = findViewById(R.id.imvAvatar);
+        if (imageView == null) return;
+        if (AppState.getInstance().isLogin()) {
+            if (!StringUtil.isEmpty(AppState.getInstance().getCurrentUser().getAvatar())) {
+                GlideApp.with(this)
+                        .load(AppState.getInstance().getCurrentUser().getAvatar())
+                        .placeholder(R.drawable.ic_avatar_holder)
+                        .thumbnail(0.5f).circleCrop()
+                        .into(imageView);
+            } else {
+                imageView.setImageResource(R.drawable.ic_avatar_holder);
+            }
+        } else {
+            imageView.setImageResource(R.mipmap.ic_launcher);
+        }
     }
 
     @Override
@@ -56,14 +89,18 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
         super.onActionSelected(resId);
         switch (resId) {
             case R.id.btnCart:
-                switchFragment(OrderDetailFragment.newInstance(), true);
+                switchFragment(OrderDetailFragment.newInstance(OrderDetailFragment.ViewMode.MODE_CREATE, null), true);
                 break;
             case R.id.btnNotification:
                 switchFragment(NotificationFragment.newInstance(), true);
                 break;
             case R.id.imvAvatar:
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
+                if (AppState.getInstance().isLogin()) {
+                    switchFragment(ProfileFragment.newInstance(), true);
+                } else {
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }
@@ -79,5 +116,37 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
 
     public void updateActionButtonAppearance(BaseFragment targetFragment) {
         updateActionAppearance(targetFragment);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        View v = getCurrentFocus();
+        boolean ret = super.dispatchTouchEvent(event);
+        if (v instanceof EditText) {
+            View w = getCurrentFocus();
+            int scrCoords[] = new int[2];
+            if (w != null) {
+                w.getLocationOnScreen(scrCoords);
+            }
+            float x = 0;
+            if (w != null) {
+                x = event.getRawX() + w.getLeft() - scrCoords[0];
+            }
+            float y = 0;
+            if (w != null) {
+                y = event.getRawY() + w.getTop() - scrCoords[1];
+            }
+            if (w != null && event.getAction() == MotionEvent.ACTION_UP && (x < w.getLeft() || x >= w.getRight() || y < w.getTop() || y > w.getBottom())) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
+                }
+            }
+        }
+        return ret;
+    }
+
+    public void openCamera(boolean isOpen) {
+        findViewById(R.id.layoutCamera).setVisibility(isOpen ? View.VISIBLE : View.GONE);
     }
 }

@@ -12,4 +12,5 @@
     <color name="main_bg">#EDEDED</color>
     <color name="white">#ffffff</color>
     <color name="bg_big_image">#c4ffffff</color>
+    <color name="bg_view_up_recycle_view_screen_list_order">#a8404040</color>
 </resources>

@@ -5,16 +5,9 @@
     android:layout_height="match_parent"
     android:background="@color/gray">
 
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:id="@+id/view_header_profile"
-        layout="@layout/view_header_profile" />
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/view_header_profile">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,22 +32,22 @@
                     android:background="@color/bg_big_image" />
 
                 <LinearLayout
-                    android:elevation="@dimen/cardview_default_elevation"
                     android:id="@+id/ln_img_avar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/bg_img_avar_profile"
                     android:layout_marginTop="@dimen/padding_large"
+                    android:background="@drawable/bg_img_avar_profile"
+                    android:elevation="@dimen/cardview_default_elevation"
                     android:padding="@dimen/padding_small">
-                <ImageView
-                    android:id="@+id/img_avar"
-                    android:layout_width="@dimen/avar_height_width"
-                    android:layout_height="@dimen/avar_height_width"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/bg_test"
-                    />
+
+                    <ImageView
+                        android:id="@+id/img_avar"
+                        android:layout_width="@dimen/avar_height_width"
+                        android:layout_height="@dimen/avar_height_width"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/bg_test" />
                 </LinearLayout>
 
 
@@ -63,10 +56,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_below="@+id/ln_img_avar"
+                    android:baselineAligned="false"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/padding_big"
-                    android:paddingRight="@dimen/padding_big"
-                    android:baselineAligned="false">
+                    android:paddingRight="@dimen/padding_big">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -77,13 +70,13 @@
                         android:paddingBottom="@dimen/padding_normal">
 
                         <TextView
+                            android:id="@+id/tx_number_sales"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="25"
-                            android:id="@+id/tx_number_sales"
                             android:textColor="@color/green"
                             android:textSize="@dimen/text_number_sales"
                             android:textStyle="bold"
@@ -112,6 +105,7 @@
                         android:paddingStart="@dimen/padding_normal">
 
                         <TextView
+                            android:id="@+id/tx_numbers_point"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_gravity="center"
@@ -120,18 +114,17 @@
                             android:text="1600"
                             android:textColor="@color/green"
                             android:textSize="@dimen/text_number_sales"
-                            android:id="@+id/tx_numbers_point"
                             android:textStyle="bold"
                             tools:ignore="NestedWeights" />
 
                         <TextView
+                            android:id="@+id/tx_point"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/point_profile_fragment"
-                            android:id="@+id/tx_point"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/text_size_normal"
                             android:textStyle="bold" />
@@ -145,7 +138,7 @@
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingEnd="0dp"
-                android:paddingStart="@dimen/text_number_sales">
+                android:paddingStart="@dimen/padding_giant">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -171,8 +164,8 @@
                         android:ellipsize="end"
                         android:gravity="end"
                         android:maxLines="1"
-                        android:paddingStart="@dimen/padding_tiny"
                         android:paddingEnd="@dimen/padding_normal"
+                        android:paddingStart="@dimen/padding_tiny"
                         android:singleLine="true"
                         android:text="Nguyễn Hoài Bảo Anh"
                         android:textColor="@color/colorPrimary"
@@ -208,8 +201,8 @@
                         android:ellipsize="end"
                         android:gravity="end"
                         android:maxLines="1"
-                        android:paddingStart="@dimen/padding_tiny"
                         android:paddingEnd="@dimen/padding_normal"
+                        android:paddingStart="@dimen/padding_tiny"
                         android:singleLine="true"
                         android:text="0912609016"
                         android:textColor="@color/colorPrimary"
@@ -245,8 +238,8 @@
                         android:ellipsize="end"
                         android:gravity="end"
                         android:maxLines="1"
-                        android:paddingStart="@dimen/padding_tiny"
                         android:paddingEnd="@dimen/padding_normal"
+                        android:paddingStart="@dimen/padding_tiny"
                         android:singleLine="true"
                         android:text="baoanh@gmail.com"
                         android:textColor="@color/colorPrimary"
@@ -282,8 +275,8 @@
                         android:ellipsize="end"
                         android:gravity="end"
                         android:maxLines="1"
-                        android:paddingStart="@dimen/padding_tiny"
                         android:paddingEnd="@dimen/padding_normal"
+                        android:paddingStart="@dimen/padding_tiny"
                         android:singleLine="true"
                         android:text="235 Nguyễn Ngọc Nại, HN"
                         android:textColor="@color/colorPrimary"
@@ -296,7 +289,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <com.unza.wipro.main.views.customs.DegreeView
                     android:id="@+id/degree_sale"
@@ -308,10 +301,10 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/padding_small"
                     android:layout_marginStart="70dp"
-                    android:orientation="horizontal"
                     android:layout_marginTop="@dimen/padding_small"
-                    android:layout_marginBottom="@dimen/padding_small">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_time_profile"
@@ -324,9 +317,9 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/padding_small"
                     android:layout_marginStart="70dp"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="@dimen/padding_small">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_sales_have"
@@ -337,9 +330,9 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginBottom="@dimen/padding_small"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/padding_small"
                     android:layout_marginStart="70dp"
                     android:orientation="horizontal">
 
@@ -357,7 +350,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <RelativeLayout
 
@@ -369,16 +362,15 @@
                         android:layout_width="@dimen/ic_group_size"
                         android:layout_height="@dimen/ic_group_size"
                         android:padding="@dimen/padding_big"
-                        android:src="@drawable/ic_group"
-                         />
+                        android:src="@drawable/ic_group" />
 
                     <TextView
                         android:id="@+id/tv_manager_default"
-                        android:layout_toRightOf="@id/ic_some_people"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/ic_some_people"
+                        android:layout_toRightOf="@id/ic_some_people"
                         android:gravity="center_vertical"
                         android:text="@string/manager_team_profile_fragment"
                         android:textColor="@color/text_dark"
@@ -387,38 +379,20 @@
                         tools:ignore="RtlHardcoded" />
                 </RelativeLayout>
 
-                <RelativeLayout
+                <TextView
                     android:id="@+id/rlt_manager_sales"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
+                    android:drawableEnd="@drawable/ic_back_dummy_profile_fragment"
+                    android:gravity="center_vertical"
                     android:paddingBottom="@dimen/padding_normal"
-                    android:paddingEnd="@dimen/padding_normal"
-                    android:paddingStart="@dimen/text_number_sales"
-                    android:paddingTop="@dimen/padding_normal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:text="@string/sales_member_profile_fragment"
-                        android:id="@+id/tv_sales_member"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal" />
-
-                    <TextView
-                        android:layout_toEndOf="@+id/tv_sales_member"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:ellipsize="end"
-                        android:gravity="end"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:text=">"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal" />
-                </RelativeLayout>
+                    android:paddingEnd="@dimen/padding_small"
+                    android:paddingStart="@dimen/padding_giant"
+                    android:paddingTop="@dimen/padding_normal"
+                    android:text="@string/sales_member_profile_fragment"
+                    android:textColor="@color/text_dark"
+                    android:textSize="@dimen/text_size_normal" />
             </LinearLayout>
 
             <RelativeLayout
@@ -430,8 +404,7 @@
                     android:layout_width="@dimen/ic_setting_size"
                     android:layout_height="@dimen/ic_setting_size"
                     android:layout_margin="@dimen/padding_big"
-                    android:src="@drawable/ic_setting"
-                    />
+                    android:src="@drawable/ic_setting" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -441,195 +414,104 @@
                     android:text="@string/setting_profile_fragment"
                     android:textColor="@color/text_dark"
                     android:textSize="@dimen/text_size_normal"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
             </RelativeLayout>
 
-            <LinearLayout
+            <TextView
                 android:id="@+id/rlt_list_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingStart="@dimen/text_number_sales">
+                android:drawableEnd="@drawable/ic_back_dummy_profile_fragment"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/padding_normal"
+                android:paddingEnd="@dimen/padding_small"
+                android:paddingStart="@dimen/padding_giant"
+                android:paddingTop="@dimen/padding_normal"
+                android:text="@string/watch_order_list_profile_fragment"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_normal" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:paddingBottom="@dimen/padding_normal"
-                    android:paddingEnd="@dimen/padding_normal"
-                    android:paddingStart="0dp"
-                    android:paddingTop="@dimen/padding_normal">
+            <View
+                android:layout_width="@dimen/padding_giant"
+                android:layout_height="1dp"
+                android:background="@color/white" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:text="@string/watch_order_list_profile_fragment"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal" />
+            <TextView
+                android:id="@+id/rlt_change_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:drawableEnd="@drawable/ic_back_dummy_profile_fragment"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/padding_normal"
+                android:paddingEnd="@dimen/padding_small"
+                android:paddingStart="@dimen/padding_giant"
+                android:paddingTop="@dimen/padding_normal"
+                android:text="@string/change_pass_profile_fragment"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_normal" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:text=">"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal" />
-                </RelativeLayout>
+            <View
+                android:layout_width="@dimen/padding_giant"
+                android:layout_height="1dp"
+                android:background="@color/white" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gray" />
+            <TextView
+                android:id="@+id/rlt_questions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:drawableEnd="@drawable/ic_back_dummy_profile_fragment"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/padding_normal"
+                android:paddingEnd="@dimen/padding_small"
+                android:paddingStart="@dimen/padding_giant"
+                android:paddingTop="@dimen/padding_normal"
+                android:text="@string/questions_profile_fragment"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_normal" />
 
-                <RelativeLayout
-                    android:id="@+id/rlt_change_pass"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:paddingBottom="@dimen/padding_normal"
-                    android:paddingEnd="@dimen/padding_normal"
-                    android:paddingStart="0dp"
-                    android:paddingTop="@dimen/padding_normal">
+            <View
+                android:layout_width="@dimen/padding_giant"
+                android:layout_height="1dp"
+                android:background="@color/white" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:text="@string/change_pass_profile_fragment"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:text=">"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal" />
-                </RelativeLayout>
+            <TextView
+                android:id="@+id/rlt_policy_permis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:drawableEnd="@drawable/ic_back_dummy_profile_fragment"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/padding_normal"
+                android:paddingEnd="@dimen/padding_small"
+                android:paddingStart="@dimen/padding_giant"
+                android:paddingTop="@dimen/padding_normal"
+                android:text="@string/term_use_profile_fragment"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_normal" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gray" />
+            <View
+                android:layout_width="@dimen/padding_giant"
+                android:layout_height="1dp"
+                android:background="@color/white" />
 
-                <RelativeLayout
-                    android:id="@+id/rlt_questions"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:paddingBottom="@dimen/padding_normal"
-                    android:paddingEnd="@dimen/padding_normal"
-                    android:paddingStart="0dp"
-                    android:paddingTop="@dimen/padding_normal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:text="@string/questions_profile_fragment"
-                        android:id="@+id/tv_questions_default"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:text=">"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gray" />
-
-                <RelativeLayout
-                    android:id="@+id/rlt_policy_permis"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:paddingBottom="@dimen/padding_normal"
-                    android:paddingEnd="@dimen/padding_normal"
-                    android:paddingStart="0dp"
-                    android:paddingTop="@dimen/padding_normal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:text="@string/term_use_profile_fragment"
-                        android:id="@+id/tv_term_use_default"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:text=">"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gray" />
-
-                <RelativeLayout
-                    android:id="@+id/rlt_logout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:paddingBottom="@dimen/padding_normal"
-                    android:paddingEnd="@dimen/padding_normal"
-                    android:paddingStart="0dp"
-                    android:paddingTop="@dimen/padding_normal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:text="@string/log_out_profile_fragment"
-                        android:id="@+id/tv_log_out_default"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:text=">"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal" />
-                </RelativeLayout>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/rlt_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:drawableEnd="@drawable/ic_back_dummy_profile_fragment"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/padding_normal"
+                android:paddingEnd="@dimen/padding_small"
+                android:paddingStart="@dimen/padding_giant"
+                android:paddingTop="@dimen/padding_normal"
+                android:text="@string/log_out_profile_fragment"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_normal" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

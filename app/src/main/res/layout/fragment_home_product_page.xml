@@ -11,15 +11,14 @@
         android:paddingRight="@dimen/padding_small" />
 
     <com.paditech.core.DisableTouchView
-        android:id="@+id/disableTouchView"
+        android:id="@+id/layoutLoading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
 
         <ProgressBar
-            android:id="@+id/layoutLoading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/actionbar_button_size"
+            android:layout_height="@dimen/actionbar_button_size"
             android:layout_centerInParent="true" />
     </com.paditech.core.DisableTouchView>
 </RelativeLayout>

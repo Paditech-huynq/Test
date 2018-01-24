@@ -12,10 +12,13 @@ import com.paditech.core.helper.ImageHelper;
 import com.paditech.core.helper.StringUtil;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
-
-import com.unza.wipro.main.models.Cart;
-import com.unza.wipro.main.models.CartItem;
+import com.unza.wipro.main.models.Order;
+import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.views.customs.AmountView;
+import com.unza.wipro.transaction.cart.Cart;
+import com.unza.wipro.transaction.cart.CartInfo;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -24,10 +27,23 @@ import butterknife.OnClick;
 public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConstans {
     private final static int TYPE_INFO = 0;
     private final static int TYPE_ITEM = 1;
+    private Order mOrder;
+
+    public void updateOrder(Order mOrder) {
+        this.mOrder = mOrder;
+        notifyDataSetChanged();
+    }
+
+    public CartItemsAdapter(Order order) {
+        this.mOrder = order;
+    }
 
     @Override
-    public CartItem getItem(int position) {
-        return Cart.getInstance().getCartItem(position);
+    public Product getItem(int position) {
+        if (mOrder != null) {
+            return mOrder.getCart().getItem(position);
+        }
+        return app.getCurrentCart().getItem(position);
     }
 
     @Override
@@ -40,7 +56,10 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
     @Override
     public int getItemCount() {
-        return Cart.getInstance().getTotalProduct() + 1;
+        if (mOrder != null) {
+            return mOrder.getCart().getItemCount() + 1;
+        }
+        return app.getCurrentCart().getItemCount() + 1;
     }
 
     @Override
@@ -67,35 +86,63 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         CartItemHolder(View itemView) {
             super(itemView);
+            setupViewMode();
+        }
+
+        private void setupViewMode() {
+            boolean isOrder = mOrder != null;
+            amountView.setVisibility(!isOrder ? View.VISIBLE : View.GONE);
+            tvCount.setVisibility(isOrder ? View.VISIBLE : View.GONE);
         }
 
         @Override
         protected void onBindingData(int position) {
             final Context context = itemView.getContext();
-            final CartItem item = getItem(position - 1);
+            final Product item = getItem(position - 1);
             if (item == null) return;
-            tvCount.setVisibility(View.GONE);
-            if (item.getProduct() != null) {
-                tvName.setText(item.getProduct().getName());
-                if (item.getProduct().getProductThumbnail() != null && !StringUtil.isEmpty(item.getProduct().getProductThumbnail().getLink()))
-                    ImageHelper.loadThumbImage(itemView.getContext(), item.getProduct().getProductThumbnail().getLink(), imvProduct);
-                tvPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getProduct().getPrice())));
-                tvTotalPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getTotalPrice())));
+            tvName.setText(item.getName());
+            if (item.getProductThumbnail() != null && !StringUtil.isEmpty(item.getProductThumbnail().getLink())) {
+                ImageHelper.loadThumbImage(itemView.getContext(), item.getProductThumbnail().getLink(), imvProduct);
             }
-            amountView.setValue(item.getAmount());
+            tvPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getPrice())));
+
+            amountView.setValue(item.getQuantity());
+            tvCount.setText(String.valueOf(item.getQuantity()));
             amountView.setOnValueChangeListener(new AmountView.OnValueChangeListener() {
                 @Override
-                public void onValueChange(int value) {
-                    item.setAmount(value);
-                    tvTotalPrice.setText(context.getString(R.string.cart_item_price, StringUtil.formatMoney(item.getTotalPrice())));
+                public void onValueChange(boolean isReduce, int value) {
+                    app.editCart().update(item.getId(), value);
+                    updatePrice();
                 }
             });
+
+            updatePrice();
+        }
+
+        void updatePrice() {
+            CartInfo cartInfo = app.getCurrentCart();
+            if (mOrder != null) {
+                cartInfo = mOrder.getCart();
+            }
+            String currentTotalPrice = StringUtil.formatMoney(cartInfo.getTotalPrice(getItem(index - 1).getId()));
+            tvTotalPrice.setText(currentTotalPrice);
         }
     }
 
-    class CartInfoHolder extends BaseViewHolder {
+    class CartInfoHolder extends BaseViewHolder implements Cart.CartChangeListener {
         @BindView(R.id.imvAvatar)
         ImageView imvAvatar;
+        @BindView(R.id.tvName)
+        TextView tvName;
+        @BindView(R.id.tvPrice)
+        TextView tvPrice;
+        @BindView(R.id.tvDate)
+        TextView tvDate;
+        @BindView(R.id.tvShop)
+        TextView tvShop;
+        @BindView(R.id.tvAddress)
+        TextView tvAddress;
+        boolean isOrder = mOrder != null;
 
         CartInfoHolder(View itemView) {
             super(itemView);
@@ -103,12 +150,48 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @Override
         protected void onBindingData(int position) {
-//            ImageHelper.loadThumbCircleImage(itemView.getContext(), imagesDummy[15], imvAvatar);
+            updatePrice();
+            Date date = mOrder != null ? new Date(mOrder.getCreatedAt()) : new Date();
+            tvDate.setText(StringUtil.formatDate(date));
+            if (mOrder == null || mOrder.getCustomer() == null) return;
+            if (!StringUtil.isEmpty(mOrder.getCustomer().getAvatar()))
+                ImageHelper.loadThumbCircleImage(itemView.getContext(), mOrder.getCustomer().getAvatar(), imvAvatar);
+            tvName.setText(mOrder.getCustomer().getName());
+            tvAddress.setText(mOrder.getCustomer().getAddress());
+            String shop = isOrder ? mOrder.getCreator() : "";
+            tvShop.setText(shop);
+//            if (mOrder == null && mOrder.getCustomer() != null) return;
+//            if (!StringUtil.isEmpty(mOrder.getCustomer().getAvatar()))
+//                ImageHelper.loadThumbCircleImage(itemView.getContext(), mOrder.getCustomer().getAvatar(), imvAvatar);
+//            tvName.setText(mOrder.getCustomer().getName());
+//            tvDate.setText(StringUtil.formatDate(new Date()));
+//            tvAddress.setText(mOrder.getCustomer().getAddress());
+
+            if (!isOrder) {
+                app.addCartChangeListener(this);
+            }
+            updatePrice();
         }
 
         @OnClick(R.id.btnChange)
         void onAvatarClick() {
             onViewClick(R.id.btnChange);
+        }
+
+        void updatePrice() {
+            double totalPrice;
+            if (isOrder) {
+                totalPrice = mOrder.getMoney();
+            } else {
+                totalPrice = app.getCurrentCart().getTotalPrice();
+            }
+            String currentTotalPrice = StringUtil.formatMoney(totalPrice);
+            tvPrice.setText(itemView.getContext().getString(R.string.currency_unit, currentTotalPrice));
+        }
+
+        @Override
+        public void onCartUpdate() {
+            updatePrice();
         }
     }
 }

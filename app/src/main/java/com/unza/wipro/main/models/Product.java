@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Product {
     @SerializedName("id")
@@ -48,9 +49,22 @@ public class Product {
     @SerializedName("created_at")
     @Expose
     private String createdAt;
+    @SerializedName("quantity")
+    @Expose
+    private int quantity;
+    @SerializedName("money")
+    @Expose
+    private double money;
 
-    public String getId() {
-        return id;
+
+    public int getId() {
+        try {
+            return Integer.parseInt(id);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
     }
 
     public void setId(String id) {
@@ -159,5 +173,33 @@ public class Product {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
+    }
+
+    public double getTotalPrice() {
+        return price * quantity;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Product) {
+            return Objects.equals(((Product) obj).id, this.id);
+        }
+        return super.equals(obj);
     }
 }

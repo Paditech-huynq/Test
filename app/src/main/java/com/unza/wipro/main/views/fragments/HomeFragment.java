@@ -14,7 +14,7 @@ import com.unza.wipro.main.views.activities.MainActivity;
 
 import butterknife.BindView;
 
-public class HomeFragment extends MVPFragment<HomePresenter> implements HomeContract.ViewImpl {
+public class HomeFragment extends MVPFragment<HomePresenter> implements HomeContract.ViewImpl, OnTabSelectListener {
     @BindView(R.id.bottomBar)
     BottomBar mBottomBar;
 
@@ -42,6 +42,7 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
         super.initView();
         setUpViewPagger();
         setUpBottomBar();
+        ((MainActivity) getActivity()).updateActionButtonAppearance(mAdapter.getItem(mViewPager.getCurrentItem()));
         super.setScreenTitle(getString(R.string.title_home_product));
     }
 
@@ -50,7 +51,6 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
             mAdapter = new HomeFragmentPagerAdapter(getChildFragmentManager());
         }
         mViewPager.setAdapter(mAdapter);
-//        mViewPager.setOffscreenPageLimit(mAdapter.getCount());
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -62,6 +62,7 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
                 mBottomBar.selectTabAtPosition(position);
                 mAdapter.onViewAppear(position);
                 ((MainActivity) getActivity()).updateActionButtonAppearance(mAdapter.getItem(position));
+
             }
 
             @Override
@@ -71,13 +72,14 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
         });
     }
 
+    @Override
+    public void onResumeFromBackStack() {
+        super.onResumeFromBackStack();
+        ((MainActivity) getActivity()).updateActionButtonAppearance(mAdapter.getItem(mViewPager.getCurrentItem()));
+    }
+
     private void setUpBottomBar() {
-        mBottomBar.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelected(int tabId) {
-                getPresenter().onTabSelected(tabId);
-            }
-        }, false);
+        mBottomBar.setOnTabSelectListener(this, false);
     }
 
     @Override
@@ -104,9 +106,25 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
     public void setScreenTitle(String title) {
     }
 
-
     @Override
     public boolean isActionShow(int resId) {
-        return true;
+        return resId != R.id.btnTrash;
+    }
+
+    @Override
+    public void onTabSelected(int tabId) {
+        getPresenter().onTabSelected(tabId);
+    }
+
+    @Override
+    public void onViewAppear() {
+        mAdapter.onViewAppear(-1);
+        super.onViewAppear();
+    }
+
+    @Override
+    public void onViewDisappear() {
+        mAdapter.onViewAppear(-2);
+        super.onViewDisappear();
     }
 }

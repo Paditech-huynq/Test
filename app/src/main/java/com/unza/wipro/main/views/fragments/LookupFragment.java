@@ -1,6 +1,5 @@
 package com.unza.wipro.main.views.fragments;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,6 +41,9 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
     private Handler searchHandler = new Handler();
     LookupAdapter mAdapter;
 
+    @BindView(R.id.layoutLoading)
+    View layoutLoading;
+
     public static LookupFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -72,7 +74,6 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
         setupSearchView();
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     private void setupSearchView() {
         edtSearch.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -163,5 +164,10 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
     @Override
     public void onLoadMore() {
         getPresenter().onLoadMore();
+    }
+
+    @Override
+    public void showProgressDialog(boolean isShown) {
+        layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
     }
 }

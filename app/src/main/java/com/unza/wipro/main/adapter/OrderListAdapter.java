@@ -1,5 +1,6 @@
 package com.unza.wipro.main.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,10 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
+import com.paditech.core.helper.StringUtil;
 import com.paditech.core.image.GlideApp;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
+import com.unza.wipro.main.models.Order;
 import com.unza.wipro.main.models.OrderClass;
+import com.unza.wipro.main.models.Product;
 import com.unza.wipro.utils.DateTimeUtils;
 
 import java.util.ArrayList;
@@ -23,21 +27,19 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
     private static final int TYPE_SECTION = 0;
     private static final int TYPE_ITEM = 1;
-    private List<Object> mData = new ArrayList<>();
+    private List mData = new ArrayList<>();
 
-    public void addData(List<OrderClass> list){
-        for (int i = 0; i < list.size(); i++) {
-            Date dateCounting = new Date(list.get(i).getDate().getTime());
-            if(mData.size() == 0){
-                mData.add(String.valueOf("Tháng "+ DateTimeUtils.getStringMonthYear(dateCounting)));
-            } else {
-                    Date dateBefore = new Date(list.get(i-1).getDate().getTime());
-                    if (!DateTimeUtils.getStringMonthYear(dateBefore).equals(DateTimeUtils.getStringMonthYear(dateCounting))) {
-                        mData.add(String.valueOf("Tháng "+ DateTimeUtils.getStringMonthYear(dateCounting)));
-                    }
-            }
-            mData.add(list.get(i));
+    public void insertData(List<Order> data) {
+        if (data == null) {
+            return;
         }
+        mData.addAll(data);
+        notifyDataSetChanged();
+    }
+
+    public void replaceData(List<Order> news) {
+        mData.clear();
+        insertData(news);
     }
 
     @Override
@@ -48,7 +50,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         BaseViewHolder holder;
-        switch (viewType){
+        switch (viewType) {
             case TYPE_SECTION:
                 holder = new SectionViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_home_order_section, parent, false));
                 break;
@@ -63,10 +65,10 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
     @Override
     public int getItemViewType(int position) {
-        if(mData.get(position) instanceof OrderClass){
+        if (mData.get(position) instanceof Order) {
             return TYPE_ITEM;
         }
-        if(mData.get(position) instanceof String){
+        if (mData.get(position) instanceof String) {
             return TYPE_SECTION;
         }
         return 0;
@@ -77,7 +79,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
         return mData.size();
     }
 
-    class SectionViewHolder extends BaseViewHolder{
+    class SectionViewHolder extends BaseViewHolder {
 
         @BindView(R.id.section_date)
         TextView textDateSection;
@@ -93,7 +95,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
     }
 
-    class ChildViewHolder extends BaseViewHolder{
+    class ChildViewHolder extends BaseViewHolder {
 
         @BindView(R.id.img_product_order)
         ImageView img_propduct;
@@ -112,13 +114,15 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @Override
         protected void onBindingData(int position) {
-            OrderClass order = (OrderClass) mData.get(position);
-            Date date = ((OrderClass) mData.get(position)).getDate();
-            GlideApp.with(itemView.getContext()).load(order.getImg()).into(img_propduct);
-            tx_title.setText(order.getTitle());
-            tx_time.setText(String.valueOf("Thời gian: "+ DateTimeUtils.getStringTimeAll(date)));
-            tx_price.setText(String.valueOf(order.getPrice()+" VNĐ"));
-            tx_number.setText(String.valueOf("Số lượng: "+ order.getNumberOrder()));
+            Context context = itemView.getContext();
+            Order order = (Order) mData.get(position);
+            if (order == null) return;
+            if (!StringUtil.isEmpty(order.getAvatarOrder()))
+                GlideApp.with(context).load(order.getAvatarOrder()).into(img_propduct);
+            tx_title.setText(order.getName());
+            tx_time.setText(String.valueOf("Thời gian: " + DateTimeUtils.getStringTimeAll(new Date(order.getCreatedAt() * 1000))));
+            tx_price.setText(context.getString(R.string.currency_unit, StringUtil.formatMoney(order.getMoney())));
+            tx_number.setText(String.valueOf("Số lượng: " + order.getQuantity()));
         }
 
     }

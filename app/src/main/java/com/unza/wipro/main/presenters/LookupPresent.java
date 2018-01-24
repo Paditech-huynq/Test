@@ -29,7 +29,7 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
 
     @Override
     public void searchByKeyWord() {
-        Log.e("TAG", "searchByKeyWord: " );
+        Log.e("TAG", "searchByKeyWord: ");
         resetData();
         loadProductFromServer(false, true);
     }
