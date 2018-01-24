@@ -100,6 +100,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
         }
         if (StringUtil.isEmpty(from) || StringUtil.isEmpty(to)){
             getView().findOrder(false);
+            return;
         }
         Date startDate = DateTimeUtils.getDateFromStringDayMonthYear(from);
         Date endDate = DateTimeUtils.getEndOfeDateFromStringDayMonthYear(to);
