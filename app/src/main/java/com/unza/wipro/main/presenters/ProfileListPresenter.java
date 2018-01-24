@@ -28,13 +28,13 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
     }
 
     private void loadListCustomerFromServer(final boolean isRefresh) {
+        if ((isFull || isPending) ) {
+            getView().setRefreshing(false);
+            return;
+        }
         if (isRefresh) {
             getView().setRefreshing(true);
             resetData();
-        }
-        if (isFull || isPending) {
-            getView().setRefreshing(false);
-            return;
         }
         isPending = true;
         getView().showProgressDialog(page == FIRST_PAGE);
@@ -91,7 +91,12 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
     }
 
     @Override
-    public void onRefresh(List<Customer> customerList) {
-        // TODO: on pull to refresh
+    public void onRefresh() {
+        loadListCustomerFromServer(true);
+    }
+
+    @Override
+    public void searchByKeyWord() {
+
     }
 }
