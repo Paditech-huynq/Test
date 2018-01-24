@@ -2,8 +2,10 @@ package com.unza.wipro.main.views.fragments;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.ImageHelper;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.Customer;
+import com.unza.wipro.main.models.LoginClient;
 import com.unza.wipro.main.models.responses.CreateCustomerRSP;
 import com.unza.wipro.services.AppClient;
 import com.unza.wipro.utils.Utils;
@@ -36,6 +39,9 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -181,11 +187,13 @@ public class ProfileRegisterFragment extends BaseFragment {
         if (requestCode == REQUEST_PHOTO_CAMERA) {
             galleryAddPic();
             ImageHelper.loadThumbCircleImage(this.getContext(), mCurrentPhotoPath, imgAvatar);
-            mCurrentPhotoPath = null;
+//            mCurrentPhotoPath = null;
         }
         if (requestCode == REQUEST_PHOTO_GALLERY) {
             Uri imageUri = data.getData();
             ImageHelper.loadThumbCircleImage(this.getContext(), imageUri.toString(), imgAvatar);
+
+            mCurrentPhotoPath = imageUri.toString();
         }
         slideDown();
     }
@@ -273,21 +281,26 @@ public class ProfileRegisterFragment extends BaseFragment {
     @OnClick(R.id.btnRegister)
     void submitRegister() {
         if (dataIsValid()) {
-            if (isPending == true) {
+            if (isPending) {
                 return;
             }
             isPending = true;
             showProgressDialog(true);
 
-            String name = edtUserName.getText().toString();
-            String phone = edtPhoneNumber.getText().toString();
-            String email = edtEmail.getText().toString();
-            String address = edtAddress.getText().toString();
-            File avatarFile = null;
+            RequestBody name = MultipartBody.create(MultipartBody.FORM, edtUserName.getText().toString());
+            RequestBody phone = MultipartBody.create(MultipartBody.FORM, edtPhoneNumber.getText().toString());
+            RequestBody email = MultipartBody.create(MultipartBody.FORM, edtEmail.getText().toString());
+            RequestBody address = MultipartBody.create(MultipartBody.FORM, edtAddress.getText().toString());
+            MultipartBody.Part body = null;
             if (mCurrentPhotoPath != null) {
-                avatarFile = new File(mCurrentPhotoPath);
+                File file = new File(mCurrentPhotoPath);
+                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                body = MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
             }
-            AppClient.newInstance().getService().createCustomer(name, phone, email, address, avatarFile)
+            AppClient.newInstance().getService().createCustomer(
+                    LoginClient.getToken(getView().getContext()),
+                    LoginClient.getAppKey(getView().getContext()),
+                    name, phone, email, address, body)
                     .enqueue(new Callback<CreateCustomerRSP>() {
                         @Override
                         public void onResponse(Call<CreateCustomerRSP> call, Response<CreateCustomerRSP> response) {
@@ -299,12 +312,14 @@ public class ProfileRegisterFragment extends BaseFragment {
                             if (customer != null) {
                                 getActivity().onBackPressed();
                             }
+                            Log.e("TAG", "onResponse: " + customer.getAvatar() );
                         }
 
                         @Override
                         public void onFailure(Call<CreateCustomerRSP> call, Throwable t) {
                             isPending = false;
                             showProgressDialog(false);
+                            Log.e("TAG", "onFailure: ");
                         }
                     });
         }

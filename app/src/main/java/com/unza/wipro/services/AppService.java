@@ -14,11 +14,15 @@ import com.unza.wipro.main.models.responses.LoginRSP;
 
 import java.io.File;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface AppService {
@@ -60,9 +64,11 @@ public interface AppService {
     @POST("customer/list")
     Call<GetListCustomerRSP> getListCustomer(@Query("page") int page, @Query("page_size") int pageSize, @Query("key") String key);
 
+    @Multipart
     @POST("customer/create")
-    Call<CreateCustomerRSP> createCustomer(@Field("name") String name, @Field("phone") String phone, @Field("email") String email,
-                                           @Field("address") String address, @Field("avatar") File avatar);
+    Call<CreateCustomerRSP> createCustomer(@Header("Authorization") String token, @Header("AppKey") String appKey,
+                                           @Part("name") RequestBody name, @Part("phone") RequestBody phone, @Part("email") RequestBody email,
+                                           @Part("address") RequestBody address, @Part MultipartBody.Part avatar);
 
     @POST("order/list")
     @FormUrlEncoded
