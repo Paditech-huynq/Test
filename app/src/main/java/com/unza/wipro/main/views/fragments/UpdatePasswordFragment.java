@@ -30,7 +30,7 @@ public class UpdatePasswordFragment extends MVPFragment<UpdatePasswordPresenter>
     }
 
     public static UpdatePasswordFragment newInstance(String userName) {
-        UpdatePasswordFragment fragment = UpdatePasswordFragment.newInstance();
+        UpdatePasswordFragment fragment = newInstance();
         fragment.userName = userName;
         return fragment;
     }
