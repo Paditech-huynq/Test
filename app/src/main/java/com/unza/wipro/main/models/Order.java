@@ -3,6 +3,7 @@ package com.unza.wipro.main.models;
 import com.google.gson.annotations.SerializedName;
 import com.unza.wipro.transaction.cart.Cart;
 import com.unza.wipro.transaction.cart.CartInfo;
+import com.unza.wipro.transaction.user.Customer;
 
 import java.util.List;
 
@@ -23,6 +24,10 @@ public class Order {
     private int quantity;
     @SerializedName("note")
     private String note;
+    @SerializedName("name")
+    private String name;
+    @SerializedName("avatar_order")
+    private String avatarOrder;
     @SerializedName("products")
     List<Product> products;
     @SerializedName("created_at")
@@ -33,6 +38,8 @@ public class Order {
     private String creator;
     @SerializedName("updater")
     private String updater;
+    @SerializedName("customer")
+    private Customer customer;
 
     public CartInfo getCart() {
         if (cartInfo == null) {
@@ -44,8 +51,6 @@ public class Order {
     }
 
     private CartInfo cartInfo;
-//    @SerializedName("customer")
-//    private Customer customer;
 
     public int getId() {
         return id;
@@ -77,6 +82,22 @@ public class Order {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAvatarOrder() {
+        return avatarOrder;
+    }
+
+    public void setAvatarOrder(String avatarOrder) {
+        this.avatarOrder = avatarOrder;
     }
 
     public List<Product> getProducts() {
@@ -119,13 +140,13 @@ public class Order {
         this.updater = updater;
     }
 
-//    public Customer getCustomer() {
-//        return customer;
-//    }
-//
-//    public void setCustomer(Customer customer) {
-//        this.customer = customer;
-//    }
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
     public static Order newInstance() {
         return new Order();

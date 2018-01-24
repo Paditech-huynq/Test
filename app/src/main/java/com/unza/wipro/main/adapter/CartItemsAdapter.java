@@ -17,6 +17,8 @@ import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.views.customs.AmountView;
 import com.unza.wipro.transaction.cart.CartInfo;
 
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -146,15 +148,16 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @Override
         protected void onBindingData(int position) {
+            updatePrice();
             String shop = mOrder != null ? mOrder.getCreator() : "";
             tvShop.setText(shop);
-//            if (mOrder == null && mOrder.getCustomer() != null) return;
-//            if (!StringUtil.isEmpty(mOrder.getCustomer().getAvatar()))
-//                ImageHelper.loadThumbCircleImage(itemView.getContext(), mOrder.getCustomer().getAvatar(), imvAvatar);
-//            tvName.setText(mOrder.getCustomer().getName());
-//            tvDate.setText(StringUtil.formatDate(new Date()));
-//            tvAddress.setText(mOrder.getCustomer().getAddress());
-            updatePrice();
+            Date date = mOrder != null ? new Date(mOrder.getCreatedAt()) : new Date();
+            tvDate.setText(StringUtil.formatDate(date));
+            if (mOrder == null || mOrder.getCustomer() == null) return;
+            if (!StringUtil.isEmpty(mOrder.getCustomer().getAvatar()))
+                ImageHelper.loadThumbCircleImage(itemView.getContext(), mOrder.getCustomer().getAvatar(), imvAvatar);
+            tvName.setText(mOrder.getCustomer().getName());
+            tvAddress.setText(mOrder.getCustomer().getAddress());
         }
 
         @OnClick(R.id.btnChange)
