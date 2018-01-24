@@ -69,8 +69,8 @@ public class LoginInfo {
         this.address = address;
     }
 
-    public String getIsManager() {
-        return isManager;
+    public boolean isManager() {
+        return isManager.equalsIgnoreCase("1");
     }
 
     public void setIsManager(String isManager) {
@@ -84,4 +84,6 @@ public class LoginInfo {
     public void setMemberGroupId(String memberGroupId) {
         this.memberGroupId = memberGroupId;
     }
+
+
 }

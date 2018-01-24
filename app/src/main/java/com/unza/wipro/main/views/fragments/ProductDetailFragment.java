@@ -17,10 +17,10 @@ import android.widget.TextView;
 import com.google.android.flexbox.FlexboxLayout;
 import com.paditech.core.helper.StringUtil;
 import com.paditech.core.mvp.MVPFragment;
+import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProductImageAdapter;
 import com.unza.wipro.main.contracts.ProductDetailContract;
-import com.unza.wipro.main.models.Cart;
 import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.models.ProductCategory;
 import com.unza.wipro.main.models.ProductStock;
@@ -32,7 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> implements ProductDetailContract.ViewImpl {
+public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> implements ProductDetailContract.ViewImpl, AppConstans {
     @BindView(R.id.vpgProduct)
     ViewPager mViewPager;
     @BindView(R.id.tv_product_name)
@@ -179,7 +179,7 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
     @OnClick(R.id.btnRegister)
     protected void addToCart() {
         if (mProduct == null) return;
-        Cart.getInstance().addProduct(mProduct);
+        app.editCart().insert(mProduct);
         showToast(getString(R.string.product_add_to_cart));
     }
 }

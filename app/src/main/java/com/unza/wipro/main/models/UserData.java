@@ -8,8 +8,8 @@ import java.text.SimpleDateFormat;
 import static com.unza.wipro.main.views.fragments.ProfileFragment.TYPE_USER_MANAGER;
 
 public class UserData {
-    public static User getDummyData(){
-        User user = new User();
+    public static User_ getDummyData(){
+        User_ user = new User_();
         user.setTypeUse(TYPE_USER_MANAGER);
         user.setName("Nguyễn văn a");
         user.setAddress("dsdssd");

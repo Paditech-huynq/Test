@@ -1,7 +1,8 @@
 package com.unza.wipro.main.models;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.unza.wipro.transaction.cart.Cart;
+import com.unza.wipro.transaction.cart.CartInfo;
 
 import java.util.List;
 
@@ -32,6 +33,17 @@ public class Order {
     private String creator;
     @SerializedName("updater")
     private String updater;
+
+    public CartInfo getCart() {
+        if (cartInfo == null) {
+            Cart cart = new Cart();
+            cart.insert(products);
+            cartInfo = cart;
+        }
+        return cartInfo;
+    }
+
+    private CartInfo cartInfo;
 //    @SerializedName("customer")
 //    private Customer customer;
 
@@ -114,4 +126,8 @@ public class Order {
 //    public void setCustomer(Customer customer) {
 //        this.customer = customer;
 //    }
+
+    public static Order newInstance() {
+        return new Order();
+    }
 }

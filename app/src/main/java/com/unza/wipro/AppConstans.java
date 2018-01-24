@@ -3,7 +3,8 @@ package com.unza.wipro;
 import com.paditech.core.common.BaseConstant;
 
 public interface AppConstans extends BaseConstant {
-
+    AppState app = AppState.getInstance();
+    
     public static final String PREF_TOKEN = "login::token";
     public static final String PREF_APPKEY = "login::appkey";
     public static final String PREF_INFO = "login::info";

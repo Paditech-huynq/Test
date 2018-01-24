@@ -117,7 +117,7 @@ public class AmountView extends RelativeLayout {
             this.isIncrease = increase;
             if (increase) {
                 increaseValue();
-            }else {
+            } else {
                 decreaseValue();
             }
             changeValueHandler.postDelayed(changeValueRunnable, timeChangeValue);
@@ -143,7 +143,7 @@ public class AmountView extends RelativeLayout {
         if (value > minValue) {
             value -= interval;
             countValueChange += interval;
-            if (mOnValueChangeListener != null) mOnValueChangeListener.onValueChange(value);
+            if (mOnValueChangeListener != null) mOnValueChangeListener.onValueChange(true, value);
         }
         setValue(value);
     }
@@ -152,7 +152,7 @@ public class AmountView extends RelativeLayout {
         if (value < maxValue) {
             value += interval;
             countValueChange += interval;
-            if (mOnValueChangeListener != null) mOnValueChangeListener.onValueChange(value);
+            if (mOnValueChangeListener != null) mOnValueChangeListener.onValueChange(false, value);
         }
         setValue(value);
     }
@@ -183,6 +183,6 @@ public class AmountView extends RelativeLayout {
     }
 
     public interface OnValueChangeListener {
-        void onValueChange(int value);
+        void onValueChange(boolean isReduce, int value);
     }
 }

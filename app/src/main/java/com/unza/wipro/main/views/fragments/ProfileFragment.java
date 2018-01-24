@@ -15,7 +15,7 @@ import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.ProfileContract;
-import com.unza.wipro.main.models.User;
+import com.unza.wipro.main.models.User_;
 import com.unza.wipro.main.presenters.ProfilePresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
 import com.unza.wipro.main.views.customs.DegreeView;
@@ -82,7 +82,7 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     }
 
     @Override
-    public void updateUI(User user) {
+    public void updateUI(User_ user) {
         switch (user.getTypeUse()) {
             case TYPE_USER_MANAGER:
                 lnManagerSales.setVisibility(View.VISIBLE);
@@ -121,7 +121,7 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
         switchFragment(HomeFragment.newInstance(), false);
     }
 
-    private void updateUIForEmployee(User user) {
+    private void updateUIForEmployee(User_ user) {
         tvTime.setText(Html.fromHtml(getResources().getString(R.string.time_profile_fragment,DateTimeUtils.getStringDayMonthYear(user.getDateStart()),
                 DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()))));
         tvSalesHave.setText(Html.fromHtml(getResources().getString(R.string.sales_have_profile_fragment,String.valueOf(user.getSaleHave()))));
