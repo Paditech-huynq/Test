@@ -34,15 +34,13 @@ public class LookupAdapter extends BaseRecycleViewAdapter {
 
     public void updateItemToList(List<Product> productList) {
         int lastProductCount = mProducts.size();
-        if (productList != null) {
-            mProducts.addAll(productList);
-        }
+        mProducts.addAll(productList);
         notifyItemRangeInserted(lastProductCount, mProducts.size());
     }
 
     public void refreshProductList(List<Product> productList) {
-        notifyItemRangeRemoved(0, mProducts.size());
         mProducts.clear();
+        notifyDataSetChanged();
         updateItemToList(productList);
     }
 
