@@ -22,7 +22,7 @@ public class UpdatePasswordFragment extends MVPFragment<UpdatePasswordPresenter>
 
     private String userName;
 
-    public UpdatePasswordFragment newIntance() {
+    public static UpdatePasswordFragment newInstance() {
         Bundle args = new Bundle();
         UpdatePasswordFragment fragment = new UpdatePasswordFragment();
         fragment.setArguments(args);

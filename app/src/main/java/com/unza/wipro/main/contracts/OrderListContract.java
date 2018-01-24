@@ -23,7 +23,7 @@ public interface OrderListContract {
         void updateDayInFilter(String from, String to);
         void displayDatePicker(int whatCalenderInFilter, int day, int month, int year);
         void displayDateChose(int whatCalenderInFilter, String day);
-        void goToOrderDetailScreen();
+        void goToOrderDetailScreen(int position);
         void changeColorButtonToDefault();
         void findOrder(boolean canFind);
     }
@@ -39,7 +39,7 @@ public interface OrderListContract {
         void onBtThisMonthClick();
         void onBtCalenderClick(int whatCalenderInFilter, String dayCalenderFilter);
         void onChooseDate(int whatCalenderInFilter, Date dayChose);
-        void onItemClick();
         void onUserTouchOutside();
+        void onItemClick(int position);
     }
 }
