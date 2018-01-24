@@ -2,6 +2,7 @@ package com.unza.wipro.utils;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,6 +31,18 @@ public class DateTimeUtils {
     public static Date getDateFromStringDayMonthYear(String dateString) {
         try {
             return new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    public static Date getEndOfeDateFromStringDayMonthYear(String dateString) {
+        try {
+            Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
+            date.setTime(date.getTime()+ONE_DAY);
+            return date;
         } catch (ParseException e) {
             e.printStackTrace();
             return null;

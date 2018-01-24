@@ -95,17 +95,21 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
             fromDate = null;
             toDate = null;
             loadData();
+            getView().dismissFilter();
             return;
         }
+        if (StringUtil.isEmpty(from) || StringUtil.isEmpty(to)){
+            getView().findOrder(false);
+        }
         Date startDate = DateTimeUtils.getDateFromStringDayMonthYear(from);
-        Date endDate = DateTimeUtils.getDateFromStringDayMonthYear(to);
+        Date endDate = DateTimeUtils.getEndOfeDateFromStringDayMonthYear(to);
         assert startDate != null;
         if (startDate.before(endDate)) {
             getView().findOrder(true);
-            getView().dismissFilter();
             fromDate = startDate.getTime() / 1000;
             toDate = endDate.getTime() / 1000;
             loadData();
+            getView().dismissFilter();
         } else {
             getView().findOrder(false);
         }
@@ -114,6 +118,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onBtAllClick() {
         getView().changeColorButtonAll();
+        getView().updateDayInFilter("","");
     }
 
     @Override
@@ -136,11 +141,12 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
 
     @Override
     public void onBtCalenderClick(int whatCalenderInFilter, String dayCalenderFilter) {
-        String[] time = dayCalenderFilter.split("/");
-        int day = Integer.parseInt(time[0]);
-        int month = Integer.parseInt(time[1]);
-        int year = Integer.parseInt(time[2]);
-        getView().displayDatePicker(whatCalenderInFilter,day,month,year);
+        if(StringUtil.isEmpty(dayCalenderFilter)){
+            getView().displayDatePicker(whatCalenderInFilter,Calendar.getInstance().get(Calendar.DAY_OF_MONTH),Calendar.getInstance().get(Calendar.MONTH),Calendar.getInstance().get(Calendar.YEAR));
+        } else {
+            String[] time = dayCalenderFilter.split("/");
+            getView().displayDatePicker(whatCalenderInFilter, Integer.parseInt(time[0]), Integer.parseInt(time[1]), Integer.parseInt(time[2]));
+        }
         getView().changeColorButtonToDefault();
     }
 
