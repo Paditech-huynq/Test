@@ -1,7 +1,5 @@
 package com.unza.wipro.main.presenters;
 
-import android.util.Log;
-
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.main.contracts.LookupContract;
@@ -20,31 +18,32 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
     private int mPage = 1;
     private boolean isFull;
     private boolean isPending;
+    private String lastKeyWord = "";
 
     @Override
     public void onCreate() {
         super.onCreate();
-        loadProductFromServer(false, false);
+        loadProductFromServer(false);
     }
 
     @Override
     public void searchByKeyWord() {
         resetData();
-        loadProductFromServer(false, true);
+        loadProductFromServer(false);
     }
 
     @Override
     public void onLoadMore() {
-        loadProductFromServer(false, false);
+        loadProductFromServer(false);
     }
 
     @Override
     public void onRefresh() {
-        loadProductFromServer(true, false);
+        loadProductFromServer(true);
     }
 
-    private void loadProductFromServer(final boolean isRefresh, final boolean isSearch) {
-        if ((isPending || isFull) && !isSearch) {
+    private void loadProductFromServer(final boolean isRefresh) {
+        if ((isPending || isFull) && !lastKeyWord.equals(getView().getCurrentKeyword())) {
             getView().setRefreshing(false);
             return;
         }
@@ -71,7 +70,7 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
                         if (response == null || response.body() == null) {
                             return;
                         }
-                        onLoadProductSuccess(isRefresh, isSearch, response.body().getData());
+                        onLoadProductSuccess(isRefresh, response.body().getData());
                     }
 
                     @Override
@@ -86,14 +85,15 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
                 });
     }
 
-    private void onLoadProductSuccess(boolean isRefresh, boolean isSearch, List<Product> productList) {
+    private void onLoadProductSuccess(boolean isRefresh, List<Product> productList) {
         mPage++;
         isFull = productList.size() < PAGE_SIZE;
-        if (isRefresh || isSearch) {
+        if (isRefresh || !lastKeyWord.equals(getView().getCurrentKeyword())) {
             getView().refreshProductList(productList);
         } else {
             getView().updateItemToList(productList);
         }
+        lastKeyWord = getView().getCurrentKeyword();
     }
 
     private void resetData() {
