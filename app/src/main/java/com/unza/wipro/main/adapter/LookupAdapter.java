@@ -18,7 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class LookupAdaper extends BaseRecycleViewAdapter {
+public class LookupAdapter extends BaseRecycleViewAdapter {
 
     private List<Product> mProducts = new ArrayList();
 
@@ -32,9 +32,18 @@ public class LookupAdaper extends BaseRecycleViewAdapter {
         return new LookupItemHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.view_lookup_item, parent, false));
     }
 
-    public void setListProduct(List<Product> data) {
-        mProducts = data;
-        notifyDataSetChanged();
+    public void updateItemToList(List<Product> productList) {
+        int lastProductCount = mProducts.size();
+        if (productList != null) {
+            mProducts.addAll(productList);
+        }
+        notifyItemRangeInserted(lastProductCount, mProducts.size());
+    }
+
+    public void refreshProductList(List<Product> productList) {
+        notifyItemRangeRemoved(0, mProducts.size());
+        mProducts.clear();
+        updateItemToList(productList);
     }
 
     @Override
@@ -43,26 +52,29 @@ public class LookupAdaper extends BaseRecycleViewAdapter {
     }
 
     class LookupItemHolder extends BaseViewHolder {
-
-        @BindView(R.id.imageView)
-        ImageView imageView;
+        @BindView(R.id.imvProduct)
+        ImageView imvProduct;
         @BindView(R.id.tvName)
-        TextView nameView;
+        TextView tvName;
         @BindView(R.id.tvPrice)
-        TextView priceView;
+        TextView tvPrice;
 
-        public LookupItemHolder(View itemView) {
+        private LookupItemHolder(View itemView) {
             super(itemView);
         }
 
         @Override
         protected void onBindingData(int position) {
             Product product = mProducts.get(position);
-            GlideApp.with(itemView.getContext()).load(product.getProductThumbnail().getLink())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
-                    .into(imageView);
-            nameView.setText(product.getName());
-            priceView.setText(String.valueOf(product.getPrice()));
+            GlideApp.with(itemView.getContext())
+                    .load(product.getProductThumbnail().getLink())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .centerCrop()
+                    .placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
+                    .error(R.drawable.bg_place_holder)
+                    .into(imvProduct);
+            tvName.setText(product.getName());
+            tvPrice.setText(String.valueOf(product.getPrice()));
         }
     }
 }

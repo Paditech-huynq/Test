@@ -8,12 +8,18 @@ import java.util.List;
 
 public interface LookupContract {
     interface ViewImpl extends BaseViewImpl {
-        void updateToListItem(List<Product> data);
-        String getTextSearch();
+        void updateItemToList(List<Product> productList);
+
+        void refreshProductList(List<Product> productList);
+
+        String getCurrentKeyword();
     }
 
     interface Presenter extends BasePresenterImpl {
-        void searchByText();
-        void loadMore();
+        void searchByKeyWord();
+
+        void onLoadMore();
+
+        void onRefresh();
     }
 }
