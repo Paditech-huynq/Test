@@ -1,5 +1,7 @@
 package com.unza.wipro.transaction.user;
 
+import android.util.Log;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.unza.wipro.main.models.LoginInfo;
@@ -109,6 +111,9 @@ public abstract class User implements UserInfo {
     public static class Builder {
         private LoginInfo loginInfo;
 
+        public Builder() {
+        }
+
         public Builder(LoginInfo loginInfo) {
             this.loginInfo = loginInfo;
         }
@@ -119,6 +124,7 @@ public abstract class User implements UserInfo {
                     return new Customer();
                 case TYPE_PROMOTER:
                     if (loginInfo.isManager()) {
+                        Log.e("build: ", "ispromoterLeader" );
                         return new PromoterLeader();
                     } else {
                         return new Promoter();
