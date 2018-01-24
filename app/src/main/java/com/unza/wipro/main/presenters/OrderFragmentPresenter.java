@@ -2,17 +2,17 @@ package com.unza.wipro.main.presenters;
 
 import android.content.Context;
 
+import com.paditech.core.helper.StringUtil;
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
+import com.unza.wipro.AppState;
 import com.unza.wipro.main.contracts.OrderListContract;
-import com.unza.wipro.main.models.LoginClient;
 import com.unza.wipro.main.models.responses.GetOrdersRSP;
 import com.unza.wipro.services.AppClient;
 import com.unza.wipro.utils.DateTimeUtils;
 
 import java.util.Calendar;
 import java.util.Date;
-
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,6 +22,8 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
 
     private boolean isFull;
     private int mPage = 1;
+    private Long fromDate;
+    private Long toDate;
 
     @Override
     public void loadData() {
@@ -43,18 +45,19 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     private void getOrders(final boolean isRefresh) {
         if (isFull && !isRefresh) return;
         Context context = getView().getContext();
-        if (!LoginClient.isLogin(context)) return;
+        if (!AppState.getInstance().isLogin()) return;
         if (isRefresh) getView().showProgressDialog(true);
         mPage = isRefresh ? 1 : mPage;
-        AppClient.newInstance().getService().getOrders(LoginClient.getToken(context),
-                LoginClient.getAppKey(context), mPage, PAGE_SIZE)
+        AppClient.newInstance().getService().getOrders(AppState.getInstance().getToken(),
+                AppState.getInstance().getAppKey(), fromDate, toDate, mPage, PAGE_SIZE)
                 .enqueue(new Callback<GetOrdersRSP>() {
                     @Override
                     public void onResponse(Call<GetOrdersRSP> call, Response<GetOrdersRSP> response) {
                         getView().showProgressDialog(false);
                         try {
                             if (response.body() != null) {
-                                if (response.body().getData() != null && response.body().getData().size() > 0) mPage++;
+                                if (response.body().getData() != null && response.body().getData().size() > 0)
+                                    mPage++;
                                 isFull = response.body().getData().size() < PAGE_SIZE;
                                 if (isRefresh) {
                                     isFull = false;
@@ -63,7 +66,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
                                     getView().addItemToList(response.body().getData());
                                 }
                             }
-                        }catch (Exception e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -77,7 +80,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     }
 
     private void loadUI() {
-        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(),DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(), DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
         getView().changeColorButtonThisMonth();
     }
 
@@ -88,11 +91,25 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
 
     @Override
     public void onSearchClick(String from, String to) {
+        if (StringUtil.isEmpty(from) && StringUtil.isEmpty(to)) {
+            fromDate = null;
+            toDate = null;
+            loadData();
+            getView().dismissFilter();
+            return;
+        }
+        if (StringUtil.isEmpty(from) || StringUtil.isEmpty(to)) {
+            getView().findOrder(false);
+            return;
+        }
         Date startDate = DateTimeUtils.getDateFromStringDayMonthYear(from);
-        Date endDate = DateTimeUtils.getDateFromStringDayMonthYear(to);
+        Date endDate = DateTimeUtils.getEndOfeDateFromStringDayMonthYear(to);
         assert startDate != null;
         if (startDate.before(endDate)) {
             getView().findOrder(true);
+            fromDate = startDate.getTime() / 1000;
+            toDate = endDate.getTime() / 1000;
+            loadData();
             getView().dismissFilter();
         } else {
             getView().findOrder(false);
@@ -102,33 +119,35 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onBtAllClick() {
         getView().changeColorButtonAll();
+        getView().updateDayInFilter("", "");
     }
 
     @Override
     public void onBtThisWeekClick() {
         getView().changeColorButtonThisWeek();
-        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentWeek(),DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentWeek(), DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
     }
 
     @Override
     public void onBtLastWeekClick() {
         getView().changeColorButtonLastWeek();
-        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInLastWeek(),DateTimeUtils.getStringLastDayInLastWeek());
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInLastWeek(), DateTimeUtils.getStringLastDayInLastWeek());
     }
 
     @Override
     public void onBtThisMonthClick() {
         getView().changeColorButtonThisMonth();
-        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(),DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
+        getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(), DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
     }
 
     @Override
     public void onBtCalenderClick(int whatCalenderInFilter, String dayCalenderFilter) {
-        String[] time = dayCalenderFilter.split("/");
-        int day = Integer.parseInt(time[0]);
-        int month = Integer.parseInt(time[1]);
-        int year = Integer.parseInt(time[2]);
-        getView().displayDatePicker(whatCalenderInFilter,day,month,year);
+        if (StringUtil.isEmpty(dayCalenderFilter)) {
+            getView().displayDatePicker(whatCalenderInFilter, Calendar.getInstance().get(Calendar.DAY_OF_MONTH), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR));
+        } else {
+            String[] time = dayCalenderFilter.split("/");
+            getView().displayDatePicker(whatCalenderInFilter, Integer.parseInt(time[0]), Integer.parseInt(time[1]), Integer.parseInt(time[2]));
+        }
         getView().changeColorButtonToDefault();
     }
 
@@ -138,12 +157,12 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     }
 
     @Override
-    public void onItemClick() {
-        getView().goToOrderDetailScreen();
+    public void onUserTouchOutside() {
+        getView().dismissFilter();
     }
 
     @Override
-    public void onUserTouchOutside() {
-        getView().dismissFilter();
+    public void onItemClick(int position) {
+        getView().goToOrderDetailScreen(position);
     }
 }

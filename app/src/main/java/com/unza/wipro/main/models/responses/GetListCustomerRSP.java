@@ -3,7 +3,7 @@ package com.unza.wipro.main.models.responses;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.unza.wipro.main.models.Customer;
+import com.unza.wipro.transaction.user.Customer;
 
 public class GetListCustomerRSP {
 

@@ -42,4 +42,10 @@ public class LoginClient implements AppConstans {
         }
         return null;
     }
+
+    public static void logout(Context context) {
+        PrefUtils.savePreferences(context, PREF_TOKEN, EMPTY);
+        PrefUtils.savePreferences(context, PREF_APPKEY, EMPTY);
+        PrefUtils.savePreferences(context, PREF_INFO, EMPTY);
+    }
 }

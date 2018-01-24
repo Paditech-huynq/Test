@@ -13,7 +13,7 @@ import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProfileListAdapter;
 import com.unza.wipro.main.contracts.ProfileListContract;
-import com.unza.wipro.main.models.Customer;
+import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.main.presenters.ProfileListPresenter;
 import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
 

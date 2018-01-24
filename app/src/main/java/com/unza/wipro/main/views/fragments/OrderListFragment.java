@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
+import com.paditech.core.helper.StringUtil;
 import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.OrderListAdapter;
@@ -109,9 +110,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
             @Override
             public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
                 if (mAdapter.getItem(position) instanceof Order) {
-                    OrderDetailFragment orderDetailFragment = OrderDetailFragment
-                            .newInstance(OrderDetailFragment.ViewMode.MODE_SEE, (Order) mAdapter.getItem(position));
-                    OrderListFragment.this.switchFragment(orderDetailFragment, true);
+                    getPresenter().onItemClick(position);
                 }
             }
         });
@@ -180,6 +179,10 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     public void updateDayInFilter(String from, String to) {
         tvCalenderLeftFilter.setText(from);
         tvCalenderRightFilter.setText(to);
+        if (StringUtil.isEmpty(from) && StringUtil.isEmpty(to)) {
+            tvTimeInHeaderFilter.setText("");
+            return;
+        }
         tvTimeInHeaderFilter.setText(getResources().getString(R.string.display_time_day_month_year_in_header_filter, from,
                 to));
     }
@@ -214,8 +217,10 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     }
 
     @Override
-    public void goToOrderDetailScreen() {
-        switchFragment(OrderDetailFragment.newInstance(), true);
+    public void goToOrderDetailScreen(int position) {
+        OrderDetailFragment orderDetailFragment = OrderDetailFragment
+                .newInstance(OrderDetailFragment.ViewMode.MODE_SEE, (Order) mAdapter.getItem(position));
+        OrderListFragment.this.switchFragment(orderDetailFragment, true);
     }
 
     @Override

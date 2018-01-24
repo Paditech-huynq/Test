@@ -3,7 +3,7 @@ package com.unza.wipro.main.presenters;
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.main.contracts.ProfileListContract;
-import com.unza.wipro.main.models.Customer;
+import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.main.models.responses.GetListCustomerRSP;
 import com.unza.wipro.main.views.fragments.ProfileListFragment;
 import com.unza.wipro.services.AppClient;

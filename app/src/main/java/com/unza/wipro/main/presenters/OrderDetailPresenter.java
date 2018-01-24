@@ -1,8 +1,8 @@
 package com.unza.wipro.main.presenters;
 
 import com.paditech.core.mvp.BasePresenter;
+import com.unza.wipro.AppState;
 import com.unza.wipro.main.contracts.OrderDetailContract;
-import com.unza.wipro.main.models.LoginClient;
 import com.unza.wipro.main.models.Order;
 import com.unza.wipro.main.models.responses.GetOrderDetailRSP;
 import com.unza.wipro.services.AppClient;
@@ -26,10 +26,10 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
 
     private void getProductDetail() {
         Order order = getView().getOrder();
-        if (order == null || !LoginClient.isLogin(getView().getContext())) return;
+        if (order == null || !AppState.getInstance().isLogin()) return;
         getView().showProgressDialog(true);
-        AppClient.newInstance().getService().getOrderDetail(LoginClient.getToken(getView().getContext()),
-                LoginClient.getAppKey(getView().getContext()), order.getId())
+        AppClient.newInstance().getService().getOrderDetail(AppState.getInstance().getToken(),
+                AppState.getInstance().getAppKey(), order.getId())
                 .enqueue(new Callback<GetOrderDetailRSP>() {
                     @Override
                     public void onResponse(Call<GetOrderDetailRSP> call, Response<GetOrderDetailRSP> response) {

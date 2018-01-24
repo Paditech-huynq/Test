@@ -41,6 +41,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
         mData.clear();
         insertData(news);
     }
+
     @Override
     public Object getItem(int position) {
         return mData.get(position);
@@ -49,7 +50,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         BaseViewHolder holder;
-        switch (viewType){
+        switch (viewType) {
             case TYPE_SECTION:
                 holder = new SectionViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_home_order_section, parent, false));
                 break;
@@ -64,10 +65,10 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
     @Override
     public int getItemViewType(int position) {
-        if(mData.get(position) instanceof Order){
+        if (mData.get(position) instanceof Order) {
             return TYPE_ITEM;
         }
-        if(mData.get(position) instanceof String){
+        if (mData.get(position) instanceof String) {
             return TYPE_SECTION;
         }
         return 0;
@@ -78,7 +79,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
         return mData.size();
     }
 
-    class SectionViewHolder extends BaseViewHolder{
+    class SectionViewHolder extends BaseViewHolder {
 
         @BindView(R.id.section_date)
         TextView textDateSection;
@@ -94,7 +95,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
 
     }
 
-    class ChildViewHolder extends BaseViewHolder{
+    class ChildViewHolder extends BaseViewHolder {
 
         @BindView(R.id.img_product_order)
         ImageView img_propduct;
@@ -115,15 +116,13 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
         protected void onBindingData(int position) {
             Context context = itemView.getContext();
             Order order = (Order) mData.get(position);
-            GlideApp.with(context).load(R.mipmap.ic_launcher).into(img_propduct);
-            String items = "";
-            for (int i = 0; i < order.getProducts().size(); i++) {
-                items += i == 0 ? order.getProducts().get(i).getName() : ", " + order.getProducts().get(i).getName();
-            }
-            tx_title.setText(items);
-            tx_time.setText(String.valueOf("Thời gian: "+ DateTimeUtils.getStringTimeAll(new Date(order.getCreatedAt() * 1000))));
+            if (order == null) return;
+            if (!StringUtil.isEmpty(order.getAvatarOrder()))
+                GlideApp.with(context).load(order.getAvatarOrder()).into(img_propduct);
+            tx_title.setText(order.getName());
+            tx_time.setText(String.valueOf("Thời gian: " + DateTimeUtils.getStringTimeAll(new Date(order.getCreatedAt() * 1000))));
             tx_price.setText(context.getString(R.string.currency_unit, StringUtil.formatMoney(order.getMoney())));
-            tx_number.setText(String.valueOf("Số lượng: "+ order.getQuantity()));
+            tx_number.setText(String.valueOf("Số lượng: " + order.getQuantity()));
         }
 
     }
