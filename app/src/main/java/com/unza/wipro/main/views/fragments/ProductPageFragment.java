@@ -12,10 +12,10 @@ import android.widget.ImageView;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.mvp.MVPFragment;
+import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProductListAdapter;
 import com.unza.wipro.main.contracts.ProductPageContract;
-import com.unza.wipro.main.models.Cart;
 import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.presenters.ProductPagePresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
@@ -28,7 +28,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class ProductPageFragment extends MVPFragment<ProductPagePresenter> implements ProductPageContract.ViewImpl {
+public class ProductPageFragment extends MVPFragment<ProductPagePresenter> implements ProductPageContract.ViewImpl, AppConstans {
     @BindView(R.id.rcvProduct)
     RecyclerView mRecyclerView;
 
@@ -96,10 +96,18 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
         mAdapter.setOnProductItemClickListenner(new ProductListAdapter.OnProductItemClickListenner() {
             @Override
             public void onAddCartButtonClick(View view, int index) {
-                Cart.getInstance().addProduct(mAdapter.getItem(index));
+                Product product = mAdapter.getItem(index);
+                insertItemToCart(product);
                 makeFlyAnimation((ImageView) view);
             }
         });
+    }
+
+    private void insertItemToCart(Product product) {
+        if (product == null) {
+            return;
+        }
+        app.editCart().insert(product);
     }
 
     private void startTransition(View view, int position) {

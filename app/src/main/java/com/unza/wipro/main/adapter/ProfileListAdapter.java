@@ -12,7 +12,7 @@ import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.image.GlideApp;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
-import com.unza.wipro.main.models.Customer;
+import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.main.views.customs.PlaceHolderDrawableHelper;
 
 import java.util.ArrayList;
