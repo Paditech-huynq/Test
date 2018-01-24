@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.request.RequestOptions;
+import com.paditech.core.DisableTouchView;
 import com.paditech.core.image.GlideApp;
 import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.AppConstans;
@@ -57,6 +58,8 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     TextView tvSalesHave;
     @BindView(R.id.degree_sale)
     DegreeView degreeSale;
+    @BindView(R.id.layoutLoading)
+    DisableTouchView layoutLoading;
 
     @Override
     protected int getLayoutResource() {
@@ -78,34 +81,6 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     }
 
     @Override
-    public void updateUI(User user) {
-        tvName.setText(user.getName());
-        tvEmail.setText(user.getEmail());
-        tvAddress.setText(user.getAddress());
-        tvPhone.setText(user.getName());
-        tvNumberSales.setText(user.getNumberOrders());
-        GlideApp.with(this).load(user.getAvatar()).apply(RequestOptions.circleCropTransform()).into(imgAvar);
-    }
-
-    @Override
-    public void updateUIForPromoter(Promoter user) {
-        lnDegree.setVisibility(View.VISIBLE);
-        tvPoint.setText(getResources().getString(R.string.custom_profile_fragment));
-        tvNumberPoint.setText(user.getNumberCustomers());
-    }
-
-    @Override
-    public void updateUIForPromoterLeader(PromoterLeader user) {
-        lnManagerSales.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void updateUIForCustomer(Customer user) {
-        tvPoint.setText(getResources().getString(R.string.point_profile_fragment));
-        tvNumberPoint.setText(user.getPoint());
-    }
-
-    @Override
     public void goToChangePassFragment() {
         switchFragment(UpdatePasswordFragment.newInstance(), true);
     }
@@ -123,6 +98,38 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     @Override
     public void goToHomeProfile() {
         switchFragment(HomeFragment.newInstance(), false);
+    }
+
+    @Override
+    public void updateUI() {
+        tvName.setText(AppConstans.app.getCurrentUser().getName());
+        tvEmail.setText(AppConstans.app.getCurrentUser().getEmail());
+        tvAddress.setText(AppConstans.app.getCurrentUser().getAddress());
+        tvPhone.setText(AppConstans.app.getCurrentUser().getName());
+        tvNumberSales.setText(AppConstans.app.getCurrentUser().getNumberOrders());
+        GlideApp.with(this).load(AppConstans.app.getCurrentUser().getAvatar()).circleCrop().into(imgAvar);
+    }
+
+    @Override
+    public void updateUIForCustomer() {
+        tvPoint.setText(getResources().getString(R.string.point_profile_fragment));
+        tvNumberPoint.setText(((Customer)AppConstans.app.getCurrentUser()).getPoint());
+    }
+
+    @Override
+    public void updateUIForPromoter() {
+        tvPoint.setText(getResources().getString(R.string.custom_profile_fragment));
+        tvNumberPoint.setText(((Promoter)AppConstans.app.getCurrentUser()).getNumberCustomers());
+    }
+
+    @Override
+    public void startUI() {
+        if(AppConstans.app.getCurrentUser() instanceof Promoter){
+            lnDegree.setVisibility(View.VISIBLE);
+            if(AppConstans.app.getCurrentUser() instanceof PromoterLeader){
+                lnManagerSales.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @OnClick(R.id.rlt_logout)
@@ -158,8 +165,14 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
 
     }
 
+
     @OnClick(R.id.rlt_questions)
     public void onQuestionClick() {
 
+    }
+
+    @Override
+    public void showProgressDialog(boolean isShown) {
+        layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
     }
 }

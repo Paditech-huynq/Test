@@ -13,10 +13,10 @@ public interface ProfileContract {
         void goToOrderFragment();
         void goToListProfileFragment();
         void goToHomeProfile();
-        void updateUI(User dummyData);
-        void updateUIForPromoter(Promoter user);
-        void updateUIForPromoterLeader(PromoterLeader user);
-        void updateUIForCustomer(Customer user);
+        void updateUI();
+        void updateUIForCustomer();
+        void updateUIForPromoter();
+        void startUI();
     }
 
     interface Presenter extends BasePresenterImpl {
@@ -25,5 +25,6 @@ public interface ProfileContract {
         void onListOrderClick();
         void onManagerSalesClick();
         void onLogOutClick();
+        void onCreatFragment();
     }
 }

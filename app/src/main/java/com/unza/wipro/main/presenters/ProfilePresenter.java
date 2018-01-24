@@ -4,13 +4,15 @@ import android.util.Log;
 
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
+import com.unza.wipro.AppState;
 import com.unza.wipro.main.contracts.ProfileContract;
-import com.unza.wipro.main.models.LoginClient;
 import com.unza.wipro.main.models.responses.GetUserProfileRSP;
 import com.unza.wipro.services.AppClient;
 import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.transaction.user.Promoter;
 import com.unza.wipro.transaction.user.PromoterLeader;
+import com.unza.wipro.transaction.user.User;
+import com.unza.wipro.transaction.user.UserData;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,30 +21,31 @@ import retrofit2.Response;
 public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> implements ProfileContract.Presenter {
 
     @Override
+    public void onCreatFragment() {
+        getView().startUI();
+    }
+
+    @Override
     public void getUserDataFromServer() {
-        if (AppConstans.app.getCurrentUser() == null ){
-            Log.e("getUserDataFromServer: ", "ko co" );
+        if (AppConstans.app.getCurrentUser() == null) {
+            Log.e("getUserDataFromServer: ", "ko co");
             return;
         }
-        AppClient.newInstance().getService().getUserProfile(LoginClient.getToken(getView().getContext()),
-                LoginClient.getAppKey(getView().getContext())).enqueue(new Callback<GetUserProfileRSP>() {
+        getView().showProgressDialog(true);
+        AppClient.newInstance().getService().getUserProfile(AppState.getInstance().getToken(),
+                AppState.getInstance().getAppKey()).enqueue(new Callback<GetUserProfileRSP>() {
             @Override
             public void onResponse(Call<GetUserProfileRSP> call, Response<GetUserProfileRSP> response) {
-                getView().updateUI(response.body().getUser());
-                if (AppConstans.app.getCurrentUser() instanceof Customer) {
-                    getView().updateUIForCustomer((Customer) response.body().getUser());
-                }
-                if (AppConstans.app.getCurrentUser() instanceof Promoter) {
-                    getView().updateUIForPromoter((Promoter) response.body().getUser());
-                    if (AppConstans.app.getCurrentUser() instanceof PromoterLeader) {
-                        getView().updateUIForPromoterLeader((PromoterLeader) response.body().getUser());
-                    }
-                }
+                AppConstans.app.updateCurrentUser(response.body().getUser());
+                updateUi();
+                getView().showProgressDialog(false);
             }
 
             @Override
             public void onFailure(Call<GetUserProfileRSP> call, Throwable t) {
-
+                getView().showProgressDialog(false);
+                t.printStackTrace();
+                Log.e("onFailure: ", "fail");
             }
         });
     }
@@ -71,5 +74,22 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
     public void onCreate() {
         super.onCreate();
         getUserDataFromServer();
+    }
+
+    @Override
+    public void onViewAppear() {
+        super.onViewAppear();
+        onCreatFragment();
+        updateUi();
+    }
+
+    private void updateUi() {
+        getView().updateUI();
+        if (AppConstans.app.getCurrentUser() instanceof Customer) {
+            getView().updateUIForCustomer();
+        }
+        if (AppConstans.app.getCurrentUser() instanceof Promoter) {
+            getView().updateUIForPromoter();
+        }
     }
 }

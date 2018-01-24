@@ -69,7 +69,6 @@ public interface AppService {
     @FormUrlEncoded
     Call<GetOrderDetailRSP> getOrderDetail(@Header("Authorization") String token, @Header("AppKey") String appKey, @Field("order_id") int orderId);
 
-    @POST("member/login")
-    @FormUrlEncoded
+    @POST("member/detail")
     Call<GetUserProfileRSP> getUserProfile(@Header("Authorization") String token, @Header("AppKey") String appKey);
 }
