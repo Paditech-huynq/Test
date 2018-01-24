@@ -5,6 +5,7 @@ import android.widget.EditText;
 
 import com.paditech.core.helper.StringUtil;
 import com.paditech.core.mvp.MVPFragment;
+import com.unza.wipro.AppState;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.UpdatePasswordContract;
 import com.unza.wipro.main.presenters.UpdatePasswordPresenter;
@@ -17,13 +18,11 @@ public class UpdatePasswordFragment extends MVPFragment<UpdatePasswordPresenter>
     EditText edtOldPass;
     @BindView(R.id.edt_new_pass)
     EditText edtNewPass;
-    @BindView(R.id.edt_confirm_password)
+    @BindView(R.id.edt_confirm_pass)
     EditText edtConfirmPass;
 
     public static UpdatePasswordFragment newInstance() {
-
         Bundle args = new Bundle();
-
         UpdatePasswordFragment fragment = new UpdatePasswordFragment();
         fragment.setArguments(args);
         return fragment;
@@ -36,7 +35,13 @@ public class UpdatePasswordFragment extends MVPFragment<UpdatePasswordPresenter>
 
     @Override
     public String getScreenTitle() {
-        return null;
+        if (AppState.getInstance().getCurrentUser() == null) {
+            showToast(getString(R.string.not_found_user));
+            getActivity().onBackPressed();
+            return null;
+        } else {
+            return AppState.getInstance().getCurrentUser().getName();
+        }
     }
 
     @Override
@@ -44,7 +49,7 @@ public class UpdatePasswordFragment extends MVPFragment<UpdatePasswordPresenter>
         super.initView();
     }
 
-    @OnClick(R.id.btn_confirm)
+    @OnClick(R.id.btn_change_pass)
     protected void changePassword() {
         String oldPass = edtOldPass.getText().toString();
         String newPass = edtNewPass.getText().toString();
