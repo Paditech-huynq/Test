@@ -1,5 +1,6 @@
 package com.unza.wipro.transaction.user;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.unza.wipro.main.models.LoginInfo;
 import com.unza.wipro.main.models.UserInfo;
@@ -34,6 +35,28 @@ public abstract class User implements UserInfo {
     private String avatar;
     @SerializedName("address")
     private String address;
+    @SerializedName("phone")
+    @Expose
+    private String phone;
+    @SerializedName("order")
+    private String numberOrders;
+
+    public String getNumberOrders() {
+        return numberOrders;
+    }
+
+    public void setNumberOrders(String numberCustomers) {
+        this.numberOrders = numberCustomers;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
 
     public String getId() {
         return id;

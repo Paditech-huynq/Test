@@ -4,16 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class Customer extends User implements CustomerInfo {
     @SerializedName("point")
-    private String numberOrders;
+    private String point;
 
-    @Override
-    public String getNumberOrders() {
-        return numberOrders;
+    public String getPoint() {
+        return point;
     }
 
-    @Override
-    public void setNumberOrders(String numberOrders) {
-        this.numberOrders = numberOrders;
+    public void setPoint(String numberCustomers) {
+        this.point = numberCustomers;
     }
 
     @Override
