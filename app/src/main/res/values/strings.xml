@@ -75,6 +75,9 @@
     <string name="this_month">Tháng này</string>
     <string name="find">Tìm kiếm</string>
 
+    <!--order detail-->
+    <string name="order_detail_title">Đơn hàng số #%s</string>
+
     <!-- product detail -->
     <string name="product_detail_title">Chi tiết sản phẩm</string>
     <string name="product_detail_code">Mã sản phẩm: %s</string>

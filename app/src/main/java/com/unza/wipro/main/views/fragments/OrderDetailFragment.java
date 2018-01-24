@@ -59,7 +59,8 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
 
     @Override
     public String getScreenTitle() {
-        return "Đơn hàng số #";
+        String id = mOrder != null ? String.valueOf(mOrder.getId()) : "";
+        return getString(R.string.order_detail_title, id);
     }
 
     @Override
@@ -71,7 +72,10 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
 
     private void setupCreateCart() {
         bottomBar.setVisibility(viewMode == ViewMode.MODE_CREATE ? View.VISIBLE : View.GONE);
-        if (viewMode == ViewMode.MODE_SEE && mOrder != null) mAdapter.setData(mOrder.getProducts());
+        if (viewMode == ViewMode.MODE_SEE && mOrder != null) {
+            String id = mOrder != null ? String.valueOf(mOrder.getId()) : "";
+            setScreenTitle(getString(R.string.order_detail_title, id));
+        }
     }
 
     @Override

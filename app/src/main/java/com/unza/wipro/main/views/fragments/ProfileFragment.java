@@ -15,6 +15,7 @@ import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.ProfileContract;
+import com.unza.wipro.main.models.LoginClient;
 import com.unza.wipro.main.models.User;
 import com.unza.wipro.main.presenters.ProfilePresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
@@ -131,9 +132,7 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
 
     @OnClick(R.id.rlt_logout)
     protected void logout() {
-        PrefUtils.savePreferences(getActivity(), PREF_TOKEN, EMPTY);
-        PrefUtils.savePreferences(getActivity(), PREF_APPKEY, EMPTY);
-        PrefUtils.savePreferences(getActivity(), PREF_INFO, EMPTY);
+        LoginClient.logout(getActivity());
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
         getActivity().finish();

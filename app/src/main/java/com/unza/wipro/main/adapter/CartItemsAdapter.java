@@ -148,19 +148,19 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         @Override
         protected void onBindingData(int position) {
             Context context = itemView.getContext();
-            double price = mOrder != null ? mOrder.getMoney() : 0;
+            double price = Cart.getInstance().getTotalPrice();
             String priceString = viewMode == OrderDetailFragment.ViewMode.MODE_CREATE ?
                     context.getString(R.string.currency_unit, StringUtil.formatMoney(Cart.getInstance().getTotalPrice())) :
                     context.getString(R.string.currency_unit, StringUtil.formatMoney(price));
             tvPrice.setText(priceString);
             String shop =  mOrder != null ? mOrder.getCreator() : "";
             tvShop.setText(shop);
-//            if (mOrder == null && mOrder.getCustomer() != null) return;
-//            if (!StringUtil.isEmpty(mOrder.getCustomer().getAvatar()))
-//                ImageHelper.loadThumbCircleImage(itemView.getContext(), mOrder.getCustomer().getAvatar(), imvAvatar);
-//            tvName.setText(mOrder.getCustomer().getName());
-//            tvDate.setText(StringUtil.formatDate(new Date()));
-//            tvAddress.setText(mOrder.getCustomer().getAddress());
+            if (mOrder == null || mOrder.getCustomer() == null) return;
+            if (!StringUtil.isEmpty(mOrder.getCustomer().getAvatar()))
+                ImageHelper.loadThumbCircleImage(itemView.getContext(), mOrder.getCustomer().getAvatar(), imvAvatar);
+            tvName.setText(mOrder.getCustomer().getName());
+            tvDate.setText(StringUtil.formatDate(new Date()));
+            tvAddress.setText(mOrder.getCustomer().getAddress());
         }
 
         @OnClick(R.id.btnChange)
