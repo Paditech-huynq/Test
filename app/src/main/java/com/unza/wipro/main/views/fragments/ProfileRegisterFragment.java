@@ -299,7 +299,6 @@ public class ProfileRegisterFragment extends BaseFragment {
     @OnClick(R.id.btnRegister)
     void submitRegister() {
         if (!LoginClient.isLogin(getView().getContext())) {
-            showToast(getString(R.string.require_login));
             return;
         }
         if (dataIsValid()) {
