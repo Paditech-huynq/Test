@@ -10,7 +10,7 @@ public interface ProfileListContract {
     interface ViewImpl extends BaseViewImpl {
         void addItemToList(List<Customer> customerList);
 
-
+        String getCurrentKeyWord();
     }
 
     interface Presenter extends BasePresenterImpl {

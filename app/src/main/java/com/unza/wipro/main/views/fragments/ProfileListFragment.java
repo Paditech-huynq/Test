@@ -70,6 +70,7 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
     public void initView() {
         super.initView();
         setupRecycleView();
+        setupSearchView();
     }
 
     private void setupSearchView() {
@@ -156,6 +157,11 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
     @Override
     public void addItemToList(List<Customer> customerList) {
         mAdapter.addItemToList(customerList);
+    }
+
+    @Override
+    public String getCurrentKeyWord() {
+        return edtSearch.getText().toString();
     }
 
     public void refreshData(List<Customer> customerList) {
