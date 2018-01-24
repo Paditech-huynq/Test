@@ -1,6 +1,5 @@
 package com.unza.wipro.main.presenters;
 
-import com.paditech.core.helper.StringUtil;
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.main.contracts.ProductDetailContract;
 import com.unza.wipro.main.models.Product;
@@ -26,9 +25,9 @@ public class ProductDetailPresenter extends BasePresenter<ProductDetailContract.
 
     private void getProductDetail() {
         Product product = getView().getProduct();
-        if (product == null || StringUtil.isEmpty(product.getId())) return;
+        if (product == null || product.getId() < 0) return;
         getView().showProgressDialog(true);
-        AppClient.newInstance().getService().getProductDetail(product.getId())
+        AppClient.newInstance().getService().getProductDetail(String.valueOf(product.getId()))
                 .enqueue(new Callback<GetProductDetailRSP>() {
                     @Override
                     public void onResponse(Call<GetProductDetailRSP> call, Response<GetProductDetailRSP> response) {

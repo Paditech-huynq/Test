@@ -3,15 +3,16 @@ package com.unza.wipro.main.views.fragments;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.mvp.MVPFragment;
+import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.CartItemsAdapter;
 import com.unza.wipro.main.contracts.OrderDetailContract;
-import com.unza.wipro.main.models.Cart;
 import com.unza.wipro.main.models.Order;
 import com.unza.wipro.main.presenters.OrderDetailPresenter;
 import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
@@ -59,7 +60,8 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
 
     @Override
     public String getScreenTitle() {
-        return "Đơn hàng số #";
+        String id = mOrder != null ? String.valueOf(mOrder.getId()) : "";
+        return getString(R.string.order_detail_title, id);
     }
 
     @Override
@@ -67,11 +69,16 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
         super.initView();
         setupRecycleView();
         setupCreateCart();
+
+        Log.e("Cart", AppConstans.app.getCurrentCart().getTotalPrice() + "");
     }
 
     private void setupCreateCart() {
         bottomBar.setVisibility(viewMode == ViewMode.MODE_CREATE ? View.VISIBLE : View.GONE);
-        if (viewMode == ViewMode.MODE_SEE && mOrder != null) mAdapter.setData(mOrder.getProducts());
+        if (viewMode == ViewMode.MODE_SEE && mOrder != null) {
+            String id = mOrder != null ? String.valueOf(mOrder.getId()) : "";
+            setScreenTitle(getString(R.string.order_detail_title, id));
+        }
     }
 
     @Override
@@ -90,12 +97,16 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     @Override
     public void showOrderDetail(Order order) {
         if (order == null) return;
-        mAdapter.setOrder(order);
-        mAdapter.setData(order.getProducts());
+        mAdapter.updateOrder(order);
     }
 
     private void setupRecycleView() {
-        mAdapter = new CartItemsAdapter(viewMode);
+        if (viewMode == ViewMode.MODE_CREATE) {
+            mAdapter = new CartItemsAdapter(null);
+        } else if (viewMode == ViewMode.MODE_SEE) {
+            mAdapter = new CartItemsAdapter(Order.newInstance());
+        }
+
         mAdapter.setOnViewClickListener(new BaseRecycleViewAdapter.ViewClickListener() {
             @Override
             public void onViewItemClock(int resId, BaseRecycleViewAdapter.BaseViewHolder holder, int position) {
@@ -128,7 +139,7 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
 
     @OnClick(R.id.btnSubmit)
     void onSubmitBtnClick() {
-        Cart.getInstance().clear();
+        //todo: implement payment logic here
     }
 
     @OnClick(R.id.btnLookup)

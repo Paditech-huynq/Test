@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class User {
+public class User_ {
     private Date dateStart;
     private long saleWant;
     private long saleHave;
@@ -18,13 +18,13 @@ public class User {
     private String avar;
     private int typeUse;
     private int numberCustom;
-    private List<User> members = new ArrayList<>();
+    private List<User_> members = new ArrayList<>();
 
-    public List<User> getMembers() {
+    public List<User_> getMembers() {
         return members;
     }
 
-    public void setMembers(List<User> members) {
+    public void setMembers(List<User_> members) {
         this.members = members;
     }
 

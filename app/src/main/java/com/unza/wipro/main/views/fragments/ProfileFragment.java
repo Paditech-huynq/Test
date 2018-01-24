@@ -9,13 +9,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.request.RequestOptions;
-import com.paditech.core.helper.PrefUtils;
 import com.paditech.core.image.GlideApp;
 import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.ProfileContract;
-import com.unza.wipro.main.models.User;
+import com.unza.wipro.main.models.LoginClient;
+import com.unza.wipro.main.models.User_;
 import com.unza.wipro.main.presenters.ProfilePresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
 import com.unza.wipro.main.views.customs.DegreeView;
@@ -82,7 +82,7 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     }
 
     @Override
-    public void updateUI(User user) {
+    public void updateUI(User_ user) {
         switch (user.getTypeUse()) {
             case TYPE_USER_MANAGER:
                 lnManagerSales.setVisibility(View.VISIBLE);
@@ -103,7 +103,7 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
 
     @Override
     public void goToChangePassFragment() {
-        switchFragment(UpdatePasswordFragment.newInstance(),true);
+        switchFragment(UpdatePasswordFragment.newInstance(), true);
     }
 
     @Override
@@ -121,51 +121,49 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
         switchFragment(HomeFragment.newInstance(), false);
     }
 
-    private void updateUIForEmployee(User user) {
-        tvTime.setText(Html.fromHtml(getResources().getString(R.string.time_profile_fragment,DateTimeUtils.getStringDayMonthYear(user.getDateStart()),
+    private void updateUIForEmployee(User_ user) {
+        tvTime.setText(Html.fromHtml(getResources().getString(R.string.time_profile_fragment, DateTimeUtils.getStringDayMonthYear(user.getDateStart()),
                 DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()))));
-        tvSalesHave.setText(Html.fromHtml(getResources().getString(R.string.sales_have_profile_fragment,String.valueOf(user.getSaleHave()))));
-        tvSalesWant.setText(Html.fromHtml(getResources().getString(R.string.sales_want_profile_fragment,String.valueOf(user.getSaleWant()))));
+        tvSalesHave.setText(Html.fromHtml(getResources().getString(R.string.sales_have_profile_fragment, String.valueOf(user.getSaleHave()))));
+        tvSalesWant.setText(Html.fromHtml(getResources().getString(R.string.sales_want_profile_fragment, String.valueOf(user.getSaleWant()))));
         degreeSale.setValue(R.color.white, R.color.colorPrimaryDark, user.getSaleHave(), user.getSaleWant());
     }
 
     @OnClick(R.id.rlt_logout)
     protected void logout() {
-        PrefUtils.savePreferences(getActivity(), PREF_TOKEN, EMPTY);
-        PrefUtils.savePreferences(getActivity(), PREF_APPKEY, EMPTY);
-        PrefUtils.savePreferences(getActivity(), PREF_INFO, EMPTY);
+        LoginClient.logout(getActivity());
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
         getActivity().finish();
     }
 
     @OnClick(R.id.rlt_change_pass)
-    public void onChangePassClick(){
+    public void onChangePassClick() {
         getPresenter().onChangePassClick();
     }
 
     @OnClick(R.id.rlt_list_order)
-    public void onListOrderClick(){
+    public void onListOrderClick() {
         getPresenter().onListOrderClick();
     }
 
     @OnClick(R.id.rlt_logout)
-    public void onLogoutClick(){
+    public void onLogoutClick() {
         getPresenter().onLogOutClick();
     }
 
     @OnClick(R.id.rlt_manager_sales)
-    public void onManagerSalesClick(){
+    public void onManagerSalesClick() {
         getPresenter().onManagerSalesClick();
     }
 
     @OnClick(R.id.rlt_policy_permis)
-    public void onPolicyPermisClick(){
+    public void onPolicyPermisClick() {
 
     }
 
     @OnClick(R.id.rlt_questions)
-    public void onQuestionClick(){
+    public void onQuestionClick() {
 
     }
 }
