@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.paditech.core.helper.PrefUtils;
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
+import com.unza.wipro.AppState;
 import com.unza.wipro.main.contracts.LoginContract;
 import com.unza.wipro.main.models.responses.LoginRSP;
 import com.unza.wipro.services.AppClient;
@@ -40,9 +41,11 @@ public class LoginPresenter extends BasePresenter<LoginContract.ViewImpl> implem
                             if (response.body() != null) {
                                 getView().onLoginResult(response.body().isSuccess(), response.body().getMessage());
                                 if (response.body().isSuccess()) {
-                                    PrefUtils.savePreferences(context, PREF_TOKEN, response.body().getData().getAccessToken());
-                                    PrefUtils.savePreferences(context, PREF_APPKEY, response.body().getData().getAppKey());
-                                    PrefUtils.savePreferences(context, PREF_INFO, new Gson().toJson(response.body().getData().getInfo()));
+                                    AppState.getInstance().saveToCache(
+                                            response.body().getData().getAccessToken(),
+                                            response.body().getData().getAppKey(),
+                                            new Gson().toJson(response.body().getData().getInfo()));
+                                    AppState.getInstance().loadFromCache();
                                 }
                             } else {
                                 getView().onLoginResult(false, "");

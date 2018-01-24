@@ -9,7 +9,7 @@ import android.view.View;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.mvp.MVPFragment;
-import com.unza.wipro.AppConstans;
+import com.unza.wipro.AppState;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.CartItemsAdapter;
 import com.unza.wipro.main.contracts.OrderDetailContract;
@@ -70,7 +70,7 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
         setupRecycleView();
         setupCreateCart();
 
-        Log.e("Cart", AppConstans.app.getCurrentCart().getTotalPrice() + "");
+        Log.e("Cart", AppState.getInstance().getCurrentCart().getTotalPrice() + "");
     }
 
     private void setupCreateCart() {
@@ -92,7 +92,7 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     @Override
     public void onActionSelected(int resId) {
         if (resId == R.id.btnTrash) {
-            AppConstans.app.editCart().clear();
+            AppState.getInstance().editCart().clear();
             mAdapter.notifyDataSetChanged();
         }
         super.onActionSelected(resId);
