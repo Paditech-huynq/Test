@@ -11,6 +11,7 @@ import java.util.Date;
 
 public class DateTimeUtils {
     private static long ONE_DAY = 1000*60*60*24;
+    private static long ONE_SECOND = 1000;
     @SuppressLint("SimpleDateFormat")
     public static String getStringMonthYear(Date date) {
         return new SimpleDateFormat("MM/yyyy").format(date);
@@ -39,7 +40,7 @@ public class DateTimeUtils {
 
     @SuppressLint("SimpleDateFormat")
     public static Date getDateFromServerDayMonthYear(String dateString) {
-        Long longDate = Long.parseLong(dateString);
+        Long longDate = Long.parseLong(dateString)*ONE_SECOND;
         return new Date(longDate);
     }
 

@@ -32,11 +32,10 @@ public class UserData {
     @SerializedName("customers")
     @Expose
     private String customers;
-    @SerializedName("saleHave")
+    @SerializedName("income")
     @Expose
     private String saleHave;
-    // chờ server cập nhập
-    @SerializedName("")
+    @SerializedName("goal")
     @Expose
     private String saleWant;
     @SerializedName("point")
