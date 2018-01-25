@@ -46,13 +46,17 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
             resetData();
             isPending = false;
         }
-        if ((isPending || isFull)) {
+        if ((isPending)) {
             getView().setRefreshing(false);
             return;
         }
         if (isRefresh) {
             resetData();
             getView().setRefreshing(true);
+        }
+        if (isFull) {
+            getView().setRefreshing(false);
+            return;
         }
         isPending = true;
         getView().showProgressDialog(mPage == FIRST_PAGE && !isRefresh);
@@ -62,7 +66,7 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
                     @Override
                     public void onResponse(Call<GetListProductRSP> call, Response<GetListProductRSP> response) {
                         if (!keyword.equals(getView().getCurrentKeyword())) {
-                            lastKeyWord = getView().getCurrentKeyword();
+                            lastKeyWord = keyword;
                             return;
                         }
                         isPending = false;
@@ -79,8 +83,8 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
 
                     @Override
                     public void onFailure(Call<GetListProductRSP> call, Throwable t) {
+                        isPending = false;
                         if (getView() == null) {
-                            isPending = false;
                             return;
                         }
                         getView().setRefreshing(false);

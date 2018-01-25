@@ -16,6 +16,7 @@
         android:drawableLeft="@drawable/ic_lookup3"
         android:drawablePadding="@dimen/padding_normal"
         android:hint="@string/hint_lookup_input"
+        android:maxLines="1"
         android:paddingLeft="@dimen/padding_normal"
         android:paddingRight="@dimen/padding_normal"
         android:textColor="@color/text_dark"
