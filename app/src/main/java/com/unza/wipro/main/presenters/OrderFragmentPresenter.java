@@ -38,13 +38,11 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onCreate() {
         super.onCreate();
-        loadData();
         loadUI();
     }
 
     private void getOrders(final boolean isRefresh) {
         if (isFull && !isRefresh) return;
-        Context context = getView().getContext();
         if (!AppState.getInstance().isLogin()) return;
         if (isRefresh) getView().showProgressDialog(true);
         mPage = isRefresh ? 1 : mPage;
@@ -164,5 +162,11 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onItemClick(int position) {
         getView().goToOrderDetailScreen(position);
+    }
+
+    @Override
+    public void onViewAppear() {
+        super.onViewAppear();
+        loadData();
     }
 }
