@@ -165,4 +165,10 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     public void onItemClick(int position) {
         getView().goToOrderDetailScreen(position);
     }
+
+    @Override
+    public void onViewAppear() {
+        super.onViewAppear();
+        loadData();
+    }
 }
