@@ -44,8 +44,6 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
             @Override
             public void onFailure(Call<GetUserProfileRSP> call, Throwable t) {
                 getView().showProgressDialog(false);
-                t.printStackTrace();
-                Log.e("onFailure: ", "fail");
             }
         });
     }
@@ -73,17 +71,18 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
     @Override
     public void onCreate() {
         super.onCreate();
+        updateUi();
         getUserDataFromServer();
     }
 
     @Override
     public void onViewAppear() {
         super.onViewAppear();
-        onCreatFragment();
         updateUi();
     }
 
     private void updateUi() {
+        getView().startUI();
         getView().updateUI();
         if (AppConstans.app.getCurrentUser() instanceof Customer) {
             getView().updateUIForCustomer();

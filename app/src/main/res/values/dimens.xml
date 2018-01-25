@@ -36,6 +36,7 @@
     <dimen name="avar_height_width">100dp</dimen>
     <dimen name="ic_setting_size">25dp</dimen>
     <dimen name="ic_group_size">50dp</dimen>
+    <dimen name="padding_in_degree_view">70dp</dimen>
 
     <!--orderlist-->
     <dimen name="padding_order_child">7dip</dimen>
