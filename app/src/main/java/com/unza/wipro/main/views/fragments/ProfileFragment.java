@@ -130,11 +130,9 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
         try {
             degreeSale.setValue(R.color.white, R.color.colorPrimary, Long.parseLong(promoter.getSaleHave()), Long.parseLong(promoter.getSaleWant()));
             tvTime.setText(Html.fromHtml(getResources().getString(R.string.time_profile_fragment,
-                    DateTimeUtils.getStringDayMonthYear(new Date(Long.parseLong(promoter.getFrom()))),
-                    DateTimeUtils.getStringDayMonthYear(new Date(Long.parseLong(promoter.getTo()))))));
-        } catch (NumberFormatException ignored) {
-
-        }
+                    DateTimeUtils.getStringDayMonthYear(DateTimeUtils.getDateFromServerDayMonthYear(promoter.getFrom())),
+                    DateTimeUtils.getStringDayMonthYear(DateTimeUtils.getDateFromServerDayMonthYear(promoter.getTo())))));
+        } catch (NumberFormatException ignored) {}
     }
 
     @Override

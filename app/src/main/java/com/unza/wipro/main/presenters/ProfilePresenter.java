@@ -65,18 +65,17 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
     @Override
     public void onCreate() {
         super.onCreate();
-        updateUi();
         getUserDataFromServer();
     }
 
     @Override
     public void onViewAppear() {
         super.onViewAppear();
+        getView().startUI();
         updateUi();
     }
 
     private void updateUi() {
-        getView().startUI();
         getView().updateUI();
         if (AppConstans.app.getCurrentUser() instanceof Customer) {
             getView().updateUIForCustomer();
