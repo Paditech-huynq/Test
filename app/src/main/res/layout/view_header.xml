@@ -32,6 +32,7 @@
 
         <ImageView
             android:id="@+id/imvAvatar"
+            android:padding="@dimen/padding_tiny"
             android:layout_width="@dimen/actionbar_button_size"
             android:layout_height="@dimen/actionbar_button_size"
             android:layout_centerVertical="true"
