@@ -29,13 +29,21 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
     }
 
     private void loadListCustomerFromServer(final boolean isRefresh) {
-        if ((isFull || isPending) && !lastKeyWord.equals(getView().getCurrentKeyWord())) {
+        if (!lastKeyWord.equals(getView().getCurrentKeyWord())) {
+            resetData();
+            isPending = false;
+        }
+        if (isPending) {
             getView().setRefreshing(false);
             return;
         }
         if (isRefresh) {
-            getView().setRefreshing(true);
             resetData();
+            getView().setRefreshing(true);
+        }
+        if (isFull) {
+            getView().setRefreshing(false);
+            return;
         }
         isPending = true;
         final String keyWord = getView().getCurrentKeyWord();
@@ -47,10 +55,11 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
                 .enqueue(new Callback<GetListCustomerRSP>() {
                     @Override
                     public void onResponse(Call<GetListCustomerRSP> call, Response<GetListCustomerRSP> response) {
-                        isPending = false;
                         if (!keyWord.equals(getView().getCurrentKeyWord())) {
+                            lastKeyWord = keyWord;
                             return;
                         }
+                        isPending = false;
                         if (getView() == null) {
                             return;
                         }
@@ -67,8 +76,8 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
                         if (getView() == null) {
                             return;
                         }
-                        getView().showProgressDialog(false);
                         getView().setRefreshing(false);
+                        getView().showProgressDialog(false);
                     }
                 });
     }
@@ -80,9 +89,7 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
 
     private void loadListCustomerSuccess(boolean isRefresh, List<Customer> customerList) {
         page++;
-        if (customerList.size() < PAGE_SIZE) {
-            isFull = true;
-        }
+        isFull = customerList.size() < PAGE_SIZE;
         if (isRefresh || !lastKeyWord.equals(getView().getCurrentKeyWord())) {
             getView().refreshData(customerList);
         } else {
