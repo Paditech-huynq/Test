@@ -16,6 +16,7 @@ import com.unza.wipro.main.contracts.OrderDetailContract;
 import com.unza.wipro.main.models.Order;
 import com.unza.wipro.main.presenters.OrderDetailPresenter;
 import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
+import com.unza.wipro.transaction.user.Customer;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -149,6 +150,11 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     @OnClick(R.id.btnSubmit)
     void onSubmitBtnClick() {
         //todo: implement payment logic here
+        if (AppState.getInstance().getCurrentUser() instanceof Customer) {
+            switchFragment(DeliveryInfoFragment.newInstance(), true);
+        } else {
+
+        }
     }
 
     @OnClick(R.id.btnLookup)

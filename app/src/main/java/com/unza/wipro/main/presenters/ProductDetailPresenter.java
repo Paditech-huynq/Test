@@ -26,26 +26,27 @@ public class ProductDetailPresenter extends BasePresenter<ProductDetailContract.
     private void getProductDetail() {
         Product product = getView().getProduct();
         if (product == null || product.getId() < 0) return;
-        getView().showProgressDialog(true);
-        AppClient.newInstance().getService().getProductDetail(String.valueOf(product.getId()))
-                .enqueue(new Callback<GetProductDetailRSP>() {
-                    @Override
-                    public void onResponse(Call<GetProductDetailRSP> call, Response<GetProductDetailRSP> response) {
-                        try {
-                            getView().showProgressDialog(false);
-                            if (response.body() != null) {
-                                getView().showProductDetail(response.body().getProduct());
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<GetProductDetailRSP> call, Throwable t) {
-                        getView().showProgressDialog(false);
-                        getView().showToast(t.getLocalizedMessage());
-                    }
-                });
+        getView().showProductDetail(product);
+//        getView().showProgressDialog(true);
+//        AppClient.newInstance().getService().getProductDetail(String.valueOf(product.getId()))
+//                .enqueue(new Callback<GetProductDetailRSP>() {
+//                    @Override
+//                    public void onResponse(Call<GetProductDetailRSP> call, Response<GetProductDetailRSP> response) {
+//                        try {
+//                            getView().showProgressDialog(false);
+//                            if (response.body() != null) {
+//                                getView().showProductDetail(response.body().getProduct());
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<GetProductDetailRSP> call, Throwable t) {
+//                        getView().showProgressDialog(false);
+//                        getView().showToast(t.getLocalizedMessage());
+//                    }
+//                });
     }
 }
