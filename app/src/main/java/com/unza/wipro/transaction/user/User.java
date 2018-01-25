@@ -129,9 +129,16 @@ public abstract class User implements UserInfo {
                     }
                     break;
             }
-            assert user != null;
-            user.setAvatar(loginInfo.getAvatar());
+            updateBase(user);
             return user;
+        }
+
+        private void updateBase(User user) {
+            user.setId(String.valueOf(loginInfo.getId()));
+            user.setName(loginInfo.getName());
+            user.setAddress(loginInfo.getAddress());
+            user.setAvatar(loginInfo.getAvatar());
+            user.setEmail(loginInfo.getEmail());
         }
     }
 }
