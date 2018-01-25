@@ -1,11 +1,12 @@
 package com.unza.wipro.transaction;
 
 import com.unza.wipro.transaction.cart.Cart;
+import com.unza.wipro.transaction.user.DeliveryInfo;
 
 import java.util.Date;
 
 public class OrderTransaction extends Transaction {
-    private Date receiveTime;
+    private DeliveryInfo deliveryInfo;
 
     enum PaymentMethod {
         COD("Cod"), CreditCard("CreditCard");
@@ -32,13 +33,11 @@ public class OrderTransaction extends Transaction {
         return false;
     }
 
-
-    public Date getReceiveTime() {
-        return receiveTime;
+    public DeliveryInfo getDeliveryInfo() {
+        return deliveryInfo;
     }
 
-    public void setReceiveTime(Date receiveTime) {
-        this.receiveTime = receiveTime;
+    public void setDeliveryInfo(DeliveryInfo deliveryInfo) {
+        this.deliveryInfo = deliveryInfo;
     }
-
 }
