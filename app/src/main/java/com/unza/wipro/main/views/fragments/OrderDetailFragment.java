@@ -48,7 +48,7 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     }
 
     private ViewMode viewMode;
-    private Order mOrder;
+    private int mOrderID;
 
     private int scrollX, scrollY;
 
@@ -64,13 +64,12 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
         return fragment;
     }
 
-    public static OrderDetailFragment newInstance(ViewMode viewMode, Order order) {
+    public static OrderDetailFragment newInstance(ViewMode viewMode, int orderID) {
         OrderDetailFragment fragment = newInstance();
         fragment.viewMode = viewMode;
-        fragment.mOrder = order;
+        fragment.mOrderID = orderID;
         return fragment;
     }
-
 
     private void setupReceiver() {
         IntentFilter intentFilter = new IntentFilter("android.intent.action.MAIN");
@@ -92,7 +91,7 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
 
     @Override
     public String getScreenTitle() {
-        String id = mOrder != null ? String.valueOf(mOrder.getId()) : "";
+        String id = mOrderID != 0 ? String.valueOf(mOrderID) : "";
         return getString(R.string.order_detail_title, id);
     }
 
@@ -108,8 +107,8 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
 
     private void setupCreateCart() {
         bottomBar.setVisibility(viewMode == ViewMode.MODE_CREATE ? View.VISIBLE : View.GONE);
-        if (viewMode == ViewMode.MODE_SEE && mOrder != null) {
-            String id = mOrder != null ? String.valueOf(mOrder.getId()) : "";
+        if (viewMode == ViewMode.MODE_SEE && mOrderID != 0) {
+            String id = mOrderID != 0 ? String.valueOf(mOrderID) : "";
             setScreenTitle(getString(R.string.order_detail_title, id));
         }
     }
@@ -132,8 +131,8 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     }
 
     @Override
-    public Order getOrder() {
-        return mOrder;
+    public int getOrderId() {
+        return mOrderID;
     }
 
     @Override
@@ -163,11 +162,7 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     }
 
     private void setupRecycleView() {
-        if (viewMode == ViewMode.MODE_CREATE) {
-            mAdapter = new CartItemsAdapter(null);
-        } else if (viewMode == ViewMode.MODE_SEE) {
-            mAdapter = new CartItemsAdapter(Order.newInstance());
-        }
+        mAdapter = new CartItemsAdapter(viewMode);
 
         mAdapter.setOnViewClickListener(new BaseRecycleViewAdapter.ViewClickListener() {
             @Override

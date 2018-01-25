@@ -8,7 +8,7 @@ import com.unza.wipro.transaction.Transaction;
 
 public interface OrderDetailContract {
     interface ViewImpl extends BaseViewImpl {
-        Order getOrder();
+        int getOrderId();
         void showOrderDetail(Order order);
     }
 

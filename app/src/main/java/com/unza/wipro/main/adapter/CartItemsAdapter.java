@@ -15,9 +15,11 @@ import com.unza.wipro.R;
 import com.unza.wipro.main.models.Order;
 import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.views.customs.AmountView;
+import com.unza.wipro.main.views.fragments.OrderDetailFragment;
 import com.unza.wipro.transaction.cart.Cart;
 import com.unza.wipro.transaction.cart.CartInfo;
 import com.unza.wipro.transaction.user.Customer;
+import com.unza.wipro.transaction.user.User;
 
 import java.util.Date;
 
@@ -28,8 +30,9 @@ import butterknife.OnClick;
 public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConstans {
     private final static int TYPE_INFO = 0;
     private final static int TYPE_ITEM = 1;
-    private Order mOrder;
-    private Customer customer;
+    private Order mOrder = Order.newInstance();
+    private User customer;
+    private OrderDetailFragment.ViewMode viewMode;
 
     public void updateOrder(Order mOrder) {
         this.mOrder = mOrder;
@@ -37,13 +40,13 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         notifyDataSetChanged();
     }
 
-    public CartItemsAdapter(Order order) {
-        this.mOrder = order;
+    public CartItemsAdapter(OrderDetailFragment.ViewMode viewMode) {
+        this.viewMode = viewMode;
     }
 
     @Override
     public Product getItem(int position) {
-        if (mOrder != null) {
+        if (mOrder.getCart() != null && mOrder.getCart().getItemCount() != 0) {
             return mOrder.getCart().getItem(position);
         }
         return app.getCurrentCart().getItem(position);
@@ -59,7 +62,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
     @Override
     public int getItemCount() {
-        if (mOrder != null) {
+        if (mOrder.getProducts() != null && mOrder.getProducts().size() != 0) {
             return mOrder.getCart().getItemCount() + 1;
         }
         return app.getCurrentCart().getItemCount() + 1;

@@ -89,7 +89,7 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
         super.onActionSelected(resId);
         switch (resId) {
             case R.id.btnCart:
-                switchFragment(OrderDetailFragment.newInstance(OrderDetailFragment.ViewMode.MODE_CREATE, null), true);
+                switchFragment(OrderDetailFragment.newInstance(OrderDetailFragment.ViewMode.MODE_CREATE, 0), true);
                 break;
             case R.id.btnNotification:
                 switchFragment(NotificationFragment.newInstance(), true);
