@@ -86,7 +86,6 @@ public class AppState {
         token = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_TOKEN, AppConstans.EMPTY);
         appKey = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_APPKEY, AppConstans.EMPTY);
         String info = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_INFO, AppConstans.EMPTY);
-        Log.e("loadFromCache: ", info);
         if (!StringUtil.isEmpty(info)) {
             try {
                 currentUser = new User.Builder(new Gson().fromJson(info, LoginInfo.class)).build();
@@ -139,5 +138,8 @@ public class AppState {
                 ((PromoterLeader) currentUser).setMemberGroupId(user.getMemberGroupId());
             }
         }
+        saveToCache(PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_TOKEN, AppConstans.EMPTY),
+                PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_APPKEY, AppConstans.EMPTY),
+                new Gson().toJson(currentUser));
     }
 }
