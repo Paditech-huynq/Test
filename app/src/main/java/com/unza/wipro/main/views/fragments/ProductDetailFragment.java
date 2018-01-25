@@ -133,7 +133,7 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
         mCodeText.setText(getString(R.string.product_detail_code, product.getCode()));
         mPriceText.setText(getString(R.string.product_detail_price, StringUtil.formatMoney(product.getPrice())));
         mDescText.setText(product.getNote());
-        if (product.getImages() != null) {
+        if (product.getImages() != null && !product.getImages().isEmpty()) {
             mImageAdapter.setData(product.getImages());
         }
         showCategories(product);
