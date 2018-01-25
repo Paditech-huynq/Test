@@ -9,6 +9,7 @@ import com.unza.wipro.main.contracts.OrderDetailContract;
 import com.unza.wipro.main.models.Order;
 import com.unza.wipro.main.models.responses.GetOrderDetailRSP;
 import com.unza.wipro.services.AppClient;
+import com.unza.wipro.transaction.Transaction;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,5 +52,12 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
                         getView().showToast(t.getLocalizedMessage());
                     }
                 });
+    }
+
+    @Override
+    public void submitOrder(Transaction transaction) {
+        if (!AppState.getInstance().isLogin()) return;
+        getView().showToast("submited");
+        transaction = null;
     }
 }

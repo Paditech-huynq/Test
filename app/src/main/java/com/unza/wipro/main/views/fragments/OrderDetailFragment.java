@@ -21,7 +21,16 @@ import com.unza.wipro.main.contracts.OrderDetailContract;
 import com.unza.wipro.main.models.Order;
 import com.unza.wipro.main.presenters.OrderDetailPresenter;
 import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
+import com.unza.wipro.transaction.DirectTransaction;
+import com.unza.wipro.transaction.OrderTransaction;
+import com.unza.wipro.transaction.Transaction;
+import com.unza.wipro.transaction.cart.Cart;
 import com.unza.wipro.transaction.user.Customer;
+import com.unza.wipro.transaction.user.DeliveryInfo;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -44,6 +53,7 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     private int scrollX, scrollY;
 
     private CartItemsAdapter mAdapter;
+    Transaction mTransaction;
 
     public static OrderDetailFragment newInstance() {
 
@@ -132,6 +142,26 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
         mAdapter.updateOrder(order);
     }
 
+    @Override
+    public void onViewAppear() {
+        super.onViewAppear();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onViewDisappear() {
+        super.onViewDisappear();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onUpdateDeliveryInfo(DeliveryInfo info) {
+        if (mTransaction != null && mTransaction instanceof OrderTransaction) {
+            ((OrderTransaction) mTransaction).setDeliveryInfo(info);
+        }
+        EventBus.getDefault().removeStickyEvent(info);
+    }
+
     private void setupRecycleView() {
         if (viewMode == ViewMode.MODE_CREATE) {
             mAdapter = new CartItemsAdapter(null);
@@ -173,9 +203,18 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     void onSubmitBtnClick() {
         //todo: implement payment logic here
         if (AppState.getInstance().getCurrentUser() instanceof Customer) {
-            switchFragment(DeliveryInfoFragment.newInstance(), true);
+            if (mTransaction == null) mTransaction = new OrderTransaction();
+            mTransaction.create(1, (Cart) AppState.getInstance().getCurrentCart());
+            DeliveryInfo info = ((OrderTransaction) mTransaction).getDeliveryInfo();
+            if (info == null) {
+                switchFragment(DeliveryInfoFragment.newInstance(), true);
+            } else {
+                getPresenter().submitOrder(mTransaction);
+            }
         } else {
-
+            if (mTransaction == null) mTransaction = new DirectTransaction();
+            mTransaction.create(1, (Cart) AppState.getInstance().getCurrentCart());
+            getPresenter().submitOrder(mTransaction);
         }
     }
 

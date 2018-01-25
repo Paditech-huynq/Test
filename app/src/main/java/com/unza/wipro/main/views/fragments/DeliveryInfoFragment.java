@@ -8,10 +8,14 @@ import android.widget.TextView;
 
 import com.paditech.core.helper.StringUtil;
 import com.paditech.core.mvp.MVPFragment;
+import com.unza.wipro.AppState;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.DeliveryInfoContract;
 import com.unza.wipro.main.presenters.DeliveryInfoPresenter;
+import com.unza.wipro.transaction.user.DeliveryInfo;
 import com.unza.wipro.utils.DateTimeUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -55,6 +59,15 @@ public class DeliveryInfoFragment extends MVPFragment<DeliveryInfoPresenter> imp
     @Override
     public String getScreenTitle() {
         return getString(R.string.delivery_info_title);
+    }
+
+    @Override
+    public void initView() {
+        super.initView();
+        String name =  AppState.getInstance().getCurrentUser().getName();
+        String phone =  AppState.getInstance().getCurrentUser().getPhone();
+        mNameText.setText(name);
+        mPhoneText.setText(phone);
     }
 
     @Override
@@ -116,11 +129,12 @@ public class DeliveryInfoFragment extends MVPFragment<DeliveryInfoPresenter> imp
     @OnClick(R.id.btnRegister)
     protected void submit() {
         String name = mNameText.getText().toString().trim();
-        String phone = mNameText.getText().toString().trim();
-        String address = mNameText.getText().toString().trim();
-        String date = mNameText.getText().toString().trim();
-        String note = mNameText.getText().toString().trim();
+        String phone = mPhoneText.getText().toString().trim();
+        String address = mAddressText.getText().toString().trim();
+        String date = mDateText.getText().toString().trim();
+        String note = mNoteText.getText().toString().trim();
         if (!validate(name, phone)) return;
-        getPresenter().submit(name, phone, address, date, note);
+        getActivity().onBackPressed();
+        EventBus.getDefault().postSticky(new DeliveryInfo(name, phone, address, date, note));
     }
 }
