@@ -1,9 +1,34 @@
 package com.unza.wipro.main.models;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginInfo {
 
+    @SerializedName("phone")
+    @Expose
+    private String phone;
+    @SerializedName("order")
+    @Expose
+    private String order;
+    @SerializedName("customers")
+    @Expose
+    private String customers;
+    @SerializedName("income")
+    @Expose
+    private String saleHave;
+    @SerializedName("goal")
+    @Expose
+    private String saleWant;
+    @SerializedName("point")
+    @Expose
+    private String point;
+    @SerializedName("from")
+    @Expose
+    private String from;
+    @SerializedName("to")
+    @Expose
+    private String to;
     @SerializedName("id")
     private int id;
     @SerializedName("name")
@@ -20,6 +45,71 @@ public class LoginInfo {
     private String isManager;
     @SerializedName("member_group_id")
     private String memberGroupId;
+
+    public String getSaleWant() {
+        return saleWant;
+    }
+
+    public void setSaleWant(String saleWant) {
+        this.saleWant = saleWant;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public String getPoint() {
+        return point;
+    }
+
+    public void setPoint(String point) {
+        this.point = point;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
+    }
+
+    public String getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(String customers) {
+        this.customers = customers;
+    }
+
+    public String getSaleHave() {
+        return saleHave;
+    }
+
+    public void setSaleHave(String saleHave) {
+        this.saleHave = saleHave;
+    }
 
     public int getId() {
         return id;
