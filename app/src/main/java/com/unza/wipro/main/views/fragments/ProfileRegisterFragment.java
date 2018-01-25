@@ -198,6 +198,7 @@ public class ProfileRegisterFragment extends BaseFragment {
     }
 
     private String getRealImagePath(Uri imageUri) {
+        String imagePath = null;
         String wholeID = DocumentsContract.getDocumentId(imageUri);
         String id = wholeID.split(":")[1];
         String[] column = {MediaStore.Images.Media.DATA};
@@ -210,10 +211,10 @@ public class ProfileRegisterFragment extends BaseFragment {
                 null);
         int columnIndex = cursor.getColumnIndex(column[0]);
         if (cursor.moveToFirst()) {
-            mCurrentPhotoPath = cursor.getString(columnIndex);
+            imagePath = cursor.getString(columnIndex);
         }
         cursor.close();
-        return null;
+        return imagePath;
     }
 
     public void slideUp() {
