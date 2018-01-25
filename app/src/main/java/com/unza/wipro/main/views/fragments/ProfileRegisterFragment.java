@@ -300,7 +300,7 @@ public class ProfileRegisterFragment extends BaseFragment {
 
     @OnClick(R.id.btnRegister)
     void submitRegister() {
-        if (!LoginClient.isLogin(getView().getContext())) {
+        if (!AppState.getInstance().isLogin()) {
             return;
         }
         if (dataIsValid()) {
@@ -318,7 +318,7 @@ public class ProfileRegisterFragment extends BaseFragment {
             if (mCurrentPhotoPath != null) {
                 File file = new File(mCurrentPhotoPath);
                 RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                body = MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
+                body = MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
             }
 
             AppClient.newInstance().getService().createCustomer(
