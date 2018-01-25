@@ -2,11 +2,12 @@ package com.unza.wipro.main.presenters;
 
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
+import com.unza.wipro.AppState;
 import com.unza.wipro.main.contracts.ProfileListContract;
-import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.main.models.responses.GetListCustomerRSP;
 import com.unza.wipro.main.views.fragments.ProfileListFragment;
 import com.unza.wipro.services.AppClient;
+import com.unza.wipro.transaction.user.Customer;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
     private int page = FIRST_PAGE;
     private boolean isFull;
     private boolean isPending;
+    private String lastKeyWord = "";
 
     @Override
     public void onCreate() {
@@ -27,21 +29,28 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
     }
 
     private void loadListCustomerFromServer(final boolean isRefresh) {
+        if ((isFull || isPending) && !lastKeyWord.equals(getView().getCurrentKeyWord())) {
+            getView().setRefreshing(false);
+            return;
+        }
         if (isRefresh) {
             getView().setRefreshing(true);
             resetData();
         }
-        if (isFull || isPending) {
-            getView().setRefreshing(false);
-            return;
-        }
         isPending = true;
-        getView().showProgressDialog(page == FIRST_PAGE);
-        AppClient.newInstance().getService().getListCustomer(page, PAGE_SIZE, EMPTY)
+        final String keyWord = getView().getCurrentKeyWord();
+        getView().showProgressDialog(page == FIRST_PAGE && !isRefresh);
+        AppClient.newInstance().getService().getListCustomer(
+                AppState.getInstance().getToken(),
+                AppState.getInstance().getAppKey(),
+                page, PAGE_SIZE, keyWord)
                 .enqueue(new Callback<GetListCustomerRSP>() {
                     @Override
                     public void onResponse(Call<GetListCustomerRSP> call, Response<GetListCustomerRSP> response) {
                         isPending = false;
+                        if (!keyWord.equals(getView().getCurrentKeyWord())) {
+                            return;
+                        }
                         if (getView() == null) {
                             return;
                         }
@@ -74,11 +83,12 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
         if (customerList.size() < PAGE_SIZE) {
             isFull = true;
         }
-        if (isRefresh) {
+        if (isRefresh || !lastKeyWord.equals(getView().getCurrentKeyWord())) {
             getView().refreshData(customerList);
         } else {
             getView().addItemToList(customerList);
         }
+        lastKeyWord = getView().getCurrentKeyWord();
     }
 
     @Override
@@ -87,7 +97,13 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
     }
 
     @Override
-    public void onRefresh(List<Customer> customerList) {
-        // TODO: on pull to refresh
+    public void onRefresh() {
+        loadListCustomerFromServer(true);
+    }
+
+    @Override
+    public void searchByKeyWord() {
+        resetData();
+        loadListCustomerFromServer(false);
     }
 }
