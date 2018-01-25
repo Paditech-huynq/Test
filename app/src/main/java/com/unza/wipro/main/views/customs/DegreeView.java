@@ -28,6 +28,7 @@ public class DegreeView extends View {
     private static final float SCALE_FACTOR_FOR_SMALLER_WIDTH = 12;
     private static final int DEGREE_BALANCE = 180;
     private static final int SCALE_FACTOR_FOR_BIG_WIDTH = 2;
+    private static final float SCALE_DISTANCE_FOR_TEXT = 6;
     private Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
 
     public int getBackground1() {
@@ -89,11 +90,11 @@ public class DegreeView extends View {
             radius = width / 2;
             coordinateXToDraw = width / 2;
             coordinateYToDraw = height / 2;
-            text_size = (int) (width * SCALE_FACTOR_FOR_SMALLER_WIDTH
-);
+            text_size = (int) (width * SCALE_FACTOR_FOR_SMALLER_WIDTH);
         }
         final RectF oval = new RectF();
         int sweepAngle = (int) ((DEGREE_BALANCE * value) / maxvalue);
+        long percentage = value * 100 / maxvalue;
         String text = String.valueOf(value * 100 / maxvalue) + " %";
         oval.set(coordinateXToDraw - radius,
                 coordinateYToDraw - radius,
@@ -107,7 +108,17 @@ public class DegreeView extends View {
         paintDrawText.setTextSize(text_size);
         paintDrawText.setStrokeWidth(1);
         paintDrawText.setTextAlign(Paint.Align.CENTER);
-        mCanvas.drawText(text, coordinateXToDraw, coordinateYToDraw - (text_size / 2), paintDrawText);
+        if(percentage<50){
+            paintDrawText.setColor(Color.BLACK);
+            mCanvas.drawText(text,coordinateXToDraw + coordinateXToDraw/SCALE_DISTANCE_FOR_TEXT,
+                coordinateYToDraw - coordinateYToDraw/SCALE_DISTANCE_FOR_TEXT,
+                paintDrawText);
+        } else {
+            paintDrawText.setColor(Color.WHITE);
+            mCanvas.drawText(text,coordinateXToDraw - coordinateXToDraw/SCALE_DISTANCE_FOR_TEXT,
+                    coordinateYToDraw - coordinateYToDraw/SCALE_DISTANCE_FOR_TEXT,
+                    paintDrawText);
+        }
         canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
         canvas.restore();
     }
