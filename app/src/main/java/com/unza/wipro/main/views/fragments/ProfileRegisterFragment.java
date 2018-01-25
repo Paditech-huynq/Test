@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.ImageHelper;
+import com.unza.wipro.AppState;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.Customer;
 import com.unza.wipro.main.models.LoginClient;
@@ -321,8 +322,8 @@ public class ProfileRegisterFragment extends BaseFragment {
             }
 
             AppClient.newInstance().getService().createCustomer(
-                    LoginClient.getToken(getView().getContext()),
-                    LoginClient.getAppKey(getView().getContext()),
+                    AppState.getInstance().getToken(),
+                    AppState.getInstance().getAppKey(),
                     name, phone, email, address, body)
                     .enqueue(new Callback<CreateCustomerRSP>() {
                         @Override
