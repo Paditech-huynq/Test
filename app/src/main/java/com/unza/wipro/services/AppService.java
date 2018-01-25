@@ -63,7 +63,9 @@ public interface AppService {
                          @Field("device_token") String device_token);
 
     @POST("customer/list")
-    Call<GetListCustomerRSP> getListCustomer(@Query("page") int page, @Query("page_size") int pageSize, @Query("key") String key);
+    Call<GetListCustomerRSP> getListCustomer(@Header("Authorization") String token, @Header("AppKey") String appKey,
+                                             @Query("page") int page, @Query("page_size") int pageSize,
+                                             @Query("key") String key);
 
     @Multipart
     @POST("customer/create")

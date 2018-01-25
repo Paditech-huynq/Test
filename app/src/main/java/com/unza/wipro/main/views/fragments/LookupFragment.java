@@ -1,7 +1,9 @@
 package com.unza.wipro.main.views.fragments;
 
-import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -10,16 +12,34 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
-import com.paditech.core.BaseFragment;
+import com.paditech.core.common.BaseRecycleViewAdapter;
+import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
-import com.unza.wipro.main.adapter.LookupAdaper;
+import com.unza.wipro.main.adapter.LookupAdapter;
+import com.unza.wipro.main.contracts.LookupContract;
+import com.unza.wipro.main.models.Product;
+import com.unza.wipro.main.presenters.LookupPresent;
 import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
+
+import java.util.List;
 
 import butterknife.BindView;
 
-public class LookupFragment extends BaseFragment {
+public class LookupFragment extends MVPFragment<LookupPresent> implements LookupContract.ViewImpl, BaseRecycleViewAdapter.LoadMoreListener {
     @BindView(R.id.edtSearch)
     EditText edtSearch;
+    @BindView(R.id.rcvLookup)
+    RecyclerView mRecyclerView;
+    private static final int DRAWABLE_RIGHT = 2;
+    private static final int SEARCH_DELAY = 500;
+    private Runnable searchRunnable = new Runnable() {
+        @Override
+        public void run() {
+            getPresenter().searchByKeyWord();
+        }
+    };
+    private Handler searchHandler = new Handler();
+    LookupAdapter mAdapter;
 
     @BindView(R.id.layoutLoading)
     View layoutLoading;
@@ -32,11 +52,6 @@ public class LookupFragment extends BaseFragment {
         fragment.setArguments(args);
         return fragment;
     }
-
-    @BindView(R.id.rcvLookup)
-    RecyclerView mRecyclerView;
-
-    LookupAdaper mAdaper;
 
     @Override
     protected int getLayoutResource() {
@@ -59,21 +74,13 @@ public class LookupFragment extends BaseFragment {
         setupSearchView();
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     private void setupSearchView() {
         edtSearch.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_LEFT = 0;
-                final int DRAWABLE_TOP = 1;
-                final int DRAWABLE_RIGHT = 2;
-                final int DRAWABLE_BOTTOM = 3;
-
                 if (event.getAction() == MotionEvent.ACTION_UP && edtSearch.getCompoundDrawables()[DRAWABLE_RIGHT] != null) {
                     if (event.getRawX() >= (edtSearch.getRight() - edtSearch.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width() - edtSearch.getCompoundDrawablePadding() * 2)) {
-                        // your action here
                         edtSearch.setText("");
-
                         return true;
                     }
                 }
@@ -82,11 +89,6 @@ public class LookupFragment extends BaseFragment {
         });
 
         edtSearch.addTextChangedListener(new TextWatcher() {
-            final int DRAWABLE_LEFT = 0;
-            final int DRAWABLE_TOP = 1;
-            final int DRAWABLE_RIGHT = 2;
-            final int DRAWABLE_BOTTOM = 3;
-
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -99,20 +101,36 @@ public class LookupFragment extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                searchHandler.removeCallbacks(searchRunnable);
                 if (edtSearch.getText().length() > 0) {
                     edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, R.drawable.ic_cancel, 0);
                 } else {
                     edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, 0, 0);
                 }
+                searchHandler.postDelayed(searchRunnable, SEARCH_DELAY);
             }
         });
     }
 
     private void setupRecycleView() {
-        mAdaper = new LookupAdaper();
+        mAdapter = new LookupAdapter();
         mRecyclerView.addItemDecoration(new VerticalSpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_normal)));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.setAdapter(mAdaper);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                getPresenter().onLoadMore();
+            }
+        });
+        setPullToRefreshColor(Color.BLUE);
+        enablePullToRefresh(true);
+        setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getPresenter().onRefresh();
+            }
+        });
     }
 
     @Override
@@ -126,6 +144,26 @@ public class LookupFragment extends BaseFragment {
             return true;
         }
         return super.isActionShow(resId);
+    }
+
+    @Override
+    public void updateItemToList(List<Product> productList) {
+        mAdapter.updateItemToList(productList);
+    }
+
+    @Override
+    public void refreshProductList(List<Product> productList) {
+        mAdapter.refreshProductList(productList);
+    }
+
+    @Override
+    public String getCurrentKeyword() {
+        return edtSearch.getText().toString();
+    }
+
+    @Override
+    public void onLoadMore() {
+        getPresenter().onLoadMore();
     }
 
     @Override

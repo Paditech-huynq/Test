@@ -1,7 +1,5 @@
 package com.unza.wipro.main.presenters;
 
-import android.util.Log;
-
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.AppState;
@@ -10,9 +8,6 @@ import com.unza.wipro.main.models.responses.GetUserProfileRSP;
 import com.unza.wipro.services.AppClient;
 import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.transaction.user.Promoter;
-import com.unza.wipro.transaction.user.PromoterLeader;
-import com.unza.wipro.transaction.user.User;
-import com.unza.wipro.transaction.user.UserData;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +23,6 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
     @Override
     public void getUserDataFromServer() {
         if (AppConstans.app.getCurrentUser() == null) {
-            Log.e("getUserDataFromServer: ", "ko co");
             return;
         }
         getView().showProgressDialog(true);
@@ -44,8 +38,6 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
             @Override
             public void onFailure(Call<GetUserProfileRSP> call, Throwable t) {
                 getView().showProgressDialog(false);
-                t.printStackTrace();
-                Log.e("onFailure: ", "fail");
             }
         });
     }
@@ -79,7 +71,7 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
     @Override
     public void onViewAppear() {
         super.onViewAppear();
-        onCreatFragment();
+        getView().startUI();
         updateUi();
     }
 

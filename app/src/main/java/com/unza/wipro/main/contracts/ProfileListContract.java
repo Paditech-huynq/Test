@@ -10,12 +10,14 @@ public interface ProfileListContract {
     interface ViewImpl extends BaseViewImpl {
         void addItemToList(List<Customer> customerList);
 
-        void refreshData(List<Customer> customerList);
+        String getCurrentKeyWord();
     }
 
     interface Presenter extends BasePresenterImpl {
         void onLoadMore();
 
-        void onRefresh(List<Customer> customerList);
+        void onRefresh();
+
+        void searchByKeyWord();
     }
 }

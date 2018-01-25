@@ -46,8 +46,7 @@
                         android:id="@+id/img_avar"
                         android:layout_width="@dimen/avar_height_width"
                         android:layout_height="@dimen/avar_height_width"
-                        android:scaleType="centerCrop"
-                         />
+                        android:scaleType="centerCrop" />
                 </LinearLayout>
 
 
@@ -122,9 +121,9 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
+                            android:text="@string/point_profile_fragment"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/text_size_normal"
-                            android:text="@string/point_profile_fragment"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
@@ -292,51 +291,36 @@
                     android:layout_marginBottom="@dimen/padding_normal"
                     android:layout_marginTop="@dimen/padding_normal" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tv_time_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/padding_small"
-                    android:layout_marginStart="70dp"
-                    android:layout_marginTop="@dimen/padding_small"
-                    android:orientation="horizontal">
+                    android:paddingBottom="@dimen/padding_small"
+                    android:paddingStart="@dimen/padding_in_degree_view"
+                    android:textColor="@color/text_dark"
+                    android:textSize="@dimen/text_size_normal"
+                    android:maxLines="1" />
 
-                    <TextView
-                        android:id="@+id/tv_time_profile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal" />
-                </LinearLayout>
-
-                <LinearLayout
+                <TextView
+                    android:paddingBottom="@dimen/padding_small"
+                    android:paddingStart="@dimen/padding_in_degree_view"
+                    android:id="@+id/tv_sales_have"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/padding_small"
-                    android:layout_marginStart="70dp"
-                    android:orientation="horizontal">
+                    android:textColor="@color/text_dark"
+                    android:textSize="@dimen/text_size_normal"
+                    android:maxLines="1"/>
 
-                    <TextView
-                        android:id="@+id/tv_sales_have"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal" />
-                </LinearLayout>
-
-                <LinearLayout
+                <TextView
+                    android:paddingBottom="@dimen/padding_small"
+                    android:paddingStart="@dimen/padding_in_degree_view"
+                    android:id="@+id/tv_sales_want"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/padding_small"
-                    android:layout_marginStart="70dp"
-                    android:orientation="horizontal">
+                    android:textColor="@color/text_dark"
+                    android:textSize="@dimen/text_size_normal"
+                    android:maxLines="1"/>
 
-                    <TextView
-                        android:id="@+id/tv_sales_want"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_normal" />
-                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -508,6 +492,7 @@
                 android:textSize="@dimen/text_size_normal" />
         </LinearLayout>
     </ScrollView>
+
     <com.paditech.core.DisableTouchView
         android:id="@+id/layoutLoading"
         android:layout_width="match_parent"

@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.request.RequestOptions;
 import com.paditech.core.DisableTouchView;
 import com.paditech.core.image.GlideApp;
 import com.paditech.core.mvp.MVPFragment;
@@ -22,7 +21,9 @@ import com.unza.wipro.main.views.customs.DegreeView;
 import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.transaction.user.Promoter;
 import com.unza.wipro.transaction.user.PromoterLeader;
-import com.unza.wipro.transaction.user.User;
+import com.unza.wipro.utils.DateTimeUtils;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -108,25 +109,37 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
         tvPhone.setText(AppConstans.app.getCurrentUser().getName());
         tvNumberSales.setText(AppConstans.app.getCurrentUser().getNumberOrders());
         GlideApp.with(this).load(AppConstans.app.getCurrentUser().getAvatar()).circleCrop().into(imgAvar);
+        GlideApp.with(this).load(AppConstans.app.getCurrentUser().getAvatar()).into(imgAvarUnder);
     }
 
     @Override
     public void updateUIForCustomer() {
         tvPoint.setText(getResources().getString(R.string.point_profile_fragment));
-        tvNumberPoint.setText(((Customer)AppConstans.app.getCurrentUser()).getPoint());
+        tvNumberPoint.setText(((Customer) AppConstans.app.getCurrentUser()).getPoint());
     }
 
     @Override
     public void updateUIForPromoter() {
+        Promoter promoter = (Promoter) AppConstans.app.getCurrentUser();
         tvPoint.setText(getResources().getString(R.string.custom_profile_fragment));
-        tvNumberPoint.setText(((Promoter)AppConstans.app.getCurrentUser()).getNumberCustomers());
+        tvNumberPoint.setText(promoter.getNumberCustomers());
+        tvSalesWant.setText(Html.fromHtml(getResources().getString(R.string.sales_want_profile_fragment,
+                promoter.getSaleWant())));
+        tvSalesHave.setText(Html.fromHtml(getResources().getString(R.string.sales_have_profile_fragment,
+                promoter.getSaleHave())));
+        try {
+            degreeSale.setValue(R.color.white, R.color.colorPrimary, Long.parseLong(promoter.getSaleHave()), Long.parseLong(promoter.getSaleWant()));
+            tvTime.setText(Html.fromHtml(getResources().getString(R.string.time_profile_fragment,
+                    DateTimeUtils.getStringDayMonthYear(DateTimeUtils.getDateFromServerDayMonthYear(promoter.getFrom())),
+                    DateTimeUtils.getStringDayMonthYear(DateTimeUtils.getDateFromServerDayMonthYear(promoter.getTo())))));
+        } catch (NumberFormatException ignored) {}
     }
 
     @Override
     public void startUI() {
-        if(AppConstans.app.getCurrentUser() instanceof Promoter){
+        if (AppConstans.app.getCurrentUser() instanceof Promoter) {
             lnDegree.setVisibility(View.VISIBLE);
-            if(AppConstans.app.getCurrentUser() instanceof PromoterLeader){
+            if (AppConstans.app.getCurrentUser() instanceof PromoterLeader) {
                 lnManagerSales.setVisibility(View.VISIBLE);
             }
         }
