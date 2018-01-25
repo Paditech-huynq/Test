@@ -60,11 +60,7 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
             @Override
             public void onPageSelected(int position) {
                 mBottomBar.selectTabAtPosition(position);
-                try {
-                    mAdapter.onViewAppear(position);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
+                mAdapter.onViewAppear(position);
                 ((MainActivity) getActivity()).updateActionButtonAppearance(mAdapter.getItem(position));
 
             }

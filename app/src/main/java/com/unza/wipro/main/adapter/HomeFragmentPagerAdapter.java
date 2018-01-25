@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.paditech.core.BaseFragment;
+import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.main.views.fragments.FakeScannerFragment;
 import com.unza.wipro.main.views.fragments.LookupFragment;
 import com.unza.wipro.main.views.fragments.NewsFragment;
@@ -59,9 +60,21 @@ public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
         for (int i = 0; i < fragments.size(); i++) {
             BaseFragment fragment = fragments.get(i);
             if (i == position) {
-                fragment.onViewAppear();
+                if (fragment instanceof MVPFragment) {
+                    if (!fragment.isVisible()) {
+                        fragment.onViewAppear();
+                    }
+                } else {
+                    fragment.onViewAppear();
+                }
             } else {
-                fragment.onViewDisappear();
+                if (fragment instanceof MVPFragment) {
+                    if (fragment.isVisible()) {
+                        fragment.onViewDisappear();
+                    }
+                } else {
+                    fragment.onViewDisappear();
+                }
             }
         }
     }
