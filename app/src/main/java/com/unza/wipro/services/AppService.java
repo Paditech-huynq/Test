@@ -10,6 +10,7 @@ import com.unza.wipro.main.models.responses.GetOrderDetailRSP;
 import com.unza.wipro.main.models.responses.GetOrdersRSP;
 import com.unza.wipro.main.models.responses.GetProductCategoryRSP;
 import com.unza.wipro.main.models.responses.GetProductDetailRSP;
+import com.unza.wipro.main.models.responses.GetUserProfileRSP;
 import com.unza.wipro.main.models.responses.LoginRSP;
 
 import java.io.File;
@@ -79,4 +80,7 @@ public interface AppService {
     @POST("order/detail")
     @FormUrlEncoded
     Call<GetOrderDetailRSP> getOrderDetail(@Header("Authorization") String token, @Header("AppKey") String appKey, @Field("order_id") int orderId);
+
+    @POST("member/detail")
+    Call<GetUserProfileRSP> getUserProfile(@Header("Authorization") String token, @Header("AppKey") String appKey);
 }

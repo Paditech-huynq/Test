@@ -47,7 +47,7 @@
                         android:layout_width="@dimen/avar_height_width"
                         android:layout_height="@dimen/avar_height_width"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/bg_test" />
+                         />
                 </LinearLayout>
 
 
@@ -76,7 +76,6 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="25"
                             android:textColor="@color/green"
                             android:textSize="@dimen/text_number_sales"
                             android:textStyle="bold"
@@ -111,7 +110,6 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="1600"
                             android:textColor="@color/green"
                             android:textSize="@dimen/text_number_sales"
                             android:textStyle="bold"
@@ -124,9 +122,9 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/point_profile_fragment"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/text_size_normal"
+                            android:text="@string/point_profile_fragment"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
@@ -167,7 +165,6 @@
                         android:paddingEnd="@dimen/padding_normal"
                         android:paddingStart="@dimen/padding_tiny"
                         android:singleLine="true"
-                        android:text="Nguyễn Hoài Bảo Anh"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/text_size_normal" />
                 </RelativeLayout>
@@ -204,7 +201,6 @@
                         android:paddingEnd="@dimen/padding_normal"
                         android:paddingStart="@dimen/padding_tiny"
                         android:singleLine="true"
-                        android:text="0912609016"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/text_size_normal" />
                 </RelativeLayout>
@@ -241,7 +237,6 @@
                         android:paddingEnd="@dimen/padding_normal"
                         android:paddingStart="@dimen/padding_tiny"
                         android:singleLine="true"
-                        android:text="baoanh@gmail.com"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/text_size_normal" />
                 </RelativeLayout>
@@ -278,7 +273,6 @@
                         android:paddingEnd="@dimen/padding_normal"
                         android:paddingStart="@dimen/padding_tiny"
                         android:singleLine="true"
-                        android:text="235 Nguyễn Ngọc Nại, HN"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/text_size_normal" />
                 </RelativeLayout>
@@ -350,7 +344,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <RelativeLayout
 
@@ -514,4 +508,15 @@
                 android:textSize="@dimen/text_size_normal" />
         </LinearLayout>
     </ScrollView>
+    <com.paditech.core.DisableTouchView
+        android:id="@+id/layoutLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="@dimen/actionbar_button_size"
+            android:layout_height="@dimen/actionbar_button_size"
+            android:layout_centerInParent="true" />
+    </com.paditech.core.DisableTouchView>
 </RelativeLayout>
