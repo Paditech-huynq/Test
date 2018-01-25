@@ -1,5 +1,6 @@
 package com.unza.wipro.services;
 
+import com.unza.wipro.main.models.responses.CreateCustomerRSP;
 import com.unza.wipro.main.models.responses.GetListCustomerRSP;
 import com.unza.wipro.main.models.responses.GetListProductRSP;
 import com.unza.wipro.main.models.responses.GetNewsCategoriesRSP;
@@ -9,13 +10,20 @@ import com.unza.wipro.main.models.responses.GetOrderDetailRSP;
 import com.unza.wipro.main.models.responses.GetOrdersRSP;
 import com.unza.wipro.main.models.responses.GetProductCategoryRSP;
 import com.unza.wipro.main.models.responses.GetProductDetailRSP;
+import com.unza.wipro.main.models.responses.GetUserProfileRSP;
 import com.unza.wipro.main.models.responses.LoginRSP;
 
+import java.io.File;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface AppService {
@@ -57,6 +65,12 @@ public interface AppService {
     @POST("customer/list")
     Call<GetListCustomerRSP> getListCustomer(@Query("page") int page, @Query("page_size") int pageSize, @Query("key") String key);
 
+    @Multipart
+    @POST("customer/create")
+    Call<CreateCustomerRSP> createCustomer(@Header("Authorization") String token, @Header("AppKey") String appKey,
+                                           @Part("name") RequestBody name, @Part("phone") RequestBody phone, @Part("email") RequestBody email,
+                                           @Part("address") RequestBody address, @Part MultipartBody.Part avatar);
+
     @POST("order/list")
     @FormUrlEncoded
     Call<GetOrdersRSP> getOrders(@Header("Authorization") String token, @Header("AppKey") String appKey,
@@ -66,4 +80,7 @@ public interface AppService {
     @POST("order/detail")
     @FormUrlEncoded
     Call<GetOrderDetailRSP> getOrderDetail(@Header("Authorization") String token, @Header("AppKey") String appKey, @Field("order_id") int orderId);
+
+    @POST("member/detail")
+    Call<GetUserProfileRSP> getUserProfile(@Header("Authorization") String token, @Header("AppKey") String appKey);
 }

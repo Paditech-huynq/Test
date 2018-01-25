@@ -9,19 +9,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.request.RequestOptions;
+import com.paditech.core.DisableTouchView;
 import com.paditech.core.image.GlideApp;
 import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.AppState;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.ProfileContract;
-import com.unza.wipro.main.models.User_;
 import com.unza.wipro.main.presenters.ProfilePresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
 import com.unza.wipro.main.views.customs.DegreeView;
-import com.unza.wipro.utils.DateTimeUtils;
-
-import java.util.Calendar;
+import com.unza.wipro.transaction.user.Customer;
+import com.unza.wipro.transaction.user.Promoter;
+import com.unza.wipro.transaction.user.PromoterLeader;
+import com.unza.wipro.transaction.user.User;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -57,10 +58,8 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     TextView tvSalesHave;
     @BindView(R.id.degree_sale)
     DegreeView degreeSale;
-
-    public static final int TYPE_USER_CUSTOM = 0;
-    public static final int TYPE_USER_EMPLOYEE = 1;
-    public static final int TYPE_USER_MANAGER = 2;
+    @BindView(R.id.layoutLoading)
+    DisableTouchView layoutLoading;
 
     @Override
     protected int getLayoutResource() {
@@ -79,26 +78,6 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
         ProfileFragment fragment = new ProfileFragment();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void updateUI(User_ user) {
-        switch (user.getTypeUse()) {
-            case TYPE_USER_MANAGER:
-                lnManagerSales.setVisibility(View.VISIBLE);
-            case TYPE_USER_EMPLOYEE:
-                tvPoint.setText(getText(R.string.custom_profile_fragment));
-                lnDegree.setVisibility(View.VISIBLE);
-                updateUIForEmployee(user);
-            default:
-                tvNumberPoint.setText(String.valueOf(user.getNumberPoint()));
-                break;
-        }
-        tvNumberSales.setText(String.valueOf(user.getNumberSales()));
-        tvName.setText(user.getName());
-        tvEmail.setText(user.getEmail());
-        tvAddress.setText(user.getAddress());
-        GlideApp.with(this).load(R.drawable.bg_test).apply(RequestOptions.circleCropTransform()).into(imgAvar);
     }
 
     @Override
@@ -121,12 +100,36 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
         switchFragment(HomeFragment.newInstance(), false);
     }
 
-    private void updateUIForEmployee(User_ user) {
-        tvTime.setText(Html.fromHtml(getResources().getString(R.string.time_profile_fragment, DateTimeUtils.getStringDayMonthYear(user.getDateStart()),
-                DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()))));
-        tvSalesHave.setText(Html.fromHtml(getResources().getString(R.string.sales_have_profile_fragment, String.valueOf(user.getSaleHave()))));
-        tvSalesWant.setText(Html.fromHtml(getResources().getString(R.string.sales_want_profile_fragment, String.valueOf(user.getSaleWant()))));
-        degreeSale.setValue(R.color.white, R.color.colorPrimaryDark, user.getSaleHave(), user.getSaleWant());
+    @Override
+    public void updateUI() {
+        tvName.setText(AppConstans.app.getCurrentUser().getName());
+        tvEmail.setText(AppConstans.app.getCurrentUser().getEmail());
+        tvAddress.setText(AppConstans.app.getCurrentUser().getAddress());
+        tvPhone.setText(AppConstans.app.getCurrentUser().getName());
+        tvNumberSales.setText(AppConstans.app.getCurrentUser().getNumberOrders());
+        GlideApp.with(this).load(AppConstans.app.getCurrentUser().getAvatar()).circleCrop().into(imgAvar);
+    }
+
+    @Override
+    public void updateUIForCustomer() {
+        tvPoint.setText(getResources().getString(R.string.point_profile_fragment));
+        tvNumberPoint.setText(((Customer)AppConstans.app.getCurrentUser()).getPoint());
+    }
+
+    @Override
+    public void updateUIForPromoter() {
+        tvPoint.setText(getResources().getString(R.string.custom_profile_fragment));
+        tvNumberPoint.setText(((Promoter)AppConstans.app.getCurrentUser()).getNumberCustomers());
+    }
+
+    @Override
+    public void startUI() {
+        if(AppConstans.app.getCurrentUser() instanceof Promoter){
+            lnDegree.setVisibility(View.VISIBLE);
+            if(AppConstans.app.getCurrentUser() instanceof PromoterLeader){
+                lnManagerSales.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @OnClick(R.id.rlt_logout)
@@ -162,8 +165,14 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
 
     }
 
+
     @OnClick(R.id.rlt_questions)
     public void onQuestionClick() {
 
+    }
+
+    @Override
+    public void showProgressDialog(boolean isShown) {
+        layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
     }
 }

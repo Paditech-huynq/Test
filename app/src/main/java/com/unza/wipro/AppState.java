@@ -1,5 +1,7 @@
 package com.unza.wipro;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.paditech.core.helper.PrefUtils;
 import com.paditech.core.helper.StringUtil;
@@ -8,7 +10,11 @@ import com.unza.wipro.main.models.UserInfo;
 import com.unza.wipro.transaction.cart.Cart;
 import com.unza.wipro.transaction.cart.CartImpl;
 import com.unza.wipro.transaction.cart.CartInfo;
+import com.unza.wipro.transaction.user.Customer;
+import com.unza.wipro.transaction.user.Promoter;
+import com.unza.wipro.transaction.user.PromoterLeader;
 import com.unza.wipro.transaction.user.User;
+import com.unza.wipro.transaction.user.UserData;
 import com.unza.wipro.utils.Utils;
 
 import static com.unza.wipro.AppConstans.AUTHORIZATION;
@@ -42,7 +48,7 @@ public class AppState {
         return currentCart;
     }
 
-    public UserInfo getCurrentUser() {
+    public User getCurrentUser() {
         return currentUser;
     }
 
@@ -80,6 +86,7 @@ public class AppState {
         token = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_TOKEN, AppConstans.EMPTY);
         appKey = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_APPKEY, AppConstans.EMPTY);
         String info = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_INFO, AppConstans.EMPTY);
+        Log.e("loadFromCache: ", info);
         if (!StringUtil.isEmpty(info)) {
             try {
                 currentUser = new User.Builder(new Gson().fromJson(info, LoginInfo.class)).build();
@@ -109,5 +116,24 @@ public class AppState {
         PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_TOKEN, AppConstans.EMPTY);
         PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_APPKEY, AppConstans.EMPTY);;
         PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_INFO, AppConstans.EMPTY);;
+    }
+
+    public void updateCurrentUser(UserData user) {
+        currentUser.setId(String.valueOf(user.getId()));
+        currentUser.setAddress(user.getAddress());
+        currentUser.setAvatar(user.getAvatar());
+        currentUser.setEmail(user.getEmail());
+        currentUser.setName(user.getName());
+        currentUser.setNumberOrders(String.valueOf(user.getOrder()));
+        currentUser.setPhone(user.getPhone());
+        if(currentUser instanceof Customer){
+            ((Customer) currentUser).setPoint(String.valueOf(user.getPoint()));
+        }
+        if(currentUser instanceof Promoter){
+            ((Promoter) currentUser).setNumberCustomers(String.valueOf(user.getCustomers()));
+            if(currentUser instanceof PromoterLeader){
+                ((PromoterLeader) currentUser).setMemberGroupId(user.getMemberGroupId());
+            }
+        }
     }
 }

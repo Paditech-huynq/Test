@@ -2,7 +2,10 @@ package com.unza.wipro.main.contracts;
 
 import com.paditech.core.mvp.BasePresenterImpl;
 import com.paditech.core.mvp.BaseViewImpl;
-import com.unza.wipro.main.models.User_;
+import com.unza.wipro.transaction.user.Customer;
+import com.unza.wipro.transaction.user.Promoter;
+import com.unza.wipro.transaction.user.PromoterLeader;
+import com.unza.wipro.transaction.user.User;
 
 public interface ProfileContract {
     interface ViewImpl extends BaseViewImpl {
@@ -10,7 +13,10 @@ public interface ProfileContract {
         void goToOrderFragment();
         void goToListProfileFragment();
         void goToHomeProfile();
-        void updateUI(User_ dummyData);
+        void updateUI();
+        void updateUIForCustomer();
+        void updateUIForPromoter();
+        void startUI();
     }
 
     interface Presenter extends BasePresenterImpl {
@@ -19,5 +25,6 @@ public interface ProfileContract {
         void onListOrderClick();
         void onManagerSalesClick();
         void onLogOutClick();
+        void onCreatFragment();
     }
 }
