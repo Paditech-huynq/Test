@@ -17,6 +17,7 @@ import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.views.customs.AmountView;
 import com.unza.wipro.transaction.cart.Cart;
 import com.unza.wipro.transaction.cart.CartInfo;
+import com.unza.wipro.transaction.user.Customer;
 
 import java.util.Date;
 
@@ -28,9 +29,11 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
     private final static int TYPE_INFO = 0;
     private final static int TYPE_ITEM = 1;
     private Order mOrder;
+    private Customer customer;
 
     public void updateOrder(Order mOrder) {
         this.mOrder = mOrder;
+        customer = mOrder.getCustomer();
         notifyDataSetChanged();
     }
 
@@ -68,6 +71,11 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
             return TYPE_INFO;
         }
         return TYPE_ITEM;
+    }
+
+    public void updateCustomer(Customer customer) {
+        this.customer = customer;
+        notifyDataSetChanged();
     }
 
     class CartItemHolder extends BaseRecycleViewAdapter.BaseViewHolder {
@@ -142,6 +150,8 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         TextView tvShop;
         @BindView(R.id.tvAddress)
         TextView tvAddress;
+        @BindView(R.id.btnChange)
+        TextView btnChange;
         boolean isOrder = mOrder != null;
 
         CartInfoHolder(View itemView) {
@@ -153,11 +163,11 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
             updatePrice();
             Date date = mOrder != null ? new Date(mOrder.getCreatedAt()) : new Date();
             tvDate.setText(StringUtil.formatDate(date));
-            if (mOrder == null || mOrder.getCustomer() == null) return;
-            if (!StringUtil.isEmpty(mOrder.getCustomer().getAvatar()))
-                ImageHelper.loadThumbCircleImage(itemView.getContext(), mOrder.getCustomer().getAvatar(), imvAvatar);
-            tvName.setText(mOrder.getCustomer().getName());
-            tvAddress.setText(mOrder.getCustomer().getAddress());
+            if (customer == null) return;
+            if (!StringUtil.isEmpty(customer.getAvatar()))
+                ImageHelper.loadThumbCircleImage(itemView.getContext(), customer.getAvatar(), imvAvatar);
+            tvName.setText(customer.getName());
+            tvAddress.setText(customer.getAddress());
             String shop = isOrder ? mOrder.getCreator() : "";
             tvShop.setText(shop);
 //            if (mOrder == null && mOrder.getCustomer() != null) return;

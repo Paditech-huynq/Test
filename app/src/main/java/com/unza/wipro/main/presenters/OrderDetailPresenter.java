@@ -1,5 +1,8 @@
 package com.unza.wipro.main.presenters;
 
+import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
+
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppState;
 import com.unza.wipro.main.contracts.OrderDetailContract;
@@ -12,7 +15,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.ViewImpl> implements OrderDetailContract.Presenter {
-
     @Override
     public void onCreate() {
         super.onCreate();

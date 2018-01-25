@@ -1,11 +1,16 @@
 package com.unza.wipro.main.views.fragments;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.google.gson.Gson;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.mvp.MVPFragment;
@@ -26,6 +31,8 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     RecyclerView mRecyclerView;
     @BindView(R.id.bottomBar)
     View bottomBar;
+
+    private BroadcastReceiver mReceiver;
 
     public enum ViewMode {
         MODE_CREATE, MODE_SEE
@@ -54,6 +61,20 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
         return fragment;
     }
 
+
+    private void setupReceiver() {
+        IntentFilter intentFilter = new IntentFilter("android.intent.action.MAIN");
+        mReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String customerJSON = intent.getStringExtra("customer");
+                Customer customer = new Gson().fromJson(customerJSON, Customer.class);
+                mAdapter.updateCustomer(customer);
+            }
+        };
+        getActivity().registerReceiver(mReceiver, intentFilter);
+    }
+
     @Override
     protected int getLayoutResource() {
         return R.layout.fragment_order_detail;
@@ -70,6 +91,7 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
         super.initView();
         setupRecycleView();
         setupCreateCart();
+        setupReceiver();
 
         Log.e("Cart", AppState.getInstance().getCurrentCart().getTotalPrice() + "");
     }
