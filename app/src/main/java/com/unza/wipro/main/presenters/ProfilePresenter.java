@@ -1,14 +1,53 @@
 package com.unza.wipro.main.presenters;
 
+import android.util.Log;
+
 import com.paditech.core.mvp.BasePresenter;
+import com.unza.wipro.AppConstans;
+import com.unza.wipro.AppState;
 import com.unza.wipro.main.contracts.ProfileContract;
-import com.unza.wipro.main.models.UserData;
+import com.unza.wipro.main.models.responses.GetUserProfileRSP;
+import com.unza.wipro.services.AppClient;
+import com.unza.wipro.transaction.user.Customer;
+import com.unza.wipro.transaction.user.Promoter;
+import com.unza.wipro.transaction.user.PromoterLeader;
+import com.unza.wipro.transaction.user.User;
+import com.unza.wipro.transaction.user.UserData;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> implements ProfileContract.Presenter {
 
     @Override
+    public void onCreatFragment() {
+        getView().startUI();
+    }
+
+    @Override
     public void getUserDataFromServer() {
-        getView().updateUI(UserData.getDummyData());
+        if (AppConstans.app.getCurrentUser() == null) {
+            Log.e("getUserDataFromServer: ", "ko co");
+            return;
+        }
+        getView().showProgressDialog(true);
+        AppClient.newInstance().getService().getUserProfile(AppState.getInstance().getToken(),
+                AppState.getInstance().getAppKey()).enqueue(new Callback<GetUserProfileRSP>() {
+            @Override
+            public void onResponse(Call<GetUserProfileRSP> call, Response<GetUserProfileRSP> response) {
+                AppConstans.app.updateCurrentUser(response.body().getUser());
+                updateUi();
+                getView().showProgressDialog(false);
+            }
+
+            @Override
+            public void onFailure(Call<GetUserProfileRSP> call, Throwable t) {
+                getView().showProgressDialog(false);
+                t.printStackTrace();
+                Log.e("onFailure: ", "fail");
+            }
+        });
     }
 
     @Override
@@ -35,5 +74,22 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
     public void onCreate() {
         super.onCreate();
         getUserDataFromServer();
+    }
+
+    @Override
+    public void onViewAppear() {
+        super.onViewAppear();
+        onCreatFragment();
+        updateUi();
+    }
+
+    private void updateUi() {
+        getView().updateUI();
+        if (AppConstans.app.getCurrentUser() instanceof Customer) {
+            getView().updateUIForCustomer();
+        }
+        if (AppConstans.app.getCurrentUser() instanceof Promoter) {
+            getView().updateUIForPromoter();
+        }
     }
 }

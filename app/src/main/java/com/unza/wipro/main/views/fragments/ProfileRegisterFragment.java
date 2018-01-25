@@ -4,10 +4,12 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -24,6 +26,10 @@ import android.widget.TextView;
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.ImageHelper;
 import com.unza.wipro.R;
+import com.unza.wipro.main.models.Customer;
+import com.unza.wipro.main.models.LoginClient;
+import com.unza.wipro.main.models.responses.CreateCustomerRSP;
+import com.unza.wipro.services.AppClient;
 import com.unza.wipro.utils.Utils;
 
 import java.io.File;
@@ -33,6 +39,12 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfileRegisterFragment extends BaseFragment {
     public final static int REQUEST_PHOTO_CAMERA = 100;
@@ -41,6 +53,7 @@ public class ProfileRegisterFragment extends BaseFragment {
     private static final String JPEG_FILE_PREFIX = "IMG_";
     private static final String JPEG_FILE_SUFFIX = ".jpg";
     private String mCurrentPhotoPath;
+    private boolean isPending;
 
     @BindView(R.id.edtUserName)
     EditText edtUserName;
@@ -174,13 +187,33 @@ public class ProfileRegisterFragment extends BaseFragment {
         if (requestCode == REQUEST_PHOTO_CAMERA) {
             galleryAddPic();
             ImageHelper.loadThumbCircleImage(this.getContext(), mCurrentPhotoPath, imgAvatar);
-            mCurrentPhotoPath = null;
         }
         if (requestCode == REQUEST_PHOTO_GALLERY) {
             Uri imageUri = data.getData();
             ImageHelper.loadThumbCircleImage(this.getContext(), imageUri.toString(), imgAvatar);
+
+            mCurrentPhotoPath = getRealImagePath(imageUri);
         }
         slideDown();
+    }
+
+    private String getRealImagePath(Uri imageUri) {
+        String wholeID = DocumentsContract.getDocumentId(imageUri);
+        String id = wholeID.split(":")[1];
+        String[] column = {MediaStore.Images.Media.DATA};
+
+        Cursor cursor = getContext().getContentResolver().query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                column,
+                MediaStore.Images.Media._ID + "=?",
+                new String[]{id},
+                null);
+        int columnIndex = cursor.getColumnIndex(column[0]);
+        if (cursor.moveToFirst()) {
+            mCurrentPhotoPath = cursor.getString(columnIndex);
+        }
+        cursor.close();
+        return null;
     }
 
     public void slideUp() {
@@ -265,10 +298,50 @@ public class ProfileRegisterFragment extends BaseFragment {
 
     @OnClick(R.id.btnRegister)
     void submitRegister() {
-
+        if (!LoginClient.isLogin(getView().getContext())) {
+            return;
+        }
         if (dataIsValid()) {
-            //todo: handle logic register hre
-            getActivity().onBackPressed();
+            if (isPending) {
+                return;
+            }
+            isPending = true;
+            showProgressDialog(true);
+
+            RequestBody name = MultipartBody.create(MultipartBody.FORM, edtUserName.getText().toString());
+            RequestBody phone = MultipartBody.create(MultipartBody.FORM, edtPhoneNumber.getText().toString());
+            RequestBody email = MultipartBody.create(MultipartBody.FORM, edtEmail.getText().toString());
+            RequestBody address = MultipartBody.create(MultipartBody.FORM, edtAddress.getText().toString());
+            MultipartBody.Part body = null;
+            if (mCurrentPhotoPath != null) {
+                File file = new File(mCurrentPhotoPath);
+                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                body = MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
+            }
+
+            AppClient.newInstance().getService().createCustomer(
+                    LoginClient.getToken(getView().getContext()),
+                    LoginClient.getAppKey(getView().getContext()),
+                    name, phone, email, address, body)
+                    .enqueue(new Callback<CreateCustomerRSP>() {
+                        @Override
+                        public void onResponse(Call<CreateCustomerRSP> call, Response<CreateCustomerRSP> response) {
+                            isPending = false;
+                            showProgressDialog(false);
+                            CreateCustomerRSP createCustomerRSP = response.body();
+                            Customer customer = createCustomerRSP.getCustomer();
+                            showToast(createCustomerRSP.getMessage());
+                            if (customer != null) {
+                                getActivity().onBackPressed();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<CreateCustomerRSP> call, Throwable t) {
+                            isPending = false;
+                            showProgressDialog(false);
+                        }
+                    });
         }
     }
 

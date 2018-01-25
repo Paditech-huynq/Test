@@ -38,6 +38,12 @@ public class DateTimeUtils {
     }
 
     @SuppressLint("SimpleDateFormat")
+    public static Date getDateFromServerDayMonthYear(String dateString) {
+        Long longDate = Long.parseLong(dateString);
+        return new Date(longDate);
+    }
+
+    @SuppressLint("SimpleDateFormat")
     public static Date getEndOfeDateFromStringDayMonthYear(String dateString) {
         try {
             Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
