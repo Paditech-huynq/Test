@@ -44,7 +44,12 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
             if (mData.size() == 0) {
                 mData.add(context.getResources().getString(R.string.section_month_year, DateTimeUtils.getStringMonthYear(dateCounting)));
             } else {
-                Date dateBefore = DateTimeUtils.getDateFromServerDayMonthYear(String.valueOf(data.get(i - 1).getCreatedAt()));
+                Date dateBefore;
+                if (i == 0) {
+                    dateBefore = DateTimeUtils.getDateFromServerDayMonthYear(String.valueOf(((Order)mData.get(mData.size()-1)).getCreatedAt()));
+                } else {
+                    dateBefore = DateTimeUtils.getDateFromServerDayMonthYear(String.valueOf(data.get(i - 1).getCreatedAt()));
+                }
                 if (!DateTimeUtils.getStringMonthYear(dateBefore).equals(DateTimeUtils.getStringMonthYear(dateCounting))) {
                     mData.add(context.getResources().getString(R.string.section_month_year, DateTimeUtils.getStringMonthYear(dateCounting)));
                 }
