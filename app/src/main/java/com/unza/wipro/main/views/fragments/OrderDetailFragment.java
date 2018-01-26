@@ -144,26 +144,6 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
         mAdapter.setUser(user);
     }
 
-    @Override
-    public void onViewAppear() {
-        super.onViewAppear();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onViewDisappear() {
-        super.onViewDisappear();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void onUpdateDeliveryInfo(DeliveryInfo info) {
-        if (mTransaction != null && mTransaction instanceof OrderTransaction) {
-            ((OrderTransaction) mTransaction).setDeliveryInfo(info);
-        }
-        EventBus.getDefault().removeStickyEvent(info);
-    }
-
     private void setupRecycleView() {
         mAdapter = new CartItemsAdapter(viewMode);
 

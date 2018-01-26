@@ -12,6 +12,7 @@ import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.NotificationAdapter;
 import com.unza.wipro.main.contracts.NotificationContract;
+import com.unza.wipro.main.models.Notice;
 import com.unza.wipro.main.presenters.NotificationPresenter;
 
 import java.util.List;
@@ -49,7 +50,7 @@ public class NotificationFragment extends MVPFragment<NotificationPresenter> imp
 
     @Override
     public String getScreenTitle() {
-        return null;
+        return getString(R.string.notification_title);
     }
 
     @Override
@@ -59,7 +60,6 @@ public class NotificationFragment extends MVPFragment<NotificationPresenter> imp
             mAdapter = new NotificationAdapter();
         }
 
-        mAdapter.setOnLoadMoreListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
@@ -67,8 +67,7 @@ public class NotificationFragment extends MVPFragment<NotificationPresenter> imp
         mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
-                NotificationAdapter.NotificationHolder notificationHolder = (NotificationAdapter.NotificationHolder) holder;
-                notificationHolder.updateView();
+                getPresenter().read(mAdapter.getItem(position));
             }
         });
     }
@@ -84,8 +83,16 @@ public class NotificationFragment extends MVPFragment<NotificationPresenter> imp
     }
 
     @Override
-    public void showData(List data) {
-        String count = String.format("(%d)", mAdapter.getItemCount());
+    public void showData(List<Notice> data) {
+        mAdapter.setData(data);
+        String count = mAdapter.getItemCount() > 0 ? String.format("(%d)", mAdapter.getItemCount()) : "";
+        setScreenTitle(getString(R.string.notification_title) + count);
+    }
+
+    @Override
+    public void updateView(Notice notice) {
+        mAdapter.updateData(notice);
+        String count = mAdapter.getItemCount() > 0 ? String.format("(%d)", mAdapter.getItemCount()) : "";
         setScreenTitle(getString(R.string.notification_title) + count);
     }
 }

@@ -134,7 +134,6 @@ public class DeliveryInfoFragment extends MVPFragment<DeliveryInfoPresenter> imp
         String date = mDateText.getText().toString().trim();
         String note = mNoteText.getText().toString().trim();
         if (!validate(name, phone)) return;
-        getActivity().onBackPressed();
-        EventBus.getDefault().postSticky(new DeliveryInfo(name, phone, address, date, note));
+        // todo call api 05
     }
 }

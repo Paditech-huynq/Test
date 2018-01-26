@@ -30,6 +30,7 @@ import butterknife.OnClick;
 
 public class FillOtpActivity extends MVPActivity<OtpPresenter> implements OtpContract.ViewImpl {
 
+    private static final int CHANGE_PASS_REQ_CODE = 1001;
     private long mLastClickTime = 0;
 
     @BindView(R.id.tv_code_1)
@@ -95,15 +96,25 @@ public class FillOtpActivity extends MVPActivity<OtpPresenter> implements OtpCon
             @Override
             public void run() {
                 if (result) {
-                    Intent intent = new Intent(FillOtpActivity.this, MainActivity.class);
+                    Intent intent = new Intent(FillOtpActivity.this, ChangePasswordActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+                    finish();
                 } else {
                     String alert = StringUtil.isEmpty(message) ? getString(R.string.message_otp_failure) : message;
                     showToast(alert);
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CHANGE_PASS_REQ_CODE) {
+            if (resultCode == RESULT_OK) setResult(RESULT_OK);
+            finish();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @OnClick(R.id.imv_cancel)

@@ -56,8 +56,8 @@ public class ForgotPasswordActivity extends MVPActivity<ForgotPasswordPresenter>
             @Override
             public void run() {
                 if (result) {
-                    Intent intent = new Intent(ForgotPasswordActivity.this, ChangePasswordActivity.class);
-                    startActivityForResult(intent, CHANGE_PASS_REQ_CODE);
+                    Intent intent = new Intent(ForgotPasswordActivity.this, FillOtpActivity.class);
+                    startActivity(intent);
                 } else {
                     String alert = StringUtil.isEmpty(message) ? getString(R.string.message_forgot_pass_failure) : message;
                     showToast(alert);

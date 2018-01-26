@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
+import com.unza.wipro.main.models.Notice;
 
 import java.util.List;
 
@@ -16,16 +17,27 @@ import butterknife.BindView;
 
 public class NotificationAdapter extends BaseRecycleViewAdapter implements AppConstans {
 
-    private List mData;
+    private List<Notice> mData;
 
-    public void setData(List data) {
-        this.mData = mData;
+    public void setData(List<Notice> data) {
+        this.mData = data;
+        notifyDataSetChanged();
+    }
+
+    public void updateData(Notice data) {
+        if (mData == null) return;
+        for (Notice notice: mData) {
+            if (notice.getId() == data.getId()) {
+                notice.setRead(data.isRead());
+                break;
+            }
+        }
         notifyDataSetChanged();
     }
 
     @Override
-    public String getItem(int position) {
-        return imagesDummy[position];
+    public Notice getItem(int position) {
+        return mData.get(position);
     }
 
     @Override
@@ -35,7 +47,7 @@ public class NotificationAdapter extends BaseRecycleViewAdapter implements AppCo
 
     @Override
     public int getItemCount() {
-        return imagesDummy.length;
+        return mData != null ? mData.size() : 0;
     }
 
     public class NotificationHolder extends BaseViewHolder {
@@ -52,13 +64,17 @@ public class NotificationAdapter extends BaseRecycleViewAdapter implements AppCo
 
         @Override
         protected void onBindingData(final int position) {
-            tvTitle.setText("Thông báo số #1");
-            tvContent.setText("Thông báo có 1 số thay đổi blah blah blah");
-        }
-
-        public void updateView() {
-            tvTitle.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-            tvTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_dot_transparent, 0, 0, 0);
+            Notice notice = getItem(position);
+            if (notice == null) return;
+            tvTitle.setText(notice.getTitle());
+            tvContent.setText(notice.getContent());
+            if (notice.isRead()) {
+                tvTitle.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                tvTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_dot_transparent, 0, 0, 0);
+            } else {
+                tvTitle.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                tvTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_dot_blue, 0, 0, 0);
+            }
         }
     }
 }
