@@ -69,7 +69,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @BindView(R.id.tv_time_in_header_filter)
     TextView tvTimeInHeaderFilter;
 
-    private OrderListAdapter mAdapter = new OrderListAdapter();
+    private OrderListAdapter mAdapter;
     private static final int DAY_LEFT_CALENDER_FILTER = 0;
     private static final int DAY_RIGHT_CALENDER_FILTER = 1;
 
@@ -99,6 +99,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     }
 
     public void setupRecycleView() {
+        mAdapter = new OrderListAdapter(OrderListFragment.this.getContext());
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
