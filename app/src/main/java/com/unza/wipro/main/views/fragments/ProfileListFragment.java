@@ -1,5 +1,6 @@
 package com.unza.wipro.main.views.fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.mvp.MVPFragment;
@@ -119,6 +121,16 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
             @Override
             public void onLoadMore() {
                 getPresenter().onLoadMore();
+            }
+        });
+        mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
+                Intent intent = new Intent("android.intent.action.MAIN");
+                String customer = new Gson().toJson(mAdapter.getItem(position));
+                intent.putExtra("customer", customer);
+                ProfileListFragment.this.getActivity().sendBroadcast(intent);
+                ProfileListFragment.this.getActivity().onBackPressed();
             }
         });
 
