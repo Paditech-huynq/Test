@@ -65,6 +65,7 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
 
     @Override
     public void setScreenTitle(String title) {
+        super.setScreenTitle(title);
     }
 
     @Override
