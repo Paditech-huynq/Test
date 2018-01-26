@@ -1,5 +1,6 @@
 package com.unza.wipro.services;
 
+import com.unza.wipro.main.models.responses.BaseRSP;
 import com.unza.wipro.main.models.responses.CreateCustomerRSP;
 import com.unza.wipro.main.models.responses.GetListCustomerRSP;
 import com.unza.wipro.main.models.responses.GetListProductRSP;
@@ -85,4 +86,12 @@ public interface AppService {
 
     @POST("member/detail")
     Call<GetUserProfileRSP> getUserProfile(@Header("Authorization") String token, @Header("AppKey") String appKey);
+
+    @POST("order/create")
+    @FormUrlEncoded
+    Call<BaseRSP> createOrder(@Header("Authorization") String token, @Header("AppKey") String appKey,
+                              @Field("customer_id") String customerId, @Field("products") String products,
+                              @Field("billing_name") String name, @Field("billing_phone") String phone,
+                              @Field("billing_address") String address, @Field("billing_date") String date,
+                              @Field("billing_note") String note);
 }
