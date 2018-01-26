@@ -93,7 +93,7 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
 
     @Override
     public void goToListProfileFragment() {
-        switchFragment(ProfileListFragment.newInstance(), true);
+        switchFragment(ProfilePromoterListFragment.newInstance(), true);
     }
 
     @Override
