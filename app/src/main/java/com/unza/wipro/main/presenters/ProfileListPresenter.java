@@ -27,7 +27,7 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
         super.onCreate();
         loadListPromoterFromServer(false);
     }
-    
+
     private void loadListPromoterFromServer(final boolean isRefresh) {
         if ((isFull || isPending) && !lastKeyWord.equals(getView().getCurrentKeyWord())) {
             getView().setRefreshing(false);
