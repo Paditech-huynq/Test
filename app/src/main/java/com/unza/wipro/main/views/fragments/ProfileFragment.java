@@ -88,7 +88,7 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
 
     @Override
     public void goToOrderFragment() {
-        switchFragment(LookupFragment.newInstance(), true);
+        switchFragment(OrderListFragment.newInstance(OrderListFragment.COME_FROM_PROFILE_FRAGMENT), true);
     }
 
     @Override

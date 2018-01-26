@@ -69,12 +69,24 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     private OrderListAdapter mAdapter;
     private static final int DAY_LEFT_CALENDER_FILTER = 0;
     private static final int DAY_RIGHT_CALENDER_FILTER = 1;
+    public static final int COME_FROM_PROFILE_FRAGMENT = 0;
+    private int comFromWhatFragment = -1;
 
     public static OrderListFragment newInstance() {
 
         Bundle args = new Bundle();
 
         OrderListFragment fragment = new OrderListFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static OrderListFragment newInstance(int comeFromWhatScreen) {
+
+        Bundle args = new Bundle();
+
+        OrderListFragment fragment = new OrderListFragment();
+        fragment.comFromWhatFragment = comeFromWhatScreen;
         fragment.setArguments(args);
         return fragment;
     }
@@ -305,6 +317,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public void setScreenTitle(String title) {
+        super.setScreenTitle(title);
     }
 
     protected boolean isKeepFragment() {
@@ -313,10 +326,12 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public boolean isActionShow(int resId) {
-        if (resId == R.id.btnTrash) {
-            return false;
+        if(comFromWhatFragment == COME_FROM_PROFILE_FRAGMENT){
+            if(resId == R.id.imvAvatar || resId == R.id.btnNotification || resId == R.id.btnCart || resId == R.id.btnTrash){
+                return false;
+            }
         }
-        return true;
+        return resId != R.id.btnTrash;
     }
 
     @Override
