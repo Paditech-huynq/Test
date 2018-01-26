@@ -28,7 +28,6 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
 
     @Override
     public void searchByKeyWord() {
-        resetData();
         loadProductFromServer(false);
     }
 
@@ -43,13 +42,21 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
     }
 
     private void loadProductFromServer(final boolean isRefresh) {
-        if ((isPending || isFull) && !lastKeyWord.equals(getView().getCurrentKeyword())) {
+        if (!lastKeyWord.equals(getView().getCurrentKeyword())) {
+            resetData();
+            isPending = false;
+        }
+        if ((isPending)) {
             getView().setRefreshing(false);
             return;
         }
         if (isRefresh) {
             resetData();
             getView().setRefreshing(true);
+        }
+        if (isFull) {
+            getView().setRefreshing(false);
+            return;
         }
         isPending = true;
         getView().showProgressDialog(mPage == FIRST_PAGE && !isRefresh);
@@ -58,10 +65,11 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
                 .enqueue(new Callback<GetListProductRSP>() {
                     @Override
                     public void onResponse(Call<GetListProductRSP> call, Response<GetListProductRSP> response) {
-                        isPending = false;
                         if (!keyword.equals(getView().getCurrentKeyword())) {
+                            lastKeyWord = keyword;
                             return;
                         }
+                        isPending = false;
                         if (getView() == null) {
                             return;
                         }
@@ -75,8 +83,8 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
 
                     @Override
                     public void onFailure(Call<GetListProductRSP> call, Throwable t) {
+                        isPending = false;
                         if (getView() == null) {
-                            isPending = false;
                             return;
                         }
                         getView().setRefreshing(false);

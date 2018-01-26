@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.paditech.core.common.BaseRecycleViewAdapter;
+import com.paditech.core.helper.StringUtil;
+import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.image.GlideApp;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.Product;
@@ -71,8 +73,11 @@ public class LookupAdapter extends BaseRecycleViewAdapter {
                     .placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
                     .error(R.drawable.bg_place_holder)
                     .into(imvProduct);
-            tvName.setText(product.getName());
-            tvPrice.setText(String.valueOf(product.getPrice()));
+            ViewHelper.setText(tvName, product.getName(), null);
+            ViewHelper.setText(tvPrice,
+                    String.format(itemView.getContext().getString(R.string.lookup_price_format),
+                            StringUtil.formatMoney(product.getPrice())),
+                    null);
         }
     }
 }

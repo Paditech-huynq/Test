@@ -138,5 +138,6 @@
     <string name="email_with_format">Email: %1s</string>
     <string name="anddress_with_format">Địa chỉ: %1s</string>
     <string name="not_found_user">Không tìm thấy user</string>
+    <string name="lookup_price_format">Đơn giá: %1s VNĐ</string>
 
 </resources>

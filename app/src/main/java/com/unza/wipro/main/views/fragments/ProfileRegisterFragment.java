@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.ImageHelper;
+import com.unza.wipro.AppState;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.Customer;
 import com.unza.wipro.main.models.LoginClient;
@@ -198,6 +199,7 @@ public class ProfileRegisterFragment extends BaseFragment {
     }
 
     private String getRealImagePath(Uri imageUri) {
+        String imagePath = null;
         String wholeID = DocumentsContract.getDocumentId(imageUri);
         String id = wholeID.split(":")[1];
         String[] column = {MediaStore.Images.Media.DATA};
@@ -210,10 +212,10 @@ public class ProfileRegisterFragment extends BaseFragment {
                 null);
         int columnIndex = cursor.getColumnIndex(column[0]);
         if (cursor.moveToFirst()) {
-            mCurrentPhotoPath = cursor.getString(columnIndex);
+            imagePath = cursor.getString(columnIndex);
         }
         cursor.close();
-        return null;
+        return imagePath;
     }
 
     public void slideUp() {
@@ -298,7 +300,7 @@ public class ProfileRegisterFragment extends BaseFragment {
 
     @OnClick(R.id.btnRegister)
     void submitRegister() {
-        if (!LoginClient.isLogin(getView().getContext())) {
+        if (!AppState.getInstance().isLogin()) {
             return;
         }
         if (dataIsValid()) {
@@ -316,12 +318,12 @@ public class ProfileRegisterFragment extends BaseFragment {
             if (mCurrentPhotoPath != null) {
                 File file = new File(mCurrentPhotoPath);
                 RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                body = MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
+                body = MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
             }
 
             AppClient.newInstance().getService().createCustomer(
-                    LoginClient.getToken(getView().getContext()),
-                    LoginClient.getAppKey(getView().getContext()),
+                    AppState.getInstance().getToken(),
+                    AppState.getInstance().getAppKey(),
                     name, phone, email, address, body)
                     .enqueue(new Callback<CreateCustomerRSP>() {
                         @Override
