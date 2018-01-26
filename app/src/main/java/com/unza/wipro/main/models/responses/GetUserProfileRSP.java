@@ -2,13 +2,13 @@ package com.unza.wipro.main.models.responses;
 
 
 import com.google.gson.annotations.SerializedName;
-import com.unza.wipro.transaction.user.UserData;
+import com.unza.wipro.main.models.LoginInfo;
 
 public class GetUserProfileRSP extends BaseRSP {
     @SerializedName("data")
-    UserData user;
+    LoginInfo user;
 
-    public UserData getUser() {
+    public LoginInfo getUser() {
         return user;
     }
 }
