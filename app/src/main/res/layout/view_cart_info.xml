@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/padding_normal"
                 android:layout_marginTop="@dimen/padding_small"
-                android:text="@string/action_change"
+                android:text="@string/action_select_customer"
                 android:textColor="@color/colorPrimary"
                 android:textSize="13sp"
                 android:textStyle="bold" />
@@ -48,9 +48,10 @@
 
             <TextView
                 android:id="@+id/tvName"
+                android:text="@string/cart_please_select_customer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/dark_light"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -58,6 +59,7 @@
                 android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
+                android:minWidth="24dip"
                 android:layout_marginTop="@dimen/padding_small"
                 android:background="@drawable/bg_green_border_rounded"
                 android:gravity="center"

@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -27,6 +26,7 @@ import com.unza.wipro.transaction.Transaction;
 import com.unza.wipro.transaction.cart.Cart;
 import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.transaction.user.DeliveryInfo;
+import com.unza.wipro.transaction.user.User;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -78,7 +78,7 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
             public void onReceive(Context context, Intent intent) {
                 String customerJSON = intent.getStringExtra("customer");
                 Customer customer = new Gson().fromJson(customerJSON, Customer.class);
-                mAdapter.updateCustomer(customer);
+                mAdapter.setUser(customer);
             }
         };
         getActivity().registerReceiver(mReceiver, intentFilter);
@@ -101,8 +101,6 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
         setupRecycleView();
         setupCreateCart();
         setupReceiver();
-
-        Log.e("Cart", AppState.getInstance().getCurrentCart().getTotalPrice() + "");
     }
 
     private void setupCreateCart() {
@@ -139,6 +137,11 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     public void showOrderDetail(Order order) {
         if (order == null) return;
         mAdapter.updateOrder(order);
+    }
+
+    @Override
+    public void setUser(User user) {
+        mAdapter.setUser(user);
     }
 
     @Override
