@@ -25,10 +25,10 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
     @Override
     public void onCreate() {
         super.onCreate();
-        loadListCustomerFromServer(false);
+        loadListPromoterFromServer(false);
     }
 
-    private void loadListCustomerFromServer(final boolean isRefresh) {
+    private void loadListPromoterFromServer(final boolean isRefresh) {
         if ((isFull || isPending) && !lastKeyWord.equals(getView().getCurrentKeyWord())) {
             getView().setRefreshing(false);
             return;
@@ -93,17 +93,17 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
 
     @Override
     public void onLoadMore() {
-        loadListCustomerFromServer(false);
+        loadListPromoterFromServer(false);
     }
 
     @Override
     public void onRefresh() {
-        loadListCustomerFromServer(true);
+        loadListPromoterFromServer(true);
     }
 
     @Override
     public void searchByKeyWord() {
         resetData();
-        loadListCustomerFromServer(false);
+        loadListPromoterFromServer(false);
     }
 }
