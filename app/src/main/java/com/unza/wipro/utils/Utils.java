@@ -25,6 +25,7 @@ import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.LoginInfo;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -34,7 +35,7 @@ import java.util.regex.Pattern;
 public class Utils {
     private static final int DURATION_TIME_DEFAULT = 500;
 
-    public static TransitionDrawable getTransitionChangeColor(int colorBefore, int colorAfter){
+    public static TransitionDrawable getTransitionChangeColor(int colorBefore, int colorAfter) {
         ColorDrawable[] color = {new ColorDrawable(colorBefore), new ColorDrawable(colorAfter)};
         TransitionDrawable trans = new TransitionDrawable(color);
         trans.startTransition(DURATION_TIME_DEFAULT);
@@ -154,10 +155,20 @@ public class Utils {
                 buffer.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
             }
             return buffer.toString();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             return "";
+        }
+    }
+
+    public static String md5(String string) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            BigInteger md5Data = new BigInteger(1, md.digest(string.getBytes()));
+            return String.format("%032X", md5Data);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
