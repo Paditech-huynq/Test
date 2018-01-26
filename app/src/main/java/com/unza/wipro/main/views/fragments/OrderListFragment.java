@@ -2,14 +2,11 @@ package com.unza.wipro.main.views.fragments;
 
 import android.app.DatePickerDialog;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -69,7 +66,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @BindView(R.id.tv_time_in_header_filter)
     TextView tvTimeInHeaderFilter;
 
-    private OrderListAdapter mAdapter = new OrderListAdapter();
+    private OrderListAdapter mAdapter;
     private static final int DAY_LEFT_CALENDER_FILTER = 0;
     private static final int DAY_RIGHT_CALENDER_FILTER = 1;
 
@@ -99,6 +96,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     }
 
     public void setupRecycleView() {
+        mAdapter = new OrderListAdapter(OrderListFragment.this.getContext());
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
@@ -219,7 +217,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @Override
     public void goToOrderDetailScreen(int position) {
         OrderDetailFragment orderDetailFragment = OrderDetailFragment
-                .newInstance(OrderDetailFragment.ViewMode.MODE_SEE, (Order) mAdapter.getItem(position));
+                .newInstance(OrderDetailFragment.ViewMode.MODE_SEE, ((Order) mAdapter.getItem(position)).getId());
         OrderListFragment.this.switchFragment(orderDetailFragment, true);
     }
 

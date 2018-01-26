@@ -20,6 +20,7 @@ import com.unza.wipro.utils.DateTimeUtils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import butterknife.BindView;
 
@@ -28,12 +29,33 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
     private static final int TYPE_SECTION = 0;
     private static final int TYPE_ITEM = 1;
     private List mData = new ArrayList<>();
+    private Context context;
+
+    public OrderListAdapter(Context context) {
+        this.context = context;
+    }
 
     public void insertData(List<Order> data) {
         if (data == null) {
             return;
         }
-        mData.addAll(data);
+        for (int i = 0; i < data.size(); i++) {
+            Date dateCounting = DateTimeUtils.getDateFromServerDayMonthYear(String.valueOf(data.get(i).getCreatedAt()));
+            if (mData.size() == 0) {
+                mData.add(context.getResources().getString(R.string.section_month_year, DateTimeUtils.getStringMonthYear(dateCounting)));
+            } else {
+                Date dateBefore;
+                if (i == 0) {
+                    dateBefore = DateTimeUtils.getDateFromServerDayMonthYear(String.valueOf(((Order)mData.get(mData.size()-1)).getCreatedAt()));
+                } else {
+                    dateBefore = DateTimeUtils.getDateFromServerDayMonthYear(String.valueOf(data.get(i - 1).getCreatedAt()));
+                }
+                if (!DateTimeUtils.getStringMonthYear(dateBefore).equals(DateTimeUtils.getStringMonthYear(dateCounting))) {
+                    mData.add(context.getResources().getString(R.string.section_month_year, DateTimeUtils.getStringMonthYear(dateCounting)));
+                }
+            }
+            mData.add(data.get(i));
+        }
         notifyDataSetChanged();
     }
 

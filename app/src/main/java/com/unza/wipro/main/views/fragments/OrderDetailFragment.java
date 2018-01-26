@@ -1,11 +1,15 @@
 package com.unza.wipro.main.views.fragments;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
+import com.google.gson.Gson;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.mvp.MVPFragment;
@@ -22,6 +26,7 @@ import com.unza.wipro.transaction.Transaction;
 import com.unza.wipro.transaction.cart.Cart;
 import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.transaction.user.DeliveryInfo;
+import com.unza.wipro.transaction.user.User;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -36,12 +41,14 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     @BindView(R.id.bottomBar)
     View bottomBar;
 
+    private BroadcastReceiver mReceiver;
+
     public enum ViewMode {
         MODE_CREATE, MODE_SEE
     }
 
     private ViewMode viewMode;
-    private Order mOrder;
+    private int mOrderID;
 
     private int scrollX, scrollY;
 
@@ -57,11 +64,24 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
         return fragment;
     }
 
-    public static OrderDetailFragment newInstance(ViewMode viewMode, Order order) {
+    public static OrderDetailFragment newInstance(ViewMode viewMode, int orderID) {
         OrderDetailFragment fragment = newInstance();
         fragment.viewMode = viewMode;
-        fragment.mOrder = order;
+        fragment.mOrderID = orderID;
         return fragment;
+    }
+
+    private void setupReceiver() {
+        IntentFilter intentFilter = new IntentFilter("android.intent.action.MAIN");
+        mReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String customerJSON = intent.getStringExtra("customer");
+                Customer customer = new Gson().fromJson(customerJSON, Customer.class);
+                mAdapter.setUser(customer);
+            }
+        };
+        getActivity().registerReceiver(mReceiver, intentFilter);
     }
 
     @Override
@@ -71,7 +91,7 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
 
     @Override
     public String getScreenTitle() {
-        String id = mOrder != null ? String.valueOf(mOrder.getId()) : "";
+        String id = mOrderID != 0 ? String.valueOf(mOrderID) : "";
         return getString(R.string.order_detail_title, id);
     }
 
@@ -80,14 +100,13 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
         super.initView();
         setupRecycleView();
         setupCreateCart();
-
-        Log.e("Cart", AppState.getInstance().getCurrentCart().getTotalPrice() + "");
+        setupReceiver();
     }
 
     private void setupCreateCart() {
         bottomBar.setVisibility(viewMode == ViewMode.MODE_CREATE ? View.VISIBLE : View.GONE);
-        if (viewMode == ViewMode.MODE_SEE && mOrder != null) {
-            String id = mOrder != null ? String.valueOf(mOrder.getId()) : "";
+        if (viewMode == ViewMode.MODE_SEE && mOrderID != 0) {
+            String id = mOrderID != 0 ? String.valueOf(mOrderID) : "";
             setScreenTitle(getString(R.string.order_detail_title, id));
         }
     }
@@ -110,8 +129,8 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     }
 
     @Override
-    public Order getOrder() {
-        return mOrder;
+    public int getOrderId() {
+        return mOrderID;
     }
 
     @Override
@@ -121,31 +140,12 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     }
 
     @Override
-    public void onViewAppear() {
-        super.onViewAppear();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onViewDisappear() {
-        super.onViewDisappear();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void onUpdateDeliveryInfo(DeliveryInfo info) {
-        if (mTransaction != null && mTransaction instanceof OrderTransaction) {
-            ((OrderTransaction) mTransaction).setDeliveryInfo(info);
-        }
-        EventBus.getDefault().removeStickyEvent(info);
+    public void setUser(User user) {
+        mAdapter.setUser(user);
     }
 
     private void setupRecycleView() {
-        if (viewMode == ViewMode.MODE_CREATE) {
-            mAdapter = new CartItemsAdapter(null);
-        } else if (viewMode == ViewMode.MODE_SEE) {
-            mAdapter = new CartItemsAdapter(Order.newInstance());
-        }
+        mAdapter = new CartItemsAdapter(viewMode);
 
         mAdapter.setOnViewClickListener(new BaseRecycleViewAdapter.ViewClickListener() {
             @Override

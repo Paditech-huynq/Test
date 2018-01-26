@@ -8,12 +8,14 @@ import com.unza.wipro.main.models.responses.GetListPromoterInGroupRSP;
 import com.unza.wipro.main.models.responses.GetNewsCategoriesRSP;
 import com.unza.wipro.main.models.responses.GetNewsDetailRSP;
 import com.unza.wipro.main.models.responses.GetNewsRSP;
+import com.unza.wipro.main.models.responses.GetNotificationsRSP;
 import com.unza.wipro.main.models.responses.GetOrderDetailRSP;
 import com.unza.wipro.main.models.responses.GetOrdersRSP;
 import com.unza.wipro.main.models.responses.GetProductCategoryRSP;
 import com.unza.wipro.main.models.responses.GetProductDetailRSP;
 import com.unza.wipro.main.models.responses.GetUserProfileRSP;
 import com.unza.wipro.main.models.responses.LoginRSP;
+import com.unza.wipro.main.models.responses.ReadNotificationRSP;
 
 import java.io.File;
 
@@ -100,4 +102,10 @@ public interface AppService {
                               @Field("billing_name") String name, @Field("billing_phone") String phone,
                               @Field("billing_address") String address, @Field("billing_date") String date,
                               @Field("billing_note") String note);
+
+    @POST("notifications/list")
+    Call<GetNotificationsRSP> getNotifications(@Header("Authorization") String token, @Header("AppKey") String appKey);
+
+    @POST("notifications/list")
+    Call<ReadNotificationRSP> readNotification(@Header("Authorization") String token, @Header("AppKey") String appKey, @Field("notification_id") int notificationId);
 }

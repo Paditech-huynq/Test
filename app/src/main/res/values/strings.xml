@@ -76,6 +76,7 @@
     <string name="last_week">Tuần trước</string>
     <string name="this_month">Tháng này</string>
     <string name="find">Tìm kiếm</string>
+    <string name="section_month_year">Tháng %s</string>
 
     <!--order detail-->
     <string name="order_detail_title">Đơn hàng số #%s</string>
@@ -143,5 +144,10 @@
     <string name="anddress_with_format">Địa chỉ: %1s</string>
     <string name="not_found_user">Không tìm thấy user</string>
     <string name="lookup_price_format">Đơn giá: %1s VNĐ</string>
+    <string name="action_select_customer">Chọn KH</string>
+    <string name="cart_please_select_customer">Hãy chọn khách hàng</string>
+    <string name="cart_date_sell">&lt;b>Ngày bán&lt;/b>: %1s </string>
+    <string name="cart_person_sell">&lt;b>Người bán&lt;/b>: %1s </string>
+    <string name="cart_address_customer">&lt;b>Đ/c&lt;/b>: %1s </string>
 
 </resources>
