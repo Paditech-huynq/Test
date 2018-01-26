@@ -138,8 +138,5 @@ public class AppState {
                 ((PromoterLeader) currentUser).setMemberGroupId(user.getMemberGroupId());
             }
         }
-        saveToCache(PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_TOKEN, AppConstans.EMPTY),
-                PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_APPKEY, AppConstans.EMPTY),
-                new Gson().toJson(currentUser));
     }
 }
