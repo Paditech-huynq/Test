@@ -111,27 +111,34 @@ public abstract class User implements UserInfo {
     public static class Builder {
         private LoginInfo loginInfo;
 
-        public Builder() {
-        }
-
         public Builder(LoginInfo loginInfo) {
             this.loginInfo = loginInfo;
         }
 
         public User build() {
+            User user = null;
             switch (loginInfo.getMemberType()) {
                 case TYPE_CUSTOMER:
-                    return new Customer();
+                    user = new Customer();
+                    break;
                 case TYPE_PROMOTER:
                     if (loginInfo.isManager()) {
-                        Log.e("build: ", "ispromoterLeader" );
-                        return new PromoterLeader();
+                        user = new PromoterLeader();
                     } else {
-                        return new Promoter();
+                        user = new Promoter();
                     }
+                    break;
             }
+            updateBase(user);
+            return user;
+        }
 
-            return null;
+        private void updateBase(User user) {
+            user.setId(String.valueOf(loginInfo.getId()));
+            user.setName(loginInfo.getName());
+            user.setAddress(loginInfo.getAddress());
+            user.setAvatar(loginInfo.getAvatar());
+            user.setEmail(loginInfo.getEmail());
         }
     }
 }

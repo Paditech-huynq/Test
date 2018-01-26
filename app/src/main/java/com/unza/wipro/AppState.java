@@ -1,12 +1,9 @@
 package com.unza.wipro;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.paditech.core.helper.PrefUtils;
 import com.paditech.core.helper.StringUtil;
 import com.unza.wipro.main.models.LoginInfo;
-import com.unza.wipro.main.models.UserInfo;
 import com.unza.wipro.transaction.cart.Cart;
 import com.unza.wipro.transaction.cart.CartImpl;
 import com.unza.wipro.transaction.cart.CartInfo;
@@ -14,7 +11,6 @@ import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.transaction.user.Promoter;
 import com.unza.wipro.transaction.user.PromoterLeader;
 import com.unza.wipro.transaction.user.User;
-import com.unza.wipro.transaction.user.UserData;
 import com.unza.wipro.utils.Utils;
 
 import static com.unza.wipro.AppConstans.AUTHORIZATION;
@@ -117,7 +113,7 @@ public class AppState {
         PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_INFO, AppConstans.EMPTY);;
     }
 
-    public void updateCurrentUser(UserData user) {
+    public void updateCurrentUser(LoginInfo user) {
         currentUser.setId(String.valueOf(user.getId()));
         currentUser.setAddress(user.getAddress());
         currentUser.setAvatar(user.getAvatar());
@@ -138,8 +134,5 @@ public class AppState {
                 ((PromoterLeader) currentUser).setMemberGroupId(user.getMemberGroupId());
             }
         }
-        saveToCache(PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_TOKEN, AppConstans.EMPTY),
-                PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_APPKEY, AppConstans.EMPTY),
-                new Gson().toJson(currentUser));
     }
 }
