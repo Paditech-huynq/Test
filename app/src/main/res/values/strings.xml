@@ -10,6 +10,7 @@
     <string name="title_home_qr">Scan</string>
     <string name="title_profile">Thông tin cá nhân</string>
     <string name="title_list_member">Danh sách thành viên</string>
+    <string name="title_member_profile">Thông tin %s</string>
 
     <string name="hint_lookup_input">Vui lòng nhập tên hoặc số điện thoại</string>
 

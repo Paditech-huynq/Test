@@ -129,7 +129,12 @@ public class ProfilePromoterListFragment extends MVPFragment<ProfilePromoterList
                 getPresenter().onLoadMore();
             }
         });
-
+        mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
+                switchFragment(ProfileMemberGroupFragment.newInstance(mAdapter.getItem(position)), true);
+            }
+        });
         setPullToRefreshColor(Color.BLUE);
         enablePullToRefresh(true);
         setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
