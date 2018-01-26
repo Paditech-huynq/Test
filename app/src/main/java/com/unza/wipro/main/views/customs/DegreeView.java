@@ -16,6 +16,7 @@ import com.unza.wipro.R;
 
 public class DegreeView extends View {
     private Paint mPaintDrawBackground;
+    private Paint mPaintDrawStroke;
     private Paint mPaintDrawDegree;
     private int background;
     private int displayDegree;
@@ -101,6 +102,7 @@ public class DegreeView extends View {
                 coordinateYToDraw + radius);
         mCanvas.drawArc(oval, DEGREE_BALANCE, DEGREE_BALANCE, true, mPaintDrawBackground);
         mCanvas.drawArc(oval, DEGREE_BALANCE, sweepAngle, true, mPaintDrawDegree);
+        mCanvas.drawArc(oval, DEGREE_BALANCE, DEGREE_BALANCE, true, mPaintDrawStroke);
         Paint paintDrawText = new Paint();
         paintDrawText.setAntiAlias(true);
         paintDrawText.setStyle(Paint.Style.FILL_AND_STROKE);
@@ -129,8 +131,8 @@ public class DegreeView extends View {
     public void setValue(int background, int displayDegree, long value, long maxvalue) {
             this.background = background;
             this.displayDegree = displayDegree;
-            this.maxvalue = maxvalue;
-            this.value = value;
+//            this.maxvalue = maxvalue;
+//            this.value = value;
             mPaintDrawBackground.setColor(context.getResources().getColor(getBackground1()));
             mPaintDrawDegree.setColor(context.getResources().getColor(getDisplayDegree()));
             invalidate();
@@ -139,14 +141,19 @@ public class DegreeView extends View {
     public void reset() {
         setBackground1(R.color.white);
         setDisplayDegree(R.color.colorPrimaryDark);
-        setValue(0);
+        setValue(50);
         setMaxvalue(100);
         mPaintDrawBackground = new Paint();
         mPaintDrawDegree = new Paint();
+        mPaintDrawStroke = new Paint();
         mPaintDrawBackground.setAntiAlias(true);
         mPaintDrawDegree.setAntiAlias(true);
+        mPaintDrawStroke.setAntiAlias(true);
+        mPaintDrawStroke.setColor(context.getResources().getColor(R.color.gray));
         mPaintDrawBackground.setColor(context.getResources().getColor(getBackground1()));
         mPaintDrawDegree.setColor(context.getResources().getColor(getDisplayDegree()));
+        mPaintDrawStroke.setStyle(Paint.Style.STROKE);
+        mPaintDrawStroke.setStrokeWidth(2);
         mPaintDrawBackground.setStyle(Paint.Style.FILL);
         mPaintDrawDegree.setStyle(Paint.Style.FILL);
     }
