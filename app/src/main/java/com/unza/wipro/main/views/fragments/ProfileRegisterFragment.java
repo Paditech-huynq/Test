@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.ImageHelper;
 import com.unza.wipro.AppState;
@@ -335,6 +336,13 @@ public class ProfileRegisterFragment extends BaseFragment {
                             showToast(createCustomerRSP.getMessage());
                             if (customer != null) {
                                 getActivity().onBackPressed();
+                                Intent intent = new Intent("android.intent.action.MAIN");
+                                String customerString = new Gson().toJson(customer);
+                                intent.putExtra("customer", customerString);
+                                ProfileRegisterFragment.this.getActivity().sendBroadcast(intent);
+                                // todo: của base
+                                ProfileRegisterFragment.this.getActivity().onBackPressed();
+                                ProfileRegisterFragment.this.getActivity().onBackPressed();
                             }
                         }
 

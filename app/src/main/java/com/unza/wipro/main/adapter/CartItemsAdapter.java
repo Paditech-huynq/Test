@@ -167,61 +167,106 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @Override
         protected void onBindingData(int position) {
-            Context context = itemView.getContext();
-            if (viewMode == OrderDetailFragment.ViewMode.MODE_SEE) {
-                onBindingDataForSeeMode(context);
-            } else {  // create
-                onBindingDataForCreateMode(context);
-            }
-
             updatePrice();
-            if (user == null) {
-                if (!AppState.getInstance().isLogin()) {
-                    tvName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
-                    tvName.setText("Chưa đăng nhập");
-                    tvAddress.setText("Chưa đăng nhập");
-                } else {
-                    tvName.setTextColor(context.getResources().getColor(R.color.dark_light));
-                }
-                return;
+            Context context = itemView.getContext();
+            if (!AppState.getInstance().isLogin()) {
+                onBindingDataForNoLogin(context);
+            } else if (!(AppState.getInstance().getCurrentUser() instanceof Promoter)) {
+                onBindingDataForNotPromoter(context);
             } else {
-                tvName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                onBindingDataForPromoter(context);
             }
-            if (!StringUtil.isEmpty(user.getAvatar()))
-                ImageHelper.loadThumbCircleImage(context, user.getAvatar(), imvAvatar);
-            ViewHelper.setText(tvName, user.getName(), null);
-            ViewHelper.setText(tvName, user.getName(), null);
-            tvAddress.setText(Html.fromHtml(context.getString(R.string.cart_address_customer, user.getAddress())));
+        }
+
+        private void onBindingDataForPromoter(Context context) {
             if (viewMode == OrderDetailFragment.ViewMode.MODE_CREATE) {
-                app.addCartChangeListener(this);
-            }
-        }
-
-        private void onBindingDataForSeeMode(Context context) {
-            String dateString = new SimpleDateFormat("dd/MM/yyyy hh:mm").format(new Date(mOrder.getCreatedAt()));
-            tvDate.setText(Html.fromHtml(context.getString(R.string.cart_date_sell, dateString)));
-            btnChange.setVisibility(View.GONE);
-            if (!AppState.getInstance().isLogin() || !(AppState.getInstance().getCurrentUser() instanceof Promoter)) {
-                tvShop.setVisibility(View.GONE);
-            } else {
-                tvShop.setVisibility(View.VISIBLE);
-                tvShop.setText(Html.fromHtml(context.getString(R.string.cart_person_sell, mOrder.getCreator())));
-            }
-        }
-
-        private void onBindingDataForCreateMode(Context context) {
-            String dateString = new SimpleDateFormat("dd/MM/yyyy hh:mm").format(new Date());
-            tvDate.setText(Html.fromHtml(context.getString(R.string.cart_date_sell, dateString)));
-            if (!AppState.getInstance().isLogin() || !(AppState.getInstance().getCurrentUser() instanceof Promoter)) {
-                tvShop.setVisibility(View.GONE);
-                btnChange.setVisibility(View.GONE);
-            } else {
-                tvShop.setVisibility(View.VISIBLE);
                 btnChange.setVisibility(View.VISIBLE);
-                if (AppState.getInstance().getCurrentUser().getName() != null) {
-                    tvShop.setText(Html.fromHtml(context.getString(R.string.cart_person_sell,
-                            AppState.getInstance().getCurrentUser().getName())));
+                if (user == null) {
+                    btnChange.setText(context.getString(R.string.action_select_customer));
+                    tvName.setTextColor(context.getResources().getColor(R.color.dark_light));
+                    ViewHelper.setText(tvName, context.getString(R.string.cart_please_select_customer), null);
+                    if (AppState.getInstance().getCurrentUser().getName() != null) {
+                        tvShop.setText(Html.fromHtml(context.getString(R.string.cart_person_sell,
+                                AppState.getInstance().getCurrentUser().getName())));
+                    }
+                } else {
+                    btnChange.setText(context.getString(R.string.action_change));
+                    tvName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                    ViewHelper.setText(tvName, user.getName(), null);
+                    if (user.getAvatar() != null) {
+                        ImageHelper.loadThumbCircleImage(context,
+                                user.getAvatar(), imvAvatar);
+                    }
+                    if (user.getName() != null) {
+                        tvAddress.setText(Html.fromHtml(context.getString(R.string.cart_address_customer,
+                                user.getName())));
+                    }
+                    if (AppState.getInstance().getCurrentUser().getName() != null) {
+                        tvShop.setText(Html.fromHtml(context.getString(R.string.cart_person_sell,
+                                AppState.getInstance().getCurrentUser().getName())));
+                    }
                 }
+                tvShop.setVisibility(View.VISIBLE);
+                setCreateDate(context);
+            } else {
+                ImageHelper.loadThumbCircleImage(context,
+                        user.getAvatar(), imvAvatar);
+                btnChange.setVisibility(View.GONE);
+                tvName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                ViewHelper.setText(tvName, user.getName(), null);
+                tvShop.setVisibility(View.VISIBLE);
+                ViewHelper.setText(tvShop, mOrder.getCreator(), null);
+                tvAddress.setText(Html.fromHtml(context.getString(R.string.cart_address_customer,
+                        user.getName())));
+                setCreateDate(context);
+            }
+        }
+
+        private void onBindingDataForNotPromoter(Context context) {
+            if (viewMode == OrderDetailFragment.ViewMode.MODE_CREATE) {
+                ImageHelper.loadThumbCircleImage(context,
+                        AppState.getInstance().getCurrentUser().getAvatar(), imvAvatar);
+                btnChange.setVisibility(View.GONE);
+                if (user == null) {
+                    tvName.setTextColor(context.getResources().getColor(R.color.dark_light));
+                    ViewHelper.setText(tvName, context.getString(R.string.cart_please_select_customer), null);
+                } else {
+                    tvName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                    ViewHelper.setText(tvName, user.getName(), null);
+                }
+                tvShop.setVisibility(View.GONE);
+                tvAddress.setText(Html.fromHtml(context.getString(R.string.cart_address_customer,
+                        AppState.getInstance().getCurrentUser().getAddress())));
+                setCreateDate(context);
+            } else {
+                ImageHelper.loadThumbCircleImage(context,
+                        user.getAvatar(), imvAvatar);
+                btnChange.setVisibility(View.GONE);
+                tvName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                ViewHelper.setText(tvName, user.getName(), null);
+                tvShop.setVisibility(View.GONE);
+                tvAddress.setText(Html.fromHtml(context.getString(R.string.cart_address_customer,
+                        AppState.getInstance().getCurrentUser().getName())));
+                setCreateDate(context);
+            }
+        }
+
+        private void onBindingDataForNoLogin(Context context) {
+            btnChange.setVisibility(View.GONE);
+            tvName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+            tvName.setText("Chưa đăng nhập");
+            tvShop.setVisibility(View.GONE);
+            tvAddress.setText(Html.fromHtml("<b>Địa chỉ: </b>"));
+            setCreateDate(context);
+        }
+
+        private void setCreateDate(Context context) {
+            if (viewMode == OrderDetailFragment.ViewMode.MODE_CREATE) {
+                String dateString = new SimpleDateFormat("dd/MM/yyyy hh:mm").format(new Date());
+                tvDate.setText(Html.fromHtml(context.getString(R.string.cart_date_sell, dateString)));
+            } else {
+                String dateString = new SimpleDateFormat("dd/MM/yyyy hh:mm").format(new Date(mOrder.getCreatedAt()));
+                tvDate.setText(Html.fromHtml(context.getString(R.string.cart_date_sell, dateString)));
             }
         }
 
