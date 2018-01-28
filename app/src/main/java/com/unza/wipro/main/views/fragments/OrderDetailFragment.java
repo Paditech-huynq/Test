@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -48,6 +49,7 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
 
     public static OrderDetailFragment newInstance(int orderID) {
         OrderDetailFragment fragment = newInstance();
+        Log.e("orderId",orderID+"");
         fragment.mOrderID = orderID;
         return fragment;
     }
@@ -89,7 +91,7 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     }
 
     private void setupCreateCart() {
-        bottomBar.setVisibility(hasOrder() ? View.VISIBLE : View.GONE);
+        bottomBar.setVisibility(hasOrder() ? View.GONE : View.VISIBLE);
 
     }
 
@@ -121,7 +123,9 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
 
     @Override
     public void showOrderDetail(Order order) {
-        if (order == null) return;
+        if (order == null) {
+            return;
+        }
         mAdapter.updateOrder(order);
     }
 

@@ -84,8 +84,11 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
 
     @Override
     public void switchTab(int pos) {
-        mViewPager.setCurrentItem(pos, false);
-        updateTitle();
+        try {
+            mViewPager.setCurrentItem(pos, false);
+            updateTitle();
+        } catch (Exception ignored) {
+        }
     }
 
     @Override

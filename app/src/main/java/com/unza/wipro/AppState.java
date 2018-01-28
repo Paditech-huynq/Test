@@ -1,5 +1,7 @@
 package com.unza.wipro;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.paditech.core.helper.PrefUtils;
 import com.paditech.core.helper.StringUtil;
@@ -56,6 +58,7 @@ public class AppState {
     }
 
     public void addCartChangeListener(Cart.CartChangeListener listener) {
+        Log.e("Add listener", listener.getClass().getSimpleName());
         currentCart.addListener(listener);
     }
 

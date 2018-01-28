@@ -47,12 +47,14 @@
                 android:layout_marginBottom="@dimen/padding_tiny">
 
                 <com.unza.wipro.main.views.customs.AmountView
-                    android:id="@+id/av_amount"
+                    android:visibility="gone"
+                    android:id="@+id/avAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/tvCount"
                     android:layout_width="wrap_content"
                     android:layout_height="28dip"

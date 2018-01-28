@@ -1,6 +1,7 @@
 package com.unza.wipro.main.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
-import com.paditech.core.helper.ImageHelper;
 import com.paditech.core.helper.StringUtil;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
@@ -18,6 +18,8 @@ import com.unza.wipro.main.views.customs.AmountView;
 import com.unza.wipro.transaction.cart.Cart;
 import com.unza.wipro.transaction.cart.CartInfo;
 import com.unza.wipro.transaction.user.Customer;
+import com.unza.wipro.transaction.user.Promoter;
+import com.unza.wipro.utils.ImageHelper;
 
 import java.util.Date;
 
@@ -33,10 +35,18 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
     public void updateOrder(Order mOrder) {
         this.mOrder = mOrder;
+        currentCustomer = mOrder.getCustomer();
         notifyDataSetChanged();
     }
 
     public CartItemsAdapter(Order order) {
+        if (order == null) {
+            if (app.getCurrentUser() instanceof Customer) {
+                currentCustomer = (Customer) app.getCurrentUser();
+            }
+            return;
+        }
+
         this.mOrder = order;
         currentCustomer = order.getCustomer();
     }
@@ -86,7 +96,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         TextView tvPrice;
         @BindView(R.id.tvTotalPrice)
         TextView tvTotalPrice;
-        @BindView(R.id.av_amount)
+        @BindView(R.id.avAmount)
         AmountView amountView;
         @BindView(R.id.tvCount)
         TextView tvCount;
@@ -145,10 +155,13 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         TextView tvPrice;
         @BindView(R.id.tvDate)
         TextView tvDate;
-        @BindView(R.id.tvShop)
-        TextView tvShop;
+        @BindView(R.id.tvPromoterName)
+        TextView tvPromoterName;
         @BindView(R.id.tvAddress)
         TextView tvAddress;
+        @BindView(R.id.btnChangeCustomer)
+        View btnChangeCustomer;
+
         boolean isOrder = mOrder != null;
 
         CartInfoHolder(View itemView) {
@@ -157,27 +170,39 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @Override
         protected void onBindingData(int position) {
-            updatePrice();
-            Date date = mOrder != null ? new Date(mOrder.getCreatedAt()) : new Date();
-            tvDate.setText(StringUtil.formatDate(date));
-            if (mOrder == null || mOrder.getCustomer() == null) return;
-            if (!StringUtil.isEmpty(mOrder.getCustomer().getAvatar()))
-                ImageHelper.loadThumbCircleImage(itemView.getContext(), mOrder.getCustomer().getAvatar(), imvAvatar);
-            tvName.setText(mOrder.getCustomer().getName());
-            tvAddress.setText(mOrder.getCustomer().getAddress());
-            String shop = isOrder ? mOrder.getCreator() : "";
-            tvShop.setText(shop);
-//            if (mOrder == null && mOrder.getCustomer() != null) return;
-//            if (!StringUtil.isEmpty(mOrder.getCustomer().getAvatar()))
-//                ImageHelper.loadThumbCircleImage(itemView.getContext(), mOrder.getCustomer().getAvatar(), imvAvatar);
-//            tvName.setText(mOrder.getCustomer().getName());
-//            tvDate.setText(StringUtil.formatDate(new Date()));
-//            tvAddress.setText(mOrder.getCustomer().getAddress());
-
+            fillCustomerInfo(currentCustomer);
             if (!isOrder) {
-                app.addCartChangeListener(this);
+                setUpViewForCart();
             }
             updatePrice();
+        }
+
+        private void fillPromoterInfo(Promoter promoter) {
+            Date date = mOrder != null ? new Date(mOrder.getCreatedAt()) : new Date();
+            tvDate.setText(StringUtil.formatDate(date));
+            tvPromoterName.setText(promoter.getName());
+            tvAddress.setText(promoter.getAddress());
+        }
+
+        /**
+         * if not the order, show Cart
+         */
+        private void setUpViewForCart() {
+            btnChangeCustomer.setVisibility(isOrder || app.getCurrentUser() instanceof Customer ? View.GONE : View.VISIBLE);
+            if (app.getCurrentUser() instanceof Promoter) {
+                fillPromoterInfo((Promoter) app.getCurrentUser());
+            }
+            app.addCartChangeListener(this);
+        }
+
+        private void fillCustomerInfo(Customer customer) {
+            if (customer != null) {
+                ImageHelper.loadAvatar(itemView.getContext(), customer.getAvatar() + "", imvAvatar);
+                tvName.setText(customer.getName());
+                if (customer.getAddress() != null && !customer.getAddress().trim().isEmpty()) {
+                    tvAddress.setText(Html.fromHtml(itemView.getContext().getString(R.string.att_address_with_input, customer.getAddress())));
+                }
+            }
         }
 
         @OnClick(R.id.btnChangeCustomer)

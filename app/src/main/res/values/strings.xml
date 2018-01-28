@@ -44,8 +44,8 @@
     <string name="message_pass_confirm_invalid">Xác nhận mật khẩu sai!</string>
     <string name="message_change_pass_failure">Đổi mật khẩu không thành công! Xin hãy thử lại!</string>
     <string name="action_change">Thay đổi</string>
-    <string name="att_address_with_input">&lt;b>Đ/c: &lt;/b> Siêu Thị Minh Hoa 250 Cầu Giấy Hà Nội</string>
-    <string name="action_seller">&lt;b>Người bán:&lt;/b> Phương Ly</string>
+    <string name="att_address_with_input">&lt;b>Đ/c: &lt;/b> %s</string>
+    <string name="action_seller">&lt;b>Người bán:&lt;/b> %s</string>
     <string name="action_create_new_customer">Tạo khách hàng mới</string>
     <string name="title_profile_select">Chọn khách hàng</string>
     <string name="att_profile_register_full_name_required">Họ và tên (*)</string>
