@@ -3,7 +3,6 @@ package com.unza.wipro.main.contracts;
 import com.paditech.core.mvp.BasePresenterImpl;
 import com.paditech.core.mvp.BaseViewImpl;
 import com.unza.wipro.main.models.Order;
-import com.unza.wipro.transaction.Transaction;
 import com.unza.wipro.transaction.user.Customer;
 
 public interface OrderDetailContract {
@@ -13,9 +12,11 @@ public interface OrderDetailContract {
         void showOrderDetail(Order order);
 
         void setCustomer(Customer customer);
+
+        Customer getCustomer();
     }
 
     interface Presenter extends BasePresenterImpl {
-        void submitTransaction(Transaction transaction);
+        void onSubmitTransactionButtonClick();
     }
 }
