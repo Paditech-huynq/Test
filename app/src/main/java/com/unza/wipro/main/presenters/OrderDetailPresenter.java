@@ -18,6 +18,34 @@ import retrofit2.Response;
 public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.ViewImpl> implements OrderDetailContract.Presenter, AppConstans {
     int orderId;
 
+    private Transaction.TransactionCallback directTransactionCallback = new Transaction.TransactionCallback() {
+        @Override
+        public void onSuccess(OrderData data) {
+            getView().showProgressDialog(false);
+            onPaymentSuccess();
+        }
+
+        @Override
+        public void onFailure(Throwable e) {
+            getView().showProgressDialog(false);
+            onPaymentFailure();
+        }
+    };
+
+    private Transaction.TransactionCallback orderTransactionCallback = new Transaction.TransactionCallback() {
+        @Override
+        public void onSuccess(OrderData data) {
+            getView().showProgressDialog(false);
+            onPaymentSuccess();
+        }
+
+        @Override
+        public void onFailure(Throwable e) {
+            getView().showProgressDialog(false);
+            onPaymentFailure();
+        }
+    };
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -73,6 +101,10 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
 
     @Override
     public void onSubmitTransactionButtonClick() {
+        doTransaction();
+    }
+
+    private void doTransaction() {
         final User currentUser = app.getCurrentUser();
         final Customer customer = getView().getCustomer();
         if (customer == null) {
@@ -91,19 +123,7 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
             if (transaction.create(customer.getId(), app.getCurrentCart())) {
                 getView().showProgressDialog(true);
                 try {
-                    transaction.pay(new Transaction.TransactionCallback() {
-                        @Override
-                        public void onSuccess(OrderData data) {
-                            getView().showProgressDialog(false);
-                            onPaymentSuccess();
-                        }
-
-                        @Override
-                        public void onFailure(Throwable e) {
-                            getView().showProgressDialog(false);
-                            onPaymentFailure();
-                        }
-                    });
+                    transaction.pay(directTransactionCallback);
                 } catch (Exception e) {
                     e.printStackTrace();
                     getView().showToast(e.getLocalizedMessage());
