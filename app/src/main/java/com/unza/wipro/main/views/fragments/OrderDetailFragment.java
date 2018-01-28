@@ -135,6 +135,11 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
 
     }
 
+    @Override
+    public Customer getCustomer() {
+        return mAdapter.getCustomer();
+    }
+
     private void setupRecycleView() {
         if (hasOrder()) {
             mAdapter = new CartItemsAdapter(new Order());
@@ -173,7 +178,7 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
 
     @OnClick(R.id.btnSubmit)
     void onSubmitBtnClick() {
-        getPresenter().onSubmitTransaction();
+        getPresenter().onSubmitTransactionButtonClick();
     }
 
     @OnClick(R.id.btnLookup)

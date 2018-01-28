@@ -23,7 +23,6 @@ public class DirectTransaction extends Transaction {
             List<Product> products = new ArrayList<>();
             for (int i = 0; i < cartProductList.size(); i++) {
                 int key = cartProductList.keyAt(i);
-                // get the object by the key.
                 products.add(cartProductList.get(key));
             }
             app.getService().doCreatOrderForPromoter(app.getToken(), app.getAppKey(), getCustomerId(), new Gson().toJson(products)).enqueue(new Callback<CreateOrderRSP>() {
@@ -38,6 +37,7 @@ public class DirectTransaction extends Transaction {
                 }
             });
         } catch (Exception e) {
+            onPaymentFailure(callback,e);
             e.printStackTrace();
         }
         return false;

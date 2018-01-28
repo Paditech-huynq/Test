@@ -87,6 +87,10 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         this.currentCustomer = customer;
     }
 
+    public Customer getCustomer() {
+        return currentCustomer;
+    }
+
     class CartItemHolder extends BaseRecycleViewAdapter.BaseViewHolder {
         @BindView(R.id.imvProduct)
         ImageView imvProduct;

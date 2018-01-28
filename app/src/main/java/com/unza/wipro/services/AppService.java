@@ -102,10 +102,12 @@ public interface AppService {
     @POST("notifications/list")
     Call<ReadNotificationRSP> readNotification(@Header("Authorization") String token, @Header("AppKey") String appKey, @Field("notification_id") int notificationId);
 
-    @POST("/order/create")
+    @POST("order/create")
+    @FormUrlEncoded
     Call<CreateOrderRSP> doCreatOrderForPromoter(@Header("Authorization") String token, @Header("AppKey") String appKey, @Field("customer_id") String customerId, @Field("products") String productsList);
 
-    @POST("/order/create")
+    @POST("order/create")
+    @FormUrlEncoded
     Call<CreateOrderRSP> doCreatOrderForCustomer(@Header("Authorization") String token, @Header("AppKey") String appKey, @Field("customer_id") String customerId, @Field("products") String productsList,
                                                  @Field("billing_name") String billingName,@Field("billing_date") String billingDate,@Field("billing_phone") String billingPhone,@Field("billing_note") String billingNote);
 }

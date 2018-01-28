@@ -3,8 +3,8 @@ package com.unza.wipro.main.presenters;
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.main.contracts.OrderDetailContract;
-import com.unza.wipro.main.models.responses.GetOrderDetailRSP;
 import com.unza.wipro.main.models.OrderData;
+import com.unza.wipro.main.models.responses.GetOrderDetailRSP;
 import com.unza.wipro.services.AppClient;
 import com.unza.wipro.transaction.DirectTransaction;
 import com.unza.wipro.transaction.Transaction;
@@ -52,16 +52,7 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
                     }
                 });
     }
-//
-//    @Override
-//    public void submitTransaction(Transaction transaction) {
-//        if (!app.isLogin()) {
-//            return;
-//        }
-//        getView().showToast("submited");
-//        //todo: implement logic for submit transaction here
-//    }
-//
+
 //    public void onSubmitTransaction() {
 //
 ////        if (app.getCurrentUser() instanceof Customer) {
@@ -80,23 +71,16 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
 ////        }
 //    }
 
-    private void onPaymentFailure() {
-        //todo: handle for payment success
-    }
-
-    private void onPaymentSuccess() {
-        //todo: handle for payment failure
-
-    }
-
     @Override
     public void onSubmitTransactionButtonClick() {
         final User currentUser = app.getCurrentUser();
         final Customer customer = getView().getCustomer();
         if (customer == null) {
+            getView().showToast("Customer is null");
             return;
         }
         if (currentUser == null) {
+            getView().showToast("User is null");
             return;
         }
 
@@ -126,5 +110,18 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
                 }
             }
         }
+    }
+
+
+    private void onPaymentFailure() {
+        //todo: handle for payment success
+        getView().showToast("Payment Failure");
+
+    }
+
+    private void onPaymentSuccess() {
+        //todo: handle for payment failure
+        getView().showToast("Payment Success");
+        app.editCart().clear();
     }
 }
