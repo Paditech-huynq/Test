@@ -26,10 +26,9 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.ImageHelper;
-import com.unza.wipro.AppState;
+import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
-import com.unza.wipro.main.models.Customer;
-import com.unza.wipro.main.models.LoginClient;
+import com.unza.wipro.main.models.UserData;
 import com.unza.wipro.main.models.responses.CreateCustomerRSP;
 import com.unza.wipro.services.AppClient;
 import com.unza.wipro.utils.Utils;
@@ -48,7 +47,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProfileRegisterFragment extends BaseFragment {
+public class ProfileRegisterFragment extends BaseFragment implements AppConstans {
     public final static int REQUEST_PHOTO_CAMERA = 100;
     public final static int REQUEST_PHOTO_GALLERY = 200;
     public final static int REQUEST_WRITE_EXTERNAL_STORAGE = 112;
@@ -301,7 +300,7 @@ public class ProfileRegisterFragment extends BaseFragment {
 
     @OnClick(R.id.btnRegister)
     void submitRegister() {
-        if (!AppState.getInstance().isLogin()) {
+        if (!app.isLogin()) {
             return;
         }
         if (dataIsValid()) {
@@ -323,8 +322,8 @@ public class ProfileRegisterFragment extends BaseFragment {
             }
 
             AppClient.newInstance().getService().createCustomer(
-                    AppState.getInstance().getToken(),
-                    AppState.getInstance().getAppKey(),
+                    app.getToken(),
+                    app.getAppKey(),
                     name, phone, email, address, body)
                     .enqueue(new Callback<CreateCustomerRSP>() {
                         @Override
@@ -332,7 +331,7 @@ public class ProfileRegisterFragment extends BaseFragment {
                             isPending = false;
                             showProgressDialog(false);
                             CreateCustomerRSP createCustomerRSP = response.body();
-                            Customer customer = createCustomerRSP.getCustomer();
+                            UserData customer = createCustomerRSP.getCustomer();
                             showToast(createCustomerRSP.getMessage());
                             if (customer != null) {
                                 getActivity().onBackPressed();

@@ -13,6 +13,7 @@ import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.StringUtil;
 import com.paditech.core.image.GlideApp;
 import com.paditech.core.mvp.MVPActivity;
+import com.unza.wipro.AppConstans;
 import com.unza.wipro.AppState;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.MainContract;
@@ -24,7 +25,7 @@ import com.unza.wipro.main.views.fragments.ProfileFragment;
 
 import butterknife.BindView;
 
-public class MainActivity extends MVPActivity<MainPresenter> implements MainContract.ViewImpl {
+public class MainActivity extends MVPActivity<MainPresenter> implements MainContract.ViewImpl, AppConstans {
     @BindView(R.id.tvTitle)
     TextView tvTitle;
 
@@ -69,10 +70,10 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
     protected void updateAvatar() {
         ImageView imageView = findViewById(R.id.imvAvatar);
         if (imageView == null) return;
-        if (AppState.getInstance().isLogin()) {
-            if (!StringUtil.isEmpty(AppState.getInstance().getCurrentUser().getAvatar())) {
+        if (app.isLogin()) {
+            if (!StringUtil.isEmpty(app.getCurrentUser().getAvatar())) {
                 GlideApp.with(this)
-                        .load(AppState.getInstance().getCurrentUser().getAvatar())
+                        .load(app.getCurrentUser().getAvatar())
                         .placeholder(R.drawable.ic_avatar_holder)
                         .thumbnail(0.5f).circleCrop()
                         .into(imageView);
@@ -89,13 +90,13 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
         super.onActionSelected(resId);
         switch (resId) {
             case R.id.btnCart:
-                switchFragment(OrderDetailFragment.newInstance(OrderDetailFragment.ViewMode.MODE_CREATE, 0), true);
+                switchFragment(OrderDetailFragment.newInstance(), true);
                 break;
             case R.id.btnNotification:
                 switchFragment(NotificationFragment.newInstance(), true);
                 break;
             case R.id.imvAvatar:
-                if (AppState.getInstance().isLogin()) {
+                if (app.isLogin()) {
                     switchFragment(ProfileFragment.newInstance(), true);
                 } else {
                     Intent intent = new Intent(this, LoginActivity.class);

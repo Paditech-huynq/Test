@@ -21,7 +21,7 @@ import static com.unza.wipro.AppConstans.PREF_TOKEN;
 public class AppState {
     private static AppState instance;
 
-    public static synchronized AppState getInstance() {
+    static synchronized AppState getInstance() {
         if (instance == null) {
             instance = new AppState();
         }

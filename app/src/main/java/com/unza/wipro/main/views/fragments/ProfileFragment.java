@@ -12,7 +12,6 @@ import com.paditech.core.DisableTouchView;
 import com.paditech.core.image.GlideApp;
 import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.AppConstans;
-import com.unza.wipro.AppState;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.ProfileContract;
 import com.unza.wipro.main.presenters.ProfilePresenter;
@@ -22,8 +21,6 @@ import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.transaction.user.Promoter;
 import com.unza.wipro.transaction.user.PromoterLeader;
 import com.unza.wipro.utils.DateTimeUtils;
-
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -147,7 +144,7 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
 
     @OnClick(R.id.rlt_logout)
     protected void logout() {
-        AppState.getInstance().logout();
+        app.logout();
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
         getActivity().finish();
