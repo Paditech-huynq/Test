@@ -45,6 +45,7 @@ public class NotificationAdapter extends BaseRecycleViewAdapter implements AppCo
 
     public int getUnreadCount() {
         int count = 0;
+        if (mData == null) return count;
         for (Notice notice: mData) {
             if (!notice.isRead()) count++;
         }
