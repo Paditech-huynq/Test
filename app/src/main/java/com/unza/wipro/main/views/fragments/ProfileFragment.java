@@ -103,7 +103,7 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
         tvName.setText(AppConstans.app.getCurrentUser().getName());
         tvEmail.setText(AppConstans.app.getCurrentUser().getEmail());
         tvAddress.setText(AppConstans.app.getCurrentUser().getAddress());
-        tvPhone.setText(AppConstans.app.getCurrentUser().getName());
+        tvPhone.setText(AppConstans.app.getCurrentUser().getPhone());
         tvNumberSales.setText(AppConstans.app.getCurrentUser().getNumberOrders());
         GlideApp.with(this).load(AppConstans.app.getCurrentUser().getAvatar()).circleCrop().into(imgAvar);
         GlideApp.with(this).load(AppConstans.app.getCurrentUser().getAvatar()).into(imgAvarUnder);
