@@ -85,6 +85,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
     public void setCustomer(Customer customer) {
         this.currentCustomer = customer;
+        notifyItemChanged(0);
     }
 
     public Customer getCustomer() {
