@@ -8,6 +8,6 @@ public interface UpdatePasswordContract {
     }
 
     interface Presenter extends BasePresenterImpl{
-        void updatePassword(String oldPass, String newPass, String confirmPass);
+        void onChangePasswordButtonClick(String oldPass, String newPass, String confirmPass);
     }
 }

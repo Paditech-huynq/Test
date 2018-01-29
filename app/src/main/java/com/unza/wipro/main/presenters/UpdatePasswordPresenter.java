@@ -16,7 +16,11 @@ public class UpdatePasswordPresenter extends BasePresenter<UpdatePasswordContrac
     private boolean isPending;
 
     @Override
-    public void updatePassword(String oldPass, String newPass, String confirmPass) {
+    public void onChangePasswordButtonClick(String oldPass, String newPass, String confirmPass) {
+        requestUpdatePasswordToServer(oldPass, newPass, confirmPass);
+    }
+
+    private void requestUpdatePasswordToServer(String oldPass, String newPass, String confirmPass) {
         if (isPending) {
             return;
         }
@@ -33,10 +37,10 @@ public class UpdatePasswordPresenter extends BasePresenter<UpdatePasswordContrac
                         if (getView() != null) {
                             getView().showProgressDialog(false);
                         }
-                        if (response.body().getData() != null){
+                        if (response.body().getData() != null) {
                             getView().showToast(getView().getContext().getString(R.string.message_change_pass_success));
-                            ((BaseFragment)getView()).getActivity().onBackPressed();
-                        }else {
+                            ((BaseFragment) getView()).getActivity().onBackPressed();
+                        } else {
                             getView().showToast(response.body().getMessage());
                         }
                     }

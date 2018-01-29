@@ -56,7 +56,7 @@ public class UpdatePasswordFragment extends MVPFragment<UpdatePasswordPresenter>
         String confirmPass = edtConfirmPass.getText().toString();
 
         if (validate(oldPass, newPass, confirmPass)) {
-            getPresenter().updatePassword(oldPass, newPass, confirmPass);
+            getPresenter().onChangePasswordButtonClick(oldPass, newPass, confirmPass);
         }
     }
 
