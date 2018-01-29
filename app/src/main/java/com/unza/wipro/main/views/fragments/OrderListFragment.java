@@ -326,12 +326,18 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public boolean isActionShow(int resId) {
-        if(comFromWhatFragment == COME_FROM_PROFILE_FRAGMENT){
-            if(resId == R.id.imvAvatar || resId == R.id.btnNotification || resId == R.id.btnCart || resId == R.id.btnTrash){
-                return false;
+        if (resId == R.id.btnTrash) {
+            return false;
+        }
+        if (comFromWhatFragment == COME_FROM_PROFILE_FRAGMENT) {
+            switch (resId) {
+                case R.id.imvAvatar:
+                case R.id.btnNotification:
+                case R.id.btnCart:
+                    return false;
             }
         }
-        return resId != R.id.btnTrash;
+        return true;
     }
 
     @Override
