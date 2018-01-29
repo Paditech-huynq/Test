@@ -14,7 +14,7 @@ public class WiproApplication extends BaseApplication {
         AppState.getInstance().loadFromCache();
     }
 
-    //cmt vì khi xuất hiện lại dữ liệu đã ở sẵn trong currentuser rồi
+    //when reopen device, data not need to load, because current user have all
 //    @Override
 //    public void onActivityStarted(Activity activity) {
 //        if (activity instanceof MainActivity) {
