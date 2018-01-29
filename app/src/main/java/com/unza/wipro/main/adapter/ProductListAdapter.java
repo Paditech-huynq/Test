@@ -115,7 +115,8 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
     }
 
     public void replaceData(List<Product> productList) {
-        productList.clear();
-        insertData(productList);
+        this.productList.clear();
+        this.productList.addAll(productList);
+        notifyDataSetChanged();
     }
 }
