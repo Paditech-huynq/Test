@@ -1,18 +1,54 @@
 package com.unza.wipro.main.presenters;
 
+import com.paditech.core.BaseFragment;
 import com.paditech.core.mvp.BasePresenter;
+import com.unza.wipro.AppConstans;
+import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.UpdatePasswordContract;
+import com.unza.wipro.main.models.responses.ChangePasswordRSP;
+import com.unza.wipro.services.AppClient;
 
-public class UpdatePasswordPresenter extends BasePresenter<UpdatePasswordContract.ViewImpl> implements UpdatePasswordContract.Presenter {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class UpdatePasswordPresenter extends BasePresenter<UpdatePasswordContract.ViewImpl> implements UpdatePasswordContract.Presenter, AppConstans {
+    private boolean isPending;
+
     @Override
-    public void onCreate() {
-        super.onCreate();
-    }
+    public void updatePassword(String oldPass, String newPass, String confirmPass) {
+        if (isPending) {
+            return;
+        }
+        isPending = true;
+        getView().showProgressDialog(true);
+        AppClient.newInstance().getService().changePassword(
+                app.getToken(),
+                app.getAppKey(),
+                oldPass, newPass, confirmPass)
+                .enqueue(new Callback<ChangePasswordRSP>() {
+                    @Override
+                    public void onResponse(Call<ChangePasswordRSP> call, Response<ChangePasswordRSP> response) {
+                        isPending = false;
+                        if (getView() != null) {
+                            getView().showProgressDialog(false);
+                        }
+                        if (response.body().getData() != null){
+                            getView().showToast(getView().getContext().getString(R.string.message_change_pass_success));
+                            ((BaseFragment)getView()).getActivity().onBackPressed();
+                        }else {
+                            getView().showToast(response.body().getMessage());
+                        }
+                    }
 
-
-    @Override
-    public void updatePassword(String oldPass, String newPass) {
-        // todo: call update password api (get results and message)
-        getView().onChangePasswordResult(true, "");
+                    @Override
+                    public void onFailure(Call<ChangePasswordRSP> call, Throwable t) {
+                        isPending = false;
+                        if (getView() != null) {
+                            getView().showProgressDialog(false);
+                            getView().showToast(getView().getContext().getString(R.string.message_change_pass_failure));
+                        }
+                    }
+                });
     }
 }
