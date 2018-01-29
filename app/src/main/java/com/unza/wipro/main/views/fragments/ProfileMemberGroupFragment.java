@@ -44,9 +44,9 @@ public class ProfileMemberGroupFragment extends BaseFragment {
     TextView tvAddress;
     @BindView(R.id.tv_time_profile)
     TextView tvTime;
-    @BindView(R.id.tv_sales_want)
+    @BindView(R.id.tv_sales_expect)
     TextView tvSalesWant;
-    @BindView(R.id.tv_sales_have)
+    @BindView(R.id.tv_sales_actual)
     TextView tvSalesHave;
     @BindView(R.id.degree_sale)
     DegreeView degreeSale;
@@ -93,11 +93,11 @@ public class ProfileMemberGroupFragment extends BaseFragment {
         tvPoint.setText(getResources().getString(R.string.custom_profile_fragment));
         tvNumberPoint.setText(mPromoter.getNumberCustomers());
         tvSalesWant.setText(Html.fromHtml(getResources().getString(R.string.sales_want_profile_fragment,
-                mPromoter.getSaleWant())));
+                mPromoter.getSalesExpect())));
         tvSalesHave.setText(Html.fromHtml(getResources().getString(R.string.sales_have_profile_fragment,
-                mPromoter.getSaleHave())));
+                mPromoter.getSalesActual())));
         try {
-            degreeSale.setValue(R.color.white, R.color.colorPrimary, Long.parseLong(mPromoter.getSaleHave()), Long.parseLong(mPromoter.getSaleWant()));
+            degreeSale.setValue(R.color.white, R.color.colorPrimary, Long.parseLong(mPromoter.getSalesActual()), Long.parseLong(mPromoter.getSalesExpect()));
             tvTime.setText(Html.fromHtml(getResources().getString(R.string.time_profile_fragment,
                     DateTimeUtils.getStringDayMonthYear(DateTimeUtils.getDateFromServerDayMonthYear(mPromoter.getFrom())),
                     DateTimeUtils.getStringDayMonthYear(DateTimeUtils.getDateFromServerDayMonthYear(mPromoter.getTo())))));

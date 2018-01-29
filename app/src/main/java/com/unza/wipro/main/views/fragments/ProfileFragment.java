@@ -23,8 +23,6 @@ import com.unza.wipro.transaction.user.Promoter;
 import com.unza.wipro.transaction.user.PromoterLeader;
 import com.unza.wipro.utils.DateTimeUtils;
 
-import java.util.Date;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -53,9 +51,9 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     TextView tvAddress;
     @BindView(R.id.tv_time_profile)
     TextView tvTime;
-    @BindView(R.id.tv_sales_want)
+    @BindView(R.id.tv_sales_expect)
     TextView tvSalesWant;
-    @BindView(R.id.tv_sales_have)
+    @BindView(R.id.tv_sales_actual)
     TextView tvSalesHave;
     @BindView(R.id.degree_sale)
     DegreeView degreeSale;
@@ -124,11 +122,11 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
         tvPoint.setText(getResources().getString(R.string.custom_profile_fragment));
         tvNumberPoint.setText(promoter.getNumberCustomers());
         tvSalesWant.setText(Html.fromHtml(getResources().getString(R.string.sales_want_profile_fragment,
-                promoter.getSaleWant())));
+                promoter.getSalesExpect())));
         tvSalesHave.setText(Html.fromHtml(getResources().getString(R.string.sales_have_profile_fragment,
-                promoter.getSaleHave())));
+                promoter.getSalesActual())));
         try {
-            degreeSale.setValue(R.color.white, R.color.colorPrimary, Long.parseLong(promoter.getSaleHave()), Long.parseLong(promoter.getSaleWant()));
+            degreeSale.setValue(R.color.white, R.color.colorPrimary, Long.parseLong(promoter.getSalesActual()), Long.parseLong(promoter.getSalesExpect()));
             tvTime.setText(Html.fromHtml(getResources().getString(R.string.time_profile_fragment,
                     DateTimeUtils.getStringDayMonthYear(DateTimeUtils.getDateFromServerDayMonthYear(promoter.getFrom())),
                     DateTimeUtils.getStringDayMonthYear(DateTimeUtils.getDateFromServerDayMonthYear(promoter.getTo())))));

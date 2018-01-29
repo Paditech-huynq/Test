@@ -303,7 +303,7 @@
                 <TextView
                     android:paddingBottom="@dimen/padding_small"
                     android:paddingStart="@dimen/padding_in_degree_view"
-                    android:id="@+id/tv_sales_have"
+                    android:id="@+id/tv_sales_actual"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/text_dark"
@@ -313,7 +313,7 @@
                 <TextView
                     android:paddingBottom="@dimen/padding_small"
                     android:paddingStart="@dimen/padding_in_degree_view"
-                    android:id="@+id/tv_sales_want"
+                    android:id="@+id/tv_sales_expect"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/text_dark"

@@ -14,7 +14,6 @@ import com.paditech.core.image.GlideApp;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.views.customs.PlaceHolderDrawableHelper;
-import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.transaction.user.Promoter;
 import com.unza.wipro.utils.DateTimeUtils;
 
@@ -84,7 +83,7 @@ public class ProfilePromoterListAdapter extends BaseRecycleViewAdapter implement
             ViewHelper.setText(tvTimeSales, String.format(context.getString(R.string.time_sale),
                     DateTimeUtils.getStringDayMonthYear(DateTimeUtils.getDateFromServerDayMonthYear(promoter.getFrom())),
                     DateTimeUtils.getStringDayMonthYear(DateTimeUtils.getDateFromServerDayMonthYear(promoter.getTo()))), null);
-            ViewHelper.setText(tvSales, String.format(context.getString(R.string.sale), promoter.getSaleHave(), promoter.getSaleWant()), null);
+            ViewHelper.setText(tvSales, String.format(context.getString(R.string.sale), promoter.getSalesActual(), promoter.getSalesExpect()), null);
         }
     }
 }

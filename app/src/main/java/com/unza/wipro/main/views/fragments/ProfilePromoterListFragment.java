@@ -20,19 +20,17 @@ import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
-import com.unza.wipro.main.adapter.ProfileListAdapter;
 import com.unza.wipro.main.adapter.ProfilePromoterListAdapter;
 import com.unza.wipro.main.contracts.ProfilePromoterListContract;
-import com.unza.wipro.main.presenters.ProfilePromoterListFresenter;
+import com.unza.wipro.main.presenters.ProfilePromoterLisPresenter;
 import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
-import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.transaction.user.Promoter;
 
 import java.util.List;
 
 import butterknife.BindView;
 
-public class ProfilePromoterListFragment extends MVPFragment<ProfilePromoterListFresenter> implements ProfilePromoterListContract.ViewImpl {
+public class ProfilePromoterListFragment extends MVPFragment<ProfilePromoterLisPresenter> implements ProfilePromoterListContract.ViewImpl {
     @BindView(R.id.rcvProfile)
     RecyclerView mRecyclerView;
     @BindView(R.id.edtSearch)

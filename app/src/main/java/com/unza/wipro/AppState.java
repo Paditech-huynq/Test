@@ -126,8 +126,8 @@ public class AppState {
         }
         if(currentUser instanceof Promoter){
             ((Promoter) currentUser).setNumberCustomers(String.valueOf(user.getCustomers()));
-            ((Promoter) currentUser).setSaleHave(String.valueOf(user.getSaleHave()));
-            ((Promoter) currentUser).setSaleWant(String.valueOf(user.getSaleWant()));
+            ((Promoter) currentUser).setSalesActual(String.valueOf(user.getSalesActual()));
+            ((Promoter) currentUser).setSalesExpect(String.valueOf(user.getSalesExpect()));
             ((Promoter) currentUser).setFrom(String.valueOf(user.getFrom()));
             ((Promoter) currentUser).setTo(String.valueOf(user.getTo()));
             if(currentUser instanceof PromoterLeader){

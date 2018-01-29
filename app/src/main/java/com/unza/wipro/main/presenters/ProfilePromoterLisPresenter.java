@@ -4,10 +4,8 @@ package com.unza.wipro.main.presenters;
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppState;
 import com.unza.wipro.main.contracts.ProfilePromoterListContract;
-import com.unza.wipro.main.models.responses.GetListCustomerRSP;
 import com.unza.wipro.main.models.responses.GetListPromoterInGroupRSP;
 import com.unza.wipro.services.AppClient;
-import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.transaction.user.Promoter;
 
 import java.util.List;
@@ -18,7 +16,7 @@ import retrofit2.Response;
 
 import static com.unza.wipro.AppConstans.PAGE_SIZE;
 
-public class ProfilePromoterListFresenter extends BasePresenter<ProfilePromoterListContract.ViewImpl> implements ProfilePromoterListContract.Presenter {
+public class ProfilePromoterLisPresenter extends BasePresenter<ProfilePromoterListContract.ViewImpl> implements ProfilePromoterListContract.Presenter {
     private static final int FIRST_PAGE = 1;
     private int page = FIRST_PAGE;
     private boolean isFull;
@@ -28,10 +26,10 @@ public class ProfilePromoterListFresenter extends BasePresenter<ProfilePromoterL
     @Override
     public void onCreate() {
         super.onCreate();
-        loadListCustomerFromServer(false);
+        loadListPromoterFromServer(false);
     }
 
-    private void loadListCustomerFromServer(final boolean isRefresh) {
+    private void loadListPromoterFromServer(final boolean isRefresh) {
         if ((isFull || isPending) && !lastKeyWord.equals(getView().getCurrentKeyWord())) {
             getView().setRefreshing(false);
             return;
@@ -96,17 +94,17 @@ public class ProfilePromoterListFresenter extends BasePresenter<ProfilePromoterL
 
     @Override
     public void onLoadMore() {
-        loadListCustomerFromServer(false);
+        loadListPromoterFromServer(false);
     }
 
     @Override
     public void onRefresh() {
-        loadListCustomerFromServer(true);
+        loadListPromoterFromServer(true);
     }
 
     @Override
     public void searchByKeyWord() {
         resetData();
-        loadListCustomerFromServer(false);
+        loadListPromoterFromServer(false);
     }
 }
