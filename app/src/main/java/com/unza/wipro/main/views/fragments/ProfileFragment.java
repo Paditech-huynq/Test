@@ -105,8 +105,11 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
         tvAddress.setText(AppConstans.app.getCurrentUser().getAddress());
         tvPhone.setText(AppConstans.app.getCurrentUser().getPhone());
         tvNumberSales.setText(AppConstans.app.getCurrentUser().getNumberOrders());
-        GlideApp.with(this).load(AppConstans.app.getCurrentUser().getAvatar()).circleCrop().into(imgAvar);
-        GlideApp.with(this).load(AppConstans.app.getCurrentUser().getAvatar()).into(imgAvarUnder);
+        try {
+            GlideApp.with(this).load(AppConstans.app.getCurrentUser().getAvatar()).circleCrop().into(imgAvar);
+            GlideApp.with(this).load(AppConstans.app.getCurrentUser().getAvatar()).into(imgAvarUnder);
+        } catch (Exception ignored) {
+        }
     }
 
     @Override
@@ -129,7 +132,8 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
             tvTime.setText(Html.fromHtml(getResources().getString(R.string.time_profile_fragment,
                     DateTimeUtils.getStringDayMonthYear(DateTimeUtils.getDateFromServerDayMonthYear(promoter.getFrom())),
                     DateTimeUtils.getStringDayMonthYear(DateTimeUtils.getDateFromServerDayMonthYear(promoter.getTo())))));
-        } catch (NumberFormatException ignored) {}
+        } catch (NumberFormatException ignored) {
+        }
     }
 
     @Override
