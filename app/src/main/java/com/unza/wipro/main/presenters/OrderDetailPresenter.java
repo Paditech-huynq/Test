@@ -2,6 +2,7 @@ package com.unza.wipro.main.presenters;
 
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
+import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.OrderDetailContract;
 import com.unza.wipro.main.models.OrderData;
 import com.unza.wipro.main.models.responses.GetOrderDetailRSP;
@@ -72,24 +73,6 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
                 });
     }
 
-//    public void onSubmitTransaction() {
-//
-////        if (app.getCurrentUser() instanceof Customer) {
-////            if (mTransaction == null) mTransaction = new OrderTransaction();
-////            mTransaction.create(1, (Cart) AppState.getInstance().getCurrentCart());
-////            DeliveryInfo info = ((OrderTransaction) mTransaction).getDeliveryInfo();
-////            if (info == null) {
-////                switchFragment(DeliveryInfoFragment.newInstance(), true);
-////            } else {
-////                getPresenter().submitTransaction(mTransaction);
-////            }
-////        } else {
-////            if (mTransaction == null) mTransaction = new DirectTransaction();
-////            mTransaction.create(1, (Cart) AppState.getInstance().getCurrentCart());
-////            getPresenter().submitTransaction(mTransaction);
-////        }
-//    }
-
     @Override
     public void onSubmitTransactionButtonClick() {
         doTransaction();
@@ -98,15 +81,23 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
     private void doTransaction() {
         final User currentUser = app.getCurrentUser();
         final Customer customer = getView().getCustomer();
+        if (!app.isLogin()) {
+            getView().showToast(getView().getContext().getString(R.string.err_msg_transaction_no_login));
+            return;
+        }
         if (customer == null) {
-            getView().showToast("Customer is null");
+            getView().showToast(getView().getContext().getString(R.string.err_msg_transaction_no_customer));
             return;
         }
         if (currentUser == null) {
-            getView().showToast("User is null");
+            getView().showToast(getView().getContext().getString(R.string.err_msg_transaction_no_creator));
             return;
         }
 
+        if (app.getCurrentCart().getItemCount() == 0) {
+            getView().showToast(getView().getContext().getString(R.string.err_msg_cart_empty));
+            return;
+        }
         if (currentUser instanceof Customer) {
             getView().switchFragment(DeliveryInfoFragment.newInstance(customer.getId()), true);
         } else {
