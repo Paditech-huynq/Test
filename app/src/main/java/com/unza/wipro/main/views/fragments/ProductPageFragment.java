@@ -108,6 +108,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
             return;
         }
         app.editCart().insert(product);
+        showToast(getString(R.string.product_add_to_cart));
     }
 
     private void startTransition(View view, int position) {

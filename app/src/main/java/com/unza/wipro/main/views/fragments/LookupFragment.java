@@ -190,6 +190,7 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
             return;
         }
         app.editCart().insert(product);
+        showToast(getString(R.string.product_add_to_cart));
     }
 
     private void makeFlyAnimation(ImageView targetView) {
