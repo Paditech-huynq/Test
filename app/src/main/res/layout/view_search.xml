@@ -15,7 +15,7 @@
         android:background="@drawable/bg_search_border_radius"
         android:drawableLeft="@drawable/ic_lookup3"
         android:drawablePadding="@dimen/padding_normal"
-        android:hint="@string/hint_lookup_input"
+        android:hint="@string/hint_list_customer_input"
         android:imeOptions="actionSearch"
         android:inputType="text"
         android:lines="1"

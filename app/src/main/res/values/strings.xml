@@ -10,7 +10,8 @@
     <string name="title_home_qr">Scan</string>
     <string name="title_profile">Thông tin cá nhân</string>
 
-    <string name="hint_lookup_input">Vui lòng nhập tên hoặc số điện thoại</string>
+    <string name="hint_list_customer_input">Vui lòng nhập tên hoặc số điện thoại</string>
+    <string name="hint_lookup_input">Vui lòng nhập tên hoặc mã sản phẩm</string>
 
     <!-- login -->
     <string name="login_username_hint">Username</string>

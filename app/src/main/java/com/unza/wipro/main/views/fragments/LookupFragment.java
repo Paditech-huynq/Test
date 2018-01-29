@@ -1,16 +1,21 @@
 package com.unza.wipro.main.views.fragments;
 
+import android.animation.Animator;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.transition.TransitionInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.mvp.MVPFragment;
@@ -19,11 +24,16 @@ import com.unza.wipro.main.adapter.LookupAdapter;
 import com.unza.wipro.main.contracts.LookupContract;
 import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.presenters.LookupPresent;
+import com.unza.wipro.main.views.activities.MainActivity;
 import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
+import com.unza.wipro.utils.AddToCartAnimation;
 
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
+
+import static com.unza.wipro.AppConstans.app;
 
 public class LookupFragment extends MVPFragment<LookupPresent> implements LookupContract.ViewImpl, BaseRecycleViewAdapter.LoadMoreListener {
     @BindView(R.id.edtSearch)
@@ -40,6 +50,7 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
     };
     private Handler searchHandler = new Handler();
     LookupAdapter mAdapter;
+    private boolean isShowCartButton;
 
     @BindView(R.id.layoutLoading)
     View layoutLoading;
@@ -50,6 +61,12 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
 
         LookupFragment fragment = new LookupFragment();
         fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static LookupFragment newInstance(boolean isFromCart) {
+        LookupFragment fragment = newInstance();
+        fragment.isShowCartButton = isFromCart;
         return fragment;
     }
 
@@ -76,6 +93,7 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
     }
 
     private void setupSearchView() {
+        edtSearch.setHint(getString(R.string.hint_lookup_input));
         edtSearch.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -124,6 +142,23 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
                 getPresenter().onLoadMore();
             }
         });
+        mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
+                startTransition(view, position);
+            }
+        });
+
+        mAdapter.setOnProductItemClickListenner(new LookupAdapter.OnProductItemClickListenner() {
+            @Override
+            public void onAddCartButtonClick(View view, int index) {
+                Product product = mAdapter.getItem(index);
+                insertItemToCart(product);
+                if (isShowCartButton) {
+                    makeFlyAnimation((ImageView) view);
+                }
+            }
+        });
         setPullToRefreshColor(Color.BLUE);
         enablePullToRefresh(true);
         setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -134,15 +169,70 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
         });
     }
 
-    @Override
-    protected boolean isKeepFragment() {
-        return true;
+    private void startTransition(View view, int position) {
+        ImageView imvProduct = view.findViewById(R.id.imvProduct);
+        ViewCompat.setTransitionName(imvProduct, String.valueOf(Calendar.getInstance().getTimeInMillis()));
+
+        ProductDetailFragment detailFragment = ProductDetailFragment.newInstance(mAdapter.getItem(position), TransitionInflater.from(LookupFragment.this.getContext()).
+                inflateTransition(R.transition.change_image_transform));
+
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(com.paditech.core.R.anim.abc_fade_in, com.paditech.core.R.anim.abc_fade_out, com.paditech.core.R.anim.abc_fade_in, com.paditech.core.R.anim.abc_fade_out);
+        ft.addSharedElement(imvProduct,
+                getString(R.string.transition_list_product_to_product_detail))
+                .replace(R.id.container, detailFragment)
+                .addToBackStack(null)
+                .commitAllowingStateLoss();
     }
+
+    private void insertItemToCart(Product product) {
+        if (product == null) {
+            return;
+        }
+        app.editCart().insert(product);
+        showToast(getString(R.string.product_add_to_cart));
+    }
+
+    private void makeFlyAnimation(ImageView targetView) {
+        MainActivity activity = (MainActivity) getActivity();
+
+        new AddToCartAnimation().attachActivity(activity)
+                .setTargetView(targetView)
+                .setItemDuration(500)
+                .setMoveDuration(500)
+                .setDestView(activity.getCartView())
+                .setAnimationListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                }).startAnimation();
+
+    }
+
+//    @Override
+//    protected boolean isKeepFragment() {
+//        return true;
+//    }
 
     @Override
     public boolean isActionShow(int resId) {
         if (resId == R.id.btnCart) {
-            return true;
+            return isShowCartButton;
         }
         return super.isActionShow(resId);
     }
