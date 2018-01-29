@@ -35,21 +35,21 @@ public class FakeScannerFragment extends BaseFragment {
     @Override
     public void onViewAppear() {
         super.onViewAppear();
-//        try {
-//            ((MainActivity) getActivity()).openCamera(true);
-//            ((ScannerFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.frmCamera)).onViewAppear();
-//        } catch (Exception ignored) {
-//        }
+        try {
+            ((MainActivity) getActivity()).openCamera(true);
+            ((ScannerFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.frmCamera)).onViewAppear();
+        } catch (Exception ignored) {
+        }
     }
 
     @Override
     public void onViewDisappear() {
         super.onViewDisappear();
-//        try {
-//            ((MainActivity) getActivity()).openCamera(false);
-//            ((ScannerFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.frmCamera)).onViewDisappear();
-//        } catch (Exception ignored) {
-//        }
+        try {
+            ((MainActivity) getActivity()).openCamera(false);
+            ((ScannerFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.frmCamera)).onViewDisappear();
+        } catch (Exception ignored) {
+        }
     }
 
     @Override
