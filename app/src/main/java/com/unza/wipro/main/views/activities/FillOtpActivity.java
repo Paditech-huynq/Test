@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -46,6 +47,9 @@ public class FillOtpActivity extends MVPActivity<OtpPresenter> implements OtpCon
     @BindView(R.id.tv_code_6)
     EditText mCode6Text;
 
+    private String phone;
+    private String checkOtp;
+
     @Override
     protected int getLayoutResource() {
         return R.layout.activity_fill_otp;
@@ -58,6 +62,11 @@ public class FillOtpActivity extends MVPActivity<OtpPresenter> implements OtpCon
 
     @Override
     public void initView() {
+        if (getIntent().getExtras() != null) {
+            phone = getIntent().getStringExtra("phone");
+            checkOtp = getIntent().getStringExtra("otp");
+        }
+
         super.initView();
         Utils.dismissSoftKeyboard(findViewById(R.id.layout_main), this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -91,15 +100,15 @@ public class FillOtpActivity extends MVPActivity<OtpPresenter> implements OtpCon
     }
 
     @Override
-    public void onConfirmOtpResult(final boolean result, final String message) {
+    public void onConfirmOtpResult(final boolean result, final String otp, final String message) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (result) {
                     Intent intent = new Intent(FillOtpActivity.this, ChangePasswordActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    finish();
+                    intent.putExtra("phone", phone);
+                    intent.putExtra("otp", otp);
+                    startActivityForResult(intent, CHANGE_PASS_REQ_CODE);
                 } else {
                     String alert = StringUtil.isEmpty(message) ? getString(R.string.message_otp_failure) : message;
                     showToast(alert);
@@ -135,7 +144,15 @@ public class FillOtpActivity extends MVPActivity<OtpPresenter> implements OtpCon
             showToast(getString(R.string.message_otp_empty));
             return;
         }
-        getPresenter().confirmOtp(code);
+        onConfirmOtpResult(confirmOtp(code), code, "");
+    }
+
+    private boolean confirmOtp(String code) {
+        if (StringUtil.isEmpty(phone) || StringUtil.isEmpty(checkOtp)) return false;
+        String md5 = Utils.md5(phone+"@"+code);
+        Log.d("otp",checkOtp);
+        Log.d("otp",md5);
+        return Utils.md5(phone+"@"+code).equalsIgnoreCase(checkOtp);
     }
 
     private boolean isDoubleClick() {

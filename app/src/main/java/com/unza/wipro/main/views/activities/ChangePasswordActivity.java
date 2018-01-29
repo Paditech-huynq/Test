@@ -28,6 +28,8 @@ public class ChangePasswordActivity extends MVPActivity<ChangePasswordPresenter>
     EditText mPasswordText;
     @BindView(R.id.edt_confirm_password)
     EditText mConfirmPasswordText;
+    private String phone;
+    private String otp;
 
     @Override
     protected int getLayoutResource() {
@@ -41,6 +43,10 @@ public class ChangePasswordActivity extends MVPActivity<ChangePasswordPresenter>
 
     @Override
     public void initView() {
+        if (getIntent().getExtras() != null) {
+            phone = getIntent().getStringExtra("phone");
+            otp = getIntent().getStringExtra("otp");
+        }
         super.initView();
         Utils.dismissSoftKeyboard(findViewById(R.id.layout_main), this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -75,7 +81,7 @@ public class ChangePasswordActivity extends MVPActivity<ChangePasswordPresenter>
         String password = mPasswordText.getText().toString().trim();
         String confirm = mConfirmPasswordText.getText().toString().trim();
         if (!validate(password, confirm)) return;
-        getPresenter().changePass(password, confirm);
+        getPresenter().changePass(phone, otp, password, confirm);
     }
 
     private boolean validate(String newPass, String confirmPass) {

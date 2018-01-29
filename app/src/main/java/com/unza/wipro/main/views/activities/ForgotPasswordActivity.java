@@ -2,6 +2,7 @@ package com.unza.wipro.main.views.activities;
 
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -51,13 +52,17 @@ public class ForgotPasswordActivity extends MVPActivity<ForgotPasswordPresenter>
     }
 
     @Override
-    public void onForgotPassResult(final boolean result, final String message) {
+    public void onForgotPassResult(final boolean result, final String phone, final String message) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (result) {
                     Intent intent = new Intent(ForgotPasswordActivity.this, FillOtpActivity.class);
-                    startActivity(intent);
+                    intent.putExtra("phone", phone);
+                    intent.putExtra("otp", message);
+                    Log.d("otp", "ok");
+                    Log.d("otp", message);
+                    startActivityForResult(intent, CHANGE_PASS_REQ_CODE);
                 } else {
                     String alert = StringUtil.isEmpty(message) ? getString(R.string.message_forgot_pass_failure) : message;
                     showToast(alert);

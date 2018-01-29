@@ -16,6 +16,6 @@ public interface ChangePasswordContract {
     }
 
     interface Presenter extends BasePresenterImpl {
-        void changePass(String newPassword, String confirmPassword);
+        void changePass(String phone, String otp, String newPassword, String confirmPassword);
     }
 }

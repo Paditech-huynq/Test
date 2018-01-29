@@ -1,8 +1,15 @@
 package com.unza.wipro.main.presenters;
 
+import com.paditech.core.helper.StringUtil;
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.main.contracts.ChangePasswordContract;
 import com.unza.wipro.main.contracts.LoginContract;
+import com.unza.wipro.main.models.responses.CommonRSP;
+import com.unza.wipro.services.AppClient;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * wipro-crm-android
@@ -14,8 +21,35 @@ import com.unza.wipro.main.contracts.LoginContract;
 public class ChangePasswordPresenter extends BasePresenter<ChangePasswordContract.ViewImpl> implements ChangePasswordContract.Presenter {
 
     @Override
-    public void changePass(String newPassword, String confirmPassword) {
-        // TODO: call change password api
-        getView().onChangePassResult(true, "");
+    public void changePass(String phone, String otp, String newPassword, String confirmPassword) {
+        if (StringUtil.isEmpty(phone) || StringUtil.isEmpty(otp)) {
+            getView().onChangePassResult(true, "");
+            return;
+        }
+        getView().showProgressDialog(true);
+        AppClient.newInstance().getService().resetPassword(phone, otp, newPassword, confirmPassword)
+                .enqueue(new Callback<CommonRSP>() {
+                    @Override
+                    public void onResponse(Call<CommonRSP> call, Response<CommonRSP> response) {
+                        try {
+                            getView().showProgressDialog(false);
+                            if (response.body() != null) {
+                                boolean result = response.body().isSuccess();
+                                String message = response.body().isSuccess() ? "" : response.body().getMessage();
+                                getView().onChangePassResult(result, message);
+                            } else {
+                                getView().onChangePassResult(true, "");
+                            }
+                        } catch (Exception e) {
+                            getView().onChangePassResult(true, "");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<CommonRSP> call, Throwable t) {
+                        getView().showProgressDialog(false);
+                        getView().onChangePassResult(false, "");
+                    }
+                });
     }
 }
