@@ -62,14 +62,14 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
                     @Override
                     public void onFailure(Call<GetListProductRSP> call, Throwable t) {
                         isPending = false;
-                        if (page == FIRST_PAGE || !isRefresh){
+                        if (page == FIRST_PAGE || !isRefresh) {
                             getView().showReloadButton();
                         }
                         if (getView() != null) {
                             getView().showProgressDialog(false);
                             getView().setRefreshing(false);
+                            Toast.makeText(getView().getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }
-                        Toast.makeText(getView().getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
