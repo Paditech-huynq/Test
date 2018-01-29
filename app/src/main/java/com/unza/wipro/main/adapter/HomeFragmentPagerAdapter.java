@@ -23,7 +23,7 @@ public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
         fragments.add(ProductListFragment.newInstance());
         fragments.add(OrderListFragment.newInstance());
         fragments.add(FakeScannerFragment.newInstance());
-        fragments.add(LookupFragment.newInstance());
+        fragments.add(LookupFragment.newInstance(true));
         fragments.add(NewsFragment.newInstance());
     }
 

@@ -204,6 +204,6 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
 
     @OnClick(R.id.btnLookup)
     void onLookupBtnClick() {
-        switchFragment(LookupFragment.newInstance(true), true);
+        switchFragment(LookupFragment.newInstance(), true);
     }
 }

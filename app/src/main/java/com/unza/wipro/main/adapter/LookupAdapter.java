@@ -21,11 +21,18 @@ import java.util.List;
 import butterknife.BindView;
 
 public class LookupAdapter extends BaseRecycleViewAdapter {
-
+    public interface OnProductItemClickListenner {
+        void onAddCartButtonClick(View view, int index);
+    }
+    private LookupAdapter.OnProductItemClickListenner mOnProductItemClickListenner;
     private List<Product> mProducts = new ArrayList();
 
+    public void setOnProductItemClickListenner(LookupAdapter.OnProductItemClickListenner mOnProductItemClickListenner) {
+        this.mOnProductItemClickListenner = mOnProductItemClickListenner;
+    }
+
     @Override
-    public Object getItem(int position) {
+    public Product getItem(int position) {
         return mProducts.get(position);
     }
 
@@ -64,7 +71,7 @@ public class LookupAdapter extends BaseRecycleViewAdapter {
         }
 
         @Override
-        protected void onBindingData(int position) {
+        protected void onBindingData(final int position) {
             Product product = mProducts.get(position);
             GlideApp.with(itemView.getContext())
                     .load(product.getProductThumbnail().getLink())
@@ -78,6 +85,13 @@ public class LookupAdapter extends BaseRecycleViewAdapter {
                     String.format(itemView.getContext().getString(R.string.lookup_price_format),
                             StringUtil.formatMoney(product.getPrice())),
                     null);
+            itemView.findViewById(R.id.btnCart).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOnProductItemClickListenner != null)
+                        mOnProductItemClickListenner.onAddCartButtonClick(itemView.findViewById(R.id.imvProduct), position);
+                }
+            });
         }
     }
 }
