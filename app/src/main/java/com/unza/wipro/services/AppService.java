@@ -1,6 +1,7 @@
 package com.unza.wipro.services;
 
 import com.unza.wipro.main.models.responses.BaseRSP;
+import com.unza.wipro.main.models.responses.ChangePasswordRSP;
 import com.unza.wipro.main.models.responses.CommonRSP;
 import com.unza.wipro.main.models.responses.CreateCustomerRSP;
 import com.unza.wipro.main.models.responses.CreateOrderRSP;
@@ -121,4 +122,11 @@ public interface AppService {
     @FormUrlEncoded
     Call<CreateOrderRSP> doCreatOrderForCustomer(@Header("Authorization") String token, @Header("AppKey") String appKey, @Field("customer_id") String customerId, @Field("products") String productsList,
                                                  @Field("billing_name") String billingName,@Field("billing_date") String billingDate,@Field("billing_phone") String billingPhone,@Field("billing_note") String billingNote);
+
+    @POST("member/changepass")
+    @FormUrlEncoded
+    Call<ChangePasswordRSP> changePassword(@Header("Authorization") String token, @Header("AppKey") String appKey,
+                                           @Field("password") String oldPass,
+                                           @Field("new_password") String newPass,
+                                           @Field("re_new_password") String confirmPass);
 }

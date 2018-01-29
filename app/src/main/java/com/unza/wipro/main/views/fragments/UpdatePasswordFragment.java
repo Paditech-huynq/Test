@@ -55,8 +55,8 @@ public class UpdatePasswordFragment extends MVPFragment<UpdatePasswordPresenter>
         String newPass = edtNewPass.getText().toString();
         String confirmPass = edtConfirmPass.getText().toString();
 
-        if (!validate(oldPass, newPass, confirmPass)) {
-            getPresenter();
+        if (validate(oldPass, newPass, confirmPass)) {
+            getPresenter().onChangePasswordButtonClick(oldPass, newPass, confirmPass);
         }
     }
 
@@ -83,15 +83,5 @@ public class UpdatePasswordFragment extends MVPFragment<UpdatePasswordPresenter>
         }
 
         return true;
-    }
-
-    @Override
-    public void onChangePasswordResult(boolean result, String message) {
-        if (result) {
-            // todo: todo somethings (back)
-        } else {
-            String error = StringUtil.isEmpty(message) ? getString(R.string.message_change_pass_failure) : message;
-            showToast(error);
-        }
     }
 }
