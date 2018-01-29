@@ -166,7 +166,8 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
             TextView shopPhone = view.findViewById(R.id.tv_shop_phone);
             shopName.setText(stock.getName());
             shopAddress.setText(stock.getAddress());
-            shopPhone.setText("ĐT: 02240474043 - Khoảng cách 580m");
+//            shopPhone.setText("ĐT: 02240474043 - Khoảng cách 580m");
+            //todo: implement get shop available from server
             mShopLayout.addView(view);
         }
     }
@@ -185,6 +186,5 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
     protected void addToCart() {
         if (mProduct == null) return;
         app.editCart().insert(mProduct);
-        showToast(getString(R.string.product_add_to_cart));
     }
 }

@@ -187,9 +187,10 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         private void fillPromoterInfo(Promoter promoter) {
             Date date = mOrder != null ? new Date(mOrder.getCreatedAt()) : new Date();
-            tvDate.setText(StringUtil.formatDate(date));
-            tvPromoterName.setText(promoter.getName());
-            tvAddress.setText(promoter.getAddress());
+            tvDate.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_date_sell, StringUtil.formatDate(date))));
+            tvPromoterName.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_person_sell, promoter.getName())));
+            tvAddress.setVisibility(promoter.getAddress() == null || promoter.getAddress().trim().isEmpty() ? View.GONE : View.VISIBLE);
+            tvAddress.setText(Html.fromHtml(itemView.getContext().getString(R.string.att_address_with_input, promoter.getAddress())));
         }
 
         /**
