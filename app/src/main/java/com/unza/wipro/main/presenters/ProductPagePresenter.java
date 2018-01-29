@@ -62,9 +62,6 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
                     @Override
                     public void onFailure(Call<GetListProductRSP> call, Throwable t) {
                         isPending = false;
-                        if (page == FIRST_PAGE || !isRefresh){
-                            getView().showReloadButton();
-                        }
                         if (getView() != null) {
                             getView().showProgressDialog(false);
                             getView().setRefreshing(false);
@@ -87,11 +84,6 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
     @Override
     public void onRefresh() {
         loadProductFromServer(true);
-    }
-
-    @Override
-    public void onReload() {
-        loadProductFromServer(false);
     }
 
     private void onLoadProductSuccess(boolean isRefresh, List<Product> productList) {

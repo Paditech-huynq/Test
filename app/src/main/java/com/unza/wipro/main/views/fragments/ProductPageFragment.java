@@ -29,7 +29,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class ProductPageFragment extends MVPFragment<ProductPagePresenter> implements ProductPageContract.ViewImpl, AppConstans {
     @BindView(R.id.rcvProduct)
@@ -37,9 +36,6 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
 
     @BindView(R.id.layoutLoading)
     View layoutLoading;
-
-    @BindView(R.id.tvReload)
-    View tvReload;
 
     private ProductListAdapter mAdapter;
     private String categoryId;
@@ -190,11 +186,6 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
         mAdapter.replaceData(productList);
     }
 
-    @Override
-    public void showReloadButton() {
-        tvReload.setVisibility(View.VISIBLE);
-    }
-
     public String getCategoryId() {
         return categoryId;
     }
@@ -202,12 +193,6 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
     @Override
     public void showProgressDialog(boolean isShown) {
         layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
-    }
-
-    @OnClick(R.id.tvReload)
-    public void reload(){
-        getPresenter().onReload();
-        tvReload.setVisibility(View.GONE);
     }
 }
 
