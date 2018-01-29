@@ -76,14 +76,14 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
             if (!StringUtil.isEmpty(app.getCurrentUser().getAvatar())) {
                 GlideApp.with(this)
                         .load(app.getCurrentUser().getAvatar())
-                        .placeholder(R.drawable.ic_avatar_holder)
+                        .placeholder(R.drawable.ic_avatar_holder_circle)
                         .thumbnail(0.5f).circleCrop()
                         .into(imageView);
             } else {
-                imageView.setImageResource(R.drawable.ic_avatar_holder);
+                imageView.setImageResource(R.drawable.ic_avatar_holder_circle);
             }
         } else {
-            imageView.setImageResource(R.mipmap.ic_launcher);
+            imageView.setImageResource(R.drawable.ic_avatar_holder_circle);
         }
     }
 
