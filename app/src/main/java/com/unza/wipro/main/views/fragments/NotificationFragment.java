@@ -74,6 +74,12 @@ public class NotificationFragment extends MVPFragment<NotificationPresenter> imp
     }
 
     @Override
+    public void onViewAppear() {
+        super.onViewAppear();
+        updateTitle();
+    }
+
+    @Override
     public void onRefresh() {
         getPresenter().loadData(true);
     }
@@ -92,21 +98,23 @@ public class NotificationFragment extends MVPFragment<NotificationPresenter> imp
     @Override
     public void showData(List<Notice> data) {
         mAdapter.setData(data);
-        String count = mAdapter.getUnreadCount() > 0 ? String.format("(%d)", mAdapter.getUnreadCount()) : "";
-        setScreenTitle(getString(R.string.notification_title) + count);
+        updateTitle();
     }
 
     @Override
     public void addData(List<Notice> data) {
         mAdapter.addData(data);
-        String count = mAdapter.getUnreadCount() > 0 ? String.format("(%d)", mAdapter.getUnreadCount()) : "";
-        setScreenTitle(getString(R.string.notification_title) + count);
+        updateTitle();
     }
 
     @Override
     public void updateView(Notice notice) {
         mAdapter.updateData(notice);
-        String count = mAdapter.getUnreadCount() > 0 ? String.format("(%d)", mAdapter.getUnreadCount()) : "";
+        updateTitle();
+    }
+
+    private void updateTitle() {
+        String count = mAdapter != null && mAdapter.getUnreadCount() > 0 ? String.format("(%d)", mAdapter.getUnreadCount()) : "";
         setScreenTitle(getString(R.string.notification_title) + count);
     }
 }
