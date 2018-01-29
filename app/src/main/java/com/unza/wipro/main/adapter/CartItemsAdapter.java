@@ -150,7 +150,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
                 cartInfo = mOrder.getCart();
             }
             String currentTotalPrice = StringUtil.formatMoney(cartInfo.getTotalPrice(getItem(index - 1).getId()));
-            tvTotalPrice.setText(itemView.getContext().getString(R.string.currency_unit, currentTotalPrice));
+            tvTotalPrice.setText(itemView.getContext().getString(R.string.cart_singale_item_total_price, currentTotalPrice));
         }
     }
 

@@ -153,4 +153,6 @@
     <string name="err_msg_transaction_no_creator">Thông tin người bán/đặt hàng không được để trống</string>
     <string name="err_msg_transaction_no_login">Bạn phải đăng nhập để thực hiện thao tác này</string>
 
+    <string name="cart_singale_item_total_price">Tổng: %1s VNĐ</string>
+
 </resources>
