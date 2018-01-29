@@ -31,20 +31,6 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
         }
     };
 
-    private Transaction.TransactionCallback orderTransactionCallback = new Transaction.TransactionCallback() {
-        @Override
-        public void onSuccess(Transaction transaction, OrderData data) {
-            getView().showProgressDialog(false);
-            onPaymentSuccess(transaction);
-        }
-
-        @Override
-        public void onFailure(Transaction transaction, Throwable e) {
-            getView().showProgressDialog(false);
-            onPaymentFailure();
-        }
-    };
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -122,14 +108,15 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
         }
 
         if (currentUser instanceof Customer) {
-            getView().switchFragment(DeliveryInfoFragment.newInstance(), true);
+            getView().switchFragment(DeliveryInfoFragment.newInstance(customer.getId()), true);
         } else {
             final Transaction transaction = new DirectTransaction();
             if (transaction.create(customer.getId(), app.getCurrentCart())) {
-                getView().showProgressDialog(true);
                 try {
+                    getView().showProgressDialog(true);
                     transaction.pay(directTransactionCallback);
                 } catch (Exception e) {
+                    getView().showProgressDialog(false);
                     e.printStackTrace();
                     getView().showToast(e.getLocalizedMessage());
                 }
@@ -140,7 +127,6 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
 
     private void onPaymentFailure() {
         getView().showToast("Payment Failure");
-
     }
 
     private void onPaymentSuccess(Transaction transaction) {

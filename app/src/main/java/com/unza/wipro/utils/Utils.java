@@ -6,10 +6,8 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.TransitionDrawable;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +16,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.google.gson.Gson;
-import com.paditech.core.helper.PrefUtils;
-import com.paditech.core.helper.StringUtil;
-import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
-import com.unza.wipro.main.models.LoginInfo;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -134,6 +127,11 @@ public class Utils {
 
     public static boolean checkEmailValid(String email) {
         return Pattern.compile(".+@.+\\.[a-z]+").matcher(email).matches();
+    }
+
+    public static boolean checkPhoneValid(String phone)
+    {
+        return Pattern.compile("/((\\+?)84|0)\\d{9,10}$/").matcher(phone).matches();
     }
 
     public static void showKeyboard(Context context) {

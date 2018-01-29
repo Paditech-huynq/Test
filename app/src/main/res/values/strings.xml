@@ -147,5 +147,6 @@
     <string name="cart_person_sell">&lt;b>Người bán&lt;/b>: %1s </string>
     <string name="cart_address_customer">&lt;b>Đ/c&lt;/b>: %1s </string>
     <string name="title_cart_detail">Giỏ hàng</string>
+    <string name="delivery_info_phone_incorrect">Số điện thoại không hợp lệ</string>
 
 </resources>

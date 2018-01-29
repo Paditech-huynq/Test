@@ -1,12 +1,5 @@
 package com.unza.wipro.transaction.user;
 
-import android.widget.EditText;
-import android.widget.TextView;
-
-import com.unza.wipro.R;
-
-import butterknife.BindView;
-
 /**
  * wipro-crm-android
  * <p>
@@ -20,14 +13,6 @@ public class DeliveryInfo {
     private String  address;
     private String date;
     private String note;
-
-    public DeliveryInfo(String name, String phone, String address, String date, String note) {
-        this.name = name;
-        this.phone = phone;
-        this.address = address;
-        this.date = date;
-        this.note = note;
-    }
 
     public String getName() {
         return name;

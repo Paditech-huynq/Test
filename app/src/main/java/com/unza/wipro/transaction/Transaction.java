@@ -1,5 +1,6 @@
 package com.unza.wipro.transaction;
 
+import android.util.Log;
 import android.util.SparseArray;
 
 import com.google.gson.Gson;
@@ -15,7 +16,7 @@ import java.util.List;
 import retrofit2.Response;
 
 public abstract class Transaction implements TransactionImpl, AppConstans {
-    enum PaymentMethod {
+    public enum PaymentMethod {
         COD("Cod"), CreditCard("CreditCard");
 
         private final String value;
