@@ -64,13 +64,14 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
     @Override
     public void onCreate() {
         super.onCreate();
+        getUserDataFromServer();
     }
 
     @Override
     public void onViewAppear() {
         super.onViewAppear();
         getView().startUI();
-        getUserDataFromServer();
+        updateUi();
     }
 
     private void updateUi() {

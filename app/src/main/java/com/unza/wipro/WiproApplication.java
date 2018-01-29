@@ -14,13 +14,14 @@ public class WiproApplication extends BaseApplication {
         AppState.getInstance().loadFromCache();
     }
 
-    @Override
-    public void onActivityStarted(Activity activity) {
-        if (activity instanceof MainActivity) {
-            AppState.getInstance().loadFromCache();
-        }
-        super.onActivityStarted(activity);
-    }
+    //cmt vì khi xuất hiện lại dữ liệu đã ở sẵn trong currentuser rồi
+//    @Override
+//    public void onActivityStarted(Activity activity) {
+//        if (activity instanceof MainActivity) {
+//            AppState.getInstance().loadFromCache();
+//        }
+//        super.onActivityStarted(activity);
+//    }
 
     @Override
     public void onActivityDestroyed(Activity activity) {
