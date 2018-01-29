@@ -65,8 +65,8 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
                         if (getView() != null) {
                             getView().showProgressDialog(false);
                             getView().setRefreshing(false);
+                            Toast.makeText(getView().getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }
-                        Toast.makeText(getView().getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
