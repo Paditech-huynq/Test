@@ -13,6 +13,7 @@ import com.paditech.core.image.GlideApp;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.Order;
+import com.unza.wipro.main.views.customs.PlaceHolderDrawableHelper;
 import com.unza.wipro.utils.DateTimeUtils;
 
 import java.util.ArrayList;
@@ -141,7 +142,11 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
             Order order = (Order) mData.get(position);
             if (order == null) return;
             if (!StringUtil.isEmpty(order.getAvatarOrder()))
-                GlideApp.with(context).load(order.getAvatarOrder()).into(img_propduct);
+                GlideApp.with(context)
+                        .load(order.getAvatarOrder())
+                        .placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
+                        .error(R.drawable.bg_place_holder)
+                        .into(img_propduct);
             tx_title.setText(order.getName());
             tx_time.setText(String.valueOf("Thời gian: " + DateTimeUtils.getStringTimeAll(new Date(order.getCreatedAt() * 1000))));
             tx_price.setText(context.getString(R.string.currency_unit, StringUtil.formatMoney(order.getMoney())));
