@@ -40,6 +40,7 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
     };
     private Handler searchHandler = new Handler();
     LookupAdapter mAdapter;
+    private boolean isShowCartButton;
 
     @BindView(R.id.layoutLoading)
     View layoutLoading;
@@ -50,6 +51,12 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
 
         LookupFragment fragment = new LookupFragment();
         fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static LookupFragment newInstance(boolean isFromCart) {
+        LookupFragment fragment = newInstance();
+        fragment.isShowCartButton = isFromCart;
         return fragment;
     }
 
@@ -76,6 +83,7 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
     }
 
     private void setupSearchView() {
+        edtSearch.setHint(getString(R.string.hint_lookup_input));
         edtSearch.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -142,7 +150,7 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
     @Override
     public boolean isActionShow(int resId) {
         if (resId == R.id.btnCart) {
-            return true;
+            return !isShowCartButton;
         }
         return super.isActionShow(resId);
     }
