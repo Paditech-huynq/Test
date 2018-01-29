@@ -60,6 +60,7 @@ public class NotificationFragment extends MVPFragment<NotificationPresenter> imp
             mAdapter = new NotificationAdapter();
         }
 
+        mAdapter.setOnLoadMoreListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
@@ -91,14 +92,21 @@ public class NotificationFragment extends MVPFragment<NotificationPresenter> imp
     @Override
     public void showData(List<Notice> data) {
         mAdapter.setData(data);
-        String count = mAdapter.getItemCount() > 0 ? String.format("(%d)", mAdapter.getItemCount()) : "";
+        String count = mAdapter.getUnreadCount() > 0 ? String.format("(%d)", mAdapter.getUnreadCount()) : "";
+        setScreenTitle(getString(R.string.notification_title) + count);
+    }
+
+    @Override
+    public void addData(List<Notice> data) {
+        mAdapter.addData(data);
+        String count = mAdapter.getUnreadCount() > 0 ? String.format("(%d)", mAdapter.getUnreadCount()) : "";
         setScreenTitle(getString(R.string.notification_title) + count);
     }
 
     @Override
     public void updateView(Notice notice) {
         mAdapter.updateData(notice);
-        String count = mAdapter.getItemCount() > 0 ? String.format("(%d)", mAdapter.getItemCount()) : "";
+        String count = mAdapter.getUnreadCount() > 0 ? String.format("(%d)", mAdapter.getUnreadCount()) : "";
         setScreenTitle(getString(R.string.notification_title) + count);
     }
 }

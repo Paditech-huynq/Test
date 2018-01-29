@@ -21,7 +21,8 @@ import retrofit2.Response;
 
 public class NotificationPresenter extends BasePresenter<NotificationContract.ViewImpl> implements NotificationContract.Presenter, AppConstans {
 
-    int mPage;
+    private boolean isFull;
+    private int mPage = 1;
 
     @Override
     public void onCreate() {
@@ -31,11 +32,13 @@ public class NotificationPresenter extends BasePresenter<NotificationContract.Vi
 
     @Override
     public void loadData(boolean isRefresh) {
-        getNotifications();
+        getNotifications(isRefresh);
     }
 
-    private void getNotifications() {
-        if (!app.isLogin()) return;
+    private void getNotifications(final boolean isRefresh) {
+        isFull = !isRefresh;
+        if (isFull || !app.isLogin()) return;
+        mPage = isRefresh ? 1 : mPage;
         getView().showProgressDialog(true);
         AppClient.newInstance().getService().getNotifications(app.getToken(),
                 app.getAppKey()).enqueue(new Callback<GetNotificationsRSP>() {
@@ -45,7 +48,17 @@ public class NotificationPresenter extends BasePresenter<NotificationContract.Vi
                     getView().showProgressDialog(false);
                     getView().setRefreshing(false);
                     if (response.body() != null) {
-                        getView().showData(response.body().getNotices());
+                        if (response.body().getNotices() != null && response.body().getNotices().size() > 0) {
+                            mPage++;
+                            isFull = response.body().getNotices().size() < PAGE_SIZE;
+                            if (isRefresh) {
+                                isFull = false;
+                                getView().showData(response.body().getNotices());
+                            } else {
+                                getView().addData(response.body().getNotices());
+                            }
+                        }
+
                     }
                 } catch (Exception e) {
                 }
@@ -54,6 +67,7 @@ public class NotificationPresenter extends BasePresenter<NotificationContract.Vi
             @Override
             public void onFailure(Call<GetNotificationsRSP> call, Throwable t) {
                 getView().showProgressDialog(false);
+                getView().setRefreshing(false);
             }
         });
     }
