@@ -60,8 +60,6 @@ public class ForgotPasswordActivity extends MVPActivity<ForgotPasswordPresenter>
                     Intent intent = new Intent(ForgotPasswordActivity.this, FillOtpActivity.class);
                     intent.putExtra("phone", phone);
                     intent.putExtra("otp", message);
-                    Log.d("otp", "ok");
-                    Log.d("otp", message);
                     startActivityForResult(intent, CHANGE_PASS_REQ_CODE);
                 } else {
                     String alert = StringUtil.isEmpty(message) ? getString(R.string.message_forgot_pass_failure) : message;

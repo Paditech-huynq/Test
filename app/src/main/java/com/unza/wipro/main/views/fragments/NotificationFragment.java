@@ -83,6 +83,12 @@ public class NotificationFragment extends MVPFragment<NotificationPresenter> imp
     }
 
     @Override
+    public void setRefreshing(boolean isComplete) {
+        super.setRefreshing(isComplete);
+        mSwipeRefreshLayout.setRefreshing(isComplete);
+    }
+
+    @Override
     public void showData(List<Notice> data) {
         mAdapter.setData(data);
         String count = mAdapter.getItemCount() > 0 ? String.format("(%d)", mAdapter.getItemCount()) : "";

@@ -43,6 +43,7 @@ public class NotificationPresenter extends BasePresenter<NotificationContract.Vi
             public void onResponse(Call<GetNotificationsRSP> call, Response<GetNotificationsRSP> response) {
                 try {
                     getView().showProgressDialog(false);
+                    getView().setRefreshing(true);
                     if (response.body() != null) {
                         getView().showData(response.body().getNotices());
                     }
