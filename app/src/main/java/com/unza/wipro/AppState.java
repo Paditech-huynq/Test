@@ -43,6 +43,9 @@ public class AppState {
     }
 
     public CartInfo getCurrentCart() {
+        if (currentCart == null) {
+            currentCart = new Cart();
+        }
         return currentCart;
     }
 
@@ -62,11 +65,14 @@ public class AppState {
     }
 
     public void addCartChangeListener(Cart.CartChangeListener listener) {
+        if (currentCart == null) {
+            currentCart = new Cart();
+        }
         currentCart.addListener(listener);
     }
 
     public void removeCartChangeListener(Cart.CartChangeListener listener) {
-        if(currentCart != null) {
+        if (currentCart != null) {
             currentCart.removeListener(listener);
         }
     }
