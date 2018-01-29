@@ -66,7 +66,9 @@ public class AppState {
     }
 
     public void removeCartChangeListener(Cart.CartChangeListener listener) {
-        currentCart.removeListener(listener);
+        if(currentCart != null) {
+            currentCart.removeListener(listener);
+        }
     }
 
     void release() {

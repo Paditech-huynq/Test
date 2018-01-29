@@ -101,4 +101,13 @@ public class NewsFragment extends BaseFragment {
     public void showProgressDialog(boolean isShown) {
         layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
     }
+
+    @Override
+    public void onNetworkOnline() {
+        super.onNetworkOnline();
+        if(mAdapter.getCount() == 0)
+        {
+
+        }
+    }
 }

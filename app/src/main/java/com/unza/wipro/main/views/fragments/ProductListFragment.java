@@ -110,4 +110,14 @@ public class ProductListFragment extends BaseFragment {
     public void showProgressDialog(boolean isShown) {
         layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
     }
+
+    @Override
+    public void onNetworkOnline() {
+        super.onNetworkOnline();
+        if(mAdapter != null && mAdapter.getCount() == 0)
+        {
+            //TODO: implement re-load data if data have not loaded yet
+
+        }
+    }
 }

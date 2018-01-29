@@ -263,9 +263,9 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         rcvOrder.postDelayed(new Runnable() {
             @Override
             public void run() {
-                rcvOrder.scrollTo(0,0);
+                rcvOrder.scrollTo(0, 0);
             }
-        },200);
+        }, 200);
     }
 
     @OnClick(R.id.bt_filter)
@@ -361,5 +361,13 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @Override
     public void showProgressDialog(boolean isShown) {
         layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void onNetworkOnline() {
+        super.onNetworkOnline();
+        if (mAdapter.getItemCount() == 0) {
+            getPresenter().onRefresh();
+        }
     }
 }

@@ -261,4 +261,12 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
     public void showProgressDialog(boolean isShown) {
         layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
     }
+
+    @Override
+    public void onNetworkOnline() {
+        super.onNetworkOnline();
+        if (mAdapter.getItemCount() == 0) {
+            getPresenter().onRefresh();
+        }
+    }
 }
