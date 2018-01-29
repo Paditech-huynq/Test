@@ -14,13 +14,14 @@ public class WiproApplication extends BaseApplication {
         AppState.getInstance().loadFromCache();
     }
 
-    @Override
-    public void onActivityStarted(Activity activity) {
-        if (activity instanceof MainActivity) {
-            AppState.getInstance().loadFromCache();
-        }
-        super.onActivityStarted(activity);
-    }
+    //when reopen device, data not need to load, because current user have all
+//    @Override
+//    public void onActivityStarted(Activity activity) {
+//        if (activity instanceof MainActivity) {
+//            AppState.getInstance().loadFromCache();
+//        }
+//        super.onActivityStarted(activity);
+//    }
 
     @Override
     public void onActivityDestroyed(Activity activity) {

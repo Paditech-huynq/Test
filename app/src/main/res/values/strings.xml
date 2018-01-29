@@ -9,6 +9,8 @@
     <string name="title_home_product">Sản phẩm</string>
     <string name="title_home_qr">Scan</string>
     <string name="title_profile">Thông tin cá nhân</string>
+    <string name="title_list_member">Danh sách thành viên</string>
+    <string name="title_member_profile">Thông tin %s</string>
 
     <string name="hint_list_customer_input">Vui lòng nhập tên hoặc số điện thoại</string>
     <string name="hint_lookup_input">Vui lòng nhập tên hoặc mã sản phẩm</string>
@@ -112,6 +114,8 @@
     <string name="term_use_profile_fragment">Điều khoản sử dụng</string>
     <string name="log_out_profile_fragment">Đăng xuất</string>
     <string name="display_time_day_month_year_in_header_filter">%1$s - %2$s</string>
+    <string name="sale">Doanh thu: %1$s VNĐ/ %2$s VNĐ</string>
+    <string name="time_sale">Thời hạn: %1$s -> %2$s </string>
 
     <!--delivery info-->
     <string name="delivery_info_title">Thông tin giao hàng</string>

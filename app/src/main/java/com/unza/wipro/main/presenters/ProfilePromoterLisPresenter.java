@@ -1,12 +1,13 @@
 package com.unza.wipro.main.presenters;
 
+
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
-import com.unza.wipro.main.contracts.ProfileListContract;
-import com.unza.wipro.main.models.responses.GetListCustomerRSP;
-import com.unza.wipro.main.views.fragments.ProfileListFragment;
+import com.unza.wipro.AppState;
+import com.unza.wipro.main.contracts.ProfilePromoterListContract;
+import com.unza.wipro.main.models.responses.GetListPromoterInGroupRSP;
 import com.unza.wipro.services.AppClient;
-import com.unza.wipro.transaction.user.Customer;
+import com.unza.wipro.transaction.user.Promoter;
 
 import java.util.List;
 
@@ -14,7 +15,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProfileListPresenter extends BasePresenter<ProfileListFragment> implements ProfileListContract.Presenter, AppConstans {
+import static com.unza.wipro.AppConstans.PAGE_SIZE;
+
+public class ProfilePromoterLisPresenter extends BasePresenter<ProfilePromoterListContract.ViewImpl> implements ProfilePromoterListContract.Presenter {
     private static final int FIRST_PAGE = 1;
     private int page = FIRST_PAGE;
     private boolean isFull;
@@ -24,10 +27,10 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
     @Override
     public void onCreate() {
         super.onCreate();
-        loadListCustomerFromServer(false);
+        loadListPromoterFromServer(false);
     }
 
-    private void loadListCustomerFromServer(final boolean isRefresh) {
+    private void loadListPromoterFromServer(final boolean isRefresh) {
         if ((isFull || isPending) && !lastKeyWord.equals(getView().getCurrentKeyWord())) {
             getView().setRefreshing(false);
             return;
@@ -43,36 +46,37 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
         isPending = true;
         final String keyWord = getView().getCurrentKeyWord();
         getView().showProgressDialog(page == FIRST_PAGE && !isRefresh);
-        AppClient.newInstance().getService().getListCustomer(
-                app.getToken(),
-                app.getAppKey(),
+        AppClient.newInstance().getService().getListPromoter(
+                AppConstans.app.getToken(),
+                AppConstans.app.getAppKey(),
                 page, PAGE_SIZE, keyWord)
-                .enqueue(new Callback<GetListCustomerRSP>() {
+                .enqueue(new Callback<GetListPromoterInGroupRSP>() {
                     @Override
-                    public void onResponse(Call<GetListCustomerRSP> call, Response<GetListCustomerRSP> response) {
+                    public void onResponse(Call<GetListPromoterInGroupRSP> call, Response<GetListPromoterInGroupRSP> response) {
+                        isPending = false;
                         if (!keyWord.equals(getView().getCurrentKeyWord())) {
-                            lastKeyWord = keyWord;
                             return;
                         }
-                        isPending = false;
                         if (getView() == null) {
                             return;
                         }
                         getView().showProgressDialog(false);
                         getView().setRefreshing(false);
-                        GetListCustomerRSP getListCustomerRSP = response.body();
-                        List<Customer> customerList = getListCustomerRSP.getData();
-                        loadListCustomerSuccess(isRefresh, customerList);
+                        GetListPromoterInGroupRSP getListCustomerRSP = response.body();
+                        List<Promoter> promoterList = getListCustomerRSP.getData();
+                        if(promoterList != null) {
+                            loadListCustomerSuccess(isRefresh, promoterList);
+                        }
                     }
 
                     @Override
-                    public void onFailure(Call<GetListCustomerRSP> call, Throwable t) {
+                    public void onFailure(Call<GetListPromoterInGroupRSP> call, Throwable t) {
                         isPending = false;
                         if (getView() == null) {
                             return;
                         }
-                        getView().setRefreshing(false);
                         getView().showProgressDialog(false);
+                        getView().setRefreshing(false);
                     }
                 });
     }
@@ -82,30 +86,32 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
         isFull = false;
     }
 
-    private void loadListCustomerSuccess(boolean isRefresh, List<Customer> customerList) {
+    private void loadListCustomerSuccess(boolean isRefresh, List<Promoter> promoterList) {
         page++;
-        isFull = customerList.size() < PAGE_SIZE;
+        if (promoterList.size() < PAGE_SIZE) {
+            isFull = true;
+        }
         if (isRefresh || !lastKeyWord.equals(getView().getCurrentKeyWord())) {
-            getView().refreshData(customerList);
+            getView().refreshData(promoterList);
         } else {
-            getView().addItemToList(customerList);
+            getView().addItemToList(promoterList);
         }
         lastKeyWord = getView().getCurrentKeyWord();
     }
 
     @Override
     public void onLoadMore() {
-        loadListCustomerFromServer(false);
+        loadListPromoterFromServer(false);
     }
 
     @Override
     public void onRefresh() {
-        loadListCustomerFromServer(true);
+        loadListPromoterFromServer(true);
     }
 
     @Override
     public void searchByKeyWord() {
         resetData();
-        loadListCustomerFromServer(false);
+        loadListPromoterFromServer(false);
     }
 }

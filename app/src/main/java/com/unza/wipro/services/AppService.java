@@ -7,6 +7,7 @@ import com.unza.wipro.main.models.responses.CreateCustomerRSP;
 import com.unza.wipro.main.models.responses.CreateOrderRSP;
 import com.unza.wipro.main.models.responses.GetListCustomerRSP;
 import com.unza.wipro.main.models.responses.GetListProductRSP;
+import com.unza.wipro.main.models.responses.GetListPromoterInGroupRSP;
 import com.unza.wipro.main.models.responses.GetNewsCategoriesRSP;
 import com.unza.wipro.main.models.responses.GetNewsDetailRSP;
 import com.unza.wipro.main.models.responses.GetNewsRSP;
@@ -70,6 +71,11 @@ public interface AppService {
     Call<GetListCustomerRSP> getListCustomer(@Header("Authorization") String token, @Header("AppKey") String appKey,
                                              @Query("page") int page, @Query("page_size") int pageSize,
                                              @Query("key") String key);
+
+    @POST("member/groupList")
+    Call<GetListPromoterInGroupRSP> getListPromoter(@Header("Authorization") String token, @Header("AppKey") String appKey,
+                                                    @Query("page") int page, @Query("page_size") int pageSize,
+                                                    @Query("key") String key);
 
     @Multipart
     @POST("customer/create")
