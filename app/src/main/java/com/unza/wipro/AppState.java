@@ -1,9 +1,13 @@
 package com.unza.wipro;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.paditech.core.helper.PrefUtils;
 import com.paditech.core.helper.StringUtil;
 import com.unza.wipro.main.models.LoginInfo;
+import com.unza.wipro.services.AppClient;
+import com.unza.wipro.services.AppService;
 import com.unza.wipro.transaction.cart.Cart;
 import com.unza.wipro.transaction.cart.CartImpl;
 import com.unza.wipro.transaction.cart.CartInfo;
@@ -21,17 +25,20 @@ import static com.unza.wipro.AppConstans.PREF_TOKEN;
 public class AppState {
     private static AppState instance;
 
-    public static synchronized AppState getInstance() {
+    static synchronized AppState getInstance() {
         if (instance == null) {
             instance = new AppState();
         }
         return instance;
     }
 
-    private String token = AppConstans.EMPTY;;
-    private String appKey = AppConstans.EMPTY;;
+    private String token = AppConstans.EMPTY;
+    ;
+    private String appKey = AppConstans.EMPTY;
+    ;
     private Cart currentCart;
     private User currentUser;
+    private AppClient appClient = AppClient.newInstance();
 
     void setCurrentUser(User user) {
         this.currentUser = user;
@@ -42,6 +49,10 @@ public class AppState {
             currentCart = new Cart();
         }
         return currentCart;
+    }
+
+    public AppService getService() {
+        return appClient.getService();
     }
 
     public User getCurrentUser() {
@@ -56,6 +67,7 @@ public class AppState {
     }
 
     public void addCartChangeListener(Cart.CartChangeListener listener) {
+        Log.e("Add listener", listener.getClass().getSimpleName());
         currentCart.addListener(listener);
     }
 
@@ -109,8 +121,10 @@ public class AppState {
         appKey = AppConstans.EMPTY;
         currentUser = null;
         PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_TOKEN, AppConstans.EMPTY);
-        PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_APPKEY, AppConstans.EMPTY);;
-        PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_INFO, AppConstans.EMPTY);;
+        PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_APPKEY, AppConstans.EMPTY);
+        ;
+        PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_INFO, AppConstans.EMPTY);
+        ;
     }
 
     public void updateCurrentUser(LoginInfo user) {
@@ -121,16 +135,16 @@ public class AppState {
         currentUser.setName(user.getName());
         currentUser.setNumberOrders(String.valueOf(user.getOrder()));
         currentUser.setPhone(user.getPhone());
-        if(currentUser instanceof Customer){
+        if (currentUser instanceof Customer) {
             ((Customer) currentUser).setPoint(String.valueOf(user.getPoint()));
         }
-        if(currentUser instanceof Promoter){
+        if (currentUser instanceof Promoter) {
             ((Promoter) currentUser).setNumberCustomers(String.valueOf(user.getCustomers()));
             ((Promoter) currentUser).setSalesActual(String.valueOf(user.getSalesActual()));
             ((Promoter) currentUser).setSalesExpect(String.valueOf(user.getSalesExpect()));
             ((Promoter) currentUser).setFrom(String.valueOf(user.getFrom()));
             ((Promoter) currentUser).setTo(String.valueOf(user.getTo()));
-            if(currentUser instanceof PromoterLeader){
+            if (currentUser instanceof PromoterLeader) {
                 ((PromoterLeader) currentUser).setMemberGroupId(user.getMemberGroupId());
             }
         }

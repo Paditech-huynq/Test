@@ -28,4 +28,6 @@ public class BaseRSP {
     public String getMessage() {
         return message;
     }
+
+    public boolean isSuccess() { return result == 1;}
 }

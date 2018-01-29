@@ -2,7 +2,6 @@ package com.unza.wipro.main.presenters;
 
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
-import com.unza.wipro.AppState;
 import com.unza.wipro.main.contracts.ProfileListContract;
 import com.unza.wipro.main.models.responses.GetListCustomerRSP;
 import com.unza.wipro.main.views.fragments.ProfileListFragment;
@@ -45,8 +44,8 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
         final String keyWord = getView().getCurrentKeyWord();
         getView().showProgressDialog(page == FIRST_PAGE && !isRefresh);
         AppClient.newInstance().getService().getListCustomer(
-                AppState.getInstance().getToken(),
-                AppState.getInstance().getAppKey(),
+                app.getToken(),
+                app.getAppKey(),
                 page, PAGE_SIZE, keyWord)
                 .enqueue(new Callback<GetListCustomerRSP>() {
                     @Override

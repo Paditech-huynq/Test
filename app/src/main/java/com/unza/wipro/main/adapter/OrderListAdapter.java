@@ -13,14 +13,11 @@ import com.paditech.core.image.GlideApp;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.Order;
-import com.unza.wipro.main.models.OrderClass;
-import com.unza.wipro.main.models.Product;
 import com.unza.wipro.utils.DateTimeUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import butterknife.BindView;
 
@@ -46,7 +43,7 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
             } else {
                 Date dateBefore;
                 if (i == 0) {
-                    dateBefore = DateTimeUtils.getDateFromServerDayMonthYear(String.valueOf(((Order)mData.get(mData.size()-1)).getCreatedAt()));
+                    dateBefore = DateTimeUtils.getDateFromServerDayMonthYear(String.valueOf(((Order) mData.get(mData.size() - 1)).getCreatedAt()));
                 } else {
                     dateBefore = DateTimeUtils.getDateFromServerDayMonthYear(String.valueOf(data.get(i - 1).getCreatedAt()));
                 }
@@ -65,8 +62,12 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
     }
 
     @Override
-    public Object getItem(int position) {
-        return mData.get(position);
+    public Order getItem(int position) {
+        Object currentItem = mData.get(position);
+        if (currentItem instanceof Order) {
+            return (Order) currentItem;
+        }
+        return null;
     }
 
     @Override

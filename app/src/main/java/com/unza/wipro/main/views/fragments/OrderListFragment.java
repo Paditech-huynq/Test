@@ -217,7 +217,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @Override
     public void goToOrderDetailScreen(int position) {
         OrderDetailFragment orderDetailFragment = OrderDetailFragment
-                .newInstance(OrderDetailFragment.ViewMode.MODE_SEE, ((Order) mAdapter.getItem(position)).getId());
+                .newInstance(((Order) mAdapter.getItem(position)).getId());
         OrderListFragment.this.switchFragment(orderDetailFragment, true);
     }
 

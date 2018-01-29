@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 import com.unza.wipro.transaction.cart.Cart;
 import com.unza.wipro.transaction.cart.CartInfo;
 import com.unza.wipro.transaction.user.Customer;
-import com.unza.wipro.transaction.user.User;
 
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class Order {
     @SerializedName("updater")
     private String updater;
     @SerializedName("customer")
-    private User customer;
+    private Customer customer;
 
     public CartInfo getCart() {
         if (cartInfo == null) {
@@ -141,11 +140,11 @@ public class Order {
         this.updater = updater;
     }
 
-    public User getCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(User customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 

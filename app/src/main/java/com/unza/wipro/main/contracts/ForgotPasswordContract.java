@@ -12,7 +12,7 @@ import com.paditech.core.mvp.BaseViewImpl;
 
 public interface ForgotPasswordContract {
     interface ViewImpl extends BaseViewImpl {
-        void onForgotPassResult(boolean result, String message);
+        void onForgotPassResult(boolean result, String phone, String message);
     }
 
     interface Presenter extends BasePresenterImpl {

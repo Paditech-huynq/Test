@@ -193,6 +193,7 @@ public class Cart implements CartImpl, CartInfo {
     @Override
     public void update(int productId, int value) {
         if (contain(productId)) {
+            Log.i(TAG, String.format("Update quanlity of item: %s to %s", productId, value));
             findItem(productId).setQuantity(value);
             notifyDataChange();
         }
@@ -201,6 +202,10 @@ public class Cart implements CartImpl, CartInfo {
     @Override
     public boolean insert(List<Product> products) {
         try {
+            if(products == null)
+            {
+                return false;
+            }
             for (int i = 0; i < products.size(); i++) {
                 Product product = products.get(i);
                 productSparseArray.put(product.getId(), product);

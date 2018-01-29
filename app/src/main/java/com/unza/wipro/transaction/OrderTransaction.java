@@ -1,35 +1,49 @@
 package com.unza.wipro.transaction;
 
-import com.unza.wipro.transaction.cart.Cart;
+import android.support.annotation.NonNull;
+
+import com.unza.wipro.main.models.responses.CreateOrderRSP;
+import com.unza.wipro.transaction.cart.CartInfo;
 import com.unza.wipro.transaction.user.DeliveryInfo;
 
-import java.util.Date;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OrderTransaction extends Transaction {
     private DeliveryInfo deliveryInfo;
+    private PaymentMethod paymentMethod;
 
-    enum PaymentMethod {
-        COD("Cod"), CreditCard("CreditCard");
+    @Override
+    public boolean pay(@NonNull final TransactionCallback callback) {
+        try {
+            if (paymentMethod == null) {
+                throw new Exception("Payment method must not be null!");
+            }
 
-        private final String value;
+            if (deliveryInfo == null) {
+                throw new Exception("Deliver info must not be null!");
+            }
+            app.getService().doCreatOrderForCustomer(app.getToken(), app.getAppKey(), getCustomerId(), getProductByJsonString(), deliveryInfo.getName(), deliveryInfo.getDate(), deliveryInfo.getPhone(), deliveryInfo.getNote()).enqueue(new Callback<CreateOrderRSP>() {
+                @Override
+                public void onResponse(Call<CreateOrderRSP> call, Response<CreateOrderRSP> response) {
+                    onPaymentSuccess(callback, response);
+                }
 
-        PaymentMethod(String value) {
-            this.value = value;
+                @Override
+                public void onFailure(Call<CreateOrderRSP> call, Throwable t) {
+                    onPaymentFailure(callback, t);
+                }
+            });
+            return true;
+        } catch (Exception e) {
+            onPaymentFailure(callback, e);
+            return false;
         }
     }
 
-    public boolean pay(PaymentMethod paymentMethod) {
-        //todo: implement payment for oder transaction here
-        return false;
-    }
-
     @Override
-    public boolean pay() throws Exception {
-        throw new Exception("Order transaction must have a payment method");
-    }
-
-    @Override
-    public boolean create(int customerId, Cart cart) {
+    public boolean create(String customerId, CartInfo cart) {
         return false;
     }
 
@@ -37,7 +51,13 @@ public class OrderTransaction extends Transaction {
         return deliveryInfo;
     }
 
-    public void setDeliveryInfo(DeliveryInfo deliveryInfo) {
+    public OrderTransaction setDeliveryInfo(DeliveryInfo deliveryInfo) {
         this.deliveryInfo = deliveryInfo;
+        return this;
+    }
+
+    public OrderTransaction setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+        return this;
     }
 }

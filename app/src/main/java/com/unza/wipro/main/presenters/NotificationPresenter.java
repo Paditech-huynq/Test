@@ -1,7 +1,7 @@
 package com.unza.wipro.main.presenters;
 
 import com.paditech.core.mvp.BasePresenter;
-import com.unza.wipro.AppState;
+import com.unza.wipro.AppConstans;
 import com.unza.wipro.main.contracts.NotificationContract;
 import com.unza.wipro.main.models.Notice;
 import com.unza.wipro.main.models.responses.GetNotificationsRSP;
@@ -19,7 +19,7 @@ import retrofit2.Response;
  * Copyright (c) 2018 Paditech. All rights reserved.
  */
 
-public class NotificationPresenter extends BasePresenter<NotificationContract.ViewImpl> implements NotificationContract.Presenter {
+public class NotificationPresenter extends BasePresenter<NotificationContract.ViewImpl> implements NotificationContract.Presenter, AppConstans {
 
     int mPage;
 
@@ -35,10 +35,10 @@ public class NotificationPresenter extends BasePresenter<NotificationContract.Vi
     }
 
     private void getNotifications() {
-        if (!AppState.getInstance().isLogin()) return;
+        if (!app.isLogin()) return;
         getView().showProgressDialog(true);
-        AppClient.newInstance().getService().getNotifications(AppState.getInstance().getToken(),
-                AppState.getInstance().getAppKey()).enqueue(new Callback<GetNotificationsRSP>() {
+        AppClient.newInstance().getService().getNotifications(app.getToken(),
+                app.getAppKey()).enqueue(new Callback<GetNotificationsRSP>() {
             @Override
             public void onResponse(Call<GetNotificationsRSP> call, Response<GetNotificationsRSP> response) {
                 try {
@@ -59,9 +59,9 @@ public class NotificationPresenter extends BasePresenter<NotificationContract.Vi
 
     @Override
     public void read(Notice notice) {
-        if (!AppState.getInstance().isLogin()) return;
-        AppClient.newInstance().getService().readNotification(AppState.getInstance().getToken(),
-                AppState.getInstance().getAppKey(), notice.getId()).enqueue(new Callback<ReadNotificationRSP>() {
+        if (!app.isLogin()) return;
+        AppClient.newInstance().getService().readNotification(app.getToken(),
+                app.getAppKey(), notice.getId()).enqueue(new Callback<ReadNotificationRSP>() {
             @Override
             public void onResponse(Call<ReadNotificationRSP> call, Response<ReadNotificationRSP> response) {
                 try {

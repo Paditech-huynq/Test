@@ -29,7 +29,8 @@
                 app:srcCompat="@drawable/ic_avatar_holder" />
 
             <TextView
-                android:id="@+id/btnChange"
+                android:visibility="gone"
+                android:id="@+id/btnChangeCustomer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/padding_normal"
@@ -76,7 +77,7 @@
 
 
             <TextView
-                android:id="@+id/tvShop"
+                android:id="@+id/tvPromoterName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_small"/>
