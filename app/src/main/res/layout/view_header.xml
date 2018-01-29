@@ -36,7 +36,7 @@
             android:layout_height="@dimen/actionbar_button_size"
             android:layout_centerVertical="true"
             android:padding="@dimen/padding_tiny"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/ic_avatar_holder_circle" />
     </LinearLayout>
 
     <LinearLayout
