@@ -29,23 +29,31 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
     }
 
     private void loadProductFromServer(final boolean isRefresh) {
-        if (isPending || isFull) {
+        if (isPending) {
+            getView().setRefreshing(false);
             return;
         }
         if (isRefresh) {
             resetData();
+            getView().showProgressDialog(true);
+        }
+        if (isFull) {
+            getView().setRefreshing(false);
+            return;
         }
         isPending = true;
-        getView().showProgressDialog(page == FIRST_PAGE);
+        getView().showProgressDialog(page == FIRST_PAGE && !isRefresh);
         AppClient.newInstance().getService().getListProduct(page, PAGE_SIZE,
                 ((ProductPageFragment) getView()).getCategoryId(), EMPTY)
                 .enqueue(new Callback<GetListProductRSP>() {
                     @Override
                     public void onResponse(Call<GetListProductRSP> call, Response<GetListProductRSP> response) {
+                        isPending = false;
                         if (getView() == null) {
                             return;
                         }
                         getView().showProgressDialog(false);
+                        getView().setRefreshing(false);
                         GetListProductRSP listProductRSP = response.body();
                         List<Product> productList = listProductRSP.getData();
                         onLoadProductSuccess(isRefresh, productList);
@@ -53,8 +61,10 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
 
                     @Override
                     public void onFailure(Call<GetListProductRSP> call, Throwable t) {
-                        if (getView() == null) {
+                        isPending = false;
+                        if (getView() != null) {
                             getView().showProgressDialog(false);
+                            getView().setRefreshing(false);
                         }
                         Toast.makeText(getView().getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -63,6 +73,7 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
 
     private void resetData() {
         page = FIRST_PAGE;
+        isFull = false;
     }
 
     @Override
@@ -71,13 +82,12 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
     }
 
     @Override
-    public void onRefresh(List<Product> products) {
+    public void onRefresh() {
         loadProductFromServer(true);
     }
 
     private void onLoadProductSuccess(boolean isRefresh, List<Product> productList) {
         page++;
-        isPending = false;
         if (productList.size() < PAGE_SIZE) {
             isFull = true;
         }

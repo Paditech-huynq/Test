@@ -1,9 +1,11 @@
 package com.unza.wipro.main.views.fragments;
 
 import android.animation.Animator;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.transition.TransitionInflater;
@@ -67,6 +69,18 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
     public void initView() {
         super.initView();
         setupRecycleView();
+        setupPullToRefresh();
+    }
+
+    private void setupPullToRefresh() {
+        setPullToRefreshColor(Color.BLUE);
+        enablePullToRefresh(true);
+        setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getPresenter().onRefresh();
+            }
+        });
     }
 
     private void setupRecycleView() {
