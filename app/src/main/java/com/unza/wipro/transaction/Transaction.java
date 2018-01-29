@@ -1,13 +1,30 @@
 package com.unza.wipro.transaction;
 
+import android.util.SparseArray;
+
+import com.google.gson.Gson;
 import com.unza.wipro.AppConstans;
-import com.unza.wipro.main.models.responses.CreateOrderRSP;
 import com.unza.wipro.main.models.OrderData;
+import com.unza.wipro.main.models.Product;
+import com.unza.wipro.main.models.responses.CreateOrderRSP;
 import com.unza.wipro.transaction.cart.CartInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Response;
 
 public abstract class Transaction implements TransactionImpl, AppConstans {
+    enum PaymentMethod {
+        COD("Cod"), CreditCard("CreditCard");
+
+        private final String value;
+
+        PaymentMethod(String value) {
+            this.value = value;
+        }
+    }
+
     private CartInfo cart;
 
     CartInfo getCart() {
@@ -50,5 +67,17 @@ public abstract class Transaction implements TransactionImpl, AppConstans {
         if (callback != null) {
             callback.onFailure(t);
         }
+    }
+
+    String getProductByJsonString()
+    {
+        SparseArray<Product> cartProductList = getCart().getProducts();
+        List<Product> products = new ArrayList<>();
+        for (int i = 0; i < cartProductList.size(); i++) {
+            int key = cartProductList.keyAt(i);
+            products.add(cartProductList.get(key));
+        }
+
+        return new Gson().toJson(products);
     }
 }
