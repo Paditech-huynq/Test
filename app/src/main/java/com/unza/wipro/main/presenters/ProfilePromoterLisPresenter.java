@@ -2,6 +2,7 @@ package com.unza.wipro.main.presenters;
 
 
 import com.paditech.core.mvp.BasePresenter;
+import com.unza.wipro.AppConstans;
 import com.unza.wipro.AppState;
 import com.unza.wipro.main.contracts.ProfilePromoterListContract;
 import com.unza.wipro.main.models.responses.GetListPromoterInGroupRSP;
@@ -35,15 +36,19 @@ public class ProfilePromoterLisPresenter extends BasePresenter<ProfilePromoterLi
             return;
         }
         if (isRefresh) {
-            getView().setRefreshing(true);
             resetData();
+            getView().setRefreshing(true);
+        }
+        if (isFull) {
+            getView().setRefreshing(false);
+            return;
         }
         isPending = true;
         final String keyWord = getView().getCurrentKeyWord();
         getView().showProgressDialog(page == FIRST_PAGE && !isRefresh);
         AppClient.newInstance().getService().getListPromoter(
-                AppState.getInstance().getToken(),
-                AppState.getInstance().getAppKey(),
+                AppConstans.app.getToken(),
+                AppConstans.app.getAppKey(),
                 page, PAGE_SIZE, keyWord)
                 .enqueue(new Callback<GetListPromoterInGroupRSP>() {
                     @Override
