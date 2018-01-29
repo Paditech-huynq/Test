@@ -22,6 +22,7 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
     ViewPager mViewPager;
 
     private HomeFragmentPagerAdapter mAdapter;
+    private int currentTab = -1;
 
     public static HomeFragment newInstance() {
 
@@ -59,6 +60,7 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
 
             @Override
             public void onPageSelected(int position) {
+                currentTab = position;
                 mBottomBar.selectTabAtPosition(position);
                 mAdapter.onViewAppear(position);
                 ((MainActivity) getActivity()).updateActionButtonAppearance(mAdapter.getItem(position));
@@ -70,6 +72,16 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
 
             }
         });
+
+        if (currentTab > 0) {
+            mViewPager.postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    mViewPager.setCurrentItem(currentTab);
+                }
+            }, 100);
+        }
     }
 
     @Override
@@ -83,12 +95,10 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
     }
 
     @Override
-    public void switchTab(int pos) {
-        try {
-            mViewPager.setCurrentItem(pos, false);
-            updateTitle();
-        } catch (Exception ignored) {
-        }
+    public void switchTab(final int pos) {
+        currentTab = pos;
+        mViewPager.setCurrentItem(pos, false);
+        updateTitle();
     }
 
     @Override
@@ -121,13 +131,11 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
 
     @Override
     public void onViewAppear() {
-        mAdapter.onViewAppear(-1);
         super.onViewAppear();
     }
 
     @Override
     public void onViewDisappear() {
-        mAdapter.onViewAppear(-2);
         super.onViewDisappear();
     }
 }

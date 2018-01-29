@@ -3,6 +3,7 @@ package com.unza.wipro.main.views.fragments;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -95,6 +96,13 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     public void initView() {
         super.initView();
         setupRecycleView();
+        enablePullToRefresh(true);
+        setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getPresenter().onRefresh();
+            }
+        });
     }
 
     @Override
@@ -113,7 +121,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
             public void onLoadMore() {
-                getPresenter().loadMore();
+                getPresenter().onLoadMore();
             }
         });
         mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
@@ -248,6 +256,16 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         } else {
             showToast("The day in left must before the day in right, please choose again");
         }
+    }
+
+    @Override
+    public void scrollToTop() {
+        rcvOrder.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rcvOrder.scrollTo(0,0);
+            }
+        },200);
     }
 
     @OnClick(R.id.bt_filter)

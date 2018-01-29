@@ -19,7 +19,7 @@ public class FakeScannerFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResource() {
-        return 0;
+        return R.layout.view_blank;
     }
 
     @Override

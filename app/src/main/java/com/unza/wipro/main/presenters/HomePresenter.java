@@ -1,10 +1,31 @@
 package com.unza.wipro.main.presenters;
 
+import android.util.Log;
+
 import com.paditech.core.mvp.BasePresenter;
+import com.squareup.otto.Subscribe;
+import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.HomeContract;
+import com.unza.wipro.transaction.Transaction;
 
-public class HomePresenter extends BasePresenter<HomeContract.ViewImpl> implements HomeContract.Presenter {
+public class HomePresenter extends BasePresenter<HomeContract.ViewImpl> implements HomeContract.Presenter, AppConstans {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        try {
+            bus.register(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        bus.unregister(this);
+    }
+
     @Override
     public void onTabSelected(int tabId) {
         switch (tabId) {
@@ -24,5 +45,16 @@ public class HomePresenter extends BasePresenter<HomeContract.ViewImpl> implemen
                 getView().switchTab(4);
                 break;
         }
+    }
+
+    /**
+     * Change to tab 2 when transaction success
+     *
+     * @param transaction
+     */
+    @Subscribe
+    public void onTransactionSuccess(Transaction transaction) {
+        Log.e("Transaction",transaction+"");
+        getView().switchTab(1);
     }
 }

@@ -32,7 +32,14 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     @BindView(R.id.bottomBar)
     View bottomBar;
 
-    private BroadcastReceiver mReceiver;
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String customerJSON = intent.getStringExtra("customer");
+            Customer customer = new Gson().fromJson(customerJSON, Customer.class);
+            mAdapter.setCustomer(customer);
+        }
+    };;
 
     private int mOrderID = -1;
 
@@ -56,15 +63,24 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
 
     private void setupReceiver() {
         IntentFilter intentFilter = new IntentFilter("android.intent.action.MAIN");
-        mReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String customerJSON = intent.getStringExtra("customer");
-                Customer customer = new Gson().fromJson(customerJSON, Customer.class);
-                mAdapter.setCustomer(customer);
-            }
-        };
+
         getActivity().registerReceiver(mReceiver, intentFilter);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        setupReceiver();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        try {
+            getActivity().unregisterReceiver(mReceiver);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -87,7 +103,7 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
         super.initView();
         setupRecycleView();
         setupCreateCart();
-        setupReceiver();
+        enablePullToRefresh(true);
     }
 
     private void setupCreateCart() {
@@ -138,6 +154,11 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     @Override
     public Customer getCustomer() {
         return mAdapter.getCustomer();
+    }
+
+    @Override
+    public void backToHomeScreen() {
+        getActivity().onBackPressed();
     }
 
     private void setupRecycleView() {
