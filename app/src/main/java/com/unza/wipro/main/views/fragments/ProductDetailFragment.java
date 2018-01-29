@@ -176,6 +176,11 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
         getActivity().onBackPressed();
     }
 
+    @OnClick(R.id.btnCart)
+    protected void showCart() {
+        switchFragment(OrderDetailFragment.newInstance(), true);
+    }
+
     @OnClick(R.id.btnRegister)
     protected void addToCart() {
         if (mProduct == null) return;
