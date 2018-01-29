@@ -1,7 +1,5 @@
 package com.unza.wipro;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.paditech.core.helper.PrefUtils;
 import com.paditech.core.helper.StringUtil;
@@ -36,7 +34,7 @@ public class AppState {
     ;
     private String appKey = AppConstans.EMPTY;
     ;
-    private Cart currentCart;
+    private Cart currentCart = new Cart();
     private User currentUser;
     private AppClient appClient = AppClient.newInstance();
 
@@ -45,9 +43,6 @@ public class AppState {
     }
 
     public CartInfo getCurrentCart() {
-        if (currentCart == null) {
-            currentCart = new Cart();
-        }
         return currentCart;
     }
 
@@ -67,7 +62,6 @@ public class AppState {
     }
 
     public void addCartChangeListener(Cart.CartChangeListener listener) {
-        Log.e("Add listener", listener.getClass().getSimpleName());
         currentCart.addListener(listener);
     }
 

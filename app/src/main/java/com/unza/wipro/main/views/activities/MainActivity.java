@@ -14,7 +14,6 @@ import com.paditech.core.helper.StringUtil;
 import com.paditech.core.image.GlideApp;
 import com.paditech.core.mvp.MVPActivity;
 import com.unza.wipro.AppConstans;
-import com.unza.wipro.AppState;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.MainContract;
 import com.unza.wipro.main.presenters.MainPresenter;
@@ -31,6 +30,9 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
 
     @BindView(R.id.layoutHeader)
     View layoutHeader;
+
+    @BindView(R.id.tvCartAmount)
+    TextView tvCartAmount;
 
     @Override
     protected int getLayoutResource() {
@@ -149,5 +151,13 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
 
     public void openCamera(boolean isOpen) {
         findViewById(R.id.layoutCamera).setVisibility(isOpen ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void updateCartCount() {
+        int cartItemCount = app.getCurrentCart().getTotalQuantity();
+        tvCartAmount.setVisibility(cartItemCount == 0 ? View.GONE : View.VISIBLE);
+        String count = cartItemCount <= 99 ? String.valueOf(cartItemCount) : "99+";
+        tvCartAmount.setText(count);
     }
 }

@@ -94,7 +94,7 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
             return;
         }
 
-        if (app.getCurrentCart().getItemCount() == 0) {
+        if (app.getCurrentCart().getTotalQuantity() == 0) {
             getView().showToast(getView().getContext().getString(R.string.err_msg_cart_empty));
             return;
         }

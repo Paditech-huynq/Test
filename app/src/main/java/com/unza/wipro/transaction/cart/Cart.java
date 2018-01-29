@@ -66,6 +66,17 @@ public class Cart implements CartImpl, CartInfo {
     }
 
     @Override
+    public int getTotalQuantity() {
+        int totalItemCount = 0;
+        for (int i = 0; i < productSparseArray.size(); i++) {
+            int key = productSparseArray.keyAt(i);
+            Product product = productSparseArray.get(key);
+            totalItemCount += product.getQuantity();
+        }
+        return totalItemCount;
+    }
+
+    @Override
     public int getItemCount() {
         return productSparseArray.size();
     }
