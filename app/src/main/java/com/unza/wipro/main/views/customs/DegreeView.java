@@ -131,8 +131,8 @@ public class DegreeView extends View {
     public void setValue(int background, int displayDegree, long value, long maxvalue) {
             this.background = background;
             this.displayDegree = displayDegree;
-//            this.maxvalue = maxvalue;
-//            this.value = value;
+            this.maxvalue = maxvalue;
+            this.value = value;
             mPaintDrawBackground.setColor(context.getResources().getColor(getBackground1()));
             mPaintDrawDegree.setColor(context.getResources().getColor(getDisplayDegree()));
             invalidate();
@@ -141,7 +141,7 @@ public class DegreeView extends View {
     public void reset() {
         setBackground1(R.color.white);
         setDisplayDegree(R.color.colorPrimaryDark);
-        setValue(50);
+        setValue(0);
         setMaxvalue(100);
         mPaintDrawBackground = new Paint();
         mPaintDrawDegree = new Paint();
