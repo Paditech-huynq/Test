@@ -117,7 +117,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         }
 
         @Override
-        protected void onBindingData(int position) {
+        protected void onBindingData(final int position) {
             final Context context = itemView.getContext();
             final Product item = getItem(position - 1);
             if (item == null) return;
@@ -133,7 +133,11 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
                 @Override
                 public void onValueChange(boolean isReduce, int value) {
                     app.editCart().update(item.getId(), value);
-                    updatePrice();
+                    if (value == 0) {
+                        notifyItemRemoved(position);
+                    } else {
+                        updatePrice();
+                    }
                 }
             });
 
@@ -192,7 +196,8 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
          * if not the order, show Cart
          */
         private void setUpViewForCart() {
-            btnChangeCustomer.setVisibility(isOrder || app.getCurrentUser() instanceof Customer ? View.GONE : View.VISIBLE);
+            btnChangeCustomer.setVisibility(isOrder || !app.isLogin() || app.getCurrentUser() instanceof Customer ? View.GONE : View.VISIBLE);
+            tvName.setVisibility(!app.isLogin() ? View.GONE : View.VISIBLE);
             if (app.getCurrentUser() instanceof Promoter) {
                 fillPromoterInfo((Promoter) app.getCurrentUser());
             }

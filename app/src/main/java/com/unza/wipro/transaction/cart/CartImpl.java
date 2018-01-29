@@ -17,7 +17,7 @@ public interface CartImpl {
      *
      * @param productId
      */
-    boolean reduce(int productId);
+    boolean remove(int productId);
 
     /**
      * Delete item by id and amount

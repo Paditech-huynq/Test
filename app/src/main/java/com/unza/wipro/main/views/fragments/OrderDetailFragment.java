@@ -127,7 +127,7 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     public void onActionSelected(int resId) {
         if (resId == R.id.btnTrash) {
             app.editCart().clear();
-            mAdapter.notifyDataSetChanged();
+            mAdapter.notifyItemRangeRemoved(1, mAdapter.getItemCount()-1);
         }
         super.onActionSelected(resId);
     }

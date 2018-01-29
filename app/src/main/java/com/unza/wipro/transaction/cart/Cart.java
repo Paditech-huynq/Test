@@ -96,10 +96,10 @@ public class Cart implements CartImpl, CartInfo {
     }
 
     @Override
-    public boolean reduce(int productId) {
+    public boolean remove(int productId) {
         try {
             if (productSparseArray.get(productId) != null) {
-                productSparseArray.delete(productId);
+                productSparseArray.remove(productId);
                 Log.i(TAG, String.format("Remove item from Cart: %s", productId));
                 notifyDataChange();
             }
@@ -124,12 +124,12 @@ public class Cart implements CartImpl, CartInfo {
                     Log.i(TAG, String.format("Reduce item %s by %s", product.getId(), newQuantity));
                     notifyDataChange();
                 } else {
-                    return reduce(productId);
+                    return remove(productId);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Log.i(TAG, String.format("Can't reduce item from Cart: %s", productId));
+            Log.i(TAG, String.format("Can't remove item from Cart: %s", productId));
             return false;
         }
         return true;
@@ -193,17 +193,20 @@ public class Cart implements CartImpl, CartInfo {
     @Override
     public void update(int productId, int value) {
         if (contain(productId)) {
-            Log.i(TAG, String.format("Update quanlity of item: %s to %s", productId, value));
-            findItem(productId).setQuantity(value);
-            notifyDataChange();
+            if (value == 0) {
+                remove(productId);
+            } else {
+                Log.i(TAG, String.format("Update quanlity of item: %s to %s", productId, value));
+                findItem(productId).setQuantity(value);
+                notifyDataChange();
+            }
         }
     }
 
     @Override
     public boolean insert(List<Product> products) {
         try {
-            if(products == null)
-            {
+            if (products == null) {
                 return false;
             }
             for (int i = 0; i < products.size(); i++) {
