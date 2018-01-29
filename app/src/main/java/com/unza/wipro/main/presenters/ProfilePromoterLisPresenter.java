@@ -64,7 +64,9 @@ public class ProfilePromoterLisPresenter extends BasePresenter<ProfilePromoterLi
                         getView().setRefreshing(false);
                         GetListPromoterInGroupRSP getListCustomerRSP = response.body();
                         List<Promoter> promoterList = getListCustomerRSP.getData();
-                        loadListCustomerSuccess(isRefresh, promoterList);
+                        if(promoterList != null) {
+                            loadListCustomerSuccess(isRefresh, promoterList);
+                        }
                     }
 
                     @Override
