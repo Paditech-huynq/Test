@@ -11,11 +11,15 @@ public interface ProductPageContract {
         void addItemToList(List<Product> products);
 
         void refreshData(List<Product> products);
+
+        void showReloadButton();
     }
 
     interface Presenter extends BasePresenterImpl {
         void onLoadMore();
 
         void onRefresh();
+
+        void onReload();
     }
 }

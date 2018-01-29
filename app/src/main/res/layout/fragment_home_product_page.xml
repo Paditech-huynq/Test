@@ -10,6 +10,22 @@
         android:paddingLeft="@dimen/padding_small"
         android:paddingRight="@dimen/padding_small" />
 
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvReload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_primary_button_no_rounded"
+        android:paddingBottom="@dimen/padding_normal"
+        android:paddingEnd="@dimen/padding_large"
+        android:paddingStart="@dimen/padding_large"
+        android:paddingTop="@dimen/padding_normal"
+        android:text="@string/reload"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_title"
+        android:textStyle="bold" />
+
     <com.paditech.core.DisableTouchView
         android:id="@+id/layoutLoading"
         android:layout_width="match_parent"
