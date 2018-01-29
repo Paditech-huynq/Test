@@ -8,6 +8,6 @@ public class OtpPresenter extends BasePresenter<OtpContract.ViewImpl> implements
     @Override
     public void confirmOtp(String otp) {
         // TODO: confirm code
-        getView().onConfirmOtpResult(true, "");
+        getView().onConfirmOtpResult(true, otp, "");
     }
 }

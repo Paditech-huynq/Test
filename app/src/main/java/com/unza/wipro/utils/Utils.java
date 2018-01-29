@@ -168,7 +168,7 @@ public class Utils {
             return String.format("%032X", md5Data);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
     }
 }

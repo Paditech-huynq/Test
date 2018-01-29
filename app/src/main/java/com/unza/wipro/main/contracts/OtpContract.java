@@ -12,7 +12,7 @@ import com.paditech.core.mvp.BaseViewImpl;
 
 public interface OtpContract {
     interface ViewImpl extends BaseViewImpl {
-        void onConfirmOtpResult(boolean result, String message);
+        void onConfirmOtpResult(boolean result, String otp, String message);
     }
 
     interface Presenter extends BasePresenterImpl {
