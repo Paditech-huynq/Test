@@ -13,8 +13,6 @@ import com.paditech.core.image.GlideApp;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.Order;
-import com.unza.wipro.main.models.OrderClass;
-import com.unza.wipro.main.models.Product;
 import com.unza.wipro.utils.DateTimeUtils;
 
 import java.util.ArrayList;
@@ -28,12 +26,33 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
     private static final int TYPE_SECTION = 0;
     private static final int TYPE_ITEM = 1;
     private List mData = new ArrayList<>();
+    private Context context;
+
+    public OrderListAdapter(Context context) {
+        this.context = context;
+    }
 
     public void insertData(List<Order> data) {
         if (data == null) {
             return;
         }
-        mData.addAll(data);
+        for (int i = 0; i < data.size(); i++) {
+            Date dateCounting = DateTimeUtils.getDateFromServerDayMonthYear(String.valueOf(data.get(i).getCreatedAt()));
+            if (mData.size() == 0) {
+                mData.add(context.getResources().getString(R.string.section_month_year, DateTimeUtils.getStringMonthYear(dateCounting)));
+            } else {
+                Date dateBefore;
+                if (i == 0) {
+                    dateBefore = DateTimeUtils.getDateFromServerDayMonthYear(String.valueOf(((Order) mData.get(mData.size() - 1)).getCreatedAt()));
+                } else {
+                    dateBefore = DateTimeUtils.getDateFromServerDayMonthYear(String.valueOf(data.get(i - 1).getCreatedAt()));
+                }
+                if (!DateTimeUtils.getStringMonthYear(dateBefore).equals(DateTimeUtils.getStringMonthYear(dateCounting))) {
+                    mData.add(context.getResources().getString(R.string.section_month_year, DateTimeUtils.getStringMonthYear(dateCounting)));
+                }
+            }
+            mData.add(data.get(i));
+        }
         notifyDataSetChanged();
     }
 
@@ -43,8 +62,12 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
     }
 
     @Override
-    public Object getItem(int position) {
-        return mData.get(position);
+    public Order getItem(int position) {
+        Object currentItem = mData.get(position);
+        if (currentItem instanceof Order) {
+            return (Order) currentItem;
+        }
+        return null;
     }
 
     @Override

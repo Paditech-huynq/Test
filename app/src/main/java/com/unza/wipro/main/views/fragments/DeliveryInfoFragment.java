@@ -8,14 +8,11 @@ import android.widget.TextView;
 
 import com.paditech.core.helper.StringUtil;
 import com.paditech.core.mvp.MVPFragment;
-import com.unza.wipro.AppState;
+import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.DeliveryInfoContract;
 import com.unza.wipro.main.presenters.DeliveryInfoPresenter;
-import com.unza.wipro.transaction.user.DeliveryInfo;
 import com.unza.wipro.utils.DateTimeUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -30,7 +27,7 @@ import butterknife.OnClick;
  * Copyright (c) 2018 Paditech. All rights reserved.
  */
 
-public class DeliveryInfoFragment extends MVPFragment<DeliveryInfoPresenter> implements DeliveryInfoContract.ViewImpl {
+public class DeliveryInfoFragment extends MVPFragment<DeliveryInfoPresenter> implements DeliveryInfoContract.ViewImpl, AppConstans {
 
     @BindView(R.id.edt_delivery_name)
     EditText mNameText;
@@ -64,8 +61,8 @@ public class DeliveryInfoFragment extends MVPFragment<DeliveryInfoPresenter> imp
     @Override
     public void initView() {
         super.initView();
-        String name =  AppState.getInstance().getCurrentUser().getName();
-        String phone =  AppState.getInstance().getCurrentUser().getPhone();
+        String name =  app.getCurrentUser().getName();
+        String phone =  app.getCurrentUser().getPhone();
         mNameText.setText(name);
         mPhoneText.setText(phone);
     }

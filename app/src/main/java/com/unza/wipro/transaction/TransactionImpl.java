@@ -1,9 +1,9 @@
 package com.unza.wipro.transaction;
 
-import com.unza.wipro.transaction.cart.Cart;
+import com.unza.wipro.transaction.cart.CartInfo;
 
 public interface TransactionImpl {
-    boolean pay() throws Exception;
+    boolean pay(Transaction.TransactionCallback callback) throws Exception;
 
-    boolean create(int customerId, Cart cart);
+    boolean create(String customerId, CartInfo cart);
 }

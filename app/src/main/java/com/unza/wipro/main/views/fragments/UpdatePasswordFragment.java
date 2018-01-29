@@ -5,7 +5,7 @@ import android.widget.EditText;
 
 import com.paditech.core.helper.StringUtil;
 import com.paditech.core.mvp.MVPFragment;
-import com.unza.wipro.AppState;
+import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.UpdatePasswordContract;
 import com.unza.wipro.main.presenters.UpdatePasswordPresenter;
@@ -13,7 +13,7 @@ import com.unza.wipro.main.presenters.UpdatePasswordPresenter;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class UpdatePasswordFragment extends MVPFragment<UpdatePasswordPresenter> implements UpdatePasswordContract.ViewImpl {
+public class UpdatePasswordFragment extends MVPFragment<UpdatePasswordPresenter> implements UpdatePasswordContract.ViewImpl, AppConstans {
     @BindView(R.id.edt_old_pass)
     EditText edtOldPass;
     @BindView(R.id.edt_new_pass)
@@ -35,12 +35,12 @@ public class UpdatePasswordFragment extends MVPFragment<UpdatePasswordPresenter>
 
     @Override
     public String getScreenTitle() {
-        if (AppState.getInstance().getCurrentUser() == null) {
+        if (app.getCurrentUser() == null) {
             showToast(getString(R.string.not_found_user));
             getActivity().onBackPressed();
             return null;
         } else {
-            return AppState.getInstance().getCurrentUser().getName();
+            return app.getCurrentUser().getName();
         }
     }
 

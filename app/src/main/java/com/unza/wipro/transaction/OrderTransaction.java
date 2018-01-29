@@ -1,9 +1,7 @@
 package com.unza.wipro.transaction;
 
-import com.unza.wipro.transaction.cart.Cart;
+import com.unza.wipro.transaction.cart.CartInfo;
 import com.unza.wipro.transaction.user.DeliveryInfo;
-
-import java.util.Date;
 
 public class OrderTransaction extends Transaction {
     private DeliveryInfo deliveryInfo;
@@ -24,12 +22,12 @@ public class OrderTransaction extends Transaction {
     }
 
     @Override
-    public boolean pay() throws Exception {
+    public boolean pay(TransactionCallback callback) throws Exception {
         throw new Exception("Order transaction must have a payment method");
     }
 
     @Override
-    public boolean create(int customerId, Cart cart) {
+    public boolean create(String customerId, CartInfo cart) {
         return false;
     }
 

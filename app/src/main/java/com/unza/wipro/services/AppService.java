@@ -3,6 +3,7 @@ package com.unza.wipro.services;
 import com.unza.wipro.main.models.responses.BaseRSP;
 import com.unza.wipro.main.models.responses.CommonRSP;
 import com.unza.wipro.main.models.responses.CreateCustomerRSP;
+import com.unza.wipro.main.models.responses.CreateOrderRSP;
 import com.unza.wipro.main.models.responses.GetListCustomerRSP;
 import com.unza.wipro.main.models.responses.GetListProductRSP;
 import com.unza.wipro.main.models.responses.GetNewsCategoriesRSP;
@@ -16,8 +17,6 @@ import com.unza.wipro.main.models.responses.GetProductDetailRSP;
 import com.unza.wipro.main.models.responses.GetUserProfileRSP;
 import com.unza.wipro.main.models.responses.LoginRSP;
 import com.unza.wipro.main.models.responses.ReadNotificationRSP;
-
-import java.io.File;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -113,4 +112,13 @@ public interface AppService {
     @FormUrlEncoded
     Call<CommonRSP> resetPassword(@Field("phone") String phone, @Field("otp") String otp, @Field("new_password") String newPass,
                                 @Field("re_new_password") String confirmPass);
+
+    @POST("order/create")
+    @FormUrlEncoded
+    Call<CreateOrderRSP> doCreatOrderForPromoter(@Header("Authorization") String token, @Header("AppKey") String appKey, @Field("customer_id") String customerId, @Field("products") String productsList);
+
+    @POST("order/create")
+    @FormUrlEncoded
+    Call<CreateOrderRSP> doCreatOrderForCustomer(@Header("Authorization") String token, @Header("AppKey") String appKey, @Field("customer_id") String customerId, @Field("products") String productsList,
+                                                 @Field("billing_name") String billingName,@Field("billing_date") String billingDate,@Field("billing_phone") String billingPhone,@Field("billing_note") String billingNote);
 }
