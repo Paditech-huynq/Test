@@ -28,7 +28,7 @@ public class Notice {
     @SerializedName("created_id")
     private int createdId;
     @SerializedName("is_read")
-    private boolean isRead;
+    private int isRead;
 
     public int getId() {
         return id;
@@ -95,10 +95,10 @@ public class Notice {
     }
 
     public boolean isRead() {
-        return isRead;
+        return isRead == 1;
     }
 
     public void setRead(boolean read) {
-        isRead = read;
+        isRead = read ? 1 : 0;
     }
 }
