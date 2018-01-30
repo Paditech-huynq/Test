@@ -40,6 +40,10 @@ public interface OrderListContract {
         void findOrder(boolean canFind);
 
         void scrollToTop();
+
+        String getFrom();
+
+        String getTo();
     }
 
     interface Presenter extends BasePresenterImpl {
