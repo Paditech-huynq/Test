@@ -38,6 +38,10 @@ public class FakeScannerFragment extends BaseFragment implements AppConstans {
     }
 
     @Override
+    public void setScreenTitle(String title) {
+    }
+
+    @Override
     public void onViewAppear() {
         super.onViewAppear();
         try {

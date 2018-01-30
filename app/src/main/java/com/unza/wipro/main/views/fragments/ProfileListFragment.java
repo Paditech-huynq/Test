@@ -1,6 +1,6 @@
 package com.unza.wipro.main.views.fragments;
 
-import android.content.Intent;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,10 +16,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
-import com.google.gson.Gson;
 import com.paditech.core.common.BaseRecycleViewAdapter;
+import com.paditech.core.helper.Utils;
 import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.mvp.MVPFragment;
+import com.squareup.otto.Subscribe;
+import com.unza.wipro.AppAction;
+import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.ProfileListAdapter;
 import com.unza.wipro.main.contracts.ProfileListContract;
@@ -32,7 +35,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ProfileListFragment extends MVPFragment<ProfileListPresenter> implements ProfileListContract.ViewImpl {
+public class ProfileListFragment extends MVPFragment<ProfileListPresenter> implements ProfileListContract.ViewImpl, AppConstans {
     @BindView(R.id.rcvProfile)
     RecyclerView mRecyclerView;
     @BindView(R.id.edtSearch)
@@ -126,11 +129,8 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
         mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
-                Intent intent = new Intent("android.intent.action.MAIN");
-                String customer = new Gson().toJson(mAdapter.getItem(position));
-                intent.putExtra("customer", customer);
-                ProfileListFragment.this.getActivity().sendBroadcast(intent);
-                ProfileListFragment.this.getActivity().onBackPressed();
+                getActivity().getSupportFragmentManager().popBackStack();
+                bus.post(AppAction.NOTIFY_CUSTOMER_SELECTED.setData(Utils.convertObjectToString(mAdapter.getItem(position))));
             }
         });
 
@@ -153,7 +153,6 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
     public void onSaveViewInstanceState(@NonNull Bundle outState) {
         super.onSaveViewInstanceState(outState);
         outState.putInt(LAST_SCROLL_Y, mRecyclerView.computeVerticalScrollOffset());
-        Log.e("AA", mRecyclerView.computeVerticalScrollOffset() + "");
 
     }
 
@@ -178,5 +177,28 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
 
     public void refreshData(List<Customer> customerList) {
         mAdapter.refreshData(customerList);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        bus.register(this);
+    }
+
+    @Override
+    public void onDetach() {
+        bus.unregister(this);
+        super.onDetach();
+    }
+
+    @Subscribe
+    public void onAction(AppAction action)
+    {
+        switch (action)
+        {
+            case NOTIFY_CUSTOMER_SELECTED_AFTER_CREATE:
+                getActivity().getSupportFragmentManager().popBackStack();
+                break;
+        }
     }
 }

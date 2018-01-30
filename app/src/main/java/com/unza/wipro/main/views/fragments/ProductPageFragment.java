@@ -69,6 +69,12 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
     public void initView() {
         super.initView();
         setupRecycleView();
+
+    }
+
+    @Override
+    public void onViewAppear() {
+        super.onViewAppear();
         setupPullToRefresh();
     }
 
@@ -138,11 +144,6 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
                 .replace(R.id.container, detailFragment)
                 .addToBackStack(null)
                 .commitAllowingStateLoss();
-    }
-
-    @Override
-    protected boolean isKeepFragment() {
-        return true;
     }
 
     private void makeFlyAnimation(ImageView targetView) {

@@ -2,7 +2,6 @@ package com.unza.wipro.main.presenters;
 
 import android.content.Context;
 
-import com.google.gson.Gson;
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.main.contracts.LoginContract;
@@ -39,11 +38,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.ViewImpl> implem
                             if (response.body() != null) {
                                 getView().onLoginResult(response.body().isSuccess(), response.body().getMessage());
                                 if (response.body().isSuccess()) {
-                                    app.saveToCache(
-                                            response.body().getData().getAccessToken(),
-                                            response.body().getData().getAppKey(),
-                                            new Gson().toJson(response.body().getData().getInfo()));
-                                    app.loadFromCache();
+                                    app.updateAppState(response.body().getData());
                                 }
                             } else {
                                 getView().onLoginResult(false, "");

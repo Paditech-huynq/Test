@@ -158,5 +158,7 @@
     <string name="err_msg_transaction_no_login">Bạn phải đăng nhập để thực hiện thao tác này</string>
 
     <string name="cart_singale_item_total_price">Tổng: %1s VNĐ</string>
-
+    <string name="msg_cornfirm_delete">Bạn thật sự muốn làm trống giỏ hàng?</string>
+    <string name="action_confirm">Đồng ý</string>
+    <string name="action_cancel">Hủy</string>
 </resources>

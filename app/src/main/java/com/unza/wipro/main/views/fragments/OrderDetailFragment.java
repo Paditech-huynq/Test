@@ -1,27 +1,28 @@
 package com.unza.wipro.main.views.fragments;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.google.gson.Gson;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.mvp.MVPFragment;
+import com.squareup.otto.Subscribe;
+import com.unza.wipro.AppAction;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.CartItemsAdapter;
 import com.unza.wipro.main.contracts.OrderDetailContract;
 import com.unza.wipro.main.models.Order;
+import com.unza.wipro.main.models.UserData;
 import com.unza.wipro.main.presenters.OrderDetailPresenter;
 import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
 import com.unza.wipro.transaction.user.Customer;
+import com.unza.wipro.transaction.user.User;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -31,15 +32,6 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     RecyclerView mRecyclerView;
     @BindView(R.id.bottomBar)
     View bottomBar;
-
-    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String customerJSON = intent.getStringExtra("customer");
-            Customer customer = new Gson().fromJson(customerJSON, Customer.class);
-            mAdapter.setCustomer(customer);
-        }
-    };;
 
     private int mOrderID = -1;
 
@@ -56,31 +48,9 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
 
     public static OrderDetailFragment newInstance(int orderID) {
         OrderDetailFragment fragment = newInstance();
-        Log.e("orderId",orderID+"");
+        Log.e("orderId", orderID + "");
         fragment.mOrderID = orderID;
         return fragment;
-    }
-
-    private void setupReceiver() {
-        IntentFilter intentFilter = new IntentFilter("android.intent.action.MAIN");
-
-        getActivity().registerReceiver(mReceiver, intentFilter);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        setupReceiver();
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        try {
-            getActivity().unregisterReceiver(mReceiver);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -118,7 +88,7 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     @Override
     public boolean isActionShow(int resId) {
         if (resId == R.id.btnTrash) {
-            return !hasOrder();
+            return !hasOrder() && app.getCurrentCart().getItemCount() > 0;
         }
         return super.isActionShow(resId);
     }
@@ -126,8 +96,15 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     @Override
     public void onActionSelected(int resId) {
         if (resId == R.id.btnTrash) {
-            app.editCart().clear();
-            mAdapter.notifyItemRangeRemoved(1, mAdapter.getItemCount()-1);
+            if (app.getCurrentCart().getItemCount() > 0) {
+                showConfirmDialog(getString(R.string.msg_cornfirm_delete), getString(R.string.action_confirm), getString(R.string.action_cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        app.editCart().clear();
+                        mAdapter.notifyItemRangeRemoved(1, mAdapter.getItemCount() - 1);
+                    }
+                }, null);
+            }
         }
         super.onActionSelected(resId);
     }
@@ -157,15 +134,17 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     }
 
     @Override
-    public void backToHomeScreen() {
-        getActivity().onBackPressed();
+    public void backToLastScreen() {
+        getActivity().getSupportFragmentManager().popBackStack();
     }
 
     private void setupRecycleView() {
-        if (hasOrder()) {
-            mAdapter = new CartItemsAdapter(new Order());
-        } else {
-            mAdapter = new CartItemsAdapter(null);
+        if (mAdapter == null) {
+            if (hasOrder()) {
+                mAdapter = new CartItemsAdapter(new Order());
+            } else {
+                mAdapter = new CartItemsAdapter(null);
+            }
         }
         mAdapter.setOnViewClickListener(new BaseRecycleViewAdapter.ViewClickListener() {
             @Override
@@ -205,5 +184,32 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     @OnClick(R.id.btnLookup)
     void onLookupBtnClick() {
         switchFragment(LookupFragment.newInstance(), true);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        bus.register(this);
+    }
+
+    @Override
+    public void onDetach() {
+        bus.unregister(this);
+        super.onDetach();
+    }
+
+    @Subscribe
+    public void onAction(AppAction action) {
+        switch (action) {
+            case NOTIFY_CUSTOMER_SELECTED:
+            case NOTIFY_CUSTOMER_SELECTED_AFTER_CREATE:
+                UserData userData = action.getData(UserData.class);
+                final User user = new User.Builder(userData).build();
+                Log.e("Customer selected", user.getClass().getSimpleName());
+                if (user instanceof Customer) {
+                    mAdapter.setCustomer((Customer) user);
+                }
+                break;
+        }
     }
 }

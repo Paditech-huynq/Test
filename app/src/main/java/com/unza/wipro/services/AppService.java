@@ -12,6 +12,7 @@ import com.unza.wipro.main.models.responses.GetNewsCategoriesRSP;
 import com.unza.wipro.main.models.responses.GetNewsDetailRSP;
 import com.unza.wipro.main.models.responses.GetNewsRSP;
 import com.unza.wipro.main.models.responses.GetNotificationsRSP;
+import com.unza.wipro.main.models.responses.GetNotificationsUnreadRSP;
 import com.unza.wipro.main.models.responses.GetOrderDetailRSP;
 import com.unza.wipro.main.models.responses.GetOrdersRSP;
 import com.unza.wipro.main.models.responses.GetProductCategoryRSP;
@@ -105,11 +106,16 @@ public interface AppService {
                               @Field("billing_note") String note);
 
     @POST("notifications/list")
-    Call<GetNotificationsRSP> getNotifications(@Header("Authorization") String token, @Header("AppKey") String appKey);
+    @FormUrlEncoded
+    Call<GetNotificationsRSP> getNotifications(@Header("Authorization") String token, @Header("AppKey") String appKey,
+                                               @Field("page") Integer page, @Field("page_size") Integer pageSize);
 
     @POST("notifications/read")
     @FormUrlEncoded
     Call<ReadNotificationRSP> readNotification(@Header("Authorization") String token, @Header("AppKey") String appKey, @Field("notification_id") int notificationId);
+
+    @POST("notifications/numberUnRead")
+    Call<GetNotificationsUnreadRSP> getUnReadNotificationsCount(@Header("Authorization") String token, @Header("AppKey") String appKey);
 
     @POST("member/forgot")
     @FormUrlEncoded
@@ -118,7 +124,7 @@ public interface AppService {
     @POST("member/otp")
     @FormUrlEncoded
     Call<CommonRSP> resetPassword(@Field("phone") String phone, @Field("otp") String otp, @Field("new_password") String newPass,
-                                @Field("re_new_password") String confirmPass);
+                                  @Field("re_new_password") String confirmPass);
 
     @POST("order/create")
     @FormUrlEncoded
@@ -127,7 +133,7 @@ public interface AppService {
     @POST("order/create")
     @FormUrlEncoded
     Call<CreateOrderRSP> doCreatOrderForCustomer(@Header("Authorization") String token, @Header("AppKey") String appKey, @Field("customer_id") String customerId, @Field("products") String productsList,
-                                                 @Field("billing_name") String billingName,@Field("billing_date") String billingDate,@Field("billing_phone") String billingPhone,@Field("billing_note") String billingNote);
+                                                 @Field("billing_name") String billingName, @Field("billing_date") String billingDate, @Field("billing_phone") String billingPhone, @Field("billing_note") String billingNote);
 
     @POST("member/changepass")
     @FormUrlEncoded
