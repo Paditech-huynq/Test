@@ -59,13 +59,10 @@ public class NewsFragment extends BaseFragment {
     }
 
     private void setupViewPager() {
-        mAdapter = new NewsFragmentPagerAdapter(getChildFragmentManager());
+        if(mAdapter == null) {
+            mAdapter = new NewsFragmentPagerAdapter(getChildFragmentManager());
+        }
         mViewPager.setAdapter(mAdapter);
-    }
-
-    @Override
-    protected boolean isKeepFragment() {
-        return true;
     }
 
     private void getCategories() {

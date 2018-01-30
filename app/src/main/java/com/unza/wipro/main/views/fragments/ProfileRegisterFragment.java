@@ -335,7 +335,7 @@ public class ProfileRegisterFragment extends BaseFragment implements AppConstans
                                     if (response.body().getResult() == AppConstans.Api.Success) {
                                         CreateCustomerRSP createCustomerRSP = response.body();
                                         UserData customer = createCustomerRSP.getCustomer();
-                                        if (customer != null) {
+                                        if (customer != null && getActivity() != null) {
                                             getActivity().getSupportFragmentManager().popBackStack();
                                             bus.post(AppAction.NOTIFY_CUSTOMER_SELECTED_AFTER_CREATE.setData(Utils.convertObjectToString(customer)));
                                         }
