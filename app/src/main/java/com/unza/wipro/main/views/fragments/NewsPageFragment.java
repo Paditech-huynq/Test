@@ -54,7 +54,6 @@ public class NewsPageFragment extends MVPFragment<NewsPagePresenter> implements 
     public void initView() {
         super.initView();
         setupRecycleView();
-        setupPullToRefresh();
     }
 
     private void setupPullToRefresh() {
@@ -84,6 +83,12 @@ public class NewsPageFragment extends MVPFragment<NewsPagePresenter> implements 
                 switchFragment(NewsDetailFragment.newInstance(mAdapter.getItem(position)), true);
             }
         });
+    }
+
+    @Override
+    public void onViewAppear() {
+        super.onViewAppear();
+        setupPullToRefresh();
     }
 
     @Override
