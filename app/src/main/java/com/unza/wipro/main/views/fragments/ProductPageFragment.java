@@ -62,7 +62,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
 
     @Override
     public String getScreenTitle() {
-        return null;
+        return getString(R.string.title_home_product);
     }
 
     @Override
