@@ -4,17 +4,23 @@ import com.paditech.core.common.BaseConstant;
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.main.contracts.NewsPageContract;
+import com.unza.wipro.main.models.News;
 import com.unza.wipro.main.models.responses.GetNewsRSP;
 import com.unza.wipro.services.AppClient;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NewsPagePresenter extends BasePresenter<NewsPageContract.ViewImpl> implements NewsPageContract.Presenter, AppConstans {
-    private int INDEX = 1;
+    private static final int FIRST_PAGE = 1;
+    private int page = FIRST_PAGE;
     private int categoryId;
     private boolean isFull;
+    private boolean isPending;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -22,46 +28,72 @@ public class NewsPagePresenter extends BasePresenter<NewsPageContract.ViewImpl> 
         loadDataFromServer(false);
     }
 
-    public void loadDataFromServer(final boolean isRefresh) {
-        if (isFull) {
+    private void loadDataFromServer(final boolean isRefresh) {
+        if (isPending) {
+            getView().setRefreshing(false);
             return;
         }
-        getView().showProgressDialog(true);
+        if (isRefresh) {
+            resetData();
+            getView().setRefreshing(true);
+        }
+        if (isFull) {
+            getView().showProgressDialog(false);
+            return;
+        }
+        isPending = true;
+        getView().showProgressDialog(page == FIRST_PAGE && !isRefresh);
         AppClient appClient = AppClient.newInstance();
-        appClient.getService().getNews(BaseConstant.EMPTY, categoryId, INDEX, PAGE_SIZE).enqueue(new Callback<GetNewsRSP>() {
+        appClient.getService().getNews(BaseConstant.EMPTY, categoryId, page, PAGE_SIZE).enqueue(new Callback<GetNewsRSP>() {
             @Override
             public void onResponse(Call<GetNewsRSP> call, Response<GetNewsRSP> response) {
-                if (getView() == null) {
-                    return;
-                }
-                getView().showProgressDialog(false);
-                if (response != null && response.body() != null && response.body().getNews() != null && response.body().getNews().size() > 0) {
-                    if (response.body().getNews().size() < PAGE_SIZE) {
-                        isFull = true;
+                isPending = false;
+                try {
+                    getView().setRefreshing(false);
+                    getView().showProgressDialog(false);
+                    if (response.body() != null && response.body().getNews() != null && response.body().getNews().size() > 0) {
+                        List<News> newsList = response.body().getNews();
+                        onLoadDataSuccess(isRefresh, newsList);
                     }
-                    if (isRefresh) {
-                        INDEX = 1;
-                        isFull = false;
-                        getView().refreshList(response.body().getNews());
-                    } else {
-                        getView().updateItemToList(response.body().getNews());
-                        INDEX++;
-                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
             @Override
             public void onFailure(Call<GetNewsRSP> call, Throwable t) {
+                isPending = false;
                 if (getView() == null) {
                     return;
                 }
+                getView().setRefreshing(false);
                 getView().showProgressDialog(false);
             }
         });
     }
 
+    private void onLoadDataSuccess(boolean isRefresh, List<News> newsList) {
+        page++;
+        isFull = newsList.size() < PAGE_SIZE;
+        if (isRefresh){
+            getView().refreshList(newsList);
+        }else {
+            getView().updateItemToList(newsList);
+        }
+    }
+
+    private void resetData() {
+        isFull = false;
+        page = FIRST_PAGE;
+    }
+
     @Override
     public void onLoadMore() {
         loadDataFromServer(false);
+    }
+
+    @Override
+    public void onRefresh() {
+        loadDataFromServer(true);
     }
 }

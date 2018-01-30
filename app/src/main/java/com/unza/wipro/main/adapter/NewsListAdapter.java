@@ -49,7 +49,8 @@ public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConsta
 
     public void replaceData(List<News> news) {
         newsList.clear();
-        insertData(news);
+        newsList.addAll(news);
+        notifyDataSetChanged();
     }
 
     class NewsHolder extends BaseViewHolder {

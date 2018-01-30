@@ -1,6 +1,8 @@
 package com.unza.wipro.main.views.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -54,6 +56,17 @@ public class NewsPageFragment extends MVPFragment<NewsPagePresenter> implements 
         setupRecycleView();
     }
 
+    private void setupPullToRefresh() {
+        setPullToRefreshColor(Color.BLUE);
+        enablePullToRefresh(true);
+        setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getPresenter().onRefresh();
+            }
+        });
+    }
+
     private void setupRecycleView() {
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         StaggeredSpacesItemDecoration spacesItemDecoration = new StaggeredSpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_small));
@@ -70,6 +83,12 @@ public class NewsPageFragment extends MVPFragment<NewsPagePresenter> implements 
                 switchFragment(NewsDetailFragment.newInstance(mAdapter.getItem(position)), true);
             }
         });
+    }
+
+    @Override
+    public void onViewAppear() {
+        super.onViewAppear();
+        setupPullToRefresh();
     }
 
     @Override
