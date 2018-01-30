@@ -2,6 +2,7 @@ package com.unza.wipro.main.views.fragments;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.DeliveryInfoContract;
 import com.unza.wipro.main.presenters.DeliveryInfoPresenter;
+import com.unza.wipro.transaction.user.DeliveryInfo;
 import com.unza.wipro.utils.DateTimeUtils;
 
 import java.util.Calendar;
@@ -29,21 +31,24 @@ import butterknife.OnClick;
 
 public class DeliveryInfoFragment extends MVPFragment<DeliveryInfoPresenter> implements DeliveryInfoContract.ViewImpl, AppConstans {
 
+    private static final String KEY_CUSTOMER_ID = "customer_id";
     @BindView(R.id.edt_delivery_name)
-    EditText mNameText;
+    EditText edtName;
     @BindView(R.id.edt_delivery_phone)
-    EditText mPhoneText;
+    EditText edtPhone;
     @BindView(R.id.edt_delivery_address)
-    EditText mAddressText;
+    EditText edtAddress;
     @BindView(R.id.edt_delivery_date)
-    TextView mDateText;
+    TextView edtDate;
     @BindView(R.id.edt_delivery_note)
-    EditText mNoteText;
+    EditText edtNote;
 
-    public static DeliveryInfoFragment newInstance() {
+    private String customerId;
+
+    public static DeliveryInfoFragment newInstance(String customerId) {
         Bundle args = new Bundle();
-
         DeliveryInfoFragment fragment = new DeliveryInfoFragment();
+        args.putString(KEY_CUSTOMER_ID, customerId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,20 +66,42 @@ public class DeliveryInfoFragment extends MVPFragment<DeliveryInfoPresenter> imp
     @Override
     public void initView() {
         super.initView();
-        String name =  app.getCurrentUser().getName();
-        String phone =  app.getCurrentUser().getPhone();
-        mNameText.setText(name);
-        mPhoneText.setText(phone);
+        String name = app.getCurrentUser().getName();
+        String phone = app.getCurrentUser().getPhone();
+        edtName.setText(name);
+        edtPhone.setText(phone);
+        customerId = getArguments().getString(KEY_CUSTOMER_ID);
     }
 
     @Override
-    public void onResult(final boolean result, final String message) {
-        if (result) {
-            getActivity().onBackPressed();
-        } else {
-            String alert = StringUtil.isEmpty(message) ? getString(R.string.message_login_failure) : message;
-            showToast(alert);
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    @Override
+    public DeliveryInfo getDeliverInfo() {
+        if (validate(edtName.getText().toString(), edtPhone.getText().toString())) {
+            DeliveryInfo deliveryInfo = new DeliveryInfo();
+            String name = edtName.getText().toString().trim();
+            String phone = edtPhone.getText().toString().trim();
+            String address = edtAddress.getText().toString().trim();
+            String date = edtDate.getText().toString().trim();
+            String note = edtNote.getText().toString().trim();
+
+            deliveryInfo.setAddress(address);
+            deliveryInfo.setDate(date);
+            deliveryInfo.setName(name);
+            deliveryInfo.setNote(note);
+            deliveryInfo.setPhone(phone);
+            return deliveryInfo;
         }
+        return null;
+    }
+
+    @Override
+    public void backToHomeScreen() {
+        //todo: back to home screen
+        getActivity().onBackPressed();
     }
 
     @OnClick({R.id.edt_delivery_date, R.id.btn_delivery_date})
@@ -82,7 +109,7 @@ public class DeliveryInfoFragment extends MVPFragment<DeliveryInfoPresenter> imp
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int month = Calendar.getInstance().get(Calendar.MONTH);
         int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        String deliveryDate = mDateText.getText().toString().trim();
+        String deliveryDate = edtDate.getText().toString().trim();
         if (!StringUtil.isEmpty(deliveryDate)) {
             Date date = DateTimeUtils.getDateFromStringDayMonthYear(deliveryDate);
             if (date != null) {
@@ -101,13 +128,12 @@ public class DeliveryInfoFragment extends MVPFragment<DeliveryInfoPresenter> imp
                         calendar.set(year, month, dayOfMonth);
                         if (calendar.before(Calendar.getInstance())) {
                             showToast(getString(R.string.delivery_info_invalid_date));
-                            mDateText.setText(null);
+                            edtDate.setText(null);
                             return;
                         }
-                        mDateText.setText(StringUtil.formatDate(calendar.getTime()));
+                        edtDate.setText(StringUtil.formatDate(calendar.getTime()));
                     }
                 }, year, month, day);
-//        mDateSelectorDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
         mDateSelectorDialog.show();
     }
 
@@ -119,18 +145,15 @@ public class DeliveryInfoFragment extends MVPFragment<DeliveryInfoPresenter> imp
         if (StringUtil.isEmpty(phone)) {
             showToast(getString(R.string.delivery_info_phone_empty));
             return false;
+        } else if (phone.trim().length() < 9) {
+            showToast(getString(R.string.delivery_info_phone_incorrect));
+            return false;
         }
         return true;
     }
 
     @OnClick(R.id.btnRegister)
     protected void submit() {
-        String name = mNameText.getText().toString().trim();
-        String phone = mPhoneText.getText().toString().trim();
-        String address = mAddressText.getText().toString().trim();
-        String date = mDateText.getText().toString().trim();
-        String note = mNoteText.getText().toString().trim();
-        if (!validate(name, phone)) return;
-        // todo call api 05
+        getPresenter().onSubmitButtonClick();
     }
 }

@@ -2,9 +2,11 @@ package com.unza.wipro.main.presenters;
 
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
+import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.OrderDetailContract;
 import com.unza.wipro.main.models.OrderData;
 import com.unza.wipro.main.models.responses.GetOrderDetailRSP;
+import com.unza.wipro.main.views.fragments.DeliveryInfoFragment;
 import com.unza.wipro.services.AppClient;
 import com.unza.wipro.transaction.DirectTransaction;
 import com.unza.wipro.transaction.Transaction;
@@ -16,31 +18,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.ViewImpl> implements OrderDetailContract.Presenter, AppConstans {
-    int orderId;
-
     private Transaction.TransactionCallback directTransactionCallback = new Transaction.TransactionCallback() {
         @Override
-        public void onSuccess(OrderData data) {
+        public void onSuccess(Transaction transaction, OrderData data) {
             getView().showProgressDialog(false);
-            onPaymentSuccess();
+            onPaymentSuccess(transaction);
         }
 
         @Override
-        public void onFailure(Throwable e) {
-            getView().showProgressDialog(false);
-            onPaymentFailure();
-        }
-    };
-
-    private Transaction.TransactionCallback orderTransactionCallback = new Transaction.TransactionCallback() {
-        @Override
-        public void onSuccess(OrderData data) {
-            getView().showProgressDialog(false);
-            onPaymentSuccess();
-        }
-
-        @Override
-        public void onFailure(Throwable e) {
+        public void onFailure(Transaction transaction, Throwable e) {
             getView().showProgressDialog(false);
             onPaymentFailure();
         }
@@ -49,15 +35,21 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
     @Override
     public void onCreate() {
         super.onCreate();
-        orderId = getView().getOrderId();
-        if (orderId >= 0) {
+        bus.register(this);
+        if (getView().getOrderId() >= 0) {
             getProductDetailFromServer();
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        bus.unregister(this);
+    }
+
     private void getProductDetailFromServer() {
         getView().showProgressDialog(true);
-        AppClient.newInstance().getService().getOrderDetail(app.getToken(), app.getAppKey(), orderId)
+        AppClient.newInstance().getService().getOrderDetail(app.getToken(), app.getAppKey(), getView().getOrderId())
                 .enqueue(new Callback<GetOrderDetailRSP>() {
                     @Override
                     public void onResponse(Call<GetOrderDetailRSP> call, Response<GetOrderDetailRSP> response) {
@@ -81,24 +73,6 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
                 });
     }
 
-//    public void onSubmitTransaction() {
-//
-////        if (app.getCurrentUser() instanceof Customer) {
-////            if (mTransaction == null) mTransaction = new OrderTransaction();
-////            mTransaction.create(1, (Cart) AppState.getInstance().getCurrentCart());
-////            DeliveryInfo info = ((OrderTransaction) mTransaction).getDeliveryInfo();
-////            if (info == null) {
-////                switchFragment(DeliveryInfoFragment.newInstance(), true);
-////            } else {
-////                getPresenter().submitTransaction(mTransaction);
-////            }
-////        } else {
-////            if (mTransaction == null) mTransaction = new DirectTransaction();
-////            mTransaction.create(1, (Cart) AppState.getInstance().getCurrentCart());
-////            getPresenter().submitTransaction(mTransaction);
-////        }
-//    }
-
     @Override
     public void onSubmitTransactionButtonClick() {
         doTransaction();
@@ -107,24 +81,33 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
     private void doTransaction() {
         final User currentUser = app.getCurrentUser();
         final Customer customer = getView().getCustomer();
+        if (!app.isLogin()) {
+            getView().showToast(getView().getContext().getString(R.string.err_msg_transaction_no_login));
+            return;
+        }
         if (customer == null) {
-            getView().showToast("Customer is null");
+            getView().showToast(getView().getContext().getString(R.string.err_msg_transaction_no_customer));
             return;
         }
         if (currentUser == null) {
-            getView().showToast("User is null");
+            getView().showToast(getView().getContext().getString(R.string.err_msg_transaction_no_creator));
             return;
         }
 
+        if (app.getCurrentCart().getTotalQuantity() == 0) {
+            getView().showToast(getView().getContext().getString(R.string.err_msg_cart_empty));
+            return;
+        }
         if (currentUser instanceof Customer) {
-            //todo: implement transaction for Customer
+            getView().switchFragment(DeliveryInfoFragment.newInstance(customer.getId()), true);
         } else {
             final Transaction transaction = new DirectTransaction();
             if (transaction.create(customer.getId(), app.getCurrentCart())) {
-                getView().showProgressDialog(true);
                 try {
+                    getView().showProgressDialog(true);
                     transaction.pay(directTransactionCallback);
                 } catch (Exception e) {
+                    getView().showProgressDialog(false);
                     e.printStackTrace();
                     getView().showToast(e.getLocalizedMessage());
                 }
@@ -134,14 +117,13 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
 
 
     private void onPaymentFailure() {
-        //todo: handle for payment success
         getView().showToast("Payment Failure");
-
     }
 
-    private void onPaymentSuccess() {
-        //todo: handle for payment failure
+    private void onPaymentSuccess(Transaction transaction) {
+        bus.post(transaction);
         getView().showToast("Payment Success");
         app.editCart().clear();
+        getView().backToHomeScreen();
     }
 }

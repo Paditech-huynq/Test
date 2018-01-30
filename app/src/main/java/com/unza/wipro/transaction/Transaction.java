@@ -1,5 +1,6 @@
 package com.unza.wipro.transaction;
 
+import android.util.Log;
 import android.util.SparseArray;
 
 import com.google.gson.Gson;
@@ -15,7 +16,7 @@ import java.util.List;
 import retrofit2.Response;
 
 public abstract class Transaction implements TransactionImpl, AppConstans {
-    enum PaymentMethod {
+    public enum PaymentMethod {
         COD("Cod"), CreditCard("CreditCard");
 
         private final String value;
@@ -48,15 +49,15 @@ public abstract class Transaction implements TransactionImpl, AppConstans {
     }
 
     public interface TransactionCallback {
-        void onSuccess(OrderData data);
+        void onSuccess(Transaction transaction, OrderData data);
 
-        void onFailure(Throwable e);
+        void onFailure(Transaction transaction, Throwable e);
     }
 
     void onPaymentSuccess(TransactionCallback callback, Response<CreateOrderRSP> response) {
         if (callback != null) {
             if (response.isSuccessful() && response.body() != null) {
-                callback.onSuccess(response.body().getData());
+                callback.onSuccess(this, response.body().getData());
             } else {
                 onPaymentFailure(callback, new Exception(Error.UNKNOWn));
             }
@@ -65,12 +66,11 @@ public abstract class Transaction implements TransactionImpl, AppConstans {
 
     void onPaymentFailure(TransactionCallback callback, Throwable t) {
         if (callback != null) {
-            callback.onFailure(t);
+            callback.onFailure(this, t);
         }
     }
 
-    String getProductByJsonString()
-    {
+    String getProductByJsonString() {
         SparseArray<Product> cartProductList = getCart().getProducts();
         List<Product> products = new ArrayList<>();
         for (int i = 0; i < cartProductList.size(); i++) {

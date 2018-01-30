@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/gray">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,7 +23,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/image_big_height"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/bg_test" />
+                    />
 
                 <View
                     android:layout_width="match_parent"
@@ -289,7 +288,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/custom_degree_height"
                     android:layout_marginBottom="@dimen/padding_normal"
-                    android:layout_marginTop="@dimen/padding_normal" />
+                    android:layout_marginTop="@dimen/padding_giant" />
 
                 <TextView
                     android:id="@+id/tv_time_profile"
@@ -304,7 +303,7 @@
                 <TextView
                     android:paddingBottom="@dimen/padding_small"
                     android:paddingStart="@dimen/padding_in_degree_view"
-                    android:id="@+id/tv_sales_have"
+                    android:id="@+id/tv_sales_actual"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/text_dark"
@@ -314,7 +313,7 @@
                 <TextView
                     android:paddingBottom="@dimen/padding_small"
                     android:paddingStart="@dimen/padding_in_degree_view"
-                    android:id="@+id/tv_sales_want"
+                    android:id="@+id/tv_sales_expect"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/text_dark"
@@ -339,7 +338,8 @@
                         android:id="@+id/ic_some_people"
                         android:layout_width="@dimen/ic_group_size"
                         android:layout_height="@dimen/ic_group_size"
-                        android:padding="@dimen/padding_big"
+                        android:padding="@dimen/padding_normal"
+                        android:layout_marginLeft="@dimen/padding_small"
                         android:src="@drawable/ic_group" />
 
                     <TextView
@@ -373,6 +373,11 @@
                     android:textSize="@dimen/text_size_normal" />
             </LinearLayout>
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ln_setting">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -490,6 +495,7 @@
                 android:text="@string/log_out_profile_fragment"
                 android:textColor="@color/text_dark"
                 android:textSize="@dimen/text_size_normal" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

@@ -2,6 +2,7 @@ package com.unza.wipro.main.contracts;
 
 import com.paditech.core.mvp.BasePresenterImpl;
 import com.paditech.core.mvp.BaseViewImpl;
+import com.unza.wipro.transaction.user.DeliveryInfo;
 
 /**
  * wipro-crm-android
@@ -12,10 +13,14 @@ import com.paditech.core.mvp.BaseViewImpl;
 
 public interface DeliveryInfoContract {
     interface ViewImpl extends BaseViewImpl {
-        void onResult(boolean result, String message);
+        String getCustomerId();
+
+        DeliveryInfo getDeliverInfo();
+
+        void backToHomeScreen();
     }
 
     interface Presenter extends BasePresenterImpl {
-        void submit(String name, String phone, String address, String date, String note);
+        void onSubmitButtonClick();
     }
 }

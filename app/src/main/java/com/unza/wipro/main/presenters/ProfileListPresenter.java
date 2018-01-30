@@ -28,11 +28,7 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
     }
 
     private void loadListCustomerFromServer(final boolean isRefresh) {
-        if (!lastKeyWord.equals(getView().getCurrentKeyWord())) {
-            resetData();
-            isPending = false;
-        }
-        if (isPending) {
+        if ((isFull || isPending) && !lastKeyWord.equals(getView().getCurrentKeyWord())) {
             getView().setRefreshing(false);
             return;
         }

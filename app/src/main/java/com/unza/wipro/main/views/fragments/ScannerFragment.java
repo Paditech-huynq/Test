@@ -12,7 +12,6 @@ import com.paditech.core.helper.FragmentHelper;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 import com.unza.wipro.R;
-import com.unza.wipro.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,25 +54,26 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
     @Override
     public void onViewAppear() {
         super.onViewAppear();
-        try {
-            mBottomBar.setVisibility(getActivity().getSupportFragmentManager().findFragmentById(FragmentHelper.getRoot()) instanceof HomeFragment ? View.VISIBLE : View.GONE);
-            getView().setVisibility(View.VISIBLE);
-            setupFormats();
-            mScannerView.setResultHandler(this);
-            mBottomBar.selectTabAtPosition(2);
-            mBottomBar.setOnTabSelectListener(this);
-            Utils.checkCameraPermission(this.getActivity());
-            openCamera();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        getView().setVisibility(View.GONE);
+//        try {
+//            mBottomBar.setVisibility(getActivity().getSupportFragmentManager().findFragmentById(FragmentHelper.getRoot()) instanceof HomeFragment ? View.VISIBLE : View.GONE);
+//            getView().setVisibility(View.VISIBLE);
+//            setupFormats();
+//            mScannerView.setResultHandler(this);
+//            mBottomBar.selectTabAtPosition(2);
+//            mBottomBar.setOnTabSelectListener(this);
+//            Utils.checkCameraPermission(this.getActivity());
+//            openCamera();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
     public void onViewDisappear() {
         super.onViewDisappear();
-        getView().setVisibility(View.GONE);
-        stopCamera(350);
+//        getView().setVisibility(View.GONE);
+//        stopCamera(350);
     }
 
     public void openCamera() {

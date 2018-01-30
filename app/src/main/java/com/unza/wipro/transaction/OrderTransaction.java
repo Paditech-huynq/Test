@@ -3,7 +3,6 @@ package com.unza.wipro.transaction;
 import android.support.annotation.NonNull;
 
 import com.unza.wipro.main.models.responses.CreateOrderRSP;
-import com.unza.wipro.transaction.cart.CartInfo;
 import com.unza.wipro.transaction.user.DeliveryInfo;
 
 import retrofit2.Call;
@@ -40,15 +39,6 @@ public class OrderTransaction extends Transaction {
             onPaymentFailure(callback, e);
             return false;
         }
-    }
-
-    @Override
-    public boolean create(String customerId, CartInfo cart) {
-        return false;
-    }
-
-    public DeliveryInfo getDeliveryInfo() {
-        return deliveryInfo;
     }
 
     public OrderTransaction setDeliveryInfo(DeliveryInfo deliveryInfo) {

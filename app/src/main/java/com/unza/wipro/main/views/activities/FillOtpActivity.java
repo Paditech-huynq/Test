@@ -149,9 +149,6 @@ public class FillOtpActivity extends MVPActivity<OtpPresenter> implements OtpCon
 
     private boolean confirmOtp(String code) {
         if (StringUtil.isEmpty(phone) || StringUtil.isEmpty(checkOtp)) return false;
-        String md5 = Utils.md5(phone+"@"+code);
-        Log.d("otp",checkOtp);
-        Log.d("otp",md5);
         return Utils.md5(phone+"@"+code).equalsIgnoreCase(checkOtp);
     }
 

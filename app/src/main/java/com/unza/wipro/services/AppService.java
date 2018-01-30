@@ -1,11 +1,13 @@
 package com.unza.wipro.services;
 
 import com.unza.wipro.main.models.responses.BaseRSP;
+import com.unza.wipro.main.models.responses.ChangePasswordRSP;
 import com.unza.wipro.main.models.responses.CommonRSP;
 import com.unza.wipro.main.models.responses.CreateCustomerRSP;
 import com.unza.wipro.main.models.responses.CreateOrderRSP;
 import com.unza.wipro.main.models.responses.GetListCustomerRSP;
 import com.unza.wipro.main.models.responses.GetListProductRSP;
+import com.unza.wipro.main.models.responses.GetListPromoterInGroupRSP;
 import com.unza.wipro.main.models.responses.GetNewsCategoriesRSP;
 import com.unza.wipro.main.models.responses.GetNewsDetailRSP;
 import com.unza.wipro.main.models.responses.GetNewsRSP;
@@ -70,6 +72,11 @@ public interface AppService {
                                              @Query("page") int page, @Query("page_size") int pageSize,
                                              @Query("key") String key);
 
+    @POST("member/groupList")
+    Call<GetListPromoterInGroupRSP> getListPromoter(@Header("Authorization") String token, @Header("AppKey") String appKey,
+                                                    @Query("page") int page, @Query("page_size") int pageSize,
+                                                    @Query("key") String key);
+
     @Multipart
     @POST("customer/create")
     Call<CreateCustomerRSP> createCustomer(@Header("Authorization") String token, @Header("AppKey") String appKey,
@@ -121,4 +128,11 @@ public interface AppService {
     @FormUrlEncoded
     Call<CreateOrderRSP> doCreatOrderForCustomer(@Header("Authorization") String token, @Header("AppKey") String appKey, @Field("customer_id") String customerId, @Field("products") String productsList,
                                                  @Field("billing_name") String billingName,@Field("billing_date") String billingDate,@Field("billing_phone") String billingPhone,@Field("billing_note") String billingNote);
+
+    @POST("member/changepass")
+    @FormUrlEncoded
+    Call<ChangePasswordRSP> changePassword(@Header("Authorization") String token, @Header("AppKey") String appKey,
+                                           @Field("password") String oldPass,
+                                           @Field("new_password") String newPass,
+                                           @Field("re_new_password") String confirmPass);
 }

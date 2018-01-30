@@ -114,7 +114,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/padding_small"
-                android:background="@drawable/ic_time"
+                android:background="@drawable/ic_calendar"
                 android:scaleType="centerCrop" />
         </RelativeLayout>
 
@@ -147,7 +147,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/padding_small"
-                android:background="@drawable/ic_time"
+                android:background="@drawable/ic_calendar"
                 android:scaleType="centerCrop" />
         </RelativeLayout>
 

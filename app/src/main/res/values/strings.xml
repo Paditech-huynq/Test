@@ -9,8 +9,11 @@
     <string name="title_home_product">Sản phẩm</string>
     <string name="title_home_qr">Scan</string>
     <string name="title_profile">Thông tin cá nhân</string>
+    <string name="title_list_member">Danh sách thành viên</string>
+    <string name="title_member_profile">Thông tin %s</string>
 
-    <string name="hint_lookup_input">Vui lòng nhập tên hoặc số điện thoại</string>
+    <string name="hint_list_customer_input">Vui lòng nhập tên hoặc số điện thoại</string>
+    <string name="hint_lookup_input">Vui lòng nhập tên hoặc mã sản phẩm</string>
 
     <!-- login -->
     <string name="login_username_hint">Username</string>
@@ -42,6 +45,7 @@
     <string name="message_pass_new_empty">Bạn chưa nhập mật khẩu mới!</string>
     <string name="message_pass_confirm_empty">Bạn chưa nhập lại mật khẩu mới!</string>
     <string name="message_pass_confirm_invalid">Xác nhận mật khẩu sai!</string>
+    <string name="message_change_pass_success">Đổi mật khẩu thành công!</string>
     <string name="message_change_pass_failure">Đổi mật khẩu không thành công! Xin hãy thử lại!</string>
     <string name="action_change">Thay đổi</string>
     <string name="att_address_with_input">&lt;b>Đ/c: &lt;/b> %s</string>
@@ -85,7 +89,6 @@
     <string name="product_detail_title">Chi tiết sản phẩm</string>
     <string name="product_detail_code">Mã sản phẩm: %s</string>
     <string name="product_detail_price">%s vnđ</string>
-    <string name="product_add_to_cart">Thêm 1 vào giỏ hàng</string>
 
     <!-- currency unit -->
     <string name="currency_unit">%1s VNĐ</string>
@@ -113,6 +116,8 @@
     <string name="term_use_profile_fragment">Điều khoản sử dụng</string>
     <string name="log_out_profile_fragment">Đăng xuất</string>
     <string name="display_time_day_month_year_in_header_filter">%1$s - %2$s</string>
+    <string name="sale">Doanh thu: %1$s VNĐ/ %2$s VNĐ</string>
+    <string name="time_sale">Thời hạn: %1$s -> %2$s </string>
 
     <!--delivery info-->
     <string name="delivery_info_title">Thông tin giao hàng</string>
@@ -148,5 +153,12 @@
     <string name="cart_person_sell">&lt;b>Người bán&lt;/b>: %1s </string>
     <string name="cart_address_customer">&lt;b>Đ/c&lt;/b>: %1s </string>
     <string name="title_cart_detail">Giỏ hàng</string>
+    <string name="delivery_info_phone_incorrect">Số điện thoại không hợp lệ</string>
+    <string name="err_msg_cart_empty">Phải có ít nhất một sản phẩm trong giỏ hàng</string>
+    <string name="err_msg_transaction_no_customer">Thông tin khách hàng không được để trống</string>
+    <string name="err_msg_transaction_no_creator">Thông tin người bán/đặt hàng không được để trống</string>
+    <string name="err_msg_transaction_no_login">Bạn phải đăng nhập để thực hiện thao tác này</string>
+
+    <string name="cart_singale_item_total_price">Tổng: %1s VNĐ</string>
 
 </resources>

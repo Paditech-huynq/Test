@@ -1,7 +1,5 @@
 package com.unza.wipro;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.paditech.core.helper.PrefUtils;
 import com.paditech.core.helper.StringUtil;
@@ -36,7 +34,7 @@ public class AppState {
     ;
     private String appKey = AppConstans.EMPTY;
     ;
-    private Cart currentCart;
+    private Cart currentCart = new Cart();
     private User currentUser;
     private AppClient appClient = AppClient.newInstance();
 
@@ -67,12 +65,16 @@ public class AppState {
     }
 
     public void addCartChangeListener(Cart.CartChangeListener listener) {
-        Log.e("Add listener", listener.getClass().getSimpleName());
+        if (currentCart == null) {
+            currentCart = new Cart();
+        }
         currentCart.addListener(listener);
     }
 
     public void removeCartChangeListener(Cart.CartChangeListener listener) {
-        currentCart.removeListener(listener);
+        if (currentCart != null) {
+            currentCart.removeListener(listener);
+        }
     }
 
     void release() {
@@ -140,8 +142,8 @@ public class AppState {
         }
         if (currentUser instanceof Promoter) {
             ((Promoter) currentUser).setNumberCustomers(String.valueOf(user.getCustomers()));
-            ((Promoter) currentUser).setSaleHave(String.valueOf(user.getSaleHave()));
-            ((Promoter) currentUser).setSaleWant(String.valueOf(user.getSaleWant()));
+            ((Promoter) currentUser).setSalesActual(String.valueOf(user.getSalesActual()));
+            ((Promoter) currentUser).setSalesExpect(String.valueOf(user.getSalesExpect()));
             ((Promoter) currentUser).setFrom(String.valueOf(user.getFrom()));
             ((Promoter) currentUser).setTo(String.valueOf(user.getTo()));
             if (currentUser instanceof PromoterLeader) {

@@ -1,6 +1,9 @@
 package com.unza.wipro.main.views.activities;
 
+import android.content.DialogInterface;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -61,8 +64,17 @@ public class ChangePasswordActivity extends MVPActivity<ChangePasswordPresenter>
             @Override
             public void run() {
                 if (result) {
-                    setResult(RESULT_OK);
-                    finish();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ChangePasswordActivity.this);
+                    builder.setMessage(getString(R.string.message_change_pass_success))
+                            .setCancelable(false)
+                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    setResult(RESULT_OK);
+                                    finish();
+                                }
+                            });
+                    builder.create().show();
                 } else {
                     String alert = StringUtil.isEmpty(message) ? getString(R.string.message_change_pass_failure) : message;
                     showToast(alert);

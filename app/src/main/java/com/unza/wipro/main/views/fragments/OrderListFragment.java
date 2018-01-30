@@ -3,6 +3,7 @@ package com.unza.wipro.main.views.fragments;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -70,6 +71,8 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     private OrderListAdapter mAdapter;
     private static final int DAY_LEFT_CALENDER_FILTER = 0;
     private static final int DAY_RIGHT_CALENDER_FILTER = 1;
+    public static final int COME_FROM_PROFILE_FRAGMENT = 0;
+    private int comFromWhatFragment = -1;
 
     public static OrderListFragment newInstance() {
 
@@ -80,10 +83,27 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         return fragment;
     }
 
+    public static OrderListFragment newInstance(int comeFromWhatScreen) {
+
+        Bundle args = new Bundle();
+
+        OrderListFragment fragment = new OrderListFragment();
+        fragment.comFromWhatFragment = comeFromWhatScreen;
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void initView() {
         super.initView();
         setupRecycleView();
+        enablePullToRefresh(true);
+        setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getPresenter().onRefresh();
+            }
+        });
     }
 
     @Override
@@ -103,7 +123,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
             public void onLoadMore() {
-                getPresenter().loadMore();
+                getPresenter().onLoadMore();
             }
         });
         mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
@@ -240,6 +260,16 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         }
     }
 
+    @Override
+    public void scrollToTop() {
+        rcvOrder.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rcvOrder.scrollTo(0, 0);
+            }
+        }, 200);
+    }
+
     @OnClick(R.id.bt_filter)
     public void onFilterClick() {
         getPresenter().onFilterClick();
@@ -307,6 +337,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public void setScreenTitle(String title) {
+        super.setScreenTitle(title);
     }
 
     protected boolean isKeepFragment() {
@@ -318,11 +349,27 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         if (resId == R.id.btnTrash) {
             return false;
         }
+        if (comFromWhatFragment == COME_FROM_PROFILE_FRAGMENT) {
+            switch (resId) {
+                case R.id.imvAvatar:
+                case R.id.btnNotification:
+                case R.id.btnCart:
+                    return false;
+            }
+        }
         return true;
     }
 
     @Override
     public void showProgressDialog(boolean isShown) {
         layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void onNetworkOnline() {
+        super.onNetworkOnline();
+        if (mAdapter.getItemCount() == 0) {
+            getPresenter().onRefresh();
+        }
     }
 }

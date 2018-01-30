@@ -31,9 +31,15 @@ public interface CartInfo {
     Product getItem(int position);
 
     /**
-     * Get count of item in current Cart
+     * Get total quanlity of item in current Cart
      *
      * @return
+     */
+    int getTotalQuantity();
+
+    /**
+     * Get count of product
+     * @return item count
      */
     int getItemCount();
 

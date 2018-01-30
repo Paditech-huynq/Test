@@ -9,6 +9,7 @@ import java.util.List;
 public interface NotificationContract {
     interface ViewImpl extends BaseViewImpl {
         void showData(List<Notice> data);
+        void addData(List<Notice> data);
         void updateView(Notice notice);
     }
 

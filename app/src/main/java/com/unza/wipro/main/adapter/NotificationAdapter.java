@@ -11,6 +11,7 @@ import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.Notice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,15 +25,31 @@ public class NotificationAdapter extends BaseRecycleViewAdapter implements AppCo
         notifyDataSetChanged();
     }
 
+    public void addData(List<Notice> data) {
+        if (mData == null) mData = new ArrayList<>();
+        if (data == null) return;
+        this.mData.addAll(data);
+        notifyDataSetChanged();
+    }
+
     public void updateData(Notice data) {
         if (mData == null) return;
         for (Notice notice: mData) {
             if (notice.getId() == data.getId()) {
-                notice.setRead(data.isRead());
+                notice.setRead(true);
                 break;
             }
         }
         notifyDataSetChanged();
+    }
+
+    public int getUnreadCount() {
+        int count = 0;
+        if (mData == null) return count;
+        for (Notice notice: mData) {
+            if (!notice.isRead()) count++;
+        }
+        return count;
     }
 
     @Override

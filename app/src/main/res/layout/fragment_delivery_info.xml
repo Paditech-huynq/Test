@@ -159,7 +159,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/margin_small"
                         android:layout_marginRight="@dimen/margin_small"
-                        android:src="@drawable/ic_time"/>
+                        android:src="@drawable/ic_calendar"/>
                 </RelativeLayout>
             </LinearLayout>
 

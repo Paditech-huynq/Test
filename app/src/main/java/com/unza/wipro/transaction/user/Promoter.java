@@ -6,20 +6,20 @@ public class Promoter extends User {
     @SerializedName("customers")
     private String numberCustomers;
     @SerializedName("income")
-    private String saleHave;
+    private String salesActual;
     @SerializedName("goal")
-    private String saleWant;
+    private String salesExpect;
     @SerializedName("from")
     private String from;
     @SerializedName("to")
     private String to;
 
-    public String getSaleWant() {
-        return saleWant;
+    public String getSalesExpect() {
+        return salesExpect;
     }
 
-    public void setSaleWant(String saleWant) {
-        this.saleWant = saleWant;
+    public void setSalesExpect(String salesExpect) {
+        this.salesExpect = salesExpect;
     }
 
     public String getFrom() {
@@ -38,12 +38,12 @@ public class Promoter extends User {
         this.to = to;
     }
 
-    public String getSaleHave() {
-        return saleHave;
+    public String getSalesActual() {
+        return salesActual;
     }
 
-    public void setSaleHave(String saleHave) {
-        this.saleHave = saleHave;
+    public void setSalesActual(String salesActual) {
+        this.salesActual = salesActual;
     }
 
     public String getNumberCustomers() {

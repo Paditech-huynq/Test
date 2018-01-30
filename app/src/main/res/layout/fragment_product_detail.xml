@@ -190,7 +190,11 @@
                             android:text="@string/product_detail_title"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/text_size_title"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            android:shadowColor="@color/text_shadow"
+                            android:shadowDx="1"
+                            android:shadowDy="1"
+                            android:shadowRadius="2"/>
 
                         <LinearLayout
                             android:id="@+id/view_cart"

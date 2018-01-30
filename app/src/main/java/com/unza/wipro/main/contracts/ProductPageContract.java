@@ -16,6 +16,6 @@ public interface ProductPageContract {
     interface Presenter extends BasePresenterImpl {
         void onLoadMore();
 
-        void onRefresh(List<Product> products);
+        void onRefresh();
     }
 }

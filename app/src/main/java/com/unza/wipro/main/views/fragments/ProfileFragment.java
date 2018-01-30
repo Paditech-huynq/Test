@@ -50,9 +50,9 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     TextView tvAddress;
     @BindView(R.id.tv_time_profile)
     TextView tvTime;
-    @BindView(R.id.tv_sales_want)
+    @BindView(R.id.tv_sales_expect)
     TextView tvSalesWant;
-    @BindView(R.id.tv_sales_have)
+    @BindView(R.id.tv_sales_actual)
     TextView tvSalesHave;
     @BindView(R.id.degree_sale)
     DegreeView degreeSale;
@@ -85,12 +85,12 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
 
     @Override
     public void goToOrderFragment() {
-        switchFragment(LookupFragment.newInstance(), true);
+        switchFragment(OrderListFragment.newInstance(OrderListFragment.COME_FROM_PROFILE_FRAGMENT), true);
     }
 
     @Override
     public void goToListProfileFragment() {
-        switchFragment(ProfileListFragment.newInstance(), true);
+        switchFragment(ProfilePromoterListFragment.newInstance(), true);
     }
 
     @Override
@@ -103,10 +103,13 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
         tvName.setText(AppConstans.app.getCurrentUser().getName());
         tvEmail.setText(AppConstans.app.getCurrentUser().getEmail());
         tvAddress.setText(AppConstans.app.getCurrentUser().getAddress());
-        tvPhone.setText(AppConstans.app.getCurrentUser().getName());
+        tvPhone.setText(AppConstans.app.getCurrentUser().getPhone());
         tvNumberSales.setText(AppConstans.app.getCurrentUser().getNumberOrders());
-        GlideApp.with(this).load(AppConstans.app.getCurrentUser().getAvatar()).circleCrop().into(imgAvar);
-        GlideApp.with(this).load(AppConstans.app.getCurrentUser().getAvatar()).into(imgAvarUnder);
+        try {
+            GlideApp.with(this).load(AppConstans.app.getCurrentUser().getAvatar()).circleCrop().into(imgAvar);
+            GlideApp.with(this).load(AppConstans.app.getCurrentUser().getAvatar()).into(imgAvarUnder);
+        } catch (Exception ignored) {
+        }
     }
 
     @Override
@@ -121,15 +124,16 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
         tvPoint.setText(getResources().getString(R.string.custom_profile_fragment));
         tvNumberPoint.setText(promoter.getNumberCustomers());
         tvSalesWant.setText(Html.fromHtml(getResources().getString(R.string.sales_want_profile_fragment,
-                promoter.getSaleWant())));
+                promoter.getSalesExpect())));
         tvSalesHave.setText(Html.fromHtml(getResources().getString(R.string.sales_have_profile_fragment,
-                promoter.getSaleHave())));
+                promoter.getSalesActual())));
         try {
-            degreeSale.setValue(R.color.white, R.color.colorPrimary, Long.parseLong(promoter.getSaleHave()), Long.parseLong(promoter.getSaleWant()));
+            degreeSale.setValue(R.color.white, R.color.colorPrimary, Long.parseLong(promoter.getSalesActual()), Long.parseLong(promoter.getSalesExpect()));
             tvTime.setText(Html.fromHtml(getResources().getString(R.string.time_profile_fragment,
                     DateTimeUtils.getStringDayMonthYear(DateTimeUtils.getDateFromServerDayMonthYear(promoter.getFrom())),
                     DateTimeUtils.getStringDayMonthYear(DateTimeUtils.getDateFromServerDayMonthYear(promoter.getTo())))));
-        } catch (NumberFormatException ignored) {}
+        } catch (NumberFormatException ignored) {
+        }
     }
 
     @Override

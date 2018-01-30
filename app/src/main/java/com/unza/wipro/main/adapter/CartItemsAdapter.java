@@ -85,6 +85,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
     public void setCustomer(Customer customer) {
         this.currentCustomer = customer;
+        notifyItemChanged(0);
     }
 
     public Customer getCustomer() {
@@ -117,7 +118,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         }
 
         @Override
-        protected void onBindingData(int position) {
+        protected void onBindingData(final int position) {
             final Context context = itemView.getContext();
             final Product item = getItem(position - 1);
             if (item == null) return;
@@ -133,7 +134,11 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
                 @Override
                 public void onValueChange(boolean isReduce, int value) {
                     app.editCart().update(item.getId(), value);
-                    updatePrice();
+                    if (value == 0) {
+                        notifyItemRemoved(position);
+                    } else {
+                        updatePrice();
+                    }
                 }
             });
 
@@ -146,7 +151,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
                 cartInfo = mOrder.getCart();
             }
             String currentTotalPrice = StringUtil.formatMoney(cartInfo.getTotalPrice(getItem(index - 1).getId()));
-            tvTotalPrice.setText(currentTotalPrice);
+            tvTotalPrice.setText(itemView.getContext().getString(R.string.cart_singale_item_total_price, currentTotalPrice));
         }
     }
 
@@ -183,16 +188,18 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         private void fillPromoterInfo(Promoter promoter) {
             Date date = mOrder != null ? new Date(mOrder.getCreatedAt()) : new Date();
-            tvDate.setText(StringUtil.formatDate(date));
-            tvPromoterName.setText(promoter.getName());
-            tvAddress.setText(promoter.getAddress());
+            tvDate.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_date_sell, StringUtil.formatDate(date))));
+            tvPromoterName.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_person_sell, promoter.getName())));
+            tvAddress.setVisibility(promoter.getAddress() == null || promoter.getAddress().trim().isEmpty() ? View.GONE : View.VISIBLE);
+            tvAddress.setText(Html.fromHtml(itemView.getContext().getString(R.string.att_address_with_input, promoter.getAddress())));
         }
 
         /**
          * if not the order, show Cart
          */
         private void setUpViewForCart() {
-            btnChangeCustomer.setVisibility(isOrder || app.getCurrentUser() instanceof Customer ? View.GONE : View.VISIBLE);
+            btnChangeCustomer.setVisibility(isOrder || !app.isLogin() || app.getCurrentUser() instanceof Customer ? View.GONE : View.VISIBLE);
+            tvName.setVisibility(!app.isLogin() ? View.GONE : View.VISIBLE);
             if (app.getCurrentUser() instanceof Promoter) {
                 fillPromoterInfo((Promoter) app.getCurrentUser());
             }
