@@ -148,9 +148,9 @@ public class OrderListAdapter extends BaseRecycleViewAdapter implements AppConst
                         .error(R.drawable.bg_place_holder)
                         .into(img_propduct);
             tx_title.setText(order.getName());
-            tx_time.setText(String.valueOf("Thời gian: " + DateTimeUtils.getStringTimeAll(new Date(order.getCreatedAt() * 1000))));
+            tx_time.setText(context.getString(R.string.time_create_in_item,DateTimeUtils.getStringTimeAll(new Date(order.getCreatedAt() * 1000))));
             tx_price.setText(context.getString(R.string.currency_unit, StringUtil.formatMoney(order.getMoney())));
-            tx_number.setText(String.valueOf("Số lượng: " + order.getQuantity()));
+            tx_number.setText(context.getString(R.string.quality_product_in_item, String.valueOf(order.getQuantity())));
         }
 
     }

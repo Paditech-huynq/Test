@@ -22,6 +22,7 @@ import com.unza.wipro.main.adapter.OrderListAdapter;
 import com.unza.wipro.main.contracts.OrderListContract;
 import com.unza.wipro.main.models.Order;
 import com.unza.wipro.main.presenters.OrderFragmentPresenter;
+import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
 import com.unza.wipro.utils.Utils;
 
 import java.util.Calendar;
@@ -119,6 +120,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         if(mAdapter == null) {
             mAdapter = new OrderListAdapter(OrderListFragment.this.getContext());
         }
+        rcvOrder.addItemDecoration(new VerticalSpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_normal)));
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
@@ -256,7 +258,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         if (canFind) {
             //todo
         } else {
-            showToast("The day in left must before the day in right, please choose again");
+            showToast(getResources().getString(R.string.noti_when_choose_day_in_filter_false));
         }
     }
 
