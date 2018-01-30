@@ -23,6 +23,7 @@
                 android:id="@+id/imvAvatar"
                 android:layout_width="100dip"
                 android:layout_height="100dip"
+                android:layout_marginBottom="@dimen/padding_normal"
                 android:layout_marginLeft="@dimen/padding_small"
                 android:layout_marginRight="@dimen/padding_small"
                 android:layout_marginTop="@dimen/padding_normal"
@@ -33,7 +34,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/padding_normal"
-                android:layout_marginTop="@dimen/padding_small"
                 android:text="@string/action_select_customer"
                 android:textColor="@color/colorPrimary"
                 android:textSize="13sp"
@@ -44,6 +44,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical"
             android:padding="@dimen/padding_small">
 
@@ -73,15 +74,15 @@
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_small" />
-
+                android:layout_marginTop="@dimen/padding_small"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvPromoterName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_small" />
-
+                android:layout_marginTop="@dimen/padding_small"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvAddress"
