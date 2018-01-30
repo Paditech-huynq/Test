@@ -97,7 +97,7 @@ public class AppState {
         String info = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_INFO, AppConstans.EMPTY);
         if (!StringUtil.isEmpty(info)) {
             try {
-                currentUser = new Gson().fromJson(info, User.class);
+                currentUser = new User.Builder(new Gson().fromJson(info, LoginInfo.class)).build();
             } catch (Exception e) {
             }
         }
