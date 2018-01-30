@@ -53,4 +53,9 @@ public class Promoter extends User {
     public void setNumberCustomers(String numberCustomers) {
         this.numberCustomers = numberCustomers;
     }
+
+    public Promoter()
+    {
+        role = TYPE_PROMOTER;
+    }
 }

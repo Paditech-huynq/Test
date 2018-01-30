@@ -35,7 +35,7 @@ public class Order {
     @SerializedName("updated_at")
     private long updateddAt;
     @SerializedName("creator")
-    private String creator;
+    private UserData creator;
     @SerializedName("updater")
     private String updater;
     @SerializedName("customer")
@@ -124,11 +124,11 @@ public class Order {
         this.updateddAt = updateddAt;
     }
 
-    public String getCreator() {
+    public UserData getCreator() {
         return creator;
     }
 
-    public void setCreator(String creator) {
+    public void setCreator(UserData creator) {
         this.creator = creator;
     }
 

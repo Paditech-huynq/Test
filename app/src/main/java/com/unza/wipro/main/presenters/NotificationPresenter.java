@@ -27,7 +27,7 @@ public class NotificationPresenter extends BasePresenter<NotificationContract.Vi
     @Override
     public void onCreate() {
         super.onCreate();
-        loadData(true);
+        loadData(false);
     }
 
     @Override
@@ -36,14 +36,18 @@ public class NotificationPresenter extends BasePresenter<NotificationContract.Vi
     }
 
     private void getNotifications(final boolean isRefresh) {
-        isFull = !isRefresh;
-        if (isFull || !app.isLogin()) return;
+        if (isFull || !app.isLogin()) {
+            getView().setRefreshing(false);
+            return;
+        }
         mPage = isRefresh ? 1 : mPage;
+        getView().showProgressDialog(mPage == 1 && !isRefresh);
         AppClient.newInstance().getService().getNotifications(app.getToken(),
-                app.getAppKey()).enqueue(new Callback<GetNotificationsRSP>() {
+                app.getAppKey(), mPage, PAGE_SIZE).enqueue(new Callback<GetNotificationsRSP>() {
             @Override
             public void onResponse(Call<GetNotificationsRSP> call, Response<GetNotificationsRSP> response) {
                 try {
+                    getView().showProgressDialog(false);
                     getView().setRefreshing(false);
                     if (response.body() != null) {
                         if (response.body().getNotices() != null && response.body().getNotices().size() > 0) {
