@@ -116,7 +116,9 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     }
 
     public void setupRecycleView() {
-        mAdapter = new OrderListAdapter(OrderListFragment.this.getContext());
+        if(mAdapter == null) {
+            mAdapter = new OrderListAdapter(OrderListFragment.this.getContext());
+        }
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
@@ -338,9 +340,9 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         super.setScreenTitle(title);
     }
 
-    protected boolean isKeepFragment() {
-        return true;
-    }
+//    protected boolean isKeepFragment() {
+//        return true;
+//    }
 
     @Override
     public boolean isActionShow(int resId) {

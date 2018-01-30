@@ -67,6 +67,7 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
                         try {
                             getView().showProgressDialog(false);
                             getView().showToast(t.getLocalizedMessage());
+                            t.printStackTrace();
                         } catch (Exception ignored) {
                         }
                     }

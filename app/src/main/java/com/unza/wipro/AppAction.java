@@ -1,5 +1,7 @@
 package com.unza.wipro;
 
+import com.google.gson.Gson;
+
 public enum AppAction {
     REQUEST_CAMERA_OPEN("request_camera_open"),
     REQUEST_CAMERA_CLOSE("request_camera_close"),
@@ -10,5 +12,16 @@ public enum AppAction {
 
     AppAction(String value) {
         this.value = value;
+    }
+
+    private String extraData;
+
+    public void setData(String extraData) {
+        this.extraData = extraData;
+
+    }
+
+    public <T> T getData(Class<T> target) {
+        return new Gson().fromJson(extraData, target);
     }
 }

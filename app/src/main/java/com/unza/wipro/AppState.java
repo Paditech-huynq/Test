@@ -1,27 +1,29 @@
 package com.unza.wipro;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.paditech.core.helper.PrefUtils;
 import com.paditech.core.helper.StringUtil;
-import com.unza.wipro.main.models.LoginInfo;
+import com.unza.wipro.main.models.LoginData;
+import com.unza.wipro.main.models.UserData;
 import com.unza.wipro.services.AppClient;
 import com.unza.wipro.services.AppService;
 import com.unza.wipro.transaction.cart.Cart;
 import com.unza.wipro.transaction.cart.CartImpl;
 import com.unza.wipro.transaction.cart.CartInfo;
-import com.unza.wipro.transaction.user.Customer;
-import com.unza.wipro.transaction.user.Promoter;
-import com.unza.wipro.transaction.user.PromoterLeader;
 import com.unza.wipro.transaction.user.User;
 import com.unza.wipro.utils.Utils;
 
 import static com.unza.wipro.AppConstans.AUTHORIZATION;
 import static com.unza.wipro.AppConstans.PREF_APPKEY;
+import static com.unza.wipro.AppConstans.PREF_CURRENT_USER;
 import static com.unza.wipro.AppConstans.PREF_INFO;
 import static com.unza.wipro.AppConstans.PREF_TOKEN;
 
 public class AppState {
     private static AppState instance;
+    private UserData loginInfo;
 
     static synchronized AppState getInstance() {
         if (instance == null) {
@@ -31,16 +33,10 @@ public class AppState {
     }
 
     private String token = AppConstans.EMPTY;
-    ;
     private String appKey = AppConstans.EMPTY;
-    ;
     private Cart currentCart = new Cart();
     private User currentUser;
     private AppClient appClient = AppClient.newInstance();
-
-    void setCurrentUser(User user) {
-        this.currentUser = user;
-    }
 
     public CartInfo getCurrentCart() {
         if (currentCart == null) {
@@ -78,30 +74,48 @@ public class AppState {
     }
 
     void release() {
-        if (currentCart != null) currentCart.removeAllListener();
+        saveToCache();
+        if (currentCart != null) {
+            currentCart.removeAllListener();
+        }
         currentCart = null;
         currentUser = null;
-        token = AppConstans.EMPTY;
-        appKey = AppConstans.EMPTY;
+        token = null;
+        appKey = null;
+        instance = null;
     }
 
-    public void saveToCache(String token, String appKey, String userInfo) {
+    private void saveToCache() {
         PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_TOKEN, token);
         PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_APPKEY, appKey);
-        PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_INFO, userInfo);
+        PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_INFO, new Gson().toJson(loginInfo));
+        if (currentUser != null) {
+            PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_CURRENT_USER, new Gson().toJson(currentUser, currentUser.getClass()));
+        }
+
+        Log.e("save to cache","success");
     }
 
-    public void loadFromCache() {
-        //todo: Load default data from cache
-        token = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_TOKEN, AppConstans.EMPTY);
-        appKey = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_APPKEY, AppConstans.EMPTY);
-        String info = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_INFO, AppConstans.EMPTY);
-        if (!StringUtil.isEmpty(info)) {
-            try {
-                currentUser = new User.Builder(new Gson().fromJson(info, LoginInfo.class)).build();
-            } catch (Exception e) {
+    boolean loadFromCache() {
+        try {
+            token = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_TOKEN, AppConstans.EMPTY);
+            appKey = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_APPKEY, AppConstans.EMPTY);
+            String info = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_INFO, AppConstans.EMPTY);
+            loginInfo = new Gson().fromJson(info, UserData.class);
+            if (!StringUtil.isEmpty(info)) {
+                currentUser = new User.Builder(loginInfo).build();
+                String cacheUser = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_CURRENT_USER, null);
+                if (cacheUser != null && currentUser != null) {
+                    Log.e("TYPE", currentUser.getClass().getSimpleName() + "");
+                    currentUser = new Gson().fromJson(cacheUser, currentUser.getClass());
+                }
             }
+            Log.e("Cache", "Load from cache success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("Cache", "Load from cache failure");
         }
+        return true;
     }
 
     public boolean isLogin() {
@@ -119,36 +133,25 @@ public class AppState {
     }
 
     public void logout() {
-        token = AppConstans.EMPTY;
-        appKey = AppConstans.EMPTY;
-        currentUser = null;
-        PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_TOKEN, AppConstans.EMPTY);
-        PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_APPKEY, AppConstans.EMPTY);
-        ;
-        PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_INFO, AppConstans.EMPTY);
-        ;
+        release();
+        PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_TOKEN, null);
+        PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_APPKEY, null);
+        PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_INFO, null);
     }
 
-    public void updateCurrentUser(LoginInfo user) {
-        currentUser.setId(String.valueOf(user.getId()));
-        currentUser.setAddress(user.getAddress());
-        currentUser.setAvatar(user.getAvatar());
-        currentUser.setEmail(user.getEmail());
-        currentUser.setName(user.getName());
-        currentUser.setNumberOrders(String.valueOf(user.getOrder()));
-        currentUser.setPhone(user.getPhone());
-        if (currentUser instanceof Customer) {
-            ((Customer) currentUser).setPoint(String.valueOf(user.getPoint()));
+    public void updateCurrentUser(UserData userData) {
+        if (userData.getMemberType() == null && loginInfo != null) {
+            userData.setMemberType(loginInfo.getMemberType());
+            userData.setIsManager(loginInfo.getIsManager());
         }
-        if (currentUser instanceof Promoter) {
-            ((Promoter) currentUser).setNumberCustomers(String.valueOf(user.getCustomers()));
-            ((Promoter) currentUser).setSalesActual(String.valueOf(user.getSalesActual()));
-            ((Promoter) currentUser).setSalesExpect(String.valueOf(user.getSalesExpect()));
-            ((Promoter) currentUser).setFrom(String.valueOf(user.getFrom()));
-            ((Promoter) currentUser).setTo(String.valueOf(user.getTo()));
-            if (currentUser instanceof PromoterLeader) {
-                ((PromoterLeader) currentUser).setMemberGroupId(user.getMemberGroupId());
-            }
-        }
+        loginInfo = userData;
+        currentUser = new User.Builder(userData).build();
+        Log.e("update user",currentUser.getClass().getSimpleName());
+    }
+
+    public void updateAppState(LoginData data) {
+        token = data.getAccessToken();
+        appKey = data.getAppKey();
+        updateCurrentUser(data.getInfo());
     }
 }
