@@ -1,7 +1,10 @@
 package com.unza.wipro.main.views.activities;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Build;
+import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -29,6 +32,24 @@ public class LoginActivity extends MVPActivity<LoginPresenter> implements LoginC
     EditText mUsernameText;
     @BindView(R.id.edt_password)
     EditText mPasswordText;
+    @BindView(R.id.layout_main)
+    View layoutMain;
+    @BindView(R.id.bottomView)
+    View bottomView;
+
+    private ViewTreeObserver.OnGlobalLayoutListener keyboardLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
+        @Override
+        public void onGlobalLayout() {
+            Rect measureRect = new Rect();
+            layoutMain.getWindowVisibleDisplayFrame(measureRect);
+            int keypadHeight = layoutMain.getRootView().getHeight() - measureRect.bottom;
+            if (keypadHeight > 200) {
+                bottomView.setVisibility(View.VISIBLE);
+            } else {
+                bottomView.setVisibility(View.GONE);
+            }
+        }
+    };
 
     @Override
     protected int getLayoutResource() {
@@ -48,6 +69,8 @@ public class LoginActivity extends MVPActivity<LoginPresenter> implements LoginC
             Window w = getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
+
+        layoutMain.getViewTreeObserver().addOnGlobalLayoutListener(keyboardLayoutListener);
     }
 
     @Override
@@ -62,6 +85,7 @@ public class LoginActivity extends MVPActivity<LoginPresenter> implements LoginC
                 } else {
                     String alert = StringUtil.isEmpty(message) ? getString(R.string.message_login_failure) : message;
                     showToast(alert);
+                    mPasswordText.setText("");
                 }
             }
         });
