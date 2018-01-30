@@ -15,6 +15,7 @@ import com.unza.wipro.transaction.cart.CartInfo;
 import com.unza.wipro.transaction.user.User;
 import com.unza.wipro.utils.Utils;
 
+import static com.paditech.core.common.BaseConstant.EMPTY;
 import static com.unza.wipro.AppConstans.AUTHORIZATION;
 import static com.unza.wipro.AppConstans.PREF_APPKEY;
 import static com.unza.wipro.AppConstans.PREF_CURRENT_USER;
@@ -30,6 +31,10 @@ public class AppState {
             instance = new AppState();
         }
         return instance;
+    }
+
+    private AppState() {
+
     }
 
     private String token = AppConstans.EMPTY;
@@ -82,7 +87,7 @@ public class AppState {
         currentUser = null;
         token = null;
         appKey = null;
-        instance = null;
+        loginInfo = null;
     }
 
     private void saveToCache() {
@@ -93,7 +98,7 @@ public class AppState {
             PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_CURRENT_USER, new Gson().toJson(currentUser, currentUser.getClass()));
         }
 
-        Log.e("save to cache","success");
+        Log.i("save to cache", "success");
     }
 
     boolean loadFromCache() {
@@ -110,10 +115,10 @@ public class AppState {
                     currentUser = new Gson().fromJson(cacheUser, currentUser.getClass());
                 }
             }
-            Log.e("Cache", "Load from cache success");
+            Log.i("Cache", "Load from cache success");
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Cache", "Load from cache failure");
+            Log.i("Cache", "Load from cache failure");
         }
         return true;
     }
@@ -124,12 +129,14 @@ public class AppState {
 
     public String getToken() {
         if (isLogin()) return String.format(AUTHORIZATION, token);
-        return "";
+        return EMPTY;
     }
 
     public String getAppKey() {
-        if (isLogin()) return Utils.getSha1Hex(appKey);
-        return "";
+        if (isLogin()) {
+            return Utils.getSha1Hex(appKey);
+        }
+        return EMPTY;
     }
 
     public void logout() {
@@ -146,7 +153,6 @@ public class AppState {
         }
         loginInfo = userData;
         currentUser = new User.Builder(userData).build();
-        Log.e("update user",currentUser.getClass().getSimpleName());
     }
 
     public void updateAppState(LoginData data) {
