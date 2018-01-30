@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.Toast;
 
 import com.paditech.core.BaseFragment;
 import com.unza.wipro.R;
@@ -71,17 +70,27 @@ public class ProductListFragment extends BaseFragment {
                 .enqueue(new Callback<GetProductCategoryRSP>() {
                     @Override
                     public void onResponse(Call<GetProductCategoryRSP> call, Response<GetProductCategoryRSP> response) {
-                        GetProductCategoryRSP productCategoryRSP = response.body();
-                        List<ProductCategory> productCategories = productCategoryRSP.getData();
-                        mAdapter.setProductCategories(productCategories);
-                        mAdapter.notifyDataSetChanged();
-                        showProgressDialog(false);
+                        try {
+                            showProgressDialog(false);
+                            if (response.body() != null) {
+                                GetProductCategoryRSP productCategoryRSP = response.body();
+                                List<ProductCategory> productCategories = productCategoryRSP.getData();
+                                mAdapter.setProductCategories(productCategories);
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<GetProductCategoryRSP> call, Throwable t) {
-                        showProgressDialog(false);
-                        Toast.makeText(ProductListFragment.this.getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        try {
+                            showProgressDialog(false);
+                            showToast(t.getLocalizedMessage());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }
@@ -114,8 +123,7 @@ public class ProductListFragment extends BaseFragment {
     @Override
     public void onNetworkOnline() {
         super.onNetworkOnline();
-        if(mAdapter != null && mAdapter.getCount() == 0)
-        {
+        if (mAdapter != null && mAdapter.getCount() == 0) {
             //TODO: implement re-load data if data have not loaded yet
 
         }
