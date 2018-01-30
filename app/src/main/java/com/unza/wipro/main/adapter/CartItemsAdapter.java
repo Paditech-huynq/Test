@@ -2,6 +2,7 @@ package com.unza.wipro.main.adapter;
 
 import android.content.Context;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,6 +85,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
     }
 
     public void setCustomer(Customer customer) {
+        Log.e("updat customer",customer.getCustomerId());
         this.currentCustomer = customer;
         notifyItemChanged(0);
     }

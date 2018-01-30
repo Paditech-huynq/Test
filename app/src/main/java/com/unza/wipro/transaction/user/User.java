@@ -1,19 +1,18 @@
 package com.unza.wipro.transaction.user;
 
-import android.util.Log;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.paditech.core.helper.StringUtil;
-import com.unza.wipro.main.models.LoginInfo;
+import com.unza.wipro.main.models.UserData;
 import com.unza.wipro.main.models.UserInfo;
 
 public abstract class User implements UserInfo {
-    static final String TYPE_CUSTOMER = "0";
-    static final String TYPE_PROMOTER = "1";
+    static final int TYPE_CUSTOMER = 0;
+    static final int TYPE_PROMOTER = 1;
+    static final int TYPE_PROMOTER_LEADER = 2;
 
     public enum Type {
-        CUSTOMER("customer"), NORMAL(TYPE_PROMOTER);
+        CUSTOMER("customer"), PROMOTER("promoter"), PROMOTER_LEADER("promoter_leader");
 
         public String getValue() {
             return value;
@@ -24,7 +23,6 @@ public abstract class User implements UserInfo {
         Type(String value) {
             this.value = value;
         }
-
     }
 
 
@@ -134,24 +132,31 @@ public abstract class User implements UserInfo {
     }
 
     public static class Builder {
-        private LoginInfo loginInfo;
+        private UserData userData;
 
-        public Builder(LoginInfo loginInfo) {
-            this.loginInfo = loginInfo;
+        public Builder(UserData loginInfo) {
+            this.userData = loginInfo;
         }
 
         public User build() {
             User user = null;
-            switch (loginInfo.getMemberType()) {
+            switch (userData.getMemberTypeInt()) {
                 case TYPE_CUSTOMER:
                     user = new Customer();
+                    ((Customer) user).setPoint(userData.getPoint());
                     break;
                 case TYPE_PROMOTER:
-                    if (loginInfo.isManager()) {
+                    if (userData.isManager()) {
                         user = new PromoterLeader();
+                        ((PromoterLeader) user).setMemberGroupId(userData.getMemberGroupId());
                     } else {
                         user = new Promoter();
                     }
+                    ((Promoter) user).setNumberCustomers(String.valueOf(userData.getCustomers()));
+                    ((Promoter) user).setSalesActual(String.valueOf(userData.getSalesActual()));
+                    ((Promoter) user).setSalesExpect(String.valueOf(userData.getSalesExpect()));
+                    ((Promoter) user).setFrom(String.valueOf(userData.getFrom()));
+                    ((Promoter) user).setTo(String.valueOf(userData.getTo()));
                     break;
             }
             updateBase(user);
@@ -159,11 +164,20 @@ public abstract class User implements UserInfo {
         }
 
         private void updateBase(User user) {
-            user.setId(String.valueOf(loginInfo.getId()));
-            user.setName(loginInfo.getName());
-            user.setAddress(loginInfo.getAddress());
-            user.setAvatar(loginInfo.getAvatar());
-            user.setEmail(loginInfo.getEmail());
+            user.setId(String.valueOf(userData.getId()));
+            user.setAddress(userData.getAddress());
+            user.setAvatar(userData.getAvatar());
+            user.setEmail(userData.getEmail());
+            user.setName(userData.getName());
+            user.setNumberOrders(String.valueOf(userData.getOrder()));
+            user.setPhone(userData.getPhone());
         }
+    }
+
+    @SerializedName("role")
+    protected int role = TYPE_CUSTOMER;
+
+    public int getRole() {
+        return role;
     }
 }

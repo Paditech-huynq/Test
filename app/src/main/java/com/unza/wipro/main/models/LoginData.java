@@ -15,7 +15,7 @@ public class LoginData {
     @SerializedName("appKey")
     private String appKey;
     @SerializedName("info")
-    private LoginInfo info;
+    private UserData info;
 
     public String getAccessToken() {
         return accessToken;
@@ -33,11 +33,11 @@ public class LoginData {
         this.appKey = appKey;
     }
 
-    public LoginInfo getInfo() {
+    public UserData getInfo() {
         return info;
     }
 
-    public void setInfo(LoginInfo info) {
+    public void setInfo(UserData info) {
         this.info = info;
     }
 }

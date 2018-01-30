@@ -23,4 +23,9 @@ public class Customer extends User implements CustomerInfo {
     public String getCustomerId() {
         return getId();
     }
+
+    public Customer()
+    {
+        role = TYPE_CUSTOMER;
+    }
 }

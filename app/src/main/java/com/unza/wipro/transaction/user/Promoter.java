@@ -74,4 +74,9 @@ public class Promoter extends User {
         }
         this.numberCustomers = numberCustomers;
     }
+
+    public Promoter()
+    {
+        role = TYPE_PROMOTER;
+    }
 }
