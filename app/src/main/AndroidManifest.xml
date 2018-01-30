@@ -16,6 +16,7 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
         <activity
+            android:launchMode="singleTop"
             android:name=".main.views.activities.MainActivity"
             android:configChanges="orientation|keyboard|keyboardHidden|screenSize|screenLayout|uiMode"
             android:label="@string/app_name"
