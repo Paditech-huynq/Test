@@ -138,6 +138,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
                     app.editCart().update(item.getId(), value);
                     if (value == 0) {
                         notifyItemRemoved(position);
+                        notifyItemRangeChanged(position,getItemCount());
                     } else {
                         updatePrice();
                     }
