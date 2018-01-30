@@ -23,35 +23,36 @@
                 android:id="@+id/imvAvatar"
                 android:layout_width="100dip"
                 android:layout_height="100dip"
+                android:layout_marginBottom="@dimen/padding_normal"
                 android:layout_marginLeft="@dimen/padding_small"
                 android:layout_marginRight="@dimen/padding_small"
                 android:layout_marginTop="@dimen/padding_normal"
                 app:srcCompat="@drawable/ic_avatar_holder" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/btnChangeCustomer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/padding_normal"
-                android:layout_marginTop="@dimen/padding_small"
                 android:text="@string/action_select_customer"
                 android:textColor="@color/colorPrimary"
                 android:textSize="13sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical"
             android:padding="@dimen/padding_small">
 
             <TextView
                 android:id="@+id/tvName"
-                android:text="@string/cart_please_select_customer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/cart_please_select_customer"
                 android:textColor="@color/dark_light"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -60,10 +61,10 @@
                 android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
-                android:minWidth="24dip"
                 android:layout_marginTop="@dimen/padding_small"
                 android:background="@drawable/bg_green_border_rounded"
                 android:gravity="center"
+                android:minWidth="24dip"
                 android:paddingLeft="@dimen/padding_normal"
                 android:paddingRight="@dimen/padding_normal"
                 android:textColor="@android:color/white"
@@ -73,21 +74,24 @@
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_small"/>
+                android:layout_marginTop="@dimen/padding_small"
+                android:visibility="gone" />
 
 
             <TextView
                 android:id="@+id/tvPromoterName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_small"/>
+                android:layout_marginTop="@dimen/padding_small"
+                android:visibility="gone" />
 
 
             <TextView
                 android:id="@+id/tvAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_small"/>
+                android:layout_marginTop="@dimen/padding_small"
+                android:visibility="gone" />
 
         </LinearLayout>
     </LinearLayout>
