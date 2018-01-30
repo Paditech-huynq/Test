@@ -2,6 +2,9 @@ package com.unza.wipro.main.views.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -13,6 +16,8 @@ import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.StringUtil;
 import com.paditech.core.image.GlideApp;
 import com.paditech.core.mvp.MVPActivity;
+import com.squareup.otto.Subscribe;
+import com.unza.wipro.AppAction;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.MainContract;
@@ -44,6 +49,18 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
         super.initView();
         switchFragment(HomeFragment.newInstance(), false);
         addToAction(R.id.btnCart, R.id.btnNotification, R.id.imvAvatar, R.id.btnTrash);
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        bus.register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        bus.unregister(this);
+        super.onDestroy();
     }
 
     @Override
@@ -159,5 +176,18 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
         tvCartAmount.setVisibility(cartItemCount == 0 ? View.GONE : View.VISIBLE);
         String count = cartItemCount <= 99 ? String.valueOf(cartItemCount) : "99+";
         tvCartAmount.setText(count);
+    }
+
+    @Subscribe
+    public void onAction(AppAction action) {
+        Log.e("Action", action+"");
+        switch (action) {
+            case REQUEST_CAMERA_CLOSE:
+                openCamera(false);
+                break;
+            case REQUEST_CAMERA_OPEN:
+                openCamera(true);
+                break;
+        }
     }
 }
