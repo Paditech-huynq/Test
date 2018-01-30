@@ -33,10 +33,10 @@ public class LoginClient implements AppConstans {
         return "";
     }
 
-    public static LoginInfo getLoginInfo(Context context) {
+    public static UserData getLoginInfo(Context context) {
         if (!StringUtil.isEmpty(PrefUtils.getPreferences(context, PREF_INFO, EMPTY))) {
             try {
-                return new Gson().fromJson(PrefUtils.getPreferences(context, PREF_INFO, EMPTY), LoginInfo.class);
+                return new Gson().fromJson(PrefUtils.getPreferences(context, PREF_INFO, EMPTY), UserData.class);
             } catch (Exception e) {
             }
         }

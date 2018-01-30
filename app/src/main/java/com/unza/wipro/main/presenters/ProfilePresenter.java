@@ -24,7 +24,6 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
         if (AppConstans.app.getCurrentUser() == null) {
             return;
         }
-        getView().showProgressDialog(true);
         AppClient.newInstance().getService().getUserProfile(app.getToken(),
                 app.getAppKey()).enqueue(new Callback<GetUserProfileRSP>() {
             @Override

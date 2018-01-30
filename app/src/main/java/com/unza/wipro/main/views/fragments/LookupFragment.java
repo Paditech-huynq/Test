@@ -82,7 +82,6 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
 
     @Override
     public void setScreenTitle(String title) {
-        super.setScreenTitle(title);
     }
 
     @Override
@@ -132,7 +131,9 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
     }
 
     private void setupRecycleView() {
-        mAdapter = new LookupAdapter();
+        if (mAdapter == null) {
+            mAdapter = new LookupAdapter();
+        }
         mRecyclerView.addItemDecoration(new VerticalSpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_normal)));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);

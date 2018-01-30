@@ -23,9 +23,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.ImageHelper;
+import com.unza.wipro.AppAction;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.UserData;
@@ -313,7 +313,7 @@ public class ProfileRegisterFragment extends BaseFragment implements AppConstans
             RequestBody name = MultipartBody.create(MultipartBody.FORM, edtUserName.getText().toString());
             RequestBody phone = MultipartBody.create(MultipartBody.FORM, edtPhoneNumber.getText().toString());
             RequestBody email = MultipartBody.create(MultipartBody.FORM, edtEmail.getText().toString());
-            RequestBody address = MultipartBody.create(MultipartBody.FORM, edtAddress.getText().toString());
+            final RequestBody address = MultipartBody.create(MultipartBody.FORM, edtAddress.getText().toString());
             MultipartBody.Part body = null;
             if (mCurrentPhotoPath != null) {
                 File file = new File(mCurrentPhotoPath);
@@ -328,20 +328,23 @@ public class ProfileRegisterFragment extends BaseFragment implements AppConstans
                     .enqueue(new Callback<CreateCustomerRSP>() {
                         @Override
                         public void onResponse(Call<CreateCustomerRSP> call, Response<CreateCustomerRSP> response) {
-                            isPending = false;
-                            showProgressDialog(false);
-                            CreateCustomerRSP createCustomerRSP = response.body();
-                            UserData customer = createCustomerRSP.getCustomer();
-                            showToast(createCustomerRSP.getMessage());
-                            if (customer != null) {
-                                getActivity().onBackPressed();
-                                Intent intent = new Intent("android.intent.action.MAIN");
-                                String customerString = new Gson().toJson(customer);
-                                intent.putExtra("customer", customerString);
-                                ProfileRegisterFragment.this.getActivity().sendBroadcast(intent);
-                                // todo: của base
-                                ProfileRegisterFragment.this.getActivity().onBackPressed();
-                                ProfileRegisterFragment.this.getActivity().onBackPressed();
+                            try {
+                                isPending = false;
+                                showProgressDialog(false);
+                                if (response.body() != null) {
+                                    if (response.body().getResult() == AppConstans.Api.Success) {
+                                        CreateCustomerRSP createCustomerRSP = response.body();
+                                        UserData customer = createCustomerRSP.getCustomer();
+                                        if (customer != null && getActivity() != null) {
+                                            getActivity().getSupportFragmentManager().popBackStack();
+                                            bus.post(AppAction.NOTIFY_CUSTOMER_SELECTED_AFTER_CREATE.setData(Utils.convertObjectToString(customer)));
+                                        }
+                                    } else {
+                                        showToast(response.body().getMessage());
+                                    }
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                         }
 
@@ -362,7 +365,7 @@ public class ProfileRegisterFragment extends BaseFragment implements AppConstans
         if (userName.length() * phoneNumber.length() == 0) {
             showToast("Họ tên và số điện thoại không được để trống");
             return false;
-        } else if (!Utils.checkEmailValid(email)) {
+        } else if (!email.isEmpty() && !Utils.checkEmailValid(email)) {
             showToast("Email không hợp lệ");
             return false;
         }

@@ -22,6 +22,7 @@ import com.unza.wipro.main.adapter.OrderListAdapter;
 import com.unza.wipro.main.contracts.OrderListContract;
 import com.unza.wipro.main.models.Order;
 import com.unza.wipro.main.presenters.OrderFragmentPresenter;
+import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
 import com.unza.wipro.utils.Utils;
 
 import java.util.Calendar;
@@ -116,7 +117,10 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     }
 
     public void setupRecycleView() {
-        mAdapter = new OrderListAdapter(OrderListFragment.this.getContext());
+        if(mAdapter == null) {
+            mAdapter = new OrderListAdapter(OrderListFragment.this.getContext());
+        }
+        rcvOrder.addItemDecoration(new VerticalSpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_normal)));
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
@@ -254,7 +258,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         if (canFind) {
             //todo
         } else {
-            showToast("The day in left must before the day in right, please choose again");
+            showToast(getResources().getString(R.string.noti_when_choose_day_in_filter_false));
         }
     }
 
@@ -268,6 +272,16 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         }, 200);
     }
 
+    @Override
+    public String getFrom() {
+        return tvCalenderLeftFilter.getText().toString();
+    }
+
+    @Override
+    public String getTo() {
+        return tvCalenderRightFilter.getText().toString();
+    }
+
     @OnClick(R.id.bt_filter)
     public void onFilterClick() {
         getPresenter().onFilterClick();
@@ -275,7 +289,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @OnClick(R.id.btn_search)
     public void onSearchClick() {
-        getPresenter().onSearchClick(tvCalenderLeftFilter.getText().toString(), tvCalenderRightFilter.getText().toString());
+        getPresenter().onSearch(tvCalenderLeftFilter.getText().toString(), tvCalenderRightFilter.getText().toString());
     }
 
     @OnClick(R.id.btb_all)
@@ -335,12 +349,11 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public void setScreenTitle(String title) {
-        super.setScreenTitle(title);
     }
 
-    protected boolean isKeepFragment() {
-        return true;
-    }
+//    protected boolean isKeepFragment() {
+//        return true;
+//    }
 
     @Override
     public boolean isActionShow(int resId) {
