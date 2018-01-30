@@ -112,7 +112,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     }
 
     @Override
-    public void onSearchClick(String from, String to) {
+    public void onSearch(String from, String to) {
         if (StringUtil.isEmpty(from) && StringUtil.isEmpty(to)) {
             fromDate = null;
             toDate = null;
@@ -140,24 +140,28 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
 
     @Override
     public void onBtAllClick() {
+        onSearch("","");
         getView().changeColorButtonAll();
         getView().updateDayInFilter("", "");
     }
 
     @Override
     public void onBtThisWeekClick() {
+        onSearch(DateTimeUtils.getStringFirstDayInCurrentWeek(), DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
         getView().changeColorButtonThisWeek();
         getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentWeek(), DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
     }
 
     @Override
     public void onBtLastWeekClick() {
+        onSearch(DateTimeUtils.getStringFirstDayInLastWeek(), DateTimeUtils.getStringLastDayInLastWeek());
         getView().changeColorButtonLastWeek();
         getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInLastWeek(), DateTimeUtils.getStringLastDayInLastWeek());
     }
 
     @Override
     public void onBtThisMonthClick() {
+        onSearch(DateTimeUtils.getStringFirstDayInCurrentMonth(), DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
         getView().changeColorButtonThisMonth();
         getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(), DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
     }

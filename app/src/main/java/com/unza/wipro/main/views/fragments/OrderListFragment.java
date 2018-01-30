@@ -277,7 +277,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @OnClick(R.id.btn_search)
     public void onSearchClick() {
-        getPresenter().onSearchClick(tvCalenderLeftFilter.getText().toString(), tvCalenderRightFilter.getText().toString());
+        getPresenter().onSearch(tvCalenderLeftFilter.getText().toString(), tvCalenderRightFilter.getText().toString());
     }
 
     @OnClick(R.id.btb_all)
