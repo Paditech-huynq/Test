@@ -39,13 +39,11 @@ public class NotificationPresenter extends BasePresenter<NotificationContract.Vi
         isFull = !isRefresh;
         if (isFull || !app.isLogin()) return;
         mPage = isRefresh ? 1 : mPage;
-        getView().showProgressDialog(true);
         AppClient.newInstance().getService().getNotifications(app.getToken(),
                 app.getAppKey()).enqueue(new Callback<GetNotificationsRSP>() {
             @Override
             public void onResponse(Call<GetNotificationsRSP> call, Response<GetNotificationsRSP> response) {
                 try {
-                    getView().showProgressDialog(false);
                     getView().setRefreshing(false);
                     if (response.body() != null) {
                         if (response.body().getNotices() != null && response.body().getNotices().size() > 0) {

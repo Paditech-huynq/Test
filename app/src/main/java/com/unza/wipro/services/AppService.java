@@ -12,6 +12,7 @@ import com.unza.wipro.main.models.responses.GetNewsCategoriesRSP;
 import com.unza.wipro.main.models.responses.GetNewsDetailRSP;
 import com.unza.wipro.main.models.responses.GetNewsRSP;
 import com.unza.wipro.main.models.responses.GetNotificationsRSP;
+import com.unza.wipro.main.models.responses.GetNotificationsUnreadRSP;
 import com.unza.wipro.main.models.responses.GetOrderDetailRSP;
 import com.unza.wipro.main.models.responses.GetOrdersRSP;
 import com.unza.wipro.main.models.responses.GetProductCategoryRSP;
@@ -110,6 +111,9 @@ public interface AppService {
     @POST("notifications/read")
     @FormUrlEncoded
     Call<ReadNotificationRSP> readNotification(@Header("Authorization") String token, @Header("AppKey") String appKey, @Field("notification_id") int notificationId);
+
+    @POST("notifications/numberUnRead")
+    Call<GetNotificationsUnreadRSP> getUnReadNotificationsCount(@Header("Authorization") String token, @Header("AppKey") String appKey);
 
     @POST("member/forgot")
     @FormUrlEncoded
