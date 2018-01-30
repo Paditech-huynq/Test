@@ -75,7 +75,7 @@ public abstract class User implements UserInfo {
 
     public void setId(String id) {
         if(StringUtil.isEmpty(id)){
-            this.id = "";
+            this.id = "0";
             return;
         }
         this.id = id;
