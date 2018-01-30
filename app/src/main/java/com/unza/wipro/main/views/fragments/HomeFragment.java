@@ -1,11 +1,14 @@
 package com.unza.wipro.main.views.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
 import com.paditech.core.mvp.MVPFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
+import com.unza.wipro.AppAction;
+import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.HomeFragmentPagerAdapter;
 import com.unza.wipro.main.contracts.HomeContract;
@@ -14,7 +17,7 @@ import com.unza.wipro.main.views.activities.MainActivity;
 
 import butterknife.BindView;
 
-public class HomeFragment extends MVPFragment<HomePresenter> implements HomeContract.ViewImpl, OnTabSelectListener {
+public class HomeFragment extends MVPFragment<HomePresenter> implements HomeContract.ViewImpl, OnTabSelectListener, AppConstans {
     @BindView(R.id.bottomBar)
     BottomBar mBottomBar;
 
@@ -60,11 +63,15 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
 
             @Override
             public void onPageSelected(int position) {
+                if (mAdapter.getItem(position) instanceof FakeScannerFragment) {
+                    bus.post(AppAction.NOTIFY_FAKE_SCANNER_FOCUS);
+                } else {
+                    bus.post(AppAction.NOTIFY_FAKE_SCANNER_UN_FOCUS);
+                }
                 currentTab = position;
                 mBottomBar.selectTabAtPosition(position);
                 mAdapter.onViewAppear(position);
                 ((MainActivity) getActivity()).updateActionButtonAppearance(mAdapter.getItem(position));
-
             }
 
             @Override
@@ -130,12 +137,14 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
     }
 
     @Override
-    public void onViewAppear() {
-        super.onViewAppear();
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        bus.register(this);
     }
 
     @Override
-    public void onViewDisappear() {
-        super.onViewDisappear();
+    public void onDetach() {
+        bus.unregister(this);
+        super.onDetach();
     }
 }
