@@ -335,7 +335,6 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public void setScreenTitle(String title) {
-        super.setScreenTitle(title);
     }
 
     protected boolean isKeepFragment() {
