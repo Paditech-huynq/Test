@@ -5,8 +5,10 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.FragmentHelper;
@@ -16,6 +18,11 @@ import com.squareup.otto.Subscribe;
 import com.unza.wipro.AppAction;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
+import com.unza.wipro.main.models.Product;
+import com.unza.wipro.main.models.responses.GetProductDetailRSP;
+import com.unza.wipro.services.AppClient;
+import com.unza.wipro.transaction.user.Customer;
+import com.unza.wipro.transaction.user.Promoter;
 import com.unza.wipro.utils.Utils;
 
 import java.util.ArrayList;
@@ -25,13 +32,21 @@ import butterknife.BindView;
 import me.dm7.barcodescanner.zbar.BarcodeFormat;
 import me.dm7.barcodescanner.zbar.Result;
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ScannerFragment extends BaseFragment implements ZBarScannerView.ResultHandler, OnTabSelectListener, AppConstans {
     private static final String TAG = "CAMERA";
     @BindView(R.id.bottomBar2)
     BottomBar mBottomBar;
+    @BindView(R.id.tv_count_scanner)
+    TextView tvCount;
 
     boolean isCameraOpen;
+    private int Count = 3;
+    private Handler mHandler = new Handler();
+    private Runnable runnable ;
 
     public static ScannerFragment newInstance() {
         Bundle args = new Bundle();
@@ -51,8 +66,8 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
 
     private void setupFormats() {
         List<BarcodeFormat> formats = new ArrayList<>();
-        formats.add(BarcodeFormat.QRCODE);
-        mScannerView.setFormats(formats);
+//        formats.add(BarcodeFormat.QRCODE);
+        mScannerView.setFormats(BarcodeFormat.ALL_FORMATS);
     }
 
     public void openCamera() {
@@ -99,6 +114,51 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
         Ringtone r = RingtoneManager.getRingtone(getActivity().getApplicationContext(), notification);
         r.play();
         showToast(rawResult.getContents());
+        AppClient.newInstance().getService().getProductDetail(rawResult.getContents()).enqueue(new Callback<GetProductDetailRSP>() {
+            @Override
+            public void onResponse(Call<GetProductDetailRSP> call, Response<GetProductDetailRSP> response) {
+                try {
+                    if (response.body().getProduct() == null) {
+                        return;
+                    }
+                    actionScan(response.body().getProduct());
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<GetProductDetailRSP> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    private void actionScan(Product product) {
+            app.editCart().insert(product);
+            if (AppConstans.app.getCurrentUser() instanceof Customer || AppConstans.app.getCurrentUser() == null) {
+                switchFragment(OrderDetailFragment.newInstance(), true);
+                return;
+            }
+            if (AppConstans.app.getCurrentUser() instanceof Promoter) {
+                runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        if(Count == 0){
+                            mScannerView.resumeCameraPreview(ScannerFragment.this);
+                            Count = 3;
+                            tvCount.setText(EMPTY);
+                            return;
+                        }
+                        tvCount.setText(String.valueOf(Count));
+                        Count--;
+                        mHandler.postDelayed(this,1000);
+                    }
+                };
+                mHandler.postDelayed(runnable,1000);
+            }
     }
 
     @Override
@@ -119,7 +179,7 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
 
     @Subscribe
     public void onAction(AppAction action) {
-        Log.e("Action",action+"");
+        Log.e("Action", action + "");
         switch (action) {
             case REQUEST_CAMERA_OPEN:
                 openCamera();
