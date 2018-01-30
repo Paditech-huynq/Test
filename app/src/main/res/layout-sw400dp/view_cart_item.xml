@@ -3,101 +3,120 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:swipe="http://schemas.android.com/tools"
     android:foreground="?attr/selectableItemBackgroundBorderless"
     app:cardCornerRadius="@dimen/card_radius_normal">
 
-    <LinearLayout
+    <com.daimajia.swipe.SwipeLayout
+        android:id="@+id/swipe"
+        swipe:leftEdgeSwipeOffset="0dp"
+        swipe:rightEdgeSwipeOffset="0dp"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/cart_item_height"
-        android:background="@android:color/white"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imvProduct"
+        <TextView
+            android:gravity="center"
+            android:textSize="@dimen/text_size_title"
             android:layout_width="@dimen/cart_item_height"
             android:layout_height="@dimen/cart_item_height"
-            android:scaleType="centerCrop"
-            app:srcCompat="@mipmap/ic_launcher" />
+            android:background="@color/red"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:text="@string/action_delete"/>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/padding_small"
-            android:paddingRight="@dimen/padding_normal">
+            android:layout_height="@dimen/cart_item_height"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="wrap_content"
-                android:layout_height="47dip"
-                android:maxLines="2"
-                android:paddingLeft="@dimen/padding_small"
-                android:paddingRight="@dimen/padding_small"
-                android:paddingTop="@dimen/padding_small"
-                android:text="Striped Maxi Dress Color - Show your of  your life - SKU002"
-                android:textColor="@color/text_dark"
-                android:textSize="@dimen/text_size_normal"
-                android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/imvProduct"
+                android:layout_width="@dimen/cart_item_height"
+                android:layout_height="@dimen/cart_item_height"
+                android:scaleType="centerCrop"
+                app:srcCompat="@mipmap/ic_launcher" />
 
             <RelativeLayout
-                android:id="@+id/rl_group"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/tvName"
-                android:layout_marginBottom="@dimen/padding_tiny">
-
-                <com.unza.wipro.main.views.customs.AmountView
-                    android:id="@+id/avAmount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true" />
-
-                <TextView
-                    android:id="@+id/tvCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="28dip"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/bg_green_rounded"
-                    android:gravity="center"
-                    android:minWidth="28dip"
-                    android:paddingLeft="@dimen/padding_normal"
-                    android:paddingRight="@dimen/padding_normal"
-                    android:text="5,000"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_normal"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/tvName"
-                android:layout_marginBottom="@dimen/padding_tiny"
-                android:layout_toLeftOf="@id/rl_group"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:layout_marginLeft="@dimen/padding_small"
+                android:paddingRight="@dimen/padding_normal">
 
                 <TextView
-                    android:id="@+id/tvPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dip"
-                    android:layout_marginLeft="@dimen/padding_small"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="Đơn giá: 40.000 VNĐ"
-                    android:textColor="@color/text_orange"
-                    android:textSize="12sp" />
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="47dip"
+                    android:maxLines="2"
+                    android:paddingLeft="@dimen/padding_small"
+                    android:paddingRight="@dimen/padding_small"
+                    android:paddingTop="@dimen/padding_small"
+                    android:text="Striped Maxi Dress Color - Show your of  your life - SKU002"
+                    android:textColor="@color/text_dark"
+                    android:textSize="@dimen/text_size_normal"
+                    android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvTotalPrice"
+                <RelativeLayout
+                    android:id="@+id/rl_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/tvName"
+                    android:layout_marginBottom="@dimen/padding_tiny">
+
+                    <com.unza.wipro.main.views.customs.AmountView
+                        android:id="@+id/avAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true" />
+
+                    <TextView
+                        android:id="@+id/tvCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="28dip"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_green_rounded"
+                        android:gravity="center"
+                        android:minWidth="28dip"
+                        android:paddingLeft="@dimen/padding_normal"
+                        android:paddingRight="@dimen/padding_normal"
+                        android:text="5,000"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_normal"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dip"
-                    android:layout_marginLeft="@dimen/padding_small"
-                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/tvName"
+                    android:layout_marginBottom="@dimen/padding_tiny"
+                    android:layout_toLeftOf="@id/rl_group"
                     android:gravity="center_vertical"
-                    android:text="Tổng:  40.000.00 VNĐ"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </RelativeLayout>
-    </LinearLayout>
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_marginLeft="@dimen/padding_small"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Đơn giá: 40.000 VNĐ"
+                        android:textColor="@color/text_orange"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvTotalPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_marginLeft="@dimen/padding_small"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Tổng:  40.000.00 VNĐ"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </com.daimajia.swipe.SwipeLayout>
 </android.support.v7.widget.CardView>
