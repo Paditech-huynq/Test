@@ -256,7 +256,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         if (canFind) {
             //todo
         } else {
-            showToast("The day in left must before the day in right, please choose again");
+            showToast(getResources().getString(R.string.noti_when_choose_day_in_filter_false));
         }
     }
 
