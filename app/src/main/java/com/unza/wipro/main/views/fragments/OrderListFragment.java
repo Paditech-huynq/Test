@@ -270,6 +270,16 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         }, 200);
     }
 
+    @Override
+    public String getFrom() {
+        return tvCalenderLeftFilter.getText().toString();
+    }
+
+    @Override
+    public String getTo() {
+        return tvCalenderRightFilter.getText().toString();
+    }
+
     @OnClick(R.id.bt_filter)
     public void onFilterClick() {
         getPresenter().onFilterClick();
