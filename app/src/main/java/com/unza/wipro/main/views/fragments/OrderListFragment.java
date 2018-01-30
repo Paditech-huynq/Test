@@ -120,6 +120,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         if(mAdapter == null) {
             mAdapter = new OrderListAdapter(OrderListFragment.this.getContext());
         }
+        rcvOrder.addItemDecoration(new VerticalSpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_normal)));
         rcvOrder.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
             @Override
