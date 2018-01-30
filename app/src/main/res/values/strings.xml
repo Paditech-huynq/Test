@@ -75,6 +75,8 @@
     <string name="this_month">Tháng này</string>
     <string name="find">Tìm kiếm</string>
     <string name="section_month_year">Tháng %s</string>
+    <string name="quality_product_in_item">Số lượng: %s</string>
+    <string name="time_create_in_item">Thời gian: %s</string>
 
     <!--order detail-->
     <string name="order_detail_title">Đơn hàng số #%s</string>
