@@ -1,6 +1,7 @@
 package com.unza.wipro.transaction.user;
 
 import com.google.gson.annotations.SerializedName;
+import com.paditech.core.helper.StringUtil;
 
 public class Promoter extends User {
     @SerializedName("customers")
@@ -19,6 +20,10 @@ public class Promoter extends User {
     }
 
     public void setSalesExpect(String salesExpect) {
+        if(StringUtil.isEmpty(salesExpect)){
+            this.salesExpect = "0";
+            return;
+        }
         this.salesExpect = salesExpect;
     }
 
@@ -27,6 +32,10 @@ public class Promoter extends User {
     }
 
     public void setFrom(String from) {
+        if(StringUtil.isEmpty(from)){
+            this.from = "";
+            return;
+        }
         this.from = from;
     }
 
@@ -35,6 +44,10 @@ public class Promoter extends User {
     }
 
     public void setTo(String to) {
+        if(StringUtil.isEmpty(to)){
+            this.to = "";
+            return;
+        }
         this.to = to;
     }
 
@@ -43,6 +56,10 @@ public class Promoter extends User {
     }
 
     public void setSalesActual(String salesActual) {
+        if(StringUtil.isEmpty(salesActual)){
+            this.salesActual = "0";
+            return;
+        }
         this.salesActual = salesActual;
     }
 
@@ -51,6 +68,10 @@ public class Promoter extends User {
     }
 
     public void setNumberCustomers(String numberCustomers) {
+        if(StringUtil.isEmpty(numberCustomers)){
+            this.numberCustomers = "0";
+            return;
+        }
         this.numberCustomers = numberCustomers;
     }
 }

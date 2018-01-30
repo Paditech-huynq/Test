@@ -1,6 +1,7 @@
 package com.unza.wipro.transaction.user;
 
 import com.google.gson.annotations.SerializedName;
+import com.paditech.core.helper.StringUtil;
 
 public class Customer extends User implements CustomerInfo {
     @SerializedName("point")
@@ -11,6 +12,10 @@ public class Customer extends User implements CustomerInfo {
     }
 
     public void setPoint(String numberCustomers) {
+        if(StringUtil.isEmpty(numberCustomers)){
+            this.point = "0";
+            return;
+        }
         this.point = numberCustomers;
     }
 

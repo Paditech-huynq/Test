@@ -135,10 +135,10 @@ public class AppState {
         currentUser.setAvatar(user.getAvatar());
         currentUser.setEmail(user.getEmail());
         currentUser.setName(user.getName());
-        currentUser.setNumberOrders(String.valueOf(user.getOrder()));
+        currentUser.setNumberOrders(user.getOrder());
         currentUser.setPhone(user.getPhone());
         if (currentUser instanceof Customer) {
-            ((Customer) currentUser).setPoint(String.valueOf(user.getPoint()));
+            ((Customer) currentUser).setPoint(user.getPoint());
         }
         if (currentUser instanceof Promoter) {
             ((Promoter) currentUser).setNumberCustomers(String.valueOf(user.getCustomers()));

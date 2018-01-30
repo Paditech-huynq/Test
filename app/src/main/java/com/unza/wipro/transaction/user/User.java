@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.paditech.core.helper.StringUtil;
 import com.unza.wipro.main.models.LoginInfo;
 import com.unza.wipro.main.models.UserInfo;
 
@@ -48,6 +49,10 @@ public abstract class User implements UserInfo {
     }
 
     public void setNumberOrders(String numberCustomers) {
+        if(StringUtil.isEmpty(numberCustomers)){
+            this.numberOrders = "0";
+            return;
+        }
         this.numberOrders = numberCustomers;
     }
 
@@ -56,6 +61,10 @@ public abstract class User implements UserInfo {
     }
 
     public void setPhone(String phone) {
+        if(StringUtil.isEmpty(phone)){
+            this.phone = "";
+            return;
+        }
         this.phone = phone;
     }
 
@@ -65,6 +74,10 @@ public abstract class User implements UserInfo {
     }
 
     public void setId(String id) {
+        if(StringUtil.isEmpty(id)){
+            this.id = "";
+            return;
+        }
         this.id = id;
     }
 
@@ -73,6 +86,10 @@ public abstract class User implements UserInfo {
     }
 
     public void setName(String name) {
+        if(StringUtil.isEmpty(name)){
+            this.name = "";
+            return;
+        }
         this.name = name;
     }
 
@@ -81,6 +98,10 @@ public abstract class User implements UserInfo {
     }
 
     public void setEmail(String email) {
+        if(StringUtil.isEmpty(email)){
+            this.email = "";
+            return;
+        }
         this.email = email;
     }
 
@@ -97,6 +118,10 @@ public abstract class User implements UserInfo {
     }
 
     public void setAddress(String address) {
+        if(StringUtil.isEmpty(phone)){
+            this.address = "";
+            return;
+        }
         this.address = address;
     }
 
