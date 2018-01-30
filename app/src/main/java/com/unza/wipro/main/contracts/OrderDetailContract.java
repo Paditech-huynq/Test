@@ -15,7 +15,7 @@ public interface OrderDetailContract {
 
         Customer getCustomer();
 
-        void backToHomeScreen();
+        void backToLastScreen();
     }
 
     interface Presenter extends BasePresenterImpl {

@@ -125,6 +125,6 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
         bus.post(transaction);
         getView().showToast("Payment Success");
         app.editCart().clear();
-        getView().backToHomeScreen();
+        getView().backToLastScreen();
     }
 }

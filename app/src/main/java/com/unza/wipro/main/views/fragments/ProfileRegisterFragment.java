@@ -23,9 +23,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.ImageHelper;
+import com.unza.wipro.AppAction;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.UserData;
@@ -313,7 +313,7 @@ public class ProfileRegisterFragment extends BaseFragment implements AppConstans
             RequestBody name = MultipartBody.create(MultipartBody.FORM, edtUserName.getText().toString());
             RequestBody phone = MultipartBody.create(MultipartBody.FORM, edtPhoneNumber.getText().toString());
             RequestBody email = MultipartBody.create(MultipartBody.FORM, edtEmail.getText().toString());
-            RequestBody address = MultipartBody.create(MultipartBody.FORM, edtAddress.getText().toString());
+            final RequestBody address = MultipartBody.create(MultipartBody.FORM, edtAddress.getText().toString());
             MultipartBody.Part body = null;
             if (mCurrentPhotoPath != null) {
                 File file = new File(mCurrentPhotoPath);
@@ -332,21 +332,21 @@ public class ProfileRegisterFragment extends BaseFragment implements AppConstans
                                 isPending = false;
                                 showProgressDialog(false);
                                 if (response.body() != null) {
-                                    if(response.body().getResult() == AppConstans.Api.Success) {
+                                    if (response.body().getResult() == AppConstans.Api.Success) {
                                         CreateCustomerRSP createCustomerRSP = response.body();
                                         UserData customer = createCustomerRSP.getCustomer();
                                         if (customer != null) {
-                                            getActivity().onBackPressed();
-                                            Intent intent = new Intent("android.intent.action.MAIN");
-                                            String customerString = new Gson().toJson(customer);
-                                            intent.putExtra("customer", customerString);
-                                            ProfileRegisterFragment.this.getActivity().sendBroadcast(intent);
-                                            // todo: của base
-                                            ProfileRegisterFragment.this.getActivity().onBackPressed();
-                                            ProfileRegisterFragment.this.getActivity().onBackPressed();
+                                            getActivity().getSupportFragmentManager().popBackStack();
+                                            bus.post(AppAction.NOTIFY_CUSTOMER_SELECTED_AFTER_CREATE.setData(Utils.convertObjectToString(customer)));
+//                                            Intent intent = new Intent("android.intent.action.MAIN");
+//                                            String customerString = new Gson().toJson(customer);
+//                                            intent.putExtra("customer", customerString);
+//                                            ProfileRegisterFragment.this.getActivity().sendBroadcast(intent);
+//                                            // todo: của base
+//                                            ProfileRegisterFragment.this.getActivity().onBackPressed();
+//                                            ProfileRegisterFragment.this.getActivity().onBackPressed();
                                         }
-                                    }
-                                    else {
+                                    } else {
                                         showToast(response.body().getMessage());
                                     }
                                 }
