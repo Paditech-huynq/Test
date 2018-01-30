@@ -31,11 +31,10 @@ public class AppState {
     }
 
     private String token = AppConstans.EMPTY;
-    ;
     private String appKey = AppConstans.EMPTY;
-    ;
     private Cart currentCart = new Cart();
     private User currentUser;
+    private int notifyCount = 0;
     private AppClient appClient = AppClient.newInstance();
 
     void setCurrentUser(User user) {
@@ -98,7 +97,7 @@ public class AppState {
         String info = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_INFO, AppConstans.EMPTY);
         if (!StringUtil.isEmpty(info)) {
             try {
-                currentUser = new User.Builder(new Gson().fromJson(info, LoginInfo.class)).build();
+                currentUser = new Gson().fromJson(info, User.class);
             } catch (Exception e) {
             }
         }
@@ -118,15 +117,21 @@ public class AppState {
         return "";
     }
 
+    public int getNotifyCount() {
+        return notifyCount;
+    }
+
+    public void setNotifyCount(int notifyCount) {
+        this.notifyCount = notifyCount;
+    }
+
     public void logout() {
         token = AppConstans.EMPTY;
         appKey = AppConstans.EMPTY;
         currentUser = null;
         PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_TOKEN, AppConstans.EMPTY);
         PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_APPKEY, AppConstans.EMPTY);
-        ;
         PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_INFO, AppConstans.EMPTY);
-        ;
     }
 
     public void updateCurrentUser(LoginInfo user) {
