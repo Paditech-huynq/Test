@@ -29,14 +29,22 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
                 app.getAppKey()).enqueue(new Callback<GetUserProfileRSP>() {
             @Override
             public void onResponse(Call<GetUserProfileRSP> call, Response<GetUserProfileRSP> response) {
-                AppConstans.app.updateCurrentUser(response.body().getUser());
-                updateUi();
-                getView().showProgressDialog(false);
+                try {
+                    AppConstans.app.updateCurrentUser(response.body().getUser());
+                    updateUi();
+                    getView().showProgressDialog(false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onFailure(Call<GetUserProfileRSP> call, Throwable t) {
-                getView().showProgressDialog(false);
+                try {
+                    getView().showProgressDialog(false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
