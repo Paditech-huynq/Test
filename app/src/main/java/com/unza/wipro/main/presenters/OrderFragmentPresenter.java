@@ -146,7 +146,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     }
 
     @Override
-    public void onSearchClick(String from, String to) {
+    public void onSearch(String from, String to) {
         if (StringUtil.isEmpty(from) && StringUtil.isEmpty(to)) {
             fromDate = null;
             toDate = null;
@@ -175,13 +175,14 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onBtAllClick() {
         currentFilter.setButtonClicked(BUTTON_ALL);
+        onSearch("","");
         getView().changeColorButtonAll();
-        getView().updateDayInFilter("", "");
     }
 
     @Override
     public void onBtThisWeekClick() {
         currentFilter.setButtonClicked(BUTTON_THIS_WEEK);
+        onSearch(DateTimeUtils.getStringFirstDayInCurrentWeek(), DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
         getView().changeColorButtonThisWeek();
         getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentWeek(), DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
     }
@@ -189,6 +190,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onBtLastWeekClick() {
         currentFilter.setButtonClicked(BUTTON_LAST_WEEK);
+        onSearch(DateTimeUtils.getStringFirstDayInLastWeek(), DateTimeUtils.getStringLastDayInLastWeek());
         getView().changeColorButtonLastWeek();
         getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInLastWeek(), DateTimeUtils.getStringLastDayInLastWeek());
     }
@@ -196,6 +198,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onBtThisMonthClick() {
         currentFilter.setButtonClicked(BUTTON_THIS_MONTH);
+        onSearch(DateTimeUtils.getStringFirstDayInCurrentMonth(), DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
         getView().changeColorButtonThisMonth();
         getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(), DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
     }

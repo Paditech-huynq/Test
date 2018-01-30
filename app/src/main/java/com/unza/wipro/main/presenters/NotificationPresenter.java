@@ -21,13 +21,14 @@ import retrofit2.Response;
 
 public class NotificationPresenter extends BasePresenter<NotificationContract.ViewImpl> implements NotificationContract.Presenter, AppConstans {
 
+    private static final int NOTIFICATION_PAGE_SIZE = 100;
     private boolean isFull;
     private int mPage = 1;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        loadData(true);
+        loadData(false);
     }
 
     @Override
@@ -36,12 +37,14 @@ public class NotificationPresenter extends BasePresenter<NotificationContract.Vi
     }
 
     private void getNotifications(final boolean isRefresh) {
-        isFull = !isRefresh;
-        if (isFull || !app.isLogin()) return;
+        if (isFull || !app.isLogin()) {
+            getView().setRefreshing(false);
+            return;
+        }
         mPage = isRefresh ? 1 : mPage;
-        getView().showProgressDialog(true);
+        getView().showProgressDialog(mPage == 1 && !isRefresh);
         AppClient.newInstance().getService().getNotifications(app.getToken(),
-                app.getAppKey()).enqueue(new Callback<GetNotificationsRSP>() {
+                app.getAppKey(), mPage, NOTIFICATION_PAGE_SIZE).enqueue(new Callback<GetNotificationsRSP>() {
             @Override
             public void onResponse(Call<GetNotificationsRSP> call, Response<GetNotificationsRSP> response) {
                 try {

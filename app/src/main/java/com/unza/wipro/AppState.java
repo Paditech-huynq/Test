@@ -41,6 +41,7 @@ public class AppState {
     private String appKey = AppConstans.EMPTY;
     private Cart currentCart = new Cart();
     private User currentUser;
+    private int notifyCount = 0;
     private AppClient appClient = AppClient.newInstance();
 
     public CartInfo getCurrentCart() {
@@ -137,6 +138,14 @@ public class AppState {
             return Utils.getSha1Hex(appKey);
         }
         return EMPTY;
+    }
+
+    public int getNotifyCount() {
+        return notifyCount;
+    }
+
+    public void setNotifyCount(int notifyCount) {
+        this.notifyCount = notifyCount;
     }
 
     public void logout() {
