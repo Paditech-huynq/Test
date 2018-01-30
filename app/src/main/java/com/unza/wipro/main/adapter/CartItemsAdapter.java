@@ -169,7 +169,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         @BindView(R.id.tvAddress)
         TextView tvAddress;
         @BindView(R.id.btnChangeCustomer)
-        View btnChangeCustomer;
+        TextView btnChangeCustomer;
 
         boolean isOrder = mOrder != null;
 
@@ -210,6 +210,8 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
             if (customer != null) {
                 ImageHelper.loadAvatar(itemView.getContext(), customer.getAvatar() + "", imvAvatar);
                 tvName.setText(customer.getName());
+                tvName.setTextColor(itemView.getContext().getResources().getColor(R.color.colorPrimary));
+                btnChangeCustomer.setText(itemView.getContext().getString(R.string.action_change));
                 if (customer.getAddress() != null && !customer.getAddress().trim().isEmpty()) {
                     tvAddress.setText(Html.fromHtml(itemView.getContext().getString(R.string.att_address_with_input, customer.getAddress())));
                 }
