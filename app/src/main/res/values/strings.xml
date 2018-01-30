@@ -164,4 +164,5 @@
     <string name="msg_cornfirm_delete">Bạn thật sự muốn làm trống giỏ hàng?</string>
     <string name="action_confirm">Đồng ý</string>
     <string name="action_cancel">Hủy</string>
+    <string name="action_delete">Xóa</string>
 </resources>

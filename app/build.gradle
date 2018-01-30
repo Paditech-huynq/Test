@@ -43,4 +43,6 @@ dependencies {
     compile 'com.android.support:support-annotations:27.0.2'
     compile 'com.android.support:support-compat:26.1.0'
     compile 'com.android.support:support-core-ui:26.1.0'
+    compile "com.daimajia.swipelayout:library:1.2.0@aar"
+    compile 'com.daimajia.androidanimations:library:1.1.2@aar'
 }

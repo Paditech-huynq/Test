@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 
@@ -32,6 +33,25 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     RecyclerView mRecyclerView;
     @BindView(R.id.bottomBar)
     View bottomBar;
+
+    ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+            //Remove swiped item from list and notify the RecyclerView
+        }
+
+        @Override
+        public void onMoved(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, int fromPos, RecyclerView.ViewHolder target, int toPos, int x, int y) {
+            super.onMoved(recyclerView, viewHolder, fromPos, target, toPos, x, y);
+        }
+    };
+
+    ItemTouchHelper itemTouchHelper;
 
     private int mOrderID = -1;
 
@@ -74,6 +94,8 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
         setupRecycleView();
         setupCreateCart();
         enablePullToRefresh(true);
+//        itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+//        itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     private void setupCreateCart() {

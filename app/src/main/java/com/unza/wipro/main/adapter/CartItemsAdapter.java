@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.StringUtil;
 import com.unza.wipro.AppConstans;
@@ -107,6 +108,8 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         AmountView amountView;
         @BindView(R.id.tvCount)
         TextView tvCount;
+        @BindView(R.id.swipe)
+        SwipeLayout swipeLayout;
 
         CartItemHolder(View itemView) {
             super(itemView);
@@ -121,6 +124,10 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @Override
         protected void onBindingData(final int position) {
+
+            swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+            swipeLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+
             final Context context = itemView.getContext();
             final Product item = getItem(position - 1);
             if (item == null) return;
