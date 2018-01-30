@@ -338,13 +338,6 @@ public class ProfileRegisterFragment extends BaseFragment implements AppConstans
                                         if (customer != null) {
                                             getActivity().getSupportFragmentManager().popBackStack();
                                             bus.post(AppAction.NOTIFY_CUSTOMER_SELECTED_AFTER_CREATE.setData(Utils.convertObjectToString(customer)));
-//                                            Intent intent = new Intent("android.intent.action.MAIN");
-//                                            String customerString = new Gson().toJson(customer);
-//                                            intent.putExtra("customer", customerString);
-//                                            ProfileRegisterFragment.this.getActivity().sendBroadcast(intent);
-//                                            // todo: của base
-//                                            ProfileRegisterFragment.this.getActivity().onBackPressed();
-//                                            ProfileRegisterFragment.this.getActivity().onBackPressed();
                                         }
                                     } else {
                                         showToast(response.body().getMessage());
