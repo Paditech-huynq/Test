@@ -157,7 +157,7 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
                         mHandler.postDelayed(this,1000);
                     }
                 };
-                mHandler.postDelayed(runnable,1000);
+                mHandler.post(runnable);
             }
     }
 
