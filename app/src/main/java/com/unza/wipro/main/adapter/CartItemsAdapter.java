@@ -2,6 +2,7 @@ package com.unza.wipro.main.adapter;
 
 import android.content.Context;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,6 +85,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
     }
 
     public void setCustomer(Customer customer) {
+        Log.e("updat customer", customer.getCustomerId());
         this.currentCustomer = customer;
         notifyItemChanged(0);
     }
@@ -200,8 +202,19 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         private void setUpViewForCart() {
             btnChangeCustomer.setVisibility(isOrder || !app.isLogin() || app.getCurrentUser() instanceof Customer ? View.GONE : View.VISIBLE);
             tvName.setVisibility(!app.isLogin() ? View.GONE : View.VISIBLE);
-            if (app.getCurrentUser() instanceof Promoter) {
-                fillPromoterInfo((Promoter) app.getCurrentUser());
+            if (app.getCurrentUser() != null) {
+                if (app.getCurrentUser() instanceof Promoter) {
+                    fillPromoterInfo((Promoter) app.getCurrentUser());
+
+                }
+                if (app.getCurrentUser().getAddress() != null && !app.getCurrentUser().getAddress().trim().isEmpty()) {
+                    tvAddress.setText(Html.fromHtml(itemView.getContext().getString(R.string.att_address_with_input, app.getCurrentUser().getAddress())));
+                    tvAddress.setVisibility(View.VISIBLE);
+                } else {
+                    tvAddress.setVisibility(View.GONE);
+                }
+            } else {
+                tvAddress.setVisibility(View.GONE);
             }
             app.addCartChangeListener(this);
         }
@@ -209,10 +222,8 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         private void fillCustomerInfo(Customer customer) {
             if (customer != null) {
                 ImageHelper.loadAvatar(itemView.getContext(), customer.getAvatar() + "", imvAvatar);
+                tvName.setTextColor(itemView.getContext().getResources().getColor(R.color.colorPrimary));
                 tvName.setText(customer.getName());
-                if (customer.getAddress() != null && !customer.getAddress().trim().isEmpty()) {
-                    tvAddress.setText(Html.fromHtml(itemView.getContext().getString(R.string.att_address_with_input, customer.getAddress())));
-                }
             }
         }
 

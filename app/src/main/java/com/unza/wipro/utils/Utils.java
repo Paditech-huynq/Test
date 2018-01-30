@@ -25,7 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 
-public class Utils {
+public class Utils extends com.paditech.core.helper.Utils{
     private static final int DURATION_TIME_DEFAULT = 500;
 
     public static TransitionDrawable getTransitionChangeColor(int colorBefore, int colorAfter) {
