@@ -137,8 +137,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     private void updateDateTime() {
         if (currentFilter == null) {
             currentFilter = new MyFilter();
-            getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(), DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
-            getView().changeColorButtonThisMonth();
+            onBtThisMonthClick();
             return;
         }
         switch (currentFilter.getButtonClicked()) {
