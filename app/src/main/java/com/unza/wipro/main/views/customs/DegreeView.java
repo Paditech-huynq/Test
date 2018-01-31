@@ -95,8 +95,15 @@ public class DegreeView extends View {
                 text_size = (int) (width * SCALE_FACTOR_FOR_SMALLER_WIDTH);
             }
             final RectF oval = new RectF();
-            int sweepAngle = (int) ((DEGREE_BALANCE * value) / maxvalue);
-            String text = String.valueOf(value * 100 / maxvalue) + " %";
+            int sweepAngle ;
+            String text ;
+            if(maxvalue == 0){
+                sweepAngle = DEGREE_BALANCE;
+                text = String.valueOf(100) + " %";
+            } else {
+                sweepAngle = (int) ((DEGREE_BALANCE * value) / maxvalue);
+                text = String.valueOf(value * 100 / maxvalue) + " %";
+            }
             oval.set(coordinateXToDraw - radius,
                     coordinateYToDraw - radius,
                     coordinateXToDraw + radius,
