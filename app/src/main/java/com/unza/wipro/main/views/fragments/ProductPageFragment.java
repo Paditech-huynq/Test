@@ -117,8 +117,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
             @Override
             public void onAddCartButtonClick(View view, int index) {
                 Product product = mAdapter.getItem(index);
-                insertItemToCart(product);
-                makeFlyAnimation((ImageView) view);
+                makeFlyAnimation((ImageView) view, product);
             }
         });
     }
@@ -146,7 +145,8 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
                 .commitAllowingStateLoss();
     }
 
-    private void makeFlyAnimation(ImageView targetView) {
+    private void makeFlyAnimation(ImageView targetView, final Product product) {
+        if (product == null) return;
         MainActivity activity = (MainActivity) getActivity();
 
         new AddToCartAnimation().attachActivity(activity)
@@ -162,6 +162,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
+                        insertItemToCart(product);
                     }
 
                     @Override

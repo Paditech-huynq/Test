@@ -154,9 +154,10 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
             @Override
             public void onAddCartButtonClick(View view, int index) {
                 Product product = mAdapter.getItem(index);
-                insertItemToCart(product);
                 if (isShowCartButton) {
-                    makeFlyAnimation((ImageView) view);
+                    makeFlyAnimation((ImageView) view, product);
+                } else {
+                    insertItemToCart(product);
                 }
             }
         });
@@ -193,7 +194,9 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
         app.editCart().insert(product);
     }
 
-    private void makeFlyAnimation(ImageView targetView) {
+    private void makeFlyAnimation(ImageView targetView, final Product product) {
+        if (product == null) return;
+
         MainActivity activity = (MainActivity) getActivity();
 
         new AddToCartAnimation().attachActivity(activity)
@@ -209,6 +212,7 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
+                        insertItemToCart(product);
                     }
 
                     @Override
