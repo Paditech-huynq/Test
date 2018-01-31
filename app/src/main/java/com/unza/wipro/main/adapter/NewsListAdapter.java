@@ -43,8 +43,9 @@ public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConsta
         if (data == null) {
             return;
         }
+        int lastCount = newsList.size();
         newsList.addAll(data);
-        notifyDataSetChanged();
+        notifyItemRangeInserted(lastCount, newsList.size());
     }
 
     public void replaceData(List<News> news) {

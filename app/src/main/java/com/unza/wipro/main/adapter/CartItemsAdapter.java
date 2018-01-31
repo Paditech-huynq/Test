@@ -9,9 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.daimajia.swipe.SwipeLayout;
+import com.chauthai.swipereveallayout.SwipeRevealLayout;
+import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.StringUtil;
+import com.paditech.core.helper.ViewHelper;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.Order;
@@ -34,6 +36,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
     private final static int TYPE_ITEM = 1;
     private Order mOrder;
     private Customer currentCustomer;
+    private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
     public void updateOrder(Order mOrder) {
         this.mOrder = mOrder;
@@ -108,8 +111,8 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         AmountView amountView;
         @BindView(R.id.tvCount)
         TextView tvCount;
-        @BindView(R.id.swipe)
-        SwipeLayout swipeLayout;
+        @BindView(R.id.layoutSwipe)
+        SwipeRevealLayout swipeRevealLayout;
 
         CartItemHolder(View itemView) {
             super(itemView);
@@ -124,13 +127,11 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @Override
         protected void onBindingData(final int position) {
-
-            swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
-            swipeLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-
             final Context context = itemView.getContext();
             final Product item = getItem(position - 1);
-            if (item == null) return;
+            if (item == null) {
+                return;
+            }
             tvName.setText(item.getName());
             if (item.getProductThumbnail() != null && !StringUtil.isEmpty(item.getProductThumbnail().getLink())) {
                 ImageHelper.loadThumbImage(itemView.getContext(), item.getProductThumbnail().getLink(), imvProduct);
@@ -142,26 +143,42 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
             amountView.setOnValueChangeListener(new AmountView.OnValueChangeListener() {
                 @Override
                 public void onValueChange(boolean isReduce, int value) {
-                    app.editCart().update(item.getId(), value);
-                    if (value == 0) {
-                        notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, getItemCount());
-                    } else {
-                        updatePrice();
-                    }
+                    updateQuantity(position, value);
                 }
             });
+
+            viewBinderHelper.bind(swipeRevealLayout, String.valueOf(item.getId()));
 
             updatePrice();
         }
 
+        private void updateQuantity(int position, int value) {
+            final Product item = getItem(index - 1);
+            if (item != null) {
+                app.editCart().update(item.getId(), value);
+                if (value == 0) {
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, getItemCount());
+                } else {
+                    updatePrice();
+                }
+            }
+        }
+
+        @OnClick(R.id.tvDelete)
+        void onDeleteButtonClick() {
+            updateQuantity(index, 0);
+        }
+
         void updatePrice() {
-            CartInfo cartInfo = app.getCurrentCart();
+            final CartInfo cartInfo;
             if (mOrder != null) {
                 cartInfo = mOrder.getCart();
+            } else {
+                cartInfo = app.getCurrentCart();
             }
-            String currentTotalPrice = StringUtil.formatMoney(cartInfo.getTotalPrice(getItem(index - 1).getId()));
-            tvTotalPrice.setText(itemView.getContext().getString(R.string.cart_singale_item_total_price, currentTotalPrice));
+            final String currentTotalPrice = StringUtil.formatMoney(cartInfo.getTotalPrice(getItem(index - 1).getId()));
+            ViewHelper.setText(tvTotalPrice, itemView.getContext().getString(R.string.cart_singale_item_total_price, currentTotalPrice), null);
         }
     }
 
@@ -181,7 +198,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         @BindView(R.id.btnChangeCustomer)
         TextView btnChangeCustomer;
 
-        boolean isOrder = mOrder != null;
+        private boolean isOrder = mOrder != null;
 
         CartInfoHolder(View itemView) {
             super(itemView);
