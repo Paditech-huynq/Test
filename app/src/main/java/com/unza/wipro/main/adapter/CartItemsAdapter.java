@@ -167,7 +167,9 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @OnClick(R.id.tvDelete)
         void onDeleteButtonClick() {
-            updateQuantity(index, 0);
+            if(swipeRevealLayout.isOpened()) {
+                updateQuantity(index, 0);
+            }
         }
 
         void updatePrice() {
