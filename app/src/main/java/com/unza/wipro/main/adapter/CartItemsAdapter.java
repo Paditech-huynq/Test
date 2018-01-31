@@ -167,7 +167,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @OnClick(R.id.tvDelete)
         void onDeleteButtonClick() {
-            if(swipeRevealLayout.isOpened()) {
+            if (swipeRevealLayout.isOpened()) {
                 updateQuantity(index, 0);
             }
         }
@@ -221,6 +221,8 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         }
 
         private void setUpViewForOrderDetail() {
+            btnChangeCustomer.setVisibility(View.GONE);
+            tvDate.setVisibility(View.VISIBLE);
             if (mOrder.getCreator() != null && mOrder.getCreator().getName() != null && !mOrder.getCreator().getName().trim().isEmpty()) {
                 tvPromoterName.setVisibility(View.VISIBLE);
                 tvPromoterName.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_person_sell, mOrder.getCreator().getName())));
@@ -236,6 +238,8 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         }
 
         private void fillPromoterInfo(Promoter promoter) {
+            tvDate.setVisibility(View.VISIBLE);
+            tvAddress.setVisibility(View.VISIBLE);
             tvPromoterName.setVisibility(View.VISIBLE);
             tvPromoterName.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_person_sell, promoter.getName())));
             tvAddress.setVisibility(promoter.getAddress() == null || promoter.getAddress().trim().isEmpty() ? View.GONE : View.VISIBLE);
@@ -251,13 +255,9 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
             if (app.getCurrentUser() != null) {
                 if (app.getCurrentUser() instanceof Promoter) {
                     fillPromoterInfo((Promoter) app.getCurrentUser());
-
-                }
-                if (app.getCurrentUser().getAddress() != null && !app.getCurrentUser().getAddress().trim().isEmpty()) {
-                    tvAddress.setText(Html.fromHtml(itemView.getContext().getString(R.string.att_address_with_input, app.getCurrentUser().getAddress())));
-                    tvAddress.setVisibility(View.VISIBLE);
-                } else {
+                }else {
                     tvAddress.setVisibility(View.GONE);
+                    tvDate.setVisibility(View.GONE);
                 }
             } else {
                 tvAddress.setVisibility(View.GONE);
@@ -272,11 +272,6 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
                 tvName.setTextColor(itemView.getContext().getResources().getColor(R.color.colorPrimary));
                 tvName.setText(customer.getName());
                 btnChangeCustomer.setText(itemView.getContext().getString(R.string.action_change));
-                if (customer.getAddress() != null && !customer.getAddress().trim().isEmpty()) {
-                    tvAddress.setText(Html.fromHtml(itemView.getContext().getString(R.string.att_address_with_input, customer.getAddress())));
-                } else {
-                    tvAddress.setVisibility(View.GONE);
-                }
             }
             Date date = new Date();
             tvDate.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_date_sell, StringUtil.formatDate(date))));
