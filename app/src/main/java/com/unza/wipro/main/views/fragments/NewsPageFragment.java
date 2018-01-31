@@ -2,6 +2,7 @@ package com.unza.wipro.main.views.fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -57,7 +58,7 @@ public class NewsPageFragment extends MVPFragment<NewsPagePresenter> implements 
     }
 
     private void setupPullToRefresh() {
-        setPullToRefreshColor(Color.BLUE);
+        setPullToRefreshColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
         enablePullToRefresh(true);
         setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

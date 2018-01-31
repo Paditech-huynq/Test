@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -79,7 +80,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
     }
 
     private void setupPullToRefresh() {
-        setPullToRefreshColor(Color.BLUE);
+        setPullToRefreshColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
         enablePullToRefresh(true);
         setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -117,8 +118,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
             @Override
             public void onAddCartButtonClick(View view, int index) {
                 Product product = mAdapter.getItem(index);
-                insertItemToCart(product);
-                makeFlyAnimation((ImageView) view);
+                makeFlyAnimation((ImageView) view, product);
             }
         });
     }
@@ -146,7 +146,8 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
                 .commitAllowingStateLoss();
     }
 
-    private void makeFlyAnimation(ImageView targetView) {
+    private void makeFlyAnimation(ImageView targetView, final Product product) {
+        if (product == null) return;
         MainActivity activity = (MainActivity) getActivity();
 
         new AddToCartAnimation().attachActivity(activity)
@@ -162,6 +163,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
+                        insertItemToCart(product);
                     }
 
                     @Override

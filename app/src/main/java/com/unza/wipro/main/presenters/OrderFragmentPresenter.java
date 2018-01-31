@@ -22,7 +22,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.unza.wipro.main.models.MyFilter.*;
+import static com.unza.wipro.main.models.MyFilter.BUTTON_ALL;
+import static com.unza.wipro.main.models.MyFilter.BUTTON_LAST_WEEK;
+import static com.unza.wipro.main.models.MyFilter.BUTTON_THIS_MONTH;
+import static com.unza.wipro.main.models.MyFilter.BUTTON_THIS_WEEK;
+import static com.unza.wipro.main.models.MyFilter.NO_BUTTON;
 
 public class OrderFragmentPresenter extends BasePresenter<OrderListContract.ViewImpl> implements OrderListContract.Presenter, AppConstans {
     private final static int START_PAGE_INDEX = 1;
@@ -32,6 +36,8 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     private Long toDate;
     boolean isPending;
     private MyFilter currentFilter;
+    boolean lastLoginState;
+    boolean isDisappearing;
 
     @Override
     public void onLoadMore() {
@@ -42,11 +48,21 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     public void onViewAppear() {
         super.onViewAppear();
         updateDateTime();
+        if (lastLoginState != app.isLogin()) {
+            onRefresh();
+        }
+        lastLoginState = app.isLogin();
     }
 
     @Override
     public void onViewDisAppear() {
         super.onViewDisAppear();
+        if (!isDisappearing) {
+            lastLoginState = app.isLogin();
+        }
+        isDisappearing = true;
+        currentFilter.setFrom(getView().getFrom());
+        currentFilter.setTo(getView().getTo());
     }
 
     @Override
@@ -118,7 +134,6 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     private void updateDateTime() {
         if (currentFilter == null) {
             currentFilter = new MyFilter();
-            Log.e("updateDateTime: ", "aaa" );
             getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(), DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
             getView().changeColorButtonThisMonth();
             return;
@@ -141,9 +156,8 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
                 onBtThisWeekClick();
                 break;
         }
-        Log.e("updateDateTime: ", "bbb" );
         getView().updateDayInFilter(currentFilter.getFrom(), currentFilter.getTo());
-    }
+        }
 
     @Override
     public void onFilterClick() {
@@ -248,11 +262,12 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
 
     @Override
     public void onRefresh() {
-        //todo: implement refresh logic here
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                getView().scrollToTop();
+                if (getView() != null) {
+                    getView().scrollToTop();
+                }
                 getOrdersListFromServer(true);
             }
         }, 100);

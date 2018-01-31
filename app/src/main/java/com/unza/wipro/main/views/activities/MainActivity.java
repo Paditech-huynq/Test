@@ -192,7 +192,6 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
 
     @Subscribe
     public void onAction(AppAction action) {
-        Log.e("Action", action+"");
         switch (action) {
             case REQUEST_CAMERA_CLOSE:
                 openCamera(false);

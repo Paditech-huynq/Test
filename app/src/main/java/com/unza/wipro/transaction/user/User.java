@@ -1,8 +1,9 @@
 package com.unza.wipro.transaction.user;
 
+import android.util.Log;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.paditech.core.helper.StringUtil;
 import com.unza.wipro.main.models.UserData;
 import com.unza.wipro.main.models.UserInfo;
 
@@ -128,11 +129,11 @@ public abstract class User implements UserInfo {
                     } else {
                         user = new Promoter();
                     }
-                    ((Promoter) user).setNumberCustomers(String.valueOf(userData.getCustomers()));
-                    ((Promoter) user).setSalesActual(String.valueOf(userData.getSalesActual()));
-                    ((Promoter) user).setSalesExpect(String.valueOf(userData.getSalesExpect()));
-                    ((Promoter) user).setFrom(String.valueOf(userData.getFrom()));
-                    ((Promoter) user).setTo(String.valueOf(userData.getTo()));
+                    ((Promoter) user).setNumberCustomers(userData.getCustomers());
+                    ((Promoter) user).setSalesActual(userData.getSalesActual());
+                    ((Promoter) user).setSalesExpect(userData.getSalesExpect());
+                    ((Promoter) user).setFrom(userData.getFrom());
+                    ((Promoter) user).setTo(userData.getTo());
                     break;
             }
             updateBase(user);
@@ -140,12 +141,12 @@ public abstract class User implements UserInfo {
         }
 
         private void updateBase(User user) {
-            user.setId(String.valueOf(userData.getId()));
+            user.setId(userData.getId());
             user.setAddress(userData.getAddress());
             user.setAvatar(userData.getAvatar());
             user.setEmail(userData.getEmail());
             user.setName(userData.getName());
-            user.setNumberOrders(String.valueOf(userData.getOrder()));
+            user.setNumberOrders(userData.getOrder());
             user.setPhone(userData.getPhone());
         }
     }

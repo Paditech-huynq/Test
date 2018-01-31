@@ -65,6 +65,7 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
 
     @Override
     public void onLogOutClick() {
+        app.logout();
         getView().goToHomeProfile();
     }
 

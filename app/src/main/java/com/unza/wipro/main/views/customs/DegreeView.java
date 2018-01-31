@@ -75,46 +75,50 @@ public class DegreeView extends View {
     @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.save();
-        float width = (float) getWidth();
-        float height = (float) getHeight();
-        int text_size;
-        float coordinateXToDraw;
-        float coordinateYToDraw;
-        float radius;
-        if (width >= height * SCALE_FACTOR_FOR_BIG_WIDTH) {
-            radius = height;
-            coordinateXToDraw = width / 2;
-            coordinateYToDraw = height;
-            text_size = (int) (height / SCALE_FACTOR_FOR_SMALLER_HEIGHT);
-        } else {
-            radius = width / 2;
-            coordinateXToDraw = width / 2;
-            coordinateYToDraw = height / 2;
-            text_size = (int) (width * SCALE_FACTOR_FOR_SMALLER_WIDTH);
+        try {
+            canvas.save();
+            float width = (float) getWidth();
+            float height = (float) getHeight();
+            int text_size;
+            float coordinateXToDraw;
+            float coordinateYToDraw;
+            float radius;
+            if (width >= height * SCALE_FACTOR_FOR_BIG_WIDTH) {
+                radius = height;
+                coordinateXToDraw = width / 2;
+                coordinateYToDraw = height;
+                text_size = (int) (height / SCALE_FACTOR_FOR_SMALLER_HEIGHT);
+            } else {
+                radius = width / 2;
+                coordinateXToDraw = width / 2;
+                coordinateYToDraw = height / 2;
+                text_size = (int) (width * SCALE_FACTOR_FOR_SMALLER_WIDTH);
+            }
+            final RectF oval = new RectF();
+            int sweepAngle = (int) ((DEGREE_BALANCE * value) / maxvalue);
+            String text = String.valueOf(value * 100 / maxvalue) + " %";
+            oval.set(coordinateXToDraw - radius,
+                    coordinateYToDraw - radius,
+                    coordinateXToDraw + radius,
+                    coordinateYToDraw + radius);
+            mCanvas.drawArc(oval, DEGREE_BALANCE, DEGREE_BALANCE, true, mPaintDrawBackground);
+            mCanvas.drawArc(oval, DEGREE_BALANCE, sweepAngle, true, mPaintDrawDegree);
+            mCanvas.drawArc(oval, DEGREE_BALANCE, DEGREE_BALANCE, true, mPaintDrawStroke);
+            Paint paintDrawText = new Paint();
+            paintDrawText.setAntiAlias(true);
+            paintDrawText.setStyle(Paint.Style.FILL_AND_STROKE);
+            paintDrawText.setTextSize(text_size);
+            paintDrawText.setStrokeWidth(1);
+            paintDrawText.setTextAlign(Paint.Align.CENTER);
+            paintDrawText.setColor(getResources().getColor(R.color.text_orange));
+            mCanvas.drawText(text, coordinateXToDraw,
+                    coordinateYToDraw - coordinateYToDraw / SCALE_PADDING_FOR_TEXT,
+                    paintDrawText);
+            canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
+            canvas.restore();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        final RectF oval = new RectF();
-        int sweepAngle = (int) ((DEGREE_BALANCE * value) / maxvalue);
-        String text = String.valueOf(value * 100 / maxvalue) + " %";
-        oval.set(coordinateXToDraw - radius,
-                coordinateYToDraw - radius,
-                coordinateXToDraw + radius,
-                coordinateYToDraw + radius);
-        mCanvas.drawArc(oval, DEGREE_BALANCE, DEGREE_BALANCE, true, mPaintDrawBackground);
-        mCanvas.drawArc(oval, DEGREE_BALANCE, sweepAngle, true, mPaintDrawDegree);
-        mCanvas.drawArc(oval, DEGREE_BALANCE, DEGREE_BALANCE, true, mPaintDrawStroke);
-        Paint paintDrawText = new Paint();
-        paintDrawText.setAntiAlias(true);
-        paintDrawText.setStyle(Paint.Style.FILL_AND_STROKE);
-        paintDrawText.setTextSize(text_size);
-        paintDrawText.setStrokeWidth(1);
-        paintDrawText.setTextAlign(Paint.Align.CENTER);
-        paintDrawText.setColor(getResources().getColor(R.color.text_orange));
-        mCanvas.drawText(text, coordinateXToDraw,
-                coordinateYToDraw - coordinateYToDraw / SCALE_PADDING_FOR_TEXT,
-                paintDrawText);
-        canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
-        canvas.restore();
     }
 
     @SuppressLint("DrawAllocation")

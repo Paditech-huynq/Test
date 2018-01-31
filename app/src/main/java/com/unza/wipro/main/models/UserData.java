@@ -2,8 +2,6 @@ package com.unza.wipro.main.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.unza.wipro.AppConstans;
-import com.unza.wipro.AppState;
 
 public class UserData {
 
@@ -32,7 +30,7 @@ public class UserData {
     @Expose
     private String to;
     @SerializedName("id")
-    private int id;
+    private String id;
     @SerializedName("name")
     private String name;
     @SerializedName("email")
@@ -113,11 +111,11 @@ public class UserData {
         this.salesActual = salesActual;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

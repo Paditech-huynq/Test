@@ -1,26 +1,34 @@
 package com.unza.wipro.main.presenters;
 
 import com.paditech.core.mvp.BasePresenter;
+import com.unza.wipro.AppConstans;
 import com.unza.wipro.main.contracts.ProductDetailContract;
 import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.models.responses.GetProductDetailRSP;
 import com.unza.wipro.services.AppClient;
+import com.unza.wipro.transaction.cart.Cart;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductDetailPresenter extends BasePresenter<ProductDetailContract.ViewImpl> implements ProductDetailContract.Presenter {
+public class ProductDetailPresenter extends BasePresenter<ProductDetailContract.ViewImpl> implements ProductDetailContract.Presenter, AppConstans,  Cart.CartChangeListener {
 
     @Override
     public void onCreate() {
         super.onCreate();
         getProductDetail();
+        app.addCartChangeListener(this);
     }
 
     @Override
     public void loadData() {
         getProductDetail();
+    }
+
+    @Override
+    public void onCartUpdate() {
+        getView().updateCartCount();
     }
 
     private void getProductDetail() {

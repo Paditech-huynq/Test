@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -154,13 +155,14 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
             @Override
             public void onAddCartButtonClick(View view, int index) {
                 Product product = mAdapter.getItem(index);
-                insertItemToCart(product);
                 if (isShowCartButton) {
-                    makeFlyAnimation((ImageView) view);
+                    makeFlyAnimation((ImageView) view, product);
+                } else {
+                    insertItemToCart(product);
                 }
             }
         });
-        setPullToRefreshColor(Color.BLUE);
+        setPullToRefreshColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
         enablePullToRefresh(true);
         setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -193,7 +195,9 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
         app.editCart().insert(product);
     }
 
-    private void makeFlyAnimation(ImageView targetView) {
+    private void makeFlyAnimation(ImageView targetView, final Product product) {
+        if (product == null) return;
+
         MainActivity activity = (MainActivity) getActivity();
 
         new AddToCartAnimation().attachActivity(activity)
@@ -209,6 +213,7 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
+                        insertItemToCart(product);
                     }
 
                     @Override

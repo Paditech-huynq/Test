@@ -117,7 +117,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     }
 
     public void setupRecycleView() {
-        if(mAdapter == null) {
+        if (mAdapter == null) {
             mAdapter = new OrderListAdapter(OrderListFragment.this.getContext());
         }
         rcvOrder.addItemDecoration(new VerticalSpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_normal)));

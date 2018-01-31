@@ -184,8 +184,7 @@
                             android:id="@+id/tvTitle"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_toLeftOf="@+id/view_cart"
-                            android:layout_toRightOf="@+id/imvAvatar"
+                            android:layout_centerInParent="true"
                             android:gravity="center"
                             android:text="@string/product_detail_title"
                             android:textColor="@android:color/white"
@@ -205,13 +204,34 @@
                             android:layout_marginRight="@dimen/padding_normal"
                             android:gravity="center_vertical">
 
-                            <ImageView
+                            <RelativeLayout
                                 android:id="@+id/btnCart"
-                                android:layout_width="35dip"
-                                android:layout_height="35dip"
-                                android:paddingLeft="@dimen/padding_normal"
-                                android:scaleType="fitCenter"
-                                android:src="@drawable/ic_cart2"/>
+                                android:layout_width="wrap_content"
+                                android:layout_height="?attr/actionBarSize">
+
+                                <ImageView
+                                    android:layout_width="35dip"
+                                    android:layout_height="35dip"
+                                    android:layout_centerVertical="true"
+                                    android:padding="3dip"
+                                    android:scaleType="fitCenter"
+                                    android:src="@drawable/ic_cart2" />
+
+                                <TextView
+                                    android:id="@+id/tvCartAmount"
+                                    android:layout_width="25dip"
+                                    android:layout_height="25dip"
+                                    android:layout_marginLeft="20dip"
+                                    android:layout_marginTop="5dip"
+                                    android:background="@drawable/bg_notification_border_rounded"
+                                    android:gravity="center"
+                                    android:maxLines="1"
+                                    android:text="99"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="@dimen/text_size_small"
+                                    android:textStyle="bold"
+                                    android:visibility="gone" />
+                            </RelativeLayout>
                         </LinearLayout>
                     </RelativeLayout>
                 </android.support.v7.widget.Toolbar>
