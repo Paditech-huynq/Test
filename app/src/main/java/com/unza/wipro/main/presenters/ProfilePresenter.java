@@ -2,7 +2,9 @@ package com.unza.wipro.main.presenters;
 
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
+import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.ProfileContract;
+import com.unza.wipro.main.models.News;
 import com.unza.wipro.main.models.responses.GetUserProfileRSP;
 import com.unza.wipro.services.AppClient;
 import com.unza.wipro.transaction.user.Customer;
@@ -14,9 +16,27 @@ import retrofit2.Response;
 
 public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> implements ProfileContract.Presenter, AppConstans {
 
+    public static final String URL_POLICY_PERMIS = "http://wipro.crm.admin.paditech.com/app/policy.html";
+    public static final String URL_FAQ = "http://wipro.crm.admin.paditech.com/app/faq.html";
     @Override
     public void onCreatFragment() {
         getView().startUI();
+    }
+
+    @Override
+    public void onPolicyPermisClick() {
+        News news = new News();
+        news.setContent(URL_POLICY_PERMIS);
+        news.setTitle(getView().getContext().getResources().getString(R.string.title_policy_permis));
+        getView().goToPolicyPermisWeb(news);
+    }
+
+    @Override
+    public void onQuestionClick() {
+        News news = new News();
+        news.setContent(URL_FAQ);
+        news.setTitle(getView().getContext().getResources().getString(R.string.title_question));
+        getView().goToQuestionWeb(news);
     }
 
     @Override
