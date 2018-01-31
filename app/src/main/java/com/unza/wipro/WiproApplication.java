@@ -16,7 +16,7 @@ public class WiproApplication extends BaseApplication {
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        if(activity instanceof MainActivity) {
+        if (activity instanceof MainActivity) {
             AppState.getInstance().loadFromCache();
         }
         super.onActivityCreated(activity, savedInstanceState);
@@ -24,7 +24,7 @@ public class WiproApplication extends BaseApplication {
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        if(activity instanceof MainActivity) {
+        if (activity instanceof MainActivity) {
             AppState.getInstance().release();
         }
         super.onActivityDestroyed(activity);

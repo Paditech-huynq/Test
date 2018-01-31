@@ -39,6 +39,9 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
     @BindView(R.id.tvCartAmount)
     TextView tvCartAmount;
 
+    @BindView(R.id.tvNotifyUnreadCount)
+    TextView tvNotifyUnreadCount;
+
     @Override
     protected int getLayoutResource() {
         return R.layout.activity_main;
@@ -80,6 +83,7 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
     public void onViewAppear() {
         super.onViewAppear();
         updateAvatar();
+        getPresenter().getUnreadNoticeCount();
     }
 
     public void setShowHeader(boolean isShowHeader) {
@@ -173,9 +177,17 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
     @Override
     public void updateCartCount() {
         int cartItemCount = app.getCurrentCart().getTotalQuantity();
-        tvCartAmount.setVisibility(cartItemCount == 0 ? View.GONE : View.VISIBLE);
+        tvCartAmount.setVisibility(cartItemCount <= 0 ? View.GONE : View.VISIBLE);
         String count = cartItemCount <= 99 ? String.valueOf(cartItemCount) : "99+";
         tvCartAmount.setText(count);
+    }
+
+    @Override
+    public void updateNoticeCount() {
+        int noticeCount = app.getNotifyCount();
+        tvNotifyUnreadCount.setVisibility(noticeCount <= 0 ? View.GONE : View.VISIBLE);
+        String count = noticeCount <= 99 ? String.valueOf(noticeCount) : "99+";
+        tvNotifyUnreadCount.setText(count);
     }
 
     @Subscribe

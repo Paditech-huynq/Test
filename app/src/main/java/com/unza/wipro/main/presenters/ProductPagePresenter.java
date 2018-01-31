@@ -49,14 +49,17 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
                     @Override
                     public void onResponse(Call<GetListProductRSP> call, Response<GetListProductRSP> response) {
                         isPending = false;
-                        if (getView() == null) {
-                            return;
+                        try {
+                            getView().showProgressDialog(false);
+                            getView().setRefreshing(false);
+                            if (response.body() != null) {
+                                GetListProductRSP listProductRSP = response.body();
+                                List<Product> productList = listProductRSP.getData();
+                                onLoadProductSuccess(isRefresh, productList);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                        getView().showProgressDialog(false);
-                        getView().setRefreshing(false);
-                        GetListProductRSP listProductRSP = response.body();
-                        List<Product> productList = listProductRSP.getData();
-                        onLoadProductSuccess(isRefresh, productList);
                     }
 
                     @Override

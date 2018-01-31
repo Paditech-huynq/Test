@@ -16,5 +16,7 @@ public interface NewsPageContract {
 
     interface Presenter extends BasePresenterImpl {
         void onLoadMore();
+
+        void onRefresh();
     }
 }

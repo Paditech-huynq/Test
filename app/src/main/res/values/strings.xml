@@ -79,6 +79,9 @@
     <string name="this_month">Tháng này</string>
     <string name="find">Tìm kiếm</string>
     <string name="section_month_year">Tháng %s</string>
+    <string name="quality_product_in_item">Số lượng: %s</string>
+    <string name="time_create_in_item">Thời gian: %s</string>
+    <string name="noti_when_choose_day_in_filter_false">Ngày kết thúc phải lớn hơn ngày bắt đầu</string>
 
     <!--order detail-->
     <string name="order_detail_title">Đơn hàng số #%s</string>
@@ -158,5 +161,8 @@
     <string name="err_msg_transaction_no_login">Bạn phải đăng nhập để thực hiện thao tác này</string>
 
     <string name="cart_singale_item_total_price">Tổng: %1s VNĐ</string>
-
+    <string name="msg_cornfirm_delete">Bạn thật sự muốn làm trống giỏ hàng?</string>
+    <string name="action_confirm">Đồng ý</string>
+    <string name="action_cancel">Hủy</string>
+    <string name="action_delete">Xóa</string>
 </resources>

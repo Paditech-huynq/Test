@@ -1,9 +1,11 @@
 package com.unza.wipro.main.views.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 
@@ -31,6 +33,25 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     RecyclerView mRecyclerView;
     @BindView(R.id.bottomBar)
     View bottomBar;
+
+    ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+            //Remove swiped item from list and notify the RecyclerView
+        }
+
+        @Override
+        public void onMoved(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, int fromPos, RecyclerView.ViewHolder target, int toPos, int x, int y) {
+            super.onMoved(recyclerView, viewHolder, fromPos, target, toPos, x, y);
+        }
+    };
+
+    ItemTouchHelper itemTouchHelper;
 
     private int mOrderID = -1;
 
@@ -73,6 +94,8 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
         setupRecycleView();
         setupCreateCart();
         enablePullToRefresh(true);
+//        itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+//        itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     private void setupCreateCart() {
@@ -87,7 +110,7 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     @Override
     public boolean isActionShow(int resId) {
         if (resId == R.id.btnTrash) {
-            return !hasOrder();
+            return !hasOrder() && app.getCurrentCart().getItemCount() > 0;
         }
         return super.isActionShow(resId);
     }
@@ -95,8 +118,15 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     @Override
     public void onActionSelected(int resId) {
         if (resId == R.id.btnTrash) {
-            app.editCart().clear();
-            mAdapter.notifyItemRangeRemoved(1, mAdapter.getItemCount() - 1);
+            if (app.getCurrentCart().getItemCount() > 0) {
+                showConfirmDialog(getString(R.string.msg_cornfirm_delete), getString(R.string.action_confirm), getString(R.string.action_cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        app.editCart().clear();
+                        mAdapter.notifyItemRangeRemoved(1, mAdapter.getItemCount() - 1);
+                    }
+                }, null);
+            }
         }
         super.onActionSelected(resId);
     }

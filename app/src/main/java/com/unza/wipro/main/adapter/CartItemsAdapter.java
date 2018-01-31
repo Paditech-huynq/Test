@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.StringUtil;
 import com.unza.wipro.AppConstans;
@@ -85,7 +86,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
     }
 
     public void setCustomer(Customer customer) {
-        Log.e("updat customer",customer.getCustomerId());
+        Log.e("updat customer", customer.getCustomerId());
         this.currentCustomer = customer;
         notifyItemChanged(0);
     }
@@ -107,6 +108,8 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         AmountView amountView;
         @BindView(R.id.tvCount)
         TextView tvCount;
+        @BindView(R.id.swipe)
+        SwipeLayout swipeLayout;
 
         CartItemHolder(View itemView) {
             super(itemView);
@@ -121,6 +124,10 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @Override
         protected void onBindingData(final int position) {
+
+            swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+            swipeLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+
             final Context context = itemView.getContext();
             final Product item = getItem(position - 1);
             if (item == null) return;
@@ -138,6 +145,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
                     app.editCart().update(item.getId(), value);
                     if (value == 0) {
                         notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, getItemCount());
                     } else {
                         updatePrice();
                     }
@@ -171,7 +179,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         @BindView(R.id.tvAddress)
         TextView tvAddress;
         @BindView(R.id.btnChangeCustomer)
-        View btnChangeCustomer;
+        TextView btnChangeCustomer;
 
         boolean isOrder = mOrder != null;
 
@@ -189,6 +197,8 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         }
 
         private void fillPromoterInfo(Promoter promoter) {
+            tvDate.setVisibility(View.VISIBLE);
+            tvPromoterName.setVisibility(View.VISIBLE);
             Date date = mOrder != null ? new Date(mOrder.getCreatedAt()) : new Date();
             tvDate.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_date_sell, StringUtil.formatDate(date))));
             tvPromoterName.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_person_sell, promoter.getName())));
@@ -202,8 +212,19 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         private void setUpViewForCart() {
             btnChangeCustomer.setVisibility(isOrder || !app.isLogin() || app.getCurrentUser() instanceof Customer ? View.GONE : View.VISIBLE);
             tvName.setVisibility(!app.isLogin() ? View.GONE : View.VISIBLE);
-            if (app.getCurrentUser() instanceof Promoter) {
-                fillPromoterInfo((Promoter) app.getCurrentUser());
+            if (app.getCurrentUser() != null) {
+                if (app.getCurrentUser() instanceof Promoter) {
+                    fillPromoterInfo((Promoter) app.getCurrentUser());
+
+                }
+                if (app.getCurrentUser().getAddress() != null && !app.getCurrentUser().getAddress().trim().isEmpty()) {
+                    tvAddress.setText(Html.fromHtml(itemView.getContext().getString(R.string.att_address_with_input, app.getCurrentUser().getAddress())));
+                    tvAddress.setVisibility(View.VISIBLE);
+                } else {
+                    tvAddress.setVisibility(View.GONE);
+                }
+            } else {
+                tvAddress.setVisibility(View.GONE);
             }
             app.addCartChangeListener(this);
         }
@@ -211,7 +232,9 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         private void fillCustomerInfo(Customer customer) {
             if (customer != null) {
                 ImageHelper.loadAvatar(itemView.getContext(), customer.getAvatar() + "", imvAvatar);
+                tvName.setTextColor(itemView.getContext().getResources().getColor(R.color.colorPrimary));
                 tvName.setText(customer.getName());
+                btnChangeCustomer.setText(itemView.getContext().getString(R.string.action_change));
                 if (customer.getAddress() != null && !customer.getAddress().trim().isEmpty()) {
                     tvAddress.setText(Html.fromHtml(itemView.getContext().getString(R.string.att_address_with_input, customer.getAddress())));
                 }
