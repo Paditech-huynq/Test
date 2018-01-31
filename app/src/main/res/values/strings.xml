@@ -168,4 +168,5 @@
     <string name="action_cancel">Hủy</string>
     <string name="action_delete">Xóa</string>
     <string name="no_result">Không có kết quả phù hợp</string>
+    <string name="add_new_item_to_cart">Thêm 1 sản phẩm vào giỏ hàng</string>
 </resources>
