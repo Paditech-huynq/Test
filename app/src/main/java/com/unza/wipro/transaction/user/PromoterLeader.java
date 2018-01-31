@@ -12,10 +12,6 @@ public class PromoterLeader extends Promoter {
     }
 
     public void setMemberGroupId(String memberGroupId) {
-        if(StringUtil.isEmpty(memberGroupId)){
-            this.memberGroupId = "";
-            return;
-        }
         this.memberGroupId = memberGroupId;
     }
 

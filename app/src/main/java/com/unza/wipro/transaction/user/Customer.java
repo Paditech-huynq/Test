@@ -12,10 +12,6 @@ public class Customer extends User implements CustomerInfo {
     }
 
     public void setPoint(String numberCustomers) {
-        if(StringUtil.isEmpty(numberCustomers)){
-            this.point = "0";
-            return;
-        }
         this.point = numberCustomers;
     }
 

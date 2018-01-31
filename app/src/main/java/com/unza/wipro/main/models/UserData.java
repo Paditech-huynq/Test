@@ -2,6 +2,8 @@ package com.unza.wipro.main.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.unza.wipro.AppConstans;
+import com.unza.wipro.AppState;
 
 public class UserData {
 
@@ -47,7 +49,7 @@ public class UserData {
     private String memberGroupId;
 
     public String getSalesExpect() {
-        return salesExpect;
+        return salesExpect == null ? "0" : salesExpect;
     }
 
     public void setSalesExpect(String salesExpect) {
@@ -55,7 +57,7 @@ public class UserData {
     }
 
     public String getFrom() {
-        return from;
+        return from == null ? "0" : from;
     }
 
     public void setFrom(String from) {
@@ -63,7 +65,7 @@ public class UserData {
     }
 
     public String getTo() {
-        return to;
+        return to == null ? "0" : to;
     }
 
     public void setTo(String to) {
@@ -71,7 +73,7 @@ public class UserData {
     }
 
     public String getPoint() {
-        return point;
+        return point == null ? "0" : point;
     }
 
     public void setPoint(String point) {
@@ -79,7 +81,7 @@ public class UserData {
     }
 
     public String getPhone() {
-        return phone;
+        return phone == null ? "" : phone;
     }
 
     public void setPhone(String phone) {
@@ -88,7 +90,7 @@ public class UserData {
 
 
     public String getOrder() {
-        return order;
+        return order == null ? "0" : order;
     }
 
     public void setOrder(String order) {
@@ -96,7 +98,7 @@ public class UserData {
     }
 
     public String getCustomers() {
-        return customers;
+        return customers == null ? "0" : customers;
     }
 
     public void setCustomers(String customers) {
@@ -104,7 +106,7 @@ public class UserData {
     }
 
     public String getSalesActual() {
-        return salesActual;
+        return salesActual == null ? "0" : salesActual;
     }
 
     public void setSalesActual(String salesActual) {
@@ -120,7 +122,7 @@ public class UserData {
     }
 
     public String getName() {
-        return name;
+        return name == null ? "" : name;
     }
 
     public void setName(String name) {
@@ -128,7 +130,7 @@ public class UserData {
     }
 
     public String getEmail() {
-        return email;
+        return email == null ? "" : email;
     }
 
     public void setEmail(String email) {
@@ -136,7 +138,7 @@ public class UserData {
     }
 
     public String getMemberType() {
-        return memberType;
+        return memberType == null ? "0" : memberType;
     }
 
     public int getMemberTypeInt() {
@@ -161,7 +163,7 @@ public class UserData {
     }
 
     public String getAddress() {
-        return address;
+        return address == null ? "" : address;
     }
 
     public void setAddress(String address) {
