@@ -178,7 +178,7 @@
                             android:layout_height="35dip"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            app:srcCompat="@drawable/ic_back"/>
+                            app:srcCompat="@drawable/ic_back_shadow"/>
 
                         <TextView
                             android:id="@+id/tvTitle"
@@ -191,9 +191,9 @@
                             android:textSize="@dimen/text_size_title"
                             android:textStyle="bold"
                             android:shadowColor="@color/text_shadow"
-                            android:shadowDx="1"
-                            android:shadowDy="1"
-                            android:shadowRadius="2"/>
+                            android:shadowDx="0"
+                            android:shadowDy="3"
+                            android:shadowRadius="6"/>
 
                         <LinearLayout
                             android:id="@+id/view_cart"
@@ -213,9 +213,8 @@
                                     android:layout_width="35dip"
                                     android:layout_height="35dip"
                                     android:layout_centerVertical="true"
-                                    android:padding="3dip"
                                     android:scaleType="fitCenter"
-                                    android:src="@drawable/ic_cart2" />
+                                    android:src="@drawable/ic_cart_shadow" />
 
                                 <TextView
                                     android:id="@+id/tvCartAmount"
