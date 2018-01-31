@@ -1,7 +1,6 @@
 package com.unza.wipro.main.views.fragments;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -44,6 +43,8 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
     RecyclerView mRecyclerView;
     @BindView(R.id.edtSearch)
     EditText edtSearch;
+    @BindView(R.id.noResult)
+    View noResult;
     private final static String LAST_SCROLL_Y = "last_scroll_y";
     private ProfileListAdapter mAdapter;
     private static final int DRAWABLE_RIGHT = 2;
@@ -189,6 +190,11 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
         return edtSearch.getText().toString();
     }
 
+    @Override
+    public void showMessageNoResult(boolean isShow) {
+        noResult.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+
     public void refreshData(List<Customer> customerList) {
         mAdapter.refreshData(customerList);
     }
@@ -206,10 +212,8 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
     }
 
     @Subscribe
-    public void onAction(AppAction action)
-    {
-        switch (action)
-        {
+    public void onAction(AppAction action) {
+        switch (action) {
             case NOTIFY_CUSTOMER_SELECTED_AFTER_CREATE:
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;

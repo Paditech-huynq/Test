@@ -42,6 +42,7 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
     }
 
     private void loadProductFromServer(final boolean isRefresh, final boolean isSearch) {
+        getView().showMessageNoResult(false);
         if (isSearch) {
             resetData();
             isPending = false;
@@ -74,7 +75,7 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
                             getView().showProgressDialog(false);
                             if (response != null && response.body() != null) {
                                 if (mPage == FIRST_PAGE && (response.body().getData() == null || response.body().getData().size() <= 0)) {
-                                    getView().showToast(getView().getContext().getString(R.string.no_result));
+                                    getView().showMessageNoResult(true);
                                 }
                                 if (response.body().getData() != null) {
                                     onLoadProductSuccess(isRefresh, isSearch, response.body().getData());

@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcvOrder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/card_view_header"
-        />
+        android:layout_below="@+id/card_view_header" />
 
     <View
         android:id="@+id/view_up_rcv"
@@ -56,11 +54,11 @@
                 android:id="@+id/tv_time_in_header_filter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/bt_time"
                 android:layout_toStartOf="@+id/bt_filter"
-                android:textSize="@dimen/text_size_normal" />
+                android:textSize="@dimen/text_size_normal"
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="1dp"
@@ -95,4 +93,14 @@
             android:layout_height="@dimen/actionbar_button_size"
             android:layout_centerInParent="true" />
     </com.paditech.core.DisableTouchView>
+
+    <TextView
+        android:id="@+id/noResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/no_result"
+        android:textColor="@color/text_dark"
+        android:textSize="@dimen/text_size_normal"
+        android:visibility="gone" />
 </RelativeLayout>
