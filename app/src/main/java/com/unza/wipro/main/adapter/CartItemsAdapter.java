@@ -113,6 +113,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         TextView tvCount;
         @BindView(R.id.layoutSwipe)
         SwipeRevealLayout swipeRevealLayout;
+        private boolean isOrder = mOrder != null;
 
         CartItemHolder(View itemView) {
             super(itemView);
@@ -150,6 +151,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
             viewBinderHelper.bind(swipeRevealLayout, String.valueOf(item.getId()));
 
             updatePrice();
+            swipeRevealLayout.setLockDrag(isOrder);
         }
 
         private void updateQuantity(int position, int value) {
