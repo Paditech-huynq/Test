@@ -150,8 +150,8 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     protected void logout() {
         app.logout();
         Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-        getActivity().finish();
     }
 
     @OnClick(R.id.rlt_change_pass)

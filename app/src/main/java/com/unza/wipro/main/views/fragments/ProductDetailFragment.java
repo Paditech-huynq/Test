@@ -49,6 +49,8 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
     LinearLayout mShopLayout;
     @BindView(R.id.layout_header)
     CollapsingToolbarLayout mHeader;
+    @BindView(R.id.tvCartAmount)
+    TextView tvCartAmount;
 
     private ProductImageAdapter mImageAdapter;
     private Product mProduct;
@@ -98,6 +100,7 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
     private void setupHeader() {
         mHeader.setContentScrimColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
         mHeader.setStatusBarScrimColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+        updateCartCount();
     }
 
     @Override
@@ -180,6 +183,14 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
     @OnClick(R.id.btnCart)
     protected void showCart() {
         switchFragment(OrderDetailFragment.newInstance(), true);
+    }
+
+    @Override
+    public void updateCartCount() {
+        int cartItemCount = app.getCurrentCart().getTotalQuantity();
+        tvCartAmount.setVisibility(cartItemCount <= 0 ? View.GONE : View.VISIBLE);
+        String count = cartItemCount <= 99 ? String.valueOf(cartItemCount) : "99+";
+        tvCartAmount.setText(count);
     }
 
     @OnClick(R.id.btnRegister)

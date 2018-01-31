@@ -8,6 +8,7 @@ public interface ProductDetailContract {
     interface ViewImpl extends BaseViewImpl {
         Product getProduct();
         void showProductDetail(Product product);
+        void updateCartCount();
     }
 
     interface Presenter extends BasePresenterImpl {
