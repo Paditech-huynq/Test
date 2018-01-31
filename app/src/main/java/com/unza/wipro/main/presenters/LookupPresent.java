@@ -88,12 +88,16 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
 
                     @Override
                     public void onFailure(Call<GetListProductRSP> call, Throwable t) {
-                        isPending = false;
-                        if (getView() == null) {
-                            return;
+                        try {
+                            isPending = false;
+                            if (getView() == null) {
+                                return;
+                            }
+                            getView().setRefreshing(false);
+                            getView().showProgressDialog(false);
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                        getView().setRefreshing(false);
-                        getView().showProgressDialog(false);
                     }
                 });
     }

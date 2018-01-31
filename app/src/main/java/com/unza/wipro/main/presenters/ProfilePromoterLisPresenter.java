@@ -3,7 +3,6 @@ package com.unza.wipro.main.presenters;
 
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
-import com.unza.wipro.AppState;
 import com.unza.wipro.main.contracts.ProfilePromoterListContract;
 import com.unza.wipro.main.models.responses.GetListPromoterInGroupRSP;
 import com.unza.wipro.services.AppClient;
@@ -53,30 +52,38 @@ public class ProfilePromoterLisPresenter extends BasePresenter<ProfilePromoterLi
                 .enqueue(new Callback<GetListPromoterInGroupRSP>() {
                     @Override
                     public void onResponse(Call<GetListPromoterInGroupRSP> call, Response<GetListPromoterInGroupRSP> response) {
-                        isPending = false;
-                        if (!keyWord.equals(getView().getCurrentKeyWord())) {
-                            return;
-                        }
-                        if (getView() == null) {
-                            return;
-                        }
-                        getView().showProgressDialog(false);
-                        getView().setRefreshing(false);
-                        GetListPromoterInGroupRSP getListCustomerRSP = response.body();
-                        List<Promoter> promoterList = getListCustomerRSP.getData();
-                        if(promoterList != null) {
-                            loadListCustomerSuccess(isRefresh, promoterList);
+                        try {
+                            isPending = false;
+                            if (!keyWord.equals(getView().getCurrentKeyWord())) {
+                                return;
+                            }
+                            if (getView() == null) {
+                                return;
+                            }
+                            getView().showProgressDialog(false);
+                            getView().setRefreshing(false);
+                            GetListPromoterInGroupRSP getListCustomerRSP = response.body();
+                            List<Promoter> promoterList = getListCustomerRSP.getData();
+                            if(promoterList != null) {
+                                loadListCustomerSuccess(isRefresh, promoterList);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<GetListPromoterInGroupRSP> call, Throwable t) {
-                        isPending = false;
-                        if (getView() == null) {
-                            return;
+                        try {
+                            isPending = false;
+                            if (getView() == null) {
+                                return;
+                            }
+                            getView().showProgressDialog(false);
+                            getView().setRefreshing(false);
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                        getView().showProgressDialog(false);
-                        getView().setRefreshing(false);
                     }
                 });
     }

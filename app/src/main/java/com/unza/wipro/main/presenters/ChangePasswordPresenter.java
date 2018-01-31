@@ -3,7 +3,6 @@ package com.unza.wipro.main.presenters;
 import com.paditech.core.helper.StringUtil;
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.main.contracts.ChangePasswordContract;
-import com.unza.wipro.main.contracts.LoginContract;
 import com.unza.wipro.main.models.responses.CommonRSP;
 import com.unza.wipro.services.AppClient;
 
@@ -47,8 +46,12 @@ public class ChangePasswordPresenter extends BasePresenter<ChangePasswordContrac
 
                     @Override
                     public void onFailure(Call<CommonRSP> call, Throwable t) {
-                        getView().showProgressDialog(false);
-                        getView().onChangePassResult(false, "");
+                        try {
+                            getView().showProgressDialog(false);
+                            getView().onChangePassResult(false, "");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }

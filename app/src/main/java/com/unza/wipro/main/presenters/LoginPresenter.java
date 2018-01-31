@@ -51,8 +51,12 @@ public class LoginPresenter extends BasePresenter<LoginContract.ViewImpl> implem
 
                     @Override
                     public void onFailure(Call<LoginRSP> call, Throwable t) {
-                        getView().showProgressDialog(false);
-                        getView().onLoginResult(false, "");
+                        try {
+                            getView().showProgressDialog(false);
+                            getView().onLoginResult(false, "");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }

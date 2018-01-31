@@ -64,11 +64,15 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
 
                     @Override
                     public void onFailure(Call<GetListProductRSP> call, Throwable t) {
-                        isPending = false;
-                        if (getView() != null) {
-                            getView().showProgressDialog(false);
-                            getView().setRefreshing(false);
-                            Toast.makeText(getView().getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        try {
+                            isPending = false;
+                            if (getView() != null) {
+                                getView().showProgressDialog(false);
+                                getView().setRefreshing(false);
+                                Toast.makeText(getView().getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
                 });

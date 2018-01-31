@@ -31,8 +31,12 @@ public class ForgotPasswordPresenter extends BasePresenter<ForgotPasswordContrac
 
             @Override
             public void onFailure(Call<CommonRSP> call, Throwable t) {
-                getView().showProgressDialog(false);
-                getView().onForgotPassResult(false, username, "");
+                try {
+                    getView().showProgressDialog(false);
+                    getView().onForgotPassResult(false, username, "");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

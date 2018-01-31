@@ -23,27 +23,35 @@ public class HomePresenter extends BasePresenter<HomeContract.ViewImpl> implemen
     @Override
     public void onDestroy() {
         super.onDestroy();
-        bus.unregister(this);
+        try {
+            bus.unregister(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onTabSelected(int tabId) {
-        switch (tabId) {
-            case R.id.tab_product:
-                getView().switchTab(0);
-                break;
-            case R.id.tab_order:
-                getView().switchTab(1);
-                break;
-            case R.id.tab_qr:
-                getView().switchTab(2);
-                break;
-            case R.id.tab_lookup:
-                getView().switchTab(3);
-                break;
-            case R.id.tab_news:
-                getView().switchTab(4);
-                break;
+        try {
+            switch (tabId) {
+                case R.id.tab_product:
+                    getView().switchTab(0);
+                    break;
+                case R.id.tab_order:
+                    getView().switchTab(1);
+                    break;
+                case R.id.tab_qr:
+                    getView().switchTab(2);
+                    break;
+                case R.id.tab_lookup:
+                    getView().switchTab(3);
+                    break;
+                case R.id.tab_news:
+                    getView().switchTab(4);
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -55,6 +63,10 @@ public class HomePresenter extends BasePresenter<HomeContract.ViewImpl> implemen
     @Subscribe
     public void onTransactionSuccess(Transaction transaction) {
         Log.e("Transaction",transaction+"");
-        getView().switchTab(1);
+        try {
+            getView().switchTab(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

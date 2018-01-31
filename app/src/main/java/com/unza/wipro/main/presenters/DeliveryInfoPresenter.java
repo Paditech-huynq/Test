@@ -29,15 +29,23 @@ public class DeliveryInfoPresenter extends BasePresenter<DeliveryInfoContract.Vi
     private Transaction.TransactionCallback orderTransactionCallback = new Transaction.TransactionCallback() {
         @Override
         public void onSuccess(Transaction transaction, OrderData data) {
-            getView().showProgressDialog(false);
-            onPaymentSuccess(transaction);
+            try {
+                getView().showProgressDialog(false);
+                onPaymentSuccess(transaction);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
         public void onFailure(Transaction transaction, Throwable e) {
-            getView().showProgressDialog(false);
-            e.printStackTrace();
-            onPaymentFailure();
+            try {
+                getView().showProgressDialog(false);
+                e.printStackTrace();
+                onPaymentFailure();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
         }
     };
 

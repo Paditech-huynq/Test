@@ -69,8 +69,12 @@ public class NotificationPresenter extends BasePresenter<NotificationContract.Vi
 
             @Override
             public void onFailure(Call<GetNotificationsRSP> call, Throwable t) {
-                getView().showProgressDialog(false);
-                getView().setRefreshing(false);
+                try {
+                    getView().showProgressDialog(false);
+                    getView().setRefreshing(false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

@@ -20,13 +20,21 @@ public class MainPresenter extends BasePresenter<MainContract.ViewImpl> implemen
 
     @Override
     public void onCartUpdate() {
-        getView().updateCartCount();
+        try {
+            getView().updateCartCount();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onViewAppear() {
         super.onViewAppear();
-        getView().updateCartCount();
+        try {
+            getView().updateCartCount();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

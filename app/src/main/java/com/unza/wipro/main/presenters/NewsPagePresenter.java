@@ -62,12 +62,16 @@ public class NewsPagePresenter extends BasePresenter<NewsPageContract.ViewImpl> 
 
             @Override
             public void onFailure(Call<GetNewsRSP> call, Throwable t) {
-                isPending = false;
-                if (getView() == null) {
-                    return;
+                try {
+                    isPending = false;
+                    if (getView() == null) {
+                        return;
+                    }
+                    getView().setRefreshing(false);
+                    getView().showProgressDialog(false);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                getView().setRefreshing(false);
-                getView().showProgressDialog(false);
             }
         });
     }

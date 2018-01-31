@@ -33,24 +33,32 @@ public class UpdatePasswordPresenter extends BasePresenter<UpdatePasswordContrac
                 .enqueue(new Callback<ChangePasswordRSP>() {
                     @Override
                     public void onResponse(Call<ChangePasswordRSP> call, Response<ChangePasswordRSP> response) {
-                        isPending = false;
-                        if (getView() != null) {
-                            getView().showProgressDialog(false);
-                        }
-                        if (response.body().getData() != null) {
-                            getView().showToast(getView().getContext().getString(R.string.message_change_pass_success));
-                            ((BaseFragment) getView()).getActivity().onBackPressed();
-                        } else {
-                            getView().showToast(response.body().getMessage());
+                        try {
+                            isPending = false;
+                            if (getView() != null) {
+                                getView().showProgressDialog(false);
+                            }
+                            if (response.body().getData() != null) {
+                                getView().showToast(getView().getContext().getString(R.string.message_change_pass_success));
+                                ((BaseFragment) getView()).getActivity().onBackPressed();
+                            } else {
+                                getView().showToast(response.body().getMessage());
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ChangePasswordRSP> call, Throwable t) {
-                        isPending = false;
-                        if (getView() != null) {
-                            getView().showProgressDialog(false);
-                            getView().showToast(getView().getContext().getString(R.string.message_change_pass_failure));
+                        try {
+                            isPending = false;
+                            if (getView() != null) {
+                                getView().showProgressDialog(false);
+                                getView().showToast(getView().getContext().getString(R.string.message_change_pass_failure));
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
                 });
