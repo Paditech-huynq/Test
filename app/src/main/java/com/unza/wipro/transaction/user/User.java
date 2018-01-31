@@ -2,6 +2,7 @@ package com.unza.wipro.transaction.user;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.paditech.core.helper.StringUtil;
 import com.unza.wipro.main.models.UserData;
 import com.unza.wipro.main.models.UserInfo;
 
