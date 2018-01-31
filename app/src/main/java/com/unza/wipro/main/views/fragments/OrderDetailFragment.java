@@ -93,7 +93,6 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
         super.initView();
         setupRecycleView();
         setupCreateCart();
-        enablePullToRefresh(true);
 //        itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
 //        itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
