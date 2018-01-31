@@ -2,6 +2,7 @@ package com.unza.wipro.main.presenters;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.paditech.core.helper.StringUtil;
 import com.paditech.core.mvp.BasePresenter;
@@ -60,8 +61,6 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
             lastLoginState = app.isLogin();
         }
         isDisappearing = true;
-        currentFilter.setFrom(getView().getFrom());
-        currentFilter.setTo(getView().getTo());
     }
 
     @Override
@@ -91,7 +90,6 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
         isPending = true;
         mPage = isRefresh ? START_PAGE_INDEX : mPage;
         getView().showProgressDialog(isRefresh && mPage == START_PAGE_INDEX);
-
         AppClient.newInstance().getService().getOrders(app.getToken(),
                 app.getAppKey(), fromDate, toDate, mPage, PAGE_SIZE)
                 .enqueue(new Callback<GetOrdersRSP>() {
@@ -133,12 +131,15 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
 
     private void updateDateTime() {
         if (currentFilter == null) {
+            currentFilter = new MyFilter();
             getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(), DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
             getView().changeColorButtonThisMonth();
-            currentFilter = new MyFilter();
             return;
         }
         switch (currentFilter.getButtonClicked()) {
+            case NO_BUTTON:
+                getView().changeColorButtonToDefault();
+                break;
             case BUTTON_ALL:
                 onBtAllClick();
                 break;
@@ -150,9 +151,10 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
                 break;
             case BUTTON_THIS_WEEK:
                 onBtThisWeekClick();
+                break;
         }
         getView().updateDayInFilter(currentFilter.getFrom(), currentFilter.getTo());
-    }
+        }
 
     @Override
     public void onFilterClick() {
@@ -189,8 +191,9 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onBtAllClick() {
         currentFilter.setButtonClicked(BUTTON_ALL);
-        onSearch("", "");
+        onSearch(EMPTY, EMPTY);
         getView().changeColorButtonAll();
+        getView().updateDayInFilter(EMPTY, EMPTY);
     }
 
     @Override
@@ -265,5 +268,10 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
                 getOrdersListFromServer(true);
             }
         }, 100);
+    }
+
+    public void updateCurrentFilter(String from,String to) {
+        currentFilter.setFrom(from);
+        currentFilter.setTo(to);
     }
 }
