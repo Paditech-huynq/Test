@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -79,7 +80,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
     }
 
     private void setupPullToRefresh() {
-        setPullToRefreshColor(Color.BLUE);
+        setPullToRefreshColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
         enablePullToRefresh(true);
         setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
