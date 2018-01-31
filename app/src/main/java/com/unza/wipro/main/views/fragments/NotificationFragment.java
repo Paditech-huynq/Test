@@ -14,10 +14,13 @@ import com.unza.wipro.main.adapter.NotificationAdapter;
 import com.unza.wipro.main.contracts.NotificationContract;
 import com.unza.wipro.main.models.Notice;
 import com.unza.wipro.main.presenters.NotificationPresenter;
+import com.unza.wipro.main.views.activities.MainActivity;
 
 import java.util.List;
 
 import butterknife.BindView;
+
+import static com.unza.wipro.AppConstans.app;
 
 /**
  * wipro-crm-android
@@ -114,7 +117,10 @@ public class NotificationFragment extends MVPFragment<NotificationPresenter> imp
     }
 
     private void updateTitle() {
+        int unread = mAdapter != null && mAdapter.getUnreadCount() > 0 ? mAdapter.getUnreadCount() : 0;
         String count = mAdapter != null && mAdapter.getUnreadCount() > 0 ? String.format("(%d)", mAdapter.getUnreadCount()) : "";
+        app.setNotifyCount(unread);
         setScreenTitle(getString(R.string.notification_title) + count);
+        ((MainActivity) getActivity()).updateNoticeCount();
     }
 }
