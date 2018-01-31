@@ -214,7 +214,6 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         }
 
         private void fillPromoterInfo(Promoter promoter) {
-            tvDate.setVisibility(View.VISIBLE);
             tvPromoterName.setVisibility(View.VISIBLE);
             Date date = mOrder != null ? new Date(mOrder.getCreatedAt()) : new Date();
             tvDate.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_date_sell, StringUtil.formatDate(date))));

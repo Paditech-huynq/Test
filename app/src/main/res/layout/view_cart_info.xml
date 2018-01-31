@@ -74,8 +74,7 @@
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_small"
-                android:visibility="gone" />
+                android:layout_marginTop="@dimen/padding_small"/>
 
             <TextView
                 android:id="@+id/tvPromoterName"
@@ -88,8 +87,7 @@
                 android:id="@+id/tvAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_small"
-                android:visibility="gone" />
+                android:layout_marginTop="@dimen/padding_small"/>
 
         </LinearLayout>
     </LinearLayout>
