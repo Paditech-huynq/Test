@@ -212,15 +212,29 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
             fillCustomerInfo(currentCustomer);
             if (!isOrder) {
                 setUpViewForCart();
+            } else {
+                setUpViewForOrderDetail();
             }
             updatePrice();
         }
 
-        private void fillPromoterInfo(Promoter promoter) {
-            tvDate.setVisibility(View.VISIBLE);
-            tvPromoterName.setVisibility(View.VISIBLE);
-            Date date = mOrder != null ? new Date(mOrder.getCreatedAt()) : new Date();
+        private void setUpViewForOrderDetail() {
+            if (mOrder.getCreator() != null && mOrder.getCreator().getName() != null && !mOrder.getCreator().getName().trim().isEmpty()) {
+                tvPromoterName.setVisibility(View.VISIBLE);
+                tvPromoterName.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_person_sell, mOrder.getCreator().getName())));
+            }
+            Date date = new Date(mOrder.getCreatedAt());
             tvDate.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_date_sell, StringUtil.formatDate(date))));
+            if (mOrder.getCreator() != null && mOrder.getCreator().getAddress() != null && !mOrder.getCreator().getAddress().trim().isEmpty()) {
+                tvAddress.setVisibility(View.VISIBLE);
+                tvAddress.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.att_address_with_input, mOrder.getCreator().getAddress())));
+            } else {
+                tvAddress.setVisibility(View.GONE);
+            }
+        }
+
+        private void fillPromoterInfo(Promoter promoter) {
+            tvPromoterName.setVisibility(View.VISIBLE);
             tvPromoterName.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_person_sell, promoter.getName())));
             tvAddress.setVisibility(promoter.getAddress() == null || promoter.getAddress().trim().isEmpty() ? View.GONE : View.VISIBLE);
             tvAddress.setText(Html.fromHtml(itemView.getContext().getString(R.string.att_address_with_input, promoter.getAddress())));
@@ -245,6 +259,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
                 }
             } else {
                 tvAddress.setVisibility(View.GONE);
+                tvDate.setVisibility(View.GONE);
             }
             app.addCartChangeListener(this);
         }
@@ -257,8 +272,12 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
                 btnChangeCustomer.setText(itemView.getContext().getString(R.string.action_change));
                 if (customer.getAddress() != null && !customer.getAddress().trim().isEmpty()) {
                     tvAddress.setText(Html.fromHtml(itemView.getContext().getString(R.string.att_address_with_input, customer.getAddress())));
+                } else {
+                    tvAddress.setVisibility(View.GONE);
                 }
             }
+            Date date = new Date();
+            tvDate.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_date_sell, StringUtil.formatDate(date))));
         }
 
         @OnClick(R.id.btnChangeCustomer)
