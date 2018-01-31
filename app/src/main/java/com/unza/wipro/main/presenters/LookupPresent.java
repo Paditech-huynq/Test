@@ -51,13 +51,13 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
         }
         if (isRefresh) {
             resetData();
-            getView().setRefreshing(true);
         }
         if (isFull) {
             getView().setRefreshing(false);
             return;
         }
         isPending = true;
+        getView().setRefreshing(isRefresh);
         getView().showProgressDialog(mPage == FIRST_PAGE && !isRefresh);
         final String keyword = getView().getCurrentKeyword();
         AppClient.newInstance().getService().getListProduct(mPage, PAGE_SIZE, EMPTY, keyword)
@@ -76,7 +76,7 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
                         if (response == null || response.body() == null) {
                             return;
                         }
-                        onLoadProductSuccess(isRefresh, isSearch,response.body().getData());
+                        onLoadProductSuccess(isRefresh, isSearch, response.body().getData());
                     }
 
                     @Override
@@ -91,7 +91,7 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
                 });
     }
 
-    private void onLoadProductSuccess(boolean isRefresh, boolean isSearch,List<Product> productList) {
+    private void onLoadProductSuccess(boolean isRefresh, boolean isSearch, List<Product> productList) {
         mPage++;
         isFull = productList.size() < PAGE_SIZE;
         if (isRefresh || isSearch) {
