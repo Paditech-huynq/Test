@@ -3,6 +3,7 @@ package com.unza.wipro.main.views.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +15,7 @@ import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.ProfileContract;
+import com.unza.wipro.main.models.News;
 import com.unza.wipro.main.presenters.ProfilePresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
 import com.unza.wipro.main.views.customs.DegreeView;
@@ -145,6 +147,18 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
         }
     }
 
+    @Override
+    public void goToPolicyPermisWeb(News news) {
+        Log.e("goToPolicyPermisWeb: ","dsf" );
+        switchFragment(WebViewFragment.newInstance(news.getContent(),news.getTitle()),true);
+    }
+
+    @Override
+    public void goToQuestionWeb(News news) {
+        Log.e("goToPolicyPermisWeb: ","asss" );
+        switchFragment(WebViewFragment.newInstance(news.getContent(),news.getTitle()),true);
+    }
+
     @OnClick(R.id.rlt_logout)
     protected void logout() {
         getPresenter().onLogOutClick();
@@ -167,13 +181,13 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
 
     @OnClick(R.id.rlt_policy_permis)
     public void onPolicyPermisClick() {
-
+        getPresenter().onPolicyPermisClick();
     }
 
 
     @OnClick(R.id.rlt_questions)
     public void onQuestionClick() {
-
+        getPresenter().onQuestionClick();
     }
 
     @Override
