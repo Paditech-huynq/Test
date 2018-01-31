@@ -1,5 +1,7 @@
 package com.unza.wipro.main.views.fragments;
 
+import android.animation.Animator;
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,6 +29,7 @@ import com.unza.wipro.main.models.ProductCategory;
 import com.unza.wipro.main.models.ProductStock;
 import com.unza.wipro.main.presenters.ProductDetailPresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
+import com.unza.wipro.utils.AddToCartAnimation;
 
 import java.util.List;
 
@@ -51,6 +55,8 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
     CollapsingToolbarLayout mHeader;
     @BindView(R.id.tvCartAmount)
     TextView tvCartAmount;
+    @BindView(R.id.btnCart)
+    View btnCart;
 
     private ProductImageAdapter mImageAdapter;
     private Product mProduct;
@@ -196,6 +202,37 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
     @OnClick(R.id.btnRegister)
     protected void addToCart() {
         if (mProduct == null) return;
-        app.editCart().insert(mProduct);
+        makeFlyAnimation(mViewPager);
+    }
+
+    private void makeFlyAnimation(View targetView) {
+        Activity activity = getActivity();
+
+        new AddToCartAnimation().attachActivity(activity)
+                .setTargetView(targetView)
+                .setItemDuration(500)
+                .setMoveDuration(500)
+                .setDestView(btnCart)
+                .setAnimationListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        app.editCart().insert(mProduct);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                }).startAnimation();
     }
 }
