@@ -2,6 +2,7 @@ package com.unza.wipro.main.presenters;
 
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
+import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.LookupContract;
 import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.models.responses.GetListProductRSP;
@@ -68,15 +69,21 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
                             return;
                         }
                         isPending = false;
-                        if (getView() == null) {
-                            return;
+                        try {
+                            getView().setRefreshing(false);
+                            getView().showProgressDialog(false);
+                            if (response != null && response.body() != null) {
+                                if (mPage == FIRST_PAGE && (response.body().getData() == null || response.body().getData().size() <= 0)) {
+                                    getView().showToast(getView().getContext().getString(R.string.no_result));
+                                }
+                                if (response.body().getData() != null) {
+                                    onLoadProductSuccess(isRefresh, isSearch, response.body().getData());
+                                }
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                        getView().setRefreshing(false);
-                        getView().showProgressDialog(false);
-                        if (response == null || response.body() == null) {
-                            return;
-                        }
-                        onLoadProductSuccess(isRefresh, isSearch, response.body().getData());
                     }
 
                     @Override

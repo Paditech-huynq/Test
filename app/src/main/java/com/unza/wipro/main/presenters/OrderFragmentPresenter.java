@@ -8,6 +8,7 @@ import com.paditech.core.helper.StringUtil;
 import com.paditech.core.mvp.BasePresenter;
 import com.squareup.otto.Subscribe;
 import com.unza.wipro.AppConstans;
+import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.OrderListContract;
 import com.unza.wipro.main.models.MyFilter;
 import com.unza.wipro.main.models.responses.GetOrdersRSP;
@@ -102,6 +103,10 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
                             if (response.body() != null) {
                                 if (response.body().getData() != null && response.body().getData().size() > 0) {
                                     mPage++;
+                                } else {
+                                    if (mPage == START_PAGE_INDEX) {
+                                        getView().showToast(getView().getContext().getString(R.string.no_result));
+                                    }
                                 }
                                 isFull = response.body().getData().size() < PAGE_SIZE;
                                 if (isRefresh) {

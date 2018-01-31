@@ -2,6 +2,7 @@ package com.unza.wipro.main.presenters;
 
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
+import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.ProfileListContract;
 import com.unza.wipro.main.models.responses.GetListCustomerRSP;
 import com.unza.wipro.main.views.fragments.ProfileListFragment;
@@ -57,14 +58,22 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
                             return;
                         }
                         isPending = false;
-                        if (getView() == null) {
-                            return;
+                        try {
+                            getView().showProgressDialog(false);
+                            getView().setRefreshing(false);
+                            if (response != null && response.body() != null) {
+                                if (page == FIRST_PAGE && (response.body().getData() == null || response.body().getData().size() <= 0)) {
+                                    getView().showToast(getView().getContext().getString(R.string.no_result));
+                                }
+                                if (response.body().getData() != null) {
+                                    GetListCustomerRSP getListCustomerRSP = response.body();
+                                    List<Customer> customerList = getListCustomerRSP.getData();
+                                    loadListCustomerSuccess(isRefresh, isSearch, customerList);
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                        getView().showProgressDialog(false);
-                        getView().setRefreshing(false);
-                        GetListCustomerRSP getListCustomerRSP = response.body();
-                        List<Customer> customerList = getListCustomerRSP.getData();
-                        loadListCustomerSuccess(isRefresh, isSearch, customerList);
                     }
 
                     @Override
@@ -84,7 +93,7 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
         isFull = false;
     }
 
-    private void loadListCustomerSuccess(boolean isRefresh, boolean isSearch,List<Customer> customerList) {
+    private void loadListCustomerSuccess(boolean isRefresh, boolean isSearch, List<Customer> customerList) {
         page++;
         isFull = customerList.size() < PAGE_SIZE;
         if (isRefresh || isSearch) {
