@@ -61,8 +61,6 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
             lastLoginState = app.isLogin();
         }
         isDisappearing = true;
-        currentFilter.setFrom(getView().getFrom());
-        currentFilter.setTo(getView().getTo());
     }
 
     @Override
@@ -140,8 +138,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
         }
         switch (currentFilter.getButtonClicked()) {
             case NO_BUTTON:
-                getView().updateDayInFilter(DateTimeUtils.getStringFirstDayInCurrentMonth(), DateTimeUtils.getStringDayMonthYear(Calendar.getInstance().getTime()));
-                getView().changeColorButtonThisMonth();
+                getView().changeColorButtonToDefault();
                 break;
             case BUTTON_ALL:
                 onBtAllClick();
