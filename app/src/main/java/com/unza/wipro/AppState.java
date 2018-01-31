@@ -92,7 +92,7 @@ public class AppState {
         loginInfo = null;
     }
 
-    private void saveToCache() {
+    protected void saveToCache() {
         PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_TOKEN, token);
         PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_APPKEY, appKey);
         PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_INFO, new Gson().toJson(loginInfo));

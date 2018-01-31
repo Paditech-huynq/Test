@@ -3,8 +3,6 @@ package com.unza.wipro.main.presenters;
 import com.paditech.core.mvp.BasePresenter;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.main.contracts.MainContract;
-import com.unza.wipro.main.models.Notice;
-import com.unza.wipro.main.models.responses.GetNotificationsRSP;
 import com.unza.wipro.main.models.responses.GetNotificationsUnreadRSP;
 import com.unza.wipro.services.AppClient;
 import com.unza.wipro.transaction.cart.Cart;
@@ -22,6 +20,12 @@ public class MainPresenter extends BasePresenter<MainContract.ViewImpl> implemen
 
     @Override
     public void onCartUpdate() {
+        getView().updateCartCount();
+    }
+
+    @Override
+    public void onViewAppear() {
+        super.onViewAppear();
         getView().updateCartCount();
     }
 

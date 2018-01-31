@@ -2,6 +2,7 @@ package com.unza.wipro.main.views.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.unza.wipro.main.contracts.OrderDetailContract;
 import com.unza.wipro.main.models.Order;
 import com.unza.wipro.main.models.UserData;
 import com.unza.wipro.main.presenters.OrderDetailPresenter;
+import com.unza.wipro.main.views.activities.LoginActivity;
 import com.unza.wipro.main.views.customs.VerticalSpacesItemDecoration;
 import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.transaction.user.User;
@@ -172,6 +174,9 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
             public void onViewItemClock(int resId, BaseRecycleViewAdapter.BaseViewHolder holder, int position) {
                 if (resId == R.id.btnChangeCustomer) {
                     switchFragment(ProfileListFragment.newInstance(), true);
+                } else if (resId == R.id.btnLogin) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -232,5 +237,11 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onViewAppear() {
+        super.onViewAppear();
+        mAdapter.notifyItemChanged(0);
     }
 }

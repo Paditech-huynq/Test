@@ -24,11 +24,12 @@ public class WiproApplication extends BaseApplication {
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        if (activity instanceof MainActivity) {
-            if (AppConstans.app.isLogoutPending()) {
-                AppConstans.app.release();
-            }
-        }
+        AppConstans.app.saveToCache();
+//        if (activity instanceof MainActivity) {
+//            if (!AppConstans.app.isLogoutPending()) {
+//                AppConstans.app.release();
+//            }
+//        }
         super.onActivityDestroyed(activity);
     }
 }

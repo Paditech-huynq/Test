@@ -197,6 +197,8 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         TextView tvAddress;
         @BindView(R.id.btnChangeCustomer)
         TextView btnChangeCustomer;
+        @BindView(R.id.btnLogin)
+        TextView btnLogin;
 
         private boolean isOrder = mOrder != null;
 
@@ -206,6 +208,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         @Override
         protected void onBindingData(int position) {
+            btnLogin.setVisibility(app.isLogin() ? View.GONE : View.VISIBLE);
             fillCustomerInfo(currentCustomer);
             if (!isOrder) {
                 setUpViewForCart();
@@ -261,6 +264,11 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         @OnClick(R.id.btnChangeCustomer)
         void onAvatarClick() {
             onViewClick(R.id.btnChangeCustomer);
+        }
+
+        @OnClick(R.id.btnLogin)
+        void onLoginBtnClick() {
+            onViewClick(R.id.btnLogin);
         }
 
         void updatePrice() {
