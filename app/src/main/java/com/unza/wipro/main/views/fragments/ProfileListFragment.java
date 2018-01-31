@@ -13,9 +13,12 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.Utils;
@@ -113,6 +116,16 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
                     edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, 0, 0);
                 }
                 searchHandler.postDelayed(searchRunnable, SEARCH_DELAY);
+            }
+        });
+
+        edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    Utils.hideSoftKeyboard(ProfileListFragment.this.getActivity());
+                }
+                return false;
             }
         });
     }
