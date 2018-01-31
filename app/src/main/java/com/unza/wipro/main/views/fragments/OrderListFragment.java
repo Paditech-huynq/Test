@@ -97,7 +97,11 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     public void initView() {
         super.initView();
         setupRecycleView();
-        enablePullToRefresh(true);
+        if (filter.getVisibility() == View.GONE) {
+            enablePullToRefresh(true);
+        } else {
+            enablePullToRefresh(false);
+        }
         setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -150,6 +154,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public void dismissFilter() {
+        OrderListFragment.this.enablePullToRefresh(true);
         viewUpRecycleView.setVisibility(View.GONE);
         filter.setAnimation(AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_up));
         filter.setVisibility(View.GONE);
@@ -158,6 +163,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public void appearFilter() {
+        OrderListFragment.this.enablePullToRefresh(false);
         viewUpRecycleView.setBackground(Utils.getTransitionChangeColor(Color.TRANSPARENT, R.color.bg_view_up_recycle_view_screen_list_order));
         viewUpRecycleView.setVisibility(View.VISIBLE);
         filter.startAnimation(AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_down));
@@ -280,6 +286,12 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @Override
     public String getTo() {
         return tvCalenderRightFilter.getText().toString();
+    }
+
+
+    @OnClick(R.id.tv_time_in_header_filter)
+    public void onTvTimeFilterClick() {
+        getPresenter().onFilterClick();
     }
 
     @OnClick(R.id.bt_filter)
