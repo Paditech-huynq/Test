@@ -48,9 +48,9 @@ public class LookupAdapter extends BaseRecycleViewAdapter {
     }
 
     public void refreshProductList(List<Product> productList) {
-        notifyItemRangeRemoved(0, mProducts.size());
         mProducts.clear();
-        updateItemToList(productList);
+        mProducts.addAll(productList);
+        notifyDataSetChanged();
     }
 
     @Override
