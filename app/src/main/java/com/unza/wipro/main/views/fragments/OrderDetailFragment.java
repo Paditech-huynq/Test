@@ -85,7 +85,6 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
         } else {
             return getString(R.string.title_cart_detail);
         }
-
     }
 
     @Override
