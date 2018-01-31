@@ -70,5 +70,7 @@ public interface OrderListContract {
         void onItemClick(int position);
 
         void onRefresh();
+
+        void updateCurrentFilter(String from, String to);
     }
 }

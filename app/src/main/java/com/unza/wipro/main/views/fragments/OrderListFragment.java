@@ -207,6 +207,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         }
         tvTimeInHeaderFilter.setText(getResources().getString(R.string.display_time_day_month_year_in_header_filter, from,
                 to));
+        getPresenter().updateCurrentFilter(from,to);
     }
 
     @Override
