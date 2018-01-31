@@ -64,17 +64,13 @@ public class ChangePasswordActivity extends MVPActivity<ChangePasswordPresenter>
             @Override
             public void run() {
                 if (result) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(ChangePasswordActivity.this);
-                    builder.setMessage(getString(R.string.message_change_pass_success))
-                            .setCancelable(false)
-                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    setResult(RESULT_OK);
-                                    finish();
-                                }
-                            });
-                    builder.create().show();
+                    showAlertDialog(getString(R.string.message_change_pass_success), "", "ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            setResult(RESULT_OK);
+                            finish();
+                        }
+                    });
                 } else {
                     String alert = StringUtil.isEmpty(message) ? getString(R.string.message_change_pass_failure) : message;
                     showToast(alert);

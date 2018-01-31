@@ -126,12 +126,11 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
                 catch (Exception e){
                     e.printStackTrace();
                 }
-
             }
 
             @Override
             public void onFailure(Call<GetProductDetailRSP> call, Throwable t) {
-                t.printStackTrace();
+
             }
         });
     }

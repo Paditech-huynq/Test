@@ -51,9 +51,9 @@ public interface AppService {
     @POST("product/category")
     Call<GetProductCategoryRSP> getProductCategory();
 
-    @POST("product/detail")
+    @POST("product/barcode")
     @FormUrlEncoded
-    Call<GetProductDetailRSP> getProductDetail(@Field("product_id") String productId);
+    Call<GetProductDetailRSP> getProductDetail(@Field("barcode") String product_barcode);
 
     @POST("product/list")
     Call<GetListProductRSP> getListProduct(@Query("page") int page, @Query("page_size") int pageSize,
