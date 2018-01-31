@@ -3,6 +3,7 @@ package com.unza.wipro.main.views.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +15,7 @@ import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.contracts.ProfileContract;
+import com.unza.wipro.main.models.News;
 import com.unza.wipro.main.presenters.ProfilePresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
 import com.unza.wipro.main.views.customs.DegreeView;
@@ -129,7 +131,9 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
                 promoter.getSalesExpect())));
         tvSalesHave.setText(Html.fromHtml(getResources().getString(R.string.sales_have_profile_fragment,
                 promoter.getSalesActual())));
-        degreeSale.setValue(R.color.white, R.color.colorPrimary, Long.parseLong(promoter.getSalesActual()), Long.parseLong(promoter.getSalesExpect()));
+        if(Long.parseLong(promoter.getSalesExpect())!=0) {
+            degreeSale.setValue(R.color.white, R.color.colorPrimary, Long.parseLong(promoter.getSalesActual()), Long.parseLong(promoter.getSalesExpect()));
+        }
         tvTime.setText(Html.fromHtml(getResources().getString(R.string.time_profile_fragment,
                     DateTimeUtils.getStringDayMonthYear(DateTimeUtils.getDateFromServerDayMonthYear(promoter.getFrom())),
                     DateTimeUtils.getStringDayMonthYear(DateTimeUtils.getDateFromServerDayMonthYear(promoter.getTo())))));
@@ -143,6 +147,18 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
                 lnManagerSales.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    @Override
+    public void goToPolicyPermisWeb(News news) {
+        Log.e("goToPolicyPermisWeb: ","dsf" );
+        switchFragment(WebViewFragment.newInstance(news.getContent(),news.getTitle()),true);
+    }
+
+    @Override
+    public void goToQuestionWeb(News news) {
+        Log.e("goToPolicyPermisWeb: ","asss" );
+        switchFragment(WebViewFragment.newInstance(news.getContent(),news.getTitle()),true);
     }
 
     @OnClick(R.id.rlt_logout)
@@ -167,13 +183,13 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
 
     @OnClick(R.id.rlt_policy_permis)
     public void onPolicyPermisClick() {
-
+        getPresenter().onPolicyPermisClick();
     }
 
 
     @OnClick(R.id.rlt_questions)
     public void onQuestionClick() {
-
+        getPresenter().onQuestionClick();
     }
 
     @Override
