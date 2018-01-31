@@ -3,13 +3,13 @@ package com.unza.wipro.main.views.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.paditech.core.DisableTouchView;
+import com.paditech.core.helper.StringUtil;
 import com.paditech.core.image.GlideApp;
 import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.AppConstans;
@@ -53,7 +53,7 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     @BindView(R.id.tv_time_profile)
     TextView tvTime;
     @BindView(R.id.tv_sales_expect)
-    TextView tvSalesWant;
+    TextView tvSalesExpect;
     @BindView(R.id.tv_sales_actual)
     TextView tvSalesHave;
     @BindView(R.id.degree_sale)
@@ -127,10 +127,10 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
         Promoter promoter = (Promoter) AppConstans.app.getCurrentUser();
         tvPoint.setText(getResources().getString(R.string.custom_profile_fragment));
         tvNumberPoint.setText(promoter.getNumberCustomers());
-        tvSalesWant.setText(Html.fromHtml(getResources().getString(R.string.sales_want_profile_fragment,
-                promoter.getSalesExpect())));
+        tvSalesExpect.setText(Html.fromHtml(getResources().getString(R.string.sales_want_profile_fragment,
+                StringUtil.formatMoney(promoter.getSalesExpect()))));
         tvSalesHave.setText(Html.fromHtml(getResources().getString(R.string.sales_have_profile_fragment,
-                promoter.getSalesActual())));
+                StringUtil.formatMoney(promoter.getSalesActual()))));
         if(Long.parseLong(promoter.getSalesExpect())!=0) {
             degreeSale.setValue(R.color.white, R.color.colorPrimary, Long.parseLong(promoter.getSalesActual()), Long.parseLong(promoter.getSalesExpect()));
         }
@@ -151,13 +151,11 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
 
     @Override
     public void goToPolicyPermisWeb(News news) {
-        Log.e("goToPolicyPermisWeb: ","dsf" );
         switchFragment(WebViewFragment.newInstance(news.getContent(),news.getTitle()),true);
     }
 
     @Override
     public void goToQuestionWeb(News news) {
-        Log.e("goToPolicyPermisWeb: ","asss" );
         switchFragment(WebViewFragment.newInstance(news.getContent(),news.getTitle()),true);
     }
 

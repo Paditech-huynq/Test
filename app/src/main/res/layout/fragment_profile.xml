@@ -338,8 +338,8 @@
                         android:id="@+id/ic_some_people"
                         android:layout_width="@dimen/ic_group_size"
                         android:layout_height="@dimen/ic_group_size"
-                        android:padding="@dimen/padding_normal"
                         android:layout_marginLeft="@dimen/padding_small"
+                        android:padding="@dimen/padding_normal"
                         android:src="@drawable/ic_group" />
 
                     <TextView
@@ -386,7 +386,10 @@
                     android:id="@+id/ic_setting"
                     android:layout_width="@dimen/ic_setting_size"
                     android:layout_height="@dimen/ic_setting_size"
-                    android:layout_margin="@dimen/padding_big"
+                    android:layout_marginStart="@dimen/padding_big"
+                    android:layout_marginTop="@dimen/padding_big"
+                    android:layout_marginBottom="@dimen/padding_big"
+                    android:layout_marginEnd="@dimen/padding_normal"
                     android:src="@drawable/ic_setting" />
 
                 <TextView
