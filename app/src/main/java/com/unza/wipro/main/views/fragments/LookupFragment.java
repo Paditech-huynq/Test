@@ -13,12 +13,16 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.transition.TransitionInflater;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
+import com.paditech.core.helper.Utils;
 import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.R;
 import com.unza.wipro.main.adapter.LookupAdapter;
@@ -127,6 +131,16 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
                     edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, 0, 0);
                 }
                 searchHandler.postDelayed(searchRunnable, SEARCH_DELAY);
+            }
+        });
+
+        edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    Utils.hideSoftKeyboard(LookupFragment.this.getActivity());
+                }
+                return false;
             }
         });
     }
