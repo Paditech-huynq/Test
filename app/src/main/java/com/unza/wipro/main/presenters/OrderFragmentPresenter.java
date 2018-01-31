@@ -39,6 +39,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     private MyFilter currentFilter;
     boolean lastLoginState;
     boolean isDisappearing;
+    private boolean isSearch;
 
     @Override
     public void onLoadMore() {
@@ -89,8 +90,9 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
         }
 
         isPending = true;
+        getView().showProgressDialog(isSearch || !isRefresh && mPage == START_PAGE_INDEX);
+        isSearch = false;
         mPage = isRefresh ? START_PAGE_INDEX : mPage;
-        getView().showProgressDialog(isRefresh && mPage == START_PAGE_INDEX);
         AppClient.newInstance().getService().getOrders(app.getToken(),
                 app.getAppKey(), fromDate, toDate, mPage, PAGE_SIZE)
                 .enqueue(new Callback<GetOrdersRSP>() {
@@ -183,6 +185,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
         Date endDate = DateTimeUtils.getEndOfeDateFromStringDayMonthYear(to);
         assert startDate != null;
         if (startDate.before(endDate)) {
+            isSearch = true;
             getView().findOrder(true);
             fromDate = startDate.getTime() / 1000;
             toDate = endDate.getTime() / 1000;
