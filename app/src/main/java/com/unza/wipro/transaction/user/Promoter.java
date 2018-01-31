@@ -1,7 +1,8 @@
 package com.unza.wipro.transaction.user;
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
-import com.paditech.core.helper.StringUtil;
 
 public class Promoter extends User {
     @SerializedName("customers")
@@ -16,6 +17,9 @@ public class Promoter extends User {
     private String to;
 
     public String getSalesExpect() {
+        if (salesActual == null) {
+            return "0";
+        }
         return salesExpect;
     }
 
@@ -40,6 +44,10 @@ public class Promoter extends User {
     }
 
     public String getSalesActual() {
+        Log.e("AAA",salesActual+"");
+        if (salesActual == null) {
+            return "0";
+        }
         return salesActual;
     }
 
@@ -55,8 +63,7 @@ public class Promoter extends User {
         this.numberCustomers = numberCustomers;
     }
 
-    public Promoter()
-    {
+    public Promoter() {
         role = TYPE_PROMOTER;
     }
 }

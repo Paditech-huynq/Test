@@ -107,21 +107,25 @@ public class AppState {
             token = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_TOKEN, AppConstans.EMPTY);
             appKey = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_APPKEY, AppConstans.EMPTY);
             String info = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_INFO, AppConstans.EMPTY);
-            loginInfo = new Gson().fromJson(info, UserData.class);
+
             if (!StringUtil.isEmpty(info)) {
-                currentUser = new User.Builder(loginInfo).build();
-                String cacheUser = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_CURRENT_USER, null);
-                if (cacheUser != null && currentUser != null) {
-                    Log.e("TYPE", currentUser.getClass().getSimpleName() + "");
-                    currentUser = new Gson().fromJson(cacheUser, currentUser.getClass());
+                loginInfo = new Gson().fromJson(info, UserData.class);
+                if (loginInfo != null) {
+                    currentUser = new User.Builder(loginInfo).build();
+                    String cacheUser = PrefUtils.getPreferences(WiproApplication.getAppContext(), PREF_CURRENT_USER, null);
+                    if (cacheUser != null && currentUser != null) {
+                        Log.i("Cache", String.format("User type: %s", currentUser.getClass().getSimpleName()));
+                        currentUser = new Gson().fromJson(cacheUser, currentUser.getClass());
+                    }
                 }
             }
             Log.i("Cache", "Load from cache success");
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
             Log.i("Cache", "Load from cache failure");
+            return false;
         }
-        return true;
     }
 
     public boolean isLogin() {
