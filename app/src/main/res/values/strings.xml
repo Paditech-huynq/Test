@@ -168,4 +168,7 @@
     <string name="action_cancel">Hủy</string>
     <string name="action_delete">Xóa</string>
     <string name="no_result">Không có kết quả phù hợp</string>
+    <string name="scan_qr_success">Thêm 1 sản phẩm vào giỏ hàng</string>
+    <string name="scan_qr_not_find_product">Không tìm thấy sản phẩm này</string>
+    <string name="scan_qr_failure">Không lấy được dữ liệu từ server</string>
 </resources>

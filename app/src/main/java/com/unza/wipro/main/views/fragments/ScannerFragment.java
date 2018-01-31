@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.FragmentHelper;
+import com.paditech.core.helper.StringUtil;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 import com.squareup.otto.Subscribe;
@@ -113,14 +114,28 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Ringtone r = RingtoneManager.getRingtone(getActivity().getApplicationContext(), notification);
         r.play();
-        showToast(rawResult.getContents());
+        if(StringUtil.isEmpty(rawResult.getContents())){
+            mScannerView.resumeCameraPreview(ScannerFragment.this);
+            return;
+        }
         AppClient.newInstance().getService().getProductDetail(rawResult.getContents()).enqueue(new Callback<GetProductDetailRSP>() {
             @Override
             public void onResponse(Call<GetProductDetailRSP> call, Response<GetProductDetailRSP> response) {
                 try {
+                    if( response.body().getResult() == 0 ){
+                        showToast(getContext().getString(R.string.scan_qr_not_find_product));
+                        mHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mScannerView.resumeCameraPreview(ScannerFragment.this);
+                            }
+                        },1000);
+                        return;
+                    }
                     if (response.body().getProduct() == null) {
                         return;
                     }
+                    showToast(getContext().getString(R.string.scan_qr_success));
                     actionScan(response.body().getProduct());
                 }
                 catch (Exception e){
@@ -130,7 +145,7 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
 
             @Override
             public void onFailure(Call<GetProductDetailRSP> call, Throwable t) {
-
+                showToast(getContext().getString(R.string.scan_qr_failure));
             }
         });
     }
