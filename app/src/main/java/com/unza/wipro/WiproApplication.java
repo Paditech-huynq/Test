@@ -17,7 +17,7 @@ public class WiproApplication extends BaseApplication {
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         if (activity instanceof MainActivity) {
-            AppState.getInstance().loadFromCache();
+            AppConstans.app.loadFromCache();
         }
         super.onActivityCreated(activity, savedInstanceState);
     }
@@ -25,7 +25,9 @@ public class WiproApplication extends BaseApplication {
     @Override
     public void onActivityDestroyed(Activity activity) {
         if (activity instanceof MainActivity) {
-            AppState.getInstance().release();
+            if (AppConstans.app.isLogoutPending()) {
+                AppConstans.app.release();
+            }
         }
         super.onActivityDestroyed(activity);
     }

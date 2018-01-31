@@ -1,7 +1,5 @@
 package com.unza.wipro.transaction.user;
 
-import android.util.Log;
-
 import com.google.gson.annotations.SerializedName;
 
 public class Promoter extends User {
@@ -44,7 +42,6 @@ public class Promoter extends User {
     }
 
     public String getSalesActual() {
-        Log.e("AAA",salesActual+"");
         if (salesActual == null) {
             return "0";
         }

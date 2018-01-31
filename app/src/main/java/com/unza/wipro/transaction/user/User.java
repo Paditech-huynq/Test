@@ -134,7 +134,6 @@ public abstract class User implements UserInfo {
                     ((Promoter) user).setSalesExpect(userData.getSalesExpect());
                     ((Promoter) user).setFrom(userData.getFrom());
                     ((Promoter) user).setTo(userData.getTo());
-                    Log.e("AAA", userData.getSalesActual());
                     break;
             }
             updateBase(user);

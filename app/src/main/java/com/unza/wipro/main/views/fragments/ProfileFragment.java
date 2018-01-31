@@ -95,7 +95,9 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
 
     @Override
     public void goToHomeProfile() {
-        switchFragment(HomeFragment.newInstance(), false);
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     @Override
@@ -145,10 +147,7 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
 
     @OnClick(R.id.rlt_logout)
     protected void logout() {
-        app.logout();
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+        getPresenter().onLogOutClick();
     }
 
     @OnClick(R.id.rlt_change_pass)
@@ -159,11 +158,6 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     @OnClick(R.id.rlt_list_order)
     public void onListOrderClick() {
         getPresenter().onListOrderClick();
-    }
-
-    @OnClick(R.id.rlt_logout)
-    public void onLogoutClick() {
-        getPresenter().onLogOutClick();
     }
 
     @OnClick(R.id.rlt_manager_sales)

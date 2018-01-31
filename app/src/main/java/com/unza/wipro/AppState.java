@@ -25,6 +25,7 @@ import static com.unza.wipro.AppConstans.PREF_TOKEN;
 public class AppState {
     private static AppState instance;
     private UserData loginInfo;
+    private boolean logoutPending;
 
     static synchronized AppState getInstance() {
         if (instance == null) {
@@ -120,12 +121,11 @@ public class AppState {
                 }
             }
             Log.i("Cache", "Load from cache success");
-            return true;
         } catch (Exception e) {
             e.printStackTrace();
             Log.i("Cache", "Load from cache failure");
-            return false;
         }
+        return true;
     }
 
     public boolean isLogin() {
@@ -153,6 +153,7 @@ public class AppState {
     }
 
     public void logout() {
+        logoutPending = true;
         release();
         PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_TOKEN, null);
         PrefUtils.savePreferences(WiproApplication.getAppContext(), PREF_APPKEY, null);
@@ -172,5 +173,13 @@ public class AppState {
         token = data.getAccessToken();
         appKey = data.getAppKey();
         updateCurrentUser(data.getInfo());
+    }
+
+    public boolean isLogoutPending() {
+        if (logoutPending) {
+            logoutPending = false;
+            return false;
+        }
+        return logoutPending;
     }
 }
