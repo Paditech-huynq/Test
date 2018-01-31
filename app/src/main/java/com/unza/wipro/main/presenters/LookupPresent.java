@@ -18,31 +18,30 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
     private int mPage = 1;
     private boolean isFull;
     private boolean isPending;
-    private String lastKeyWord = "";
 
     @Override
     public void onCreate() {
         super.onCreate();
-        loadProductFromServer(false);
+        loadProductFromServer(false, false);
     }
 
     @Override
     public void searchByKeyWord() {
-        loadProductFromServer(false);
+        loadProductFromServer(false, true);
     }
 
     @Override
     public void onLoadMore() {
-        loadProductFromServer(false);
+        loadProductFromServer(false, false);
     }
 
     @Override
     public void onRefresh() {
-        loadProductFromServer(true);
+        loadProductFromServer(true, false);
     }
 
-    private void loadProductFromServer(final boolean isRefresh) {
-        if (!lastKeyWord.equals(getView().getCurrentKeyword())) {
+    private void loadProductFromServer(final boolean isRefresh, final boolean isSearch) {
+        if (isSearch) {
             resetData();
             isPending = false;
         }
@@ -52,13 +51,13 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
         }
         if (isRefresh) {
             resetData();
-            getView().setRefreshing(true);
         }
         if (isFull) {
             getView().setRefreshing(false);
             return;
         }
         isPending = true;
+        getView().setRefreshing(isRefresh);
         getView().showProgressDialog(mPage == FIRST_PAGE && !isRefresh);
         final String keyword = getView().getCurrentKeyword();
         AppClient.newInstance().getService().getListProduct(mPage, PAGE_SIZE, EMPTY, keyword)
@@ -66,7 +65,6 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
                     @Override
                     public void onResponse(Call<GetListProductRSP> call, Response<GetListProductRSP> response) {
                         if (!keyword.equals(getView().getCurrentKeyword())) {
-                            lastKeyWord = keyword;
                             return;
                         }
                         isPending = false;
@@ -78,7 +76,7 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
                         if (response == null || response.body() == null) {
                             return;
                         }
-                        onLoadProductSuccess(isRefresh, response.body().getData());
+                        onLoadProductSuccess(isRefresh, isSearch, response.body().getData());
                     }
 
                     @Override
@@ -93,15 +91,14 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
                 });
     }
 
-    private void onLoadProductSuccess(boolean isRefresh, List<Product> productList) {
+    private void onLoadProductSuccess(boolean isRefresh, boolean isSearch, List<Product> productList) {
         mPage++;
         isFull = productList.size() < PAGE_SIZE;
-        if (isRefresh || !lastKeyWord.equals(getView().getCurrentKeyword())) {
+        if (isRefresh || isSearch) {
             getView().refreshProductList(productList);
         } else {
             getView().updateItemToList(productList);
         }
-        lastKeyWord = getView().getCurrentKeyword();
     }
 
     private void resetData() {

@@ -19,30 +19,33 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
     private int page = FIRST_PAGE;
     private boolean isFull;
     private boolean isPending;
-    private String lastKeyWord = "";
 
     @Override
     public void onCreate() {
         super.onCreate();
-        loadListCustomerFromServer(false);
+        loadListCustomerFromServer(false, false);
     }
 
-    private void loadListCustomerFromServer(final boolean isRefresh) {
-        if ((isFull || isPending) && !lastKeyWord.equals(getView().getCurrentKeyWord())) {
+    private void loadListCustomerFromServer(final boolean isRefresh, final boolean isSearch) {
+        if (isSearch) {
+            resetData();
+            isPending = false;
+        }
+        if ((isPending)) {
             getView().setRefreshing(false);
             return;
         }
         if (isRefresh) {
             resetData();
-            getView().setRefreshing(true);
         }
         if (isFull) {
             getView().setRefreshing(false);
             return;
         }
         isPending = true;
-        final String keyWord = getView().getCurrentKeyWord();
+        getView().setRefreshing(isRefresh);
         getView().showProgressDialog(page == FIRST_PAGE && !isRefresh);
+        final String keyWord = getView().getCurrentKeyWord();
         AppClient.newInstance().getService().getListCustomer(
                 app.getToken(),
                 app.getAppKey(),
@@ -51,7 +54,6 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
                     @Override
                     public void onResponse(Call<GetListCustomerRSP> call, Response<GetListCustomerRSP> response) {
                         if (!keyWord.equals(getView().getCurrentKeyWord())) {
-                            lastKeyWord = keyWord;
                             return;
                         }
                         isPending = false;
@@ -62,7 +64,7 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
                         getView().setRefreshing(false);
                         GetListCustomerRSP getListCustomerRSP = response.body();
                         List<Customer> customerList = getListCustomerRSP.getData();
-                        loadListCustomerSuccess(isRefresh, customerList);
+                        loadListCustomerSuccess(isRefresh, isSearch, customerList);
                     }
 
                     @Override
@@ -82,30 +84,29 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
         isFull = false;
     }
 
-    private void loadListCustomerSuccess(boolean isRefresh, List<Customer> customerList) {
+    private void loadListCustomerSuccess(boolean isRefresh, boolean isSearch,List<Customer> customerList) {
         page++;
         isFull = customerList.size() < PAGE_SIZE;
-        if (isRefresh || !lastKeyWord.equals(getView().getCurrentKeyWord())) {
+        if (isRefresh || isSearch) {
             getView().refreshData(customerList);
         } else {
             getView().addItemToList(customerList);
         }
-        lastKeyWord = getView().getCurrentKeyWord();
     }
 
     @Override
     public void onLoadMore() {
-        loadListCustomerFromServer(false);
+        loadListCustomerFromServer(false, false);
     }
 
     @Override
     public void onRefresh() {
-        loadListCustomerFromServer(true);
+        loadListCustomerFromServer(true, false);
     }
 
     @Override
     public void searchByKeyWord() {
         resetData();
-        loadListCustomerFromServer(false);
+        loadListCustomerFromServer(false, true);
     }
 }

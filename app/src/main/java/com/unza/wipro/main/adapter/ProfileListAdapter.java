@@ -45,9 +45,9 @@ public class ProfileListAdapter extends BaseRecycleViewAdapter implements AppCon
     }
 
     public void refreshData(List<Customer> customerList) {
-        notifyItemRangeRemoved(0, this.customerList.size());
         this.customerList.clear();
-        addItemToList(customerList);
+        this.customerList.addAll(customerList);
+        notifyDataSetChanged();
     }
 
     class ProfileHolder extends BaseRecycleViewAdapter.BaseViewHolder {
