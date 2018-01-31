@@ -50,6 +50,7 @@ public class WebViewFragment extends BaseFragment {
         mWebView.setFocusable(false);
         WebSettings settings = mWebView.getSettings();
         settings.setJavaScriptEnabled(true);
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setLoadsImagesAutomatically(true);
         settings.setLoadWithOverviewMode(true);
         settings.setUseWideViewPort(true);

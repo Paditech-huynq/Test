@@ -27,7 +27,7 @@ public class ProductDetailPresenter extends BasePresenter<ProductDetailContract.
 
     @Override
     public void onCartUpdate() {
-        getView().updateCartCount();
+        if (getView() != null) getView().updateCartCount();
     }
 
     private void getProductDetail() {

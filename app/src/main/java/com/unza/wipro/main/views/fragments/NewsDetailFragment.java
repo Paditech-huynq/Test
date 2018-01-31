@@ -100,6 +100,7 @@ public class NewsDetailFragment extends BaseFragment implements SwipeRefreshLayo
         mWebView.setFocusable(false);
         mWebView.setWebViewClient(new WebBrowser());
         WebSettings settings = mWebView.getSettings();
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setJavaScriptEnabled(true);
         settings.setLoadsImagesAutomatically(true);
         settings.setLoadWithOverviewMode(true);
@@ -118,8 +119,11 @@ public class NewsDetailFragment extends BaseFragment implements SwipeRefreshLayo
         mTitleText.setText(mNews.getTitle());
         mDescText.setText(mNews.getSummary());
         mDateText.setText(Utils.getTimeCreated(getContext(), mNews.getCreatedAt()));
-        if (!StringUtil.isEmpty(mNews.getContent()))
-            mWebView.loadData(mNews.getContent(), "text/html; charset=UTF-8;", null);
+        if (!StringUtil.isEmpty(mNews.getContent())) {
+            //todo: fix
+            String head = "<head> <style>img{display: inline;height: auto;max-width:   100%;}</style> <style>body {font-family: 'Roboto';  }</style></head>";
+            mWebView.loadData(head+mNews.getContent(), "text/html; charset=UTF-8;", null);
+        }
     }
 
     private void getDetail() {
