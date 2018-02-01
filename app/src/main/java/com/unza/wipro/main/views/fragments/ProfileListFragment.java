@@ -106,14 +106,14 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onViewAppear() {
+        super.onViewAppear();
         setupSearchView();
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onViewDisappear() {
+        super.onViewDisappear();
         edtSearch.removeTextChangedListener(textChangeListenner);
     }
 
