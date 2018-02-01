@@ -90,7 +90,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
         }
 
         isPending = true;
-        getView().showProgressDialog(isSearch || !isRefresh && mPage == START_PAGE_INDEX);
+        getView().showProgressDialog(isSearch || (!isRefresh && mPage == START_PAGE_INDEX));
         isSearch = false;
         mPage = isRefresh ? START_PAGE_INDEX : mPage;
         AppClient.newInstance().getService().getOrders(app.getToken(),

@@ -1,6 +1,7 @@
 package com.unza.wipro.main.views.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -107,7 +108,7 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
     }
 
     @Override
-    public void handleResult(Result rawResult) {
+    public void handleResult(final Result rawResult) {
         //todo: handle scan result here
         Log.e(TAG, rawResult.getContents()); // Prints scan results
         Log.e(TAG, rawResult.getBarcodeFormat().getName()); // Prints the scan format (qrcode, pdf417 etc.)
@@ -123,13 +124,12 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
             public void onResponse(Call<GetProductDetailRSP> call, Response<GetProductDetailRSP> response) {
                 try {
                     if( response.body().getResult() == 0 ){
-                        showToast(getContext().getString(R.string.scan_qr_not_find_product));
-                        mHandler.postDelayed(new Runnable() {
+                        showAlertDialog(getContext().getString(R.string.scan_title_product,rawResult.getContents()), getContext().getString(R.string.scan_qr_not_find_product), "ok", new DialogInterface.OnClickListener() {
                             @Override
-                            public void run() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
                                 mScannerView.resumeCameraPreview(ScannerFragment.this);
                             }
-                        },1000);
+                        });
                         return;
                     }
                     if (response.body().getProduct() == null) {
