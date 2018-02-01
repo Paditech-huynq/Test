@@ -45,6 +45,8 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
     EditText edtSearch;
     @BindView(R.id.rcvLookup)
     RecyclerView mRecyclerView;
+    @BindView(R.id.noResult)
+    View noResult;
     private static final int DRAWABLE_RIGHT = 2;
     private static final int SEARCH_DELAY = 500;
     private Runnable searchRunnable = new Runnable() {
@@ -269,6 +271,11 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
     @Override
     public String getCurrentKeyword() {
         return edtSearch.getText().toString();
+    }
+
+    @Override
+    public void showMessageNoResult(boolean isShow) {
+        noResult.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
     @Override

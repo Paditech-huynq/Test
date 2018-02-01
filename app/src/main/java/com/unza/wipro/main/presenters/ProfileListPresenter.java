@@ -28,6 +28,7 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
     }
 
     private void loadListCustomerFromServer(final boolean isRefresh, final boolean isSearch) {
+        getView().showMessageNoResult(false);
         if (isSearch) {
             resetData();
             isPending = false;
@@ -63,7 +64,7 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
                             getView().setRefreshing(false);
                             if (response != null && response.body() != null) {
                                 if (page == FIRST_PAGE && (response.body().getData() == null || response.body().getData().size() <= 0)) {
-                                    getView().showToast(getView().getContext().getString(R.string.no_result));
+                                    getView().showMessageNoResult(true);
                                 }
                                 if (response.body().getData() != null) {
                                     GetListCustomerRSP getListCustomerRSP = response.body();

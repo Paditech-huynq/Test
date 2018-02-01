@@ -11,6 +11,8 @@ public interface ProfileListContract {
         void addItemToList(List<Customer> customerList);
 
         String getCurrentKeyWord();
+
+        void showMessageNoResult(boolean b);
     }
 
     interface Presenter extends BasePresenterImpl {

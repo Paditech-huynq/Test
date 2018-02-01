@@ -68,6 +68,9 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @BindView(R.id.tv_time_in_header_filter)
     TextView tvTimeInHeaderFilter;
 
+    @BindView(R.id.noResult)
+    View noResult;
+
     private OrderListAdapter mAdapter;
     private static final int DAY_LEFT_CALENDER_FILTER = 0;
     private static final int DAY_RIGHT_CALENDER_FILTER = 1;
@@ -287,6 +290,11 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     @Override
     public String getTo() {
         return tvCalenderRightFilter.getText().toString();
+    }
+
+    @Override
+    public void showMessageNoResult(boolean b) {
+        noResult.setVisibility(b ? View.VISIBLE : View.GONE);
     }
 
 

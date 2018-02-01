@@ -13,6 +13,8 @@ public interface LookupContract {
         void refreshProductList(List<Product> productList);
 
         String getCurrentKeyword();
+
+        void showMessageNoResult(boolean isShow);
     }
 
     interface Presenter extends BasePresenterImpl {
