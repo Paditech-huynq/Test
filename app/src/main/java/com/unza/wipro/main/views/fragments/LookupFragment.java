@@ -89,6 +89,9 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
 
     @Override
     public void setScreenTitle(String title) {
+        if (!isShowCartButton){
+            super.setScreenTitle(getString(R.string.title_home_lookup));
+        }
     }
 
     @Override
