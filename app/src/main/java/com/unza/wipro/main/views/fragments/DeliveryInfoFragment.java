@@ -43,7 +43,7 @@ public class DeliveryInfoFragment extends MVPFragment<DeliveryInfoPresenter> imp
     EditText edtNote;
 
     private String customerId;
-    private Calendar DEFAULT_CALENDAR;
+    private Calendar mDefaultDate;
 
     public static DeliveryInfoFragment newInstance(String customerId) {
         Bundle args = new Bundle();
@@ -71,9 +71,9 @@ public class DeliveryInfoFragment extends MVPFragment<DeliveryInfoPresenter> imp
         edtName.setText(name);
         edtPhone.setText(phone);
         customerId = getArguments().getString(KEY_CUSTOMER_ID);
-        DEFAULT_CALENDAR = Calendar.getInstance();
-        DEFAULT_CALENDAR.add(Calendar.DAY_OF_MONTH, 2);
-        edtDate.setText(StringUtil.formatDate(DEFAULT_CALENDAR.getTime()));
+        mDefaultDate = Calendar.getInstance();
+        mDefaultDate.add(Calendar.DAY_OF_MONTH, 2);
+        edtDate.setText(StringUtil.formatDate(mDefaultDate.getTime()));
     }
 
     @Override
@@ -129,9 +129,9 @@ public class DeliveryInfoFragment extends MVPFragment<DeliveryInfoPresenter> imp
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
                         Calendar calendar = Calendar.getInstance();
                         calendar.set(year, month, dayOfMonth);
-                        if (calendar.before(DEFAULT_CALENDAR)) {
+                        if (calendar.before(mDefaultDate)) {
                             showToast(getString(R.string.delivery_info_invalid_date));
-                            edtDate.setText(StringUtil.formatDate(DEFAULT_CALENDAR.getTime()));
+                            edtDate.setText(StringUtil.formatDate(mDefaultDate.getTime()));
                             return;
                         }
                         edtDate.setText(StringUtil.formatDate(calendar.getTime()));
