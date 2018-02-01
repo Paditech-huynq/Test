@@ -14,6 +14,7 @@ import com.paditech.core.image.GlideApp;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
 import com.unza.wipro.main.models.ProductThumbnail;
+import com.unza.wipro.main.views.customs.PlaceHolderDrawableHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,8 @@ public class ProductImageAdapter extends PagerAdapter implements AppConstans {
             GlideApp
                     .with(BaseApplication.getAppContext())
                     .load(thumbnail.getLink()).priority(Priority.IMMEDIATE)
-                    .placeholder(R.drawable.bg_place_holder)
+                    .placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
+                    .error(R.drawable.bg_place_holder)
                     .thumbnail(0.5f)
                     .override(itemView.getWidth() / 2, itemView.getHeight() / 2)
                     .centerCrop()
