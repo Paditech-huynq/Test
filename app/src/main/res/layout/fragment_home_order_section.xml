@@ -21,6 +21,7 @@
             android:paddingEnd="@dimen/padding_big"
             android:paddingStart="@dimen/padding_big"
             android:textColor="@android:color/white"
+            android:textStyle="bold"
             android:textSize="@dimen/text_size_small" />
     </android.support.v7.widget.CardView>
 </LinearLayout>

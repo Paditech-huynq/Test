@@ -46,7 +46,7 @@
     <dimen name="child_recycle_view_size">100dip</dimen>
     <dimen name="radius_section">14dip</dimen>
     <!--orderfragment-->
-    <dimen name="size_btn_find">15dip</dimen>
+    <dimen name="size_btn_find">16dip</dimen>
 
     <!--scanner-->
     <dimen name="text_size_count_scanner">120sp</dimen>
