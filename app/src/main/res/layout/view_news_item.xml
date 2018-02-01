@@ -20,7 +20,7 @@
             android:src="@mipmap/ic_launcher" />
 
         <TextView
-            android:id="@+id/tv_news_desc"
+            android:id="@+id/tv_news_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small"

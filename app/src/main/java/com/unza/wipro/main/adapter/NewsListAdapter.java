@@ -61,8 +61,8 @@ public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConsta
         @BindView(R.id.imv_news)
         DynamicHeightImageView imvNews;
 
-        @BindView(R.id.tv_news_desc)
-        TextView tvDescription;
+        @BindView(R.id.tv_news_title)
+        TextView tvTitle;
 
         @BindView(R.id.tv_news_date)
         TextView tvDate;
@@ -75,7 +75,7 @@ public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConsta
         protected void onBindingData(final int position) {
             final News newsItem = getItem(position);
             if (newsItem != null) {
-                ViewHelper.setText(tvDescription, newsItem.getTitle(), null);
+                ViewHelper.setText(tvTitle, newsItem.getTitle(), null);
                 tvDate.setText(Utils.getTimeCreated(itemView.getContext(), newsItem.getCreatedAt()));
                 updateImageSize(newsItem.getThumbnail());
                 if (newsItem.getThumbnail().getLink() != null) {
