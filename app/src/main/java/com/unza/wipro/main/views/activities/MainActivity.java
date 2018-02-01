@@ -137,6 +137,10 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
         return findViewById(R.id.btnCart);
     }
 
+    public View getLayoutHeader() {
+        return layoutHeader;
+    }
+
     public void updateActionButtonAppearance(BaseFragment targetFragment) {
         updateActionAppearance(targetFragment);
     }
