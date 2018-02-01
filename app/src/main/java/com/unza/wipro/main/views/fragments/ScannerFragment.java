@@ -154,7 +154,6 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
                             if (response.body().getProduct() == null) {
                                 return;
                             }
-                            showToast(getContext().getString(R.string.scan_qr_success));
                             actionScan(response.body().getProduct(), rawResult.getContents());
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -180,6 +179,7 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
         if (!StringUtil.isEmpty(barcode)) {
             PrefUtils.savePreferences(getContext(), barcode, new Gson().toJson(product));
         }
+        showToast(getContext().getString(R.string.scan_qr_success));
         app.editCart().insert(product);
         if (AppConstans.app.getCurrentUser() instanceof Customer || AppConstans.app.getCurrentUser() == null) {
             switchFragment(OrderDetailFragment.newInstance(), true);
