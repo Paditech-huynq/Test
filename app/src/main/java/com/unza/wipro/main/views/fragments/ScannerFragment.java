@@ -48,7 +48,20 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
     boolean isCameraOpen;
     private int Count = 3;
     private Handler mHandler = new Handler();
-    private Runnable runnable ;
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            if (Count == 0) {
+                mScannerView.resumeCameraPreview(ScannerFragment.this);
+                Count = 3;
+                tvCount.setText(EMPTY);
+                return;
+            }
+            tvCount.setText(String.valueOf(Count));
+            Count--;
+            mHandler.postDelayed(this, 1000);
+        }
+    };
 
     public static ScannerFragment newInstance() {
         Bundle args = new Bundle();
