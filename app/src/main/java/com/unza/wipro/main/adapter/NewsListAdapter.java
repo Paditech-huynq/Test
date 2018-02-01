@@ -24,6 +24,7 @@ import butterknife.BindView;
 
 public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConstans {
     private List<News> newsList = new ArrayList();
+
     @Override
     public News getItem(int position) {
         return newsList.get(position);
@@ -74,17 +75,16 @@ public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConsta
         protected void onBindingData(final int position) {
             final News newsItem = getItem(position);
             if (newsItem != null) {
-                ViewHelper.setText(tvDescription, newsItem.getSummary(), null);
+                ViewHelper.setText(tvDescription, newsItem.getTitle(), null);
                 tvDate.setText(Utils.getTimeCreated(itemView.getContext(), newsItem.getCreatedAt()));
-                updateImageSize(null);
-                String url = "";
+                updateImageSize(newsItem.getThumbnail());
                 if (newsItem.getThumbnail().getLink() != null) {
-                    url = newsItem.getThumbnail().getLink();
+                    GlideApp.with(itemView.getContext()).load(newsItem.getThumbnail().getLink())
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
+                            .error(R.drawable.bg_place_holder)
+                            .into(imvNews);
                 }
-                GlideApp.with(itemView.getContext()).load(url)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
-                        .error(R.drawable.bg_place_holder)
-                        .into(imvNews);
             }
         }
 
