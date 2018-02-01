@@ -2,6 +2,7 @@ package com.unza.wipro.main.views.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.PeriodicSync;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -11,8 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.FragmentHelper;
+import com.paditech.core.helper.PrefUtils;
 import com.paditech.core.helper.StringUtil;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -128,64 +131,63 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Ringtone r = RingtoneManager.getRingtone(getActivity().getApplicationContext(), notification);
         r.play();
-        if(StringUtil.isEmpty(rawResult.getContents())){
+        if (StringUtil.isEmpty(rawResult.getContents())) {
             mScannerView.resumeCameraPreview(ScannerFragment.this);
-            return;
-        }
-        AppClient.newInstance().getService().getProductDetailFromBarcode(rawResult.getContents()).enqueue(new Callback<GetProductDetailRSP>() {
-            @Override
-            public void onResponse(Call<GetProductDetailRSP> call, Response<GetProductDetailRSP> response) {
-                try {
-                    if( response.body().getResult() == 0 ){
-                        showAlertDialog(getContext().getString(R.string.scan_title_product,rawResult.getContents()), getContext().getString(R.string.scan_qr_not_find_product), "ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                mScannerView.resumeCameraPreview(ScannerFragment.this);
-                            }
-                        });
-                        return;
-                    }
-                    if (response.body().getProduct() == null) {
-                        return;
-                    }
-                    showToast(getContext().getString(R.string.scan_qr_success));
-                    actionScan(response.body().getProduct());
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GetProductDetailRSP> call, Throwable t) {
-                showToast(getContext().getString(R.string.scan_qr_failure));
-            }
-        });
-    }
-
-    private void actionScan(Product product) {
-            app.editCart().insert(product);
-            if (AppConstans.app.getCurrentUser() instanceof Customer || AppConstans.app.getCurrentUser() == null) {
-                switchFragment(OrderDetailFragment.newInstance(), true);
+        } else {
+            if (getContext() == null) {
                 return;
             }
-            if (AppConstans.app.getCurrentUser() instanceof Promoter) {
-                runnable = new Runnable() {
+            if (StringUtil.isEmpty(PrefUtils.getPreferences(getContext(), rawResult.getContents(), EMPTY))) {
+                AppClient.newInstance().getService().getProductDetailFromBarcode(rawResult.getContents()).enqueue(new Callback<GetProductDetailRSP>() {
                     @Override
-                    public void run() {
-                        if(Count == 0){
-                            mScannerView.resumeCameraPreview(ScannerFragment.this);
-                            Count = 3;
-                            tvCount.setText(EMPTY);
-                            return;
+                    public void onResponse(Call<GetProductDetailRSP> call, Response<GetProductDetailRSP> response) {
+                        try {
+                            if (response.body().getResult() == 0) {
+                                showAlertDialog(getContext().getString(R.string.scan_title_product, rawResult.getContents()), getContext().getString(R.string.scan_qr_not_find_product), "ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        mScannerView.resumeCameraPreview(ScannerFragment.this);
+                                    }
+                                });
+                                return;
+                            }
+                            if (response.body().getProduct() == null) {
+                                return;
+                            }
+                            showToast(getContext().getString(R.string.scan_qr_success));
+                            actionScan(response.body().getProduct(), rawResult.getContents());
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                        tvCount.setText(String.valueOf(Count));
-                        Count--;
-                        mHandler.postDelayed(this,1000);
                     }
-                };
-                mHandler.post(runnable);
+
+                    @Override
+                    public void onFailure(Call<GetProductDetailRSP> call, Throwable t) {
+                        showToast(getContext().getString(R.string.scan_qr_failure));
+                    }
+                });
+            } else {
+                Product product = new Gson().fromJson(PrefUtils.getPreferences(getContext(), rawResult.getContents(), EMPTY), Product.class);
+                actionScan(product, EMPTY);
             }
+        }
+    }
+
+    private void actionScan(Product product, String barcode) {
+        if (getContext() == null) {
+            return;
+        }
+        if (!StringUtil.isEmpty(barcode)) {
+            PrefUtils.savePreferences(getContext(), barcode, new Gson().toJson(product));
+        }
+        app.editCart().insert(product);
+        if (AppConstans.app.getCurrentUser() instanceof Customer || AppConstans.app.getCurrentUser() == null) {
+            switchFragment(OrderDetailFragment.newInstance(), true);
+            return;
+        }
+        if (AppConstans.app.getCurrentUser() instanceof Promoter) {
+            mHandler.post(runnable);
+        }
     }
 
     @Override
