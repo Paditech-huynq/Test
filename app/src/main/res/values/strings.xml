@@ -168,4 +168,7 @@
     <string name="action_cancel">Hủy</string>
     <string name="action_delete">Xóa</string>
     <string name="no_result">Không có kết quả phù hợp</string>
+    <string name="stock_phone_and_distance">ĐT: %1s - Khoảng cách %2s%3s</string>
+    <string name="stock_phone_only">ĐT: %1s</string>
+
 </resources>

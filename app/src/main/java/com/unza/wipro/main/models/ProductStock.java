@@ -1,5 +1,7 @@
 package com.unza.wipro.main.models;
 
+import android.location.Location;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -11,17 +13,28 @@ import com.google.gson.annotations.SerializedName;
 
 public class ProductStock {
     @SerializedName("id")
-    int id;
-    @SerializedName("name")
-    String name;
-    @SerializedName("address")
-    String address;
+    private String id = "0";
 
-    public int getId() {
+    @SerializedName("name")
+    private String name = "";
+
+    @SerializedName("address")
+    private String address = "";
+
+    @SerializedName("lat")
+    private String latitude = "0";
+
+    @SerializedName("long")
+    private String longitude = "0";
+
+    @SerializedName("phone")
+    private String phone = "";
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -37,7 +50,22 @@ public class ProductStock {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public Location getLocation() {
+        Location location = null;
+        try {
+            location = new Location(name);
+            if (longitude != null) {
+                location.setLongitude(Double.parseDouble(longitude));
+            }
+            if (latitude != null) {
+                location.setLatitude(Double.parseDouble(latitude));
+            }
+        } catch (NumberFormatException ignored) {
+        }
+        return location;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 }
