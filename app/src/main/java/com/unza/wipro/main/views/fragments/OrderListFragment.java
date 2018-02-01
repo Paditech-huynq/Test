@@ -154,11 +154,13 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public void dismissFilter() {
-        OrderListFragment.this.enablePullToRefresh(true);
-        viewUpRecycleView.setVisibility(View.GONE);
-        filter.setAnimation(AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_up));
-        filter.setVisibility(View.GONE);
-        cardViewHeader.setElevation(getResources().getDimensionPixelOffset(R.dimen.cardview_default_elevation));
+        if(filter.getVisibility() == View.VISIBLE) {
+            OrderListFragment.this.enablePullToRefresh(true);
+            viewUpRecycleView.setVisibility(View.GONE);
+            filter.setAnimation(AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_up));
+            filter.setVisibility(View.GONE);
+            cardViewHeader.setElevation(getResources().getDimensionPixelOffset(R.dimen.cardview_default_elevation));
+        }
     }
 
     @Override
