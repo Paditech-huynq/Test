@@ -117,10 +117,4 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
         isFull = false;
         mPage = FIRST_PAGE;
     }
-
-    @Override
-    public void onViewDisAppear() {
-        super.onViewDisAppear();
-        resetData();
-    }
 }
