@@ -27,4 +27,14 @@
             android:layout_height="@dimen/actionbar_button_size"
             android:layout_centerInParent="true" />
     </com.paditech.core.DisableTouchView>
+
+    <TextView
+        android:id="@+id/noResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/no_result"
+        android:textColor="@color/text_dark"
+        android:textSize="@dimen/text_size_normal"
+        android:visibility="gone" />
 </FrameLayout>

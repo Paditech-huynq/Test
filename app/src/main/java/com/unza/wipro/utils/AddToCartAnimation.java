@@ -46,6 +46,8 @@ public class AddToCartAnimation {
     private int mDisapearDuration = DEFAULT_DURATION_DISAPPEAR;
 
     private WeakReference<Activity> mContextReference;
+    private int mTopLimit;
+    private Object mImageSource;
     private Bitmap mBitmap;
     private ImageView mImageView;
     private Animator.AnimatorListener mAnimationListener;
@@ -79,6 +81,16 @@ public class AddToCartAnimation {
         return this;
     }
 
+    public AddToCartAnimation setImageSource(Object imageSource) {
+        this.mImageSource = imageSource;
+        return this;
+    }
+
+    public AddToCartAnimation setTopLimit(int topLimit) {
+        this.mTopLimit = topLimit;
+        return this;
+    }
+
     public AddToCartAnimation setItemDuration(int mItemDuration) {
         this.mItemDuration = mItemDuration;
         return this;
@@ -93,13 +105,21 @@ public class AddToCartAnimation {
         if (mContextReference.get() != null) {
             ViewGroup decoreView = (ViewGroup) mContextReference.get().getWindow().getDecorView();
 
-            mBitmap = drawViewToBitmap(mTarget, mTarget.getWidth(), mTarget.getHeight());
             if (mImageView == null)
                 mImageView = new ImageView(mContextReference.get());
-            GlideApp.with(mContextReference.get()).load(mBitmap)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .circleCrop()
-                    .into(mImageView);
+
+            if (mImageSource == null) {
+                mBitmap = drawViewToBitmap(mTarget, mTarget.getWidth(), mTarget.getHeight());
+                GlideApp.with(mContextReference.get()).load(mBitmap)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .circleCrop()
+                        .into(mImageView);
+            } else {
+                GlideApp.with(mContextReference.get()).load(mImageSource)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .circleCrop()
+                        .into(mImageView);
+            }
 
             int[] src = new int[2];
             mTarget.getLocationOnScreen(src);
@@ -112,13 +132,54 @@ public class AddToCartAnimation {
     }
 
     public void startAnimation() {
+        int[] src = new int[2];
+        int[] dest = new int[2];
+        mTarget.getLocationInWindow(src);
+        mDest.getLocationInWindow(dest);
+        int start = mTarget.getHeight() / 2 + src[1];
+        int top = dest[1] + mTopLimit;
+        if (start <= top) {
+            skip().start();
+            return;
+        }
 
         if (prepare()) {
             getAvatarRevealAnimator().start();
         }
     }
 
+    private AnimatorSet skip() {
+        AnimatorSet animatorCircleSet = new AnimatorSet();
+        animatorCircleSet.setDuration(100);
+        animatorCircleSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                if (mAnimationListener != null)
+                    mAnimationListener.onAnimationStart(animation);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (mAnimationListener != null)
+                    mAnimationListener.onAnimationEnd(animation);
+                reset();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        return animatorCircleSet;
+    }
+
     private AnimatorSet getAvatarRevealAnimator() {
+
         final float endRadius = Math.max(destX, destY) / 2;
 
         final float scaleFactor = 0.3f;
@@ -218,9 +279,11 @@ public class AddToCartAnimation {
     }
 
     private void reset() {
-        mBitmap.recycle();
-        mBitmap = null;
-        if (mImageView.getParent() != null)
+        if (mBitmap != null) {
+            mBitmap.recycle();
+            mBitmap = null;
+        }
+        if (mImageView != null && mImageView.getParent() != null)
             ((ViewGroup) mImageView.getParent()).removeView(mImageView);
         mImageView = null;
     }

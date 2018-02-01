@@ -44,6 +44,8 @@ public interface OrderListContract {
         String getFrom();
 
         String getTo();
+
+        void showMessageNoResult(boolean b);
     }
 
     interface Presenter extends BasePresenterImpl {

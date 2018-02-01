@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.location.Location;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
@@ -25,7 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 
-public class Utils extends com.paditech.core.helper.Utils{
+public class Utils extends com.paditech.core.helper.Utils {
     private static final int DURATION_TIME_DEFAULT = 500;
 
     public static TransitionDrawable getTransitionChangeColor(int colorBefore, int colorAfter) {
@@ -129,8 +130,7 @@ public class Utils extends com.paditech.core.helper.Utils{
         return Pattern.compile(".+@.+\\.[a-z]+").matcher(email).matches();
     }
 
-    public static boolean checkPhoneValid(String phone)
-    {
+    public static boolean checkPhoneValid(String phone) {
         return Pattern.compile("/((\\+?)84|0)\\d{9,10}$/").matcher(phone).matches();
     }
 
@@ -169,4 +169,21 @@ public class Utils extends com.paditech.core.helper.Utils{
             return "";
         }
     }
+
+    /**
+     * Returns the approximate distance in meters between this
+     * location and the given location.  Distance is defined using
+     * the WGS84 ellipsoid.
+     *
+     * @return the approximate distance in meters
+     */
+    public static float getDistance(Location selectedLocation, Location nearLocations) {
+        return selectedLocation.distanceTo(nearLocations);
+    }
+
+    public static double round(double value, int precision) {
+        int scale = (int) Math.pow(10, precision);
+        return (double) Math.round(value * scale) / scale;
+    }
+
 }

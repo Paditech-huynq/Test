@@ -1,7 +1,6 @@
 package com.unza.wipro.main.views.fragments;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -44,6 +43,8 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
     RecyclerView mRecyclerView;
     @BindView(R.id.edtSearch)
     EditText edtSearch;
+    @BindView(R.id.noResult)
+    View noResult;
     private final static String LAST_SCROLL_Y = "last_scroll_y";
     private ProfileListAdapter mAdapter;
     private static final int DRAWABLE_RIGHT = 2;
@@ -55,6 +56,28 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
         }
     };
     private Handler searchHandler = new Handler();
+    private TextWatcher textChangeListenner = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            searchHandler.removeCallbacks(searchRunnable);
+            if (edtSearch.getText().length() > 0) {
+                edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, R.drawable.ic_cancel, 0);
+            } else {
+                edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, 0, 0);
+            }
+            searchHandler.postDelayed(searchRunnable, SEARCH_DELAY);
+        }
+    };
 
     public static ProfileListFragment newInstance() {
 
@@ -79,7 +102,19 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
     public void initView() {
         super.initView();
         setupRecycleView();
+//        setupSearchView();
+    }
+
+    @Override
+    public void onViewAppear() {
+        super.onViewAppear();
         setupSearchView();
+    }
+
+    @Override
+    public void onViewDisappear() {
+        super.onViewDisappear();
+        edtSearch.removeTextChangedListener(textChangeListenner);
     }
 
     private void setupSearchView() {
@@ -96,28 +131,7 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
             }
         });
 
-        edtSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                searchHandler.removeCallbacks(searchRunnable);
-                if (edtSearch.getText().length() > 0) {
-                    edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, R.drawable.ic_cancel, 0);
-                } else {
-                    edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, 0, 0);
-                }
-                searchHandler.postDelayed(searchRunnable, SEARCH_DELAY);
-            }
-        });
+        edtSearch.addTextChangedListener(textChangeListenner);
 
         edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -131,7 +145,9 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
     }
 
     private void setupRecycleView() {
-        mAdapter = new ProfileListAdapter();
+        if (mAdapter == null) {
+            mAdapter = new ProfileListAdapter();
+        }
         mRecyclerView.addItemDecoration(new VerticalSpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_normal)));
         ViewHelper.setupRecycle(mRecyclerView, new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false), mAdapter);
         mAdapter.setOnLoadMoreListener(new BaseRecycleViewAdapter.LoadMoreListener() {
@@ -189,6 +205,11 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
         return edtSearch.getText().toString();
     }
 
+    @Override
+    public void showMessageNoResult(boolean isShow) {
+        noResult.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+
     public void refreshData(List<Customer> customerList) {
         mAdapter.refreshData(customerList);
     }
@@ -206,10 +227,8 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
     }
 
     @Subscribe
-    public void onAction(AppAction action)
-    {
-        switch (action)
-        {
+    public void onAction(AppAction action) {
+        switch (action) {
             case NOTIFY_CUSTOMER_SELECTED_AFTER_CREATE:
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;

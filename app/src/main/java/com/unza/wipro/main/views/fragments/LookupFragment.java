@@ -45,6 +45,8 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
     EditText edtSearch;
     @BindView(R.id.rcvLookup)
     RecyclerView mRecyclerView;
+    @BindView(R.id.noResult)
+    View noResult;
     private static final int DRAWABLE_RIGHT = 2;
     private static final int SEARCH_DELAY = 500;
     private Runnable searchRunnable = new Runnable() {
@@ -59,6 +61,28 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
 
     @BindView(R.id.layoutLoading)
     View layoutLoading;
+    private TextWatcher textChangeListenner = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            searchHandler.removeCallbacks(searchRunnable);
+            if (edtSearch.getText().length() > 0) {
+                edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, R.drawable.ic_cancel, 0);
+            } else {
+                edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, 0, 0);
+            }
+            searchHandler.postDelayed(searchRunnable, SEARCH_DELAY);
+        }
+    };
 
     public static LookupFragment newInstance() {
 
@@ -87,13 +111,28 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
 
     @Override
     public void setScreenTitle(String title) {
+        if (!isShowCartButton){
+            super.setScreenTitle(getString(R.string.title_home_lookup));
+        }
     }
 
     @Override
     public void initView() {
         super.initView();
         setupRecycleView();
+//        setupSearchView();
+    }
+
+    @Override
+    public void onViewAppear() {
+        super.onViewAppear();
         setupSearchView();
+    }
+
+    @Override
+    public void onViewDisappear() {
+        super.onViewDisappear();
+        edtSearch.removeTextChangedListener(textChangeListenner);
     }
 
     private void setupSearchView() {
@@ -111,28 +150,7 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
             }
         });
 
-        edtSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                searchHandler.removeCallbacks(searchRunnable);
-                if (edtSearch.getText().length() > 0) {
-                    edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, R.drawable.ic_cancel, 0);
-                } else {
-                    edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, 0, 0);
-                }
-                searchHandler.postDelayed(searchRunnable, SEARCH_DELAY);
-            }
-        });
+        edtSearch.addTextChangedListener(textChangeListenner);
 
         edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -269,6 +287,11 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
     @Override
     public String getCurrentKeyword() {
         return edtSearch.getText().toString();
+    }
+
+    @Override
+    public void showMessageNoResult(boolean isShow) {
+        noResult.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
     @Override

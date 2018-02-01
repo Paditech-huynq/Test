@@ -12,22 +12,19 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_dot_green"
         android:drawablePadding="@dimen/padding_small"
-        android:text="Siêu thị Điện máy HC"
         android:textColor="@color/green" />
 
     <TextView
         android:id="@+id/tv_shop_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/padding_big"
-        android:text="235 Nguyễn Ngọc Nại, Thanh Xuân, Hà Nội" />
+        android:paddingLeft="@dimen/padding_big" />
 
     <TextView
         android:id="@+id/tv_shop_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/padding_big"
-        android:text="ĐT: 02240474043 - Khoảng cách 580m" />
+        android:paddingLeft="@dimen/padding_big" />
 
     <View
         android:layout_width="match_parent"

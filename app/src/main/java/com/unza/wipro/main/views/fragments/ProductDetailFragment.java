@@ -1,8 +1,13 @@
 package com.unza.wipro.main.views.fragments;
 
+import android.Manifest;
+import android.animation.Animator;
+import android.app.Activity;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.transition.Transition;
@@ -16,6 +21,7 @@ import android.widget.TextView;
 
 import com.google.android.flexbox.FlexboxLayout;
 import com.paditech.core.helper.StringUtil;
+import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.mvp.MVPFragment;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
@@ -26,6 +32,8 @@ import com.unza.wipro.main.models.ProductCategory;
 import com.unza.wipro.main.models.ProductStock;
 import com.unza.wipro.main.presenters.ProductDetailPresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
+import com.unza.wipro.utils.AddToCartAnimation;
+import com.unza.wipro.utils.Utils;
 
 import java.util.List;
 
@@ -51,14 +59,14 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
     CollapsingToolbarLayout mHeader;
     @BindView(R.id.tvCartAmount)
     TextView tvCartAmount;
+    @BindView(R.id.btnCart)
+    View btnCart;
 
     private ProductImageAdapter mImageAdapter;
     private Product mProduct;
 
     public static ProductDetailFragment newInstance(Product product) {
-
         Bundle args = new Bundle();
-
         ProductDetailFragment fragment = new ProductDetailFragment();
         fragment.mProduct = product;
         fragment.setArguments(args);
@@ -166,11 +174,11 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
             View view = LayoutInflater.from(getActivity()).inflate(R.layout.view_product_available_at, null);
             TextView shopName = view.findViewById(R.id.tv_shop_name);
             TextView shopAddress = view.findViewById(R.id.tv_shop_address);
-            TextView shopPhone = view.findViewById(R.id.tv_shop_phone);
+            TextView tvPhone = view.findViewById(R.id.tv_shop_phone);
+            tvPhone.setText(getString(R.string.stock_phone_only, stock.getPhone()));
             shopName.setText(stock.getName());
             shopAddress.setText(stock.getAddress());
-//            shopPhone.setText("ĐT: 02240474043 - Khoảng cách 580m");
-            //todo: implement get shop available from server
+            view.setTag(stock);
             mShopLayout.addView(view);
         }
     }
@@ -193,9 +201,74 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
         tvCartAmount.setText(count);
     }
 
+    @Override
+    public void requestGrantPermission() {
+        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+    }
+
+    @Override
+    public void updateViewWithCurrentLocation(Location location) {
+        if (location == null) {
+            return;
+        }
+        mShopLayout.getChildCount();
+        for (int i = 0; i < mShopLayout.getChildCount(); i++) {
+            View view = mShopLayout.getChildAt(i);
+            TextView shopPhone = view.findViewById(R.id.tv_shop_phone);
+            ProductStock stock = (ProductStock) view.getTag();
+            if (stock != null) {
+                Float distance = Utils.getDistance(location, stock.getLocation());
+                String unit = "m";
+                if (distance > 1000) {
+                    distance = distance / 1000;
+                    unit = "km";
+                    distance = (float) Utils.round(distance, 1);
+                } else {
+                    distance = (float) Utils.round(distance, 0);
+                }
+
+                ViewHelper.setText(shopPhone,
+                        getString(R.string.stock_phone_and_distance,
+                                stock.getPhone(), distance % 1 == 0 ? distance.intValue() : distance + EMPTY,
+                                unit), null);
+            }
+        }
+    }
+
     @OnClick(R.id.btnRegister)
     protected void addToCart() {
         if (mProduct == null) return;
-        app.editCart().insert(mProduct);
+        makeFlyAnimation(mViewPager);
+    }
+
+    private void makeFlyAnimation(View targetView) {
+        Activity activity = getActivity();
+
+        new AddToCartAnimation().attachActivity(activity)
+                .setTargetView(targetView)
+                .setItemDuration(500)
+                .setMoveDuration(500)
+                .setDestView(btnCart)
+                .setAnimationListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        app.editCart().insert(mProduct);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                }).startAnimation();
     }
 }

@@ -69,7 +69,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     public void onCreate() {
         super.onCreate();
         bus.register(this);
-        getOrdersListFromServer(false);
+        updateDateTime();
     }
 
     @Override
@@ -79,6 +79,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     }
 
     private void getOrdersListFromServer(final boolean isRefresh) {
+        getView().showMessageNoResult(false);
         if (isPending) {
             return;
         }
@@ -107,7 +108,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
                                     mPage++;
                                 } else {
                                     if (mPage == START_PAGE_INDEX) {
-                                        getView().showToast(getView().getContext().getString(R.string.no_result));
+                                        getView().showMessageNoResult(true);
                                     }
                                 }
                                 isFull = response.body().getData().size() < PAGE_SIZE;
@@ -170,6 +171,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     @Override
     public void onSearch(String from, String to) {
         if (StringUtil.isEmpty(from) && StringUtil.isEmpty(to)) {
+            isSearch = true;
             fromDate = null;
             toDate = null;
             getOrdersListFromServer(true);

@@ -1,7 +1,6 @@
 package com.unza.wipro.main.views.fragments;
 
 import android.animation.Animator;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -150,11 +149,15 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
         if (product == null) return;
         MainActivity activity = (MainActivity) getActivity();
 
+        String url = product.getProductThumbnail() != null ? product.getProductThumbnail().getLink() : null;
+        int top = getResources().getDimensionPixelSize(R.dimen.actionbar_button_size) + activity.getLayoutHeader().getHeight();
         new AddToCartAnimation().attachActivity(activity)
                 .setTargetView(targetView)
                 .setItemDuration(500)
                 .setMoveDuration(500)
                 .setDestView(activity.getCartView())
+                .setImageSource(url)
+                .setTopLimit(top)
                 .setAnimationListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {

@@ -1,8 +1,6 @@
 package com.unza.wipro.main.views.fragments;
 
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -31,10 +29,7 @@ import retrofit2.Response;
  * Copyright (c) 2018 Paditech. All rights reserved.
  */
 
-public class NewsDetailFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
-
-    @BindView(R.id.swipe_refresh)
-    SwipeRefreshLayout mSwipeRefreshLayout;
+public class NewsDetailFragment extends BaseFragment {
     @BindView(R.id.tv_news_title)
     TextView mTitleText;
     @BindView(R.id.tv_news_desc)
@@ -68,7 +63,6 @@ public class NewsDetailFragment extends BaseFragment implements SwipeRefreshLayo
     public void initView() {
         super.initView();
         setupWebView();
-        setupSwipeRefresh();
         getDetail();
     }
 
@@ -82,11 +76,6 @@ public class NewsDetailFragment extends BaseFragment implements SwipeRefreshLayo
     public void onViewDisappear() {
         super.onViewDisappear();
         ((MainActivity) getActivity()).setShowHeader(true);
-    }
-
-    @Override
-    public void onRefresh() {
-        getDetail();
     }
 
     @OnClick(R.id.imv_back)
@@ -108,11 +97,6 @@ public class NewsDetailFragment extends BaseFragment implements SwipeRefreshLayo
         settings.setDefaultFontSize((int) getResources().getDimension(R.dimen.text_size_normal));
     }
 
-    private void setupSwipeRefresh() {
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
-    }
-
     private void showDetail(News news) {
         if (news == null) return;
         mNews = news;
@@ -122,7 +106,7 @@ public class NewsDetailFragment extends BaseFragment implements SwipeRefreshLayo
         if (!StringUtil.isEmpty(mNews.getContent())) {
             //todo: fix
             String head = "<head> <style>img{display: inline;height: auto;max-width:   100%;}</style> <style>body {font-family: 'Roboto';  }</style></head>";
-            mWebView.loadData(head+mNews.getContent(), "text/html; charset=UTF-8;", null);
+            mWebView.loadData(head + mNews.getContent(), "text/html; charset=UTF-8;", null);
         }
     }
 
@@ -134,7 +118,6 @@ public class NewsDetailFragment extends BaseFragment implements SwipeRefreshLayo
                     @Override
                     public void onResponse(Call<GetNewsDetailRSP> call, Response<GetNewsDetailRSP> response) {
                         try {
-                            mSwipeRefreshLayout.setRefreshing(false);
                             showProgressDialog(false);
                             if (response.body() != null) {
                                 showDetail(response.body().getNews());
@@ -146,7 +129,6 @@ public class NewsDetailFragment extends BaseFragment implements SwipeRefreshLayo
 
                     @Override
                     public void onFailure(Call<GetNewsDetailRSP> call, Throwable t) {
-                        mSwipeRefreshLayout.setRefreshing(false);
                         showProgressDialog(false);
                         showToast(t.getLocalizedMessage());
                     }
