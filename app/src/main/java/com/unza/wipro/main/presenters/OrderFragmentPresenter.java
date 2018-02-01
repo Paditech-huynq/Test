@@ -69,7 +69,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
     public void onCreate() {
         super.onCreate();
         bus.register(this);
-        getOrdersListFromServer(false);
+        updateDateTime();
     }
 
     @Override
