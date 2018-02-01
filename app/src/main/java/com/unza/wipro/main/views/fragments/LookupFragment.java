@@ -61,6 +61,28 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
 
     @BindView(R.id.layoutLoading)
     View layoutLoading;
+    private TextWatcher textChangeListenner = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            searchHandler.removeCallbacks(searchRunnable);
+            if (edtSearch.getText().length() > 0) {
+                edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, R.drawable.ic_cancel, 0);
+            } else {
+                edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, 0, 0);
+            }
+            searchHandler.postDelayed(searchRunnable, SEARCH_DELAY);
+        }
+    };
 
     public static LookupFragment newInstance() {
 
@@ -98,7 +120,19 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
     public void initView() {
         super.initView();
         setupRecycleView();
+//        setupSearchView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         setupSearchView();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        edtSearch.removeTextChangedListener(textChangeListenner);
     }
 
     private void setupSearchView() {
@@ -116,28 +150,7 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
             }
         });
 
-        edtSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                searchHandler.removeCallbacks(searchRunnable);
-                if (edtSearch.getText().length() > 0) {
-                    edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, R.drawable.ic_cancel, 0);
-                } else {
-                    edtSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lookup3, 0, 0, 0);
-                }
-                searchHandler.postDelayed(searchRunnable, SEARCH_DELAY);
-            }
-        });
+        edtSearch.addTextChangedListener(textChangeListenner);
 
         edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
