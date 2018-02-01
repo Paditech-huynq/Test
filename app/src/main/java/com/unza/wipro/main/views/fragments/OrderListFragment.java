@@ -157,11 +157,13 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public void dismissFilter() {
-        OrderListFragment.this.enablePullToRefresh(true);
-        viewUpRecycleView.setVisibility(View.GONE);
-        filter.setAnimation(AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_up));
-        filter.setVisibility(View.GONE);
-        cardViewHeader.setElevation(getResources().getDimensionPixelOffset(R.dimen.cardview_default_elevation));
+        if(filter.getVisibility() == View.VISIBLE) {
+            OrderListFragment.this.enablePullToRefresh(true);
+            viewUpRecycleView.setVisibility(View.GONE);
+            filter.setAnimation(AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_up));
+            filter.setVisibility(View.GONE);
+            cardViewHeader.setElevation(getResources().getDimensionPixelOffset(R.dimen.cardview_default_elevation));
+        }
     }
 
     @Override
@@ -210,13 +212,13 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     public void updateDayInFilter(String from, String to) {
         tvCalenderLeftFilter.setText(from);
         tvCalenderRightFilter.setText(to);
+        getPresenter().updateCurrentFilter(from,to);
         if (StringUtil.isEmpty(from) && StringUtil.isEmpty(to)) {
             tvTimeInHeaderFilter.setText("");
             return;
         }
         tvTimeInHeaderFilter.setText(getResources().getString(R.string.display_time_day_month_year_in_header_filter, from,
                 to));
-        getPresenter().updateCurrentFilter(from,to);
     }
 
     @Override
