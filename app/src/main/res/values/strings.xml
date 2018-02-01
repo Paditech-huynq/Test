@@ -168,6 +168,10 @@
     <string name="action_cancel">Hủy</string>
     <string name="action_delete">Xóa</string>
     <string name="no_result">Không có kết quả phù hợp</string>
+    <string name="scan_qr_success">Thêm 1 sản phẩm vào giỏ hàng</string>
+    <string name="scan_qr_not_find_product">Không tìm thấy sản phẩm này</string>
+    <string name="scan_qr_failure">Không lấy được dữ liệu từ server</string>
+    <string name="scan_title_product">Mã sản phẩm: %s</string>
     <string name="stock_phone_and_distance">ĐT: %1s - Khoảng cách %2s%3s</string>
     <string name="stock_phone_only">ĐT: %1s</string>
 

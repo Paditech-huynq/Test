@@ -55,6 +55,10 @@ public interface AppService {
     @FormUrlEncoded
     Call<GetProductDetailRSP> getProductDetail(@Field("product_id") String productId);
 
+    @POST("product/barcode")
+    @FormUrlEncoded
+    Call<GetProductDetailRSP> getProductDetailFromBarcode(@Field("barcode") String productBarcode);
+
     @POST("product/list")
     Call<GetListProductRSP> getListProduct(@Query("page") int page, @Query("page_size") int pageSize,
                                            @Query("category_id") String categoryID, @Query("key") String key);
