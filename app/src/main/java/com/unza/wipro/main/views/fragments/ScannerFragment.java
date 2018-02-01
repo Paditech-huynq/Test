@@ -119,7 +119,7 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
             mScannerView.resumeCameraPreview(ScannerFragment.this);
             return;
         }
-        AppClient.newInstance().getService().getProductDetail(rawResult.getContents()).enqueue(new Callback<GetProductDetailRSP>() {
+        AppClient.newInstance().getService().getProductDetailFromBarcode(rawResult.getContents()).enqueue(new Callback<GetProductDetailRSP>() {
             @Override
             public void onResponse(Call<GetProductDetailRSP> call, Response<GetProductDetailRSP> response) {
                 try {
