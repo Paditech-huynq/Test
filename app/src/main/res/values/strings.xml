@@ -130,7 +130,7 @@
     <string name="delivery_info_date">Thời gian nhận hàng</string>
     <string name="delivery_info_note">Ghi chú</string>
     <string name="delivery_info_submit">Xác nhận</string>
-    <string name="delivery_info_invalid_date">Ngày nhận hàng không hợp lệ</string>
+    <string name="delivery_info_invalid_date">Ngày nhận hàng phải sau ít nhất 2 ngày</string>
     <string name="delivery_info_name_empty">Bạn chưa nhập họ và tên!</string>
     <string name="delivery_info_phone_empty">Bạn chưa nhập số điện thoại!</string>
     <string name="delivery_info_submit_fail">Cập nhật không thành công! Xin hãy thử lại!</string>

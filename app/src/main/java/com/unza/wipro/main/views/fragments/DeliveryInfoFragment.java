@@ -2,7 +2,6 @@ package com.unza.wipro.main.views.fragments;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -44,6 +43,7 @@ public class DeliveryInfoFragment extends MVPFragment<DeliveryInfoPresenter> imp
     EditText edtNote;
 
     private String customerId;
+    private Calendar DEFAULT_CALENDAR;
 
     public static DeliveryInfoFragment newInstance(String customerId) {
         Bundle args = new Bundle();
@@ -71,6 +71,9 @@ public class DeliveryInfoFragment extends MVPFragment<DeliveryInfoPresenter> imp
         edtName.setText(name);
         edtPhone.setText(phone);
         customerId = getArguments().getString(KEY_CUSTOMER_ID);
+        DEFAULT_CALENDAR = Calendar.getInstance();
+        DEFAULT_CALENDAR.add(Calendar.DAY_OF_MONTH, 2);
+        edtDate.setText(StringUtil.formatDate(DEFAULT_CALENDAR.getTime()));
     }
 
     @Override
@@ -126,9 +129,9 @@ public class DeliveryInfoFragment extends MVPFragment<DeliveryInfoPresenter> imp
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
                         Calendar calendar = Calendar.getInstance();
                         calendar.set(year, month, dayOfMonth);
-                        if (calendar.before(Calendar.getInstance())) {
+                        if (calendar.before(DEFAULT_CALENDAR)) {
                             showToast(getString(R.string.delivery_info_invalid_date));
-                            edtDate.setText(null);
+                            edtDate.setText(StringUtil.formatDate(DEFAULT_CALENDAR.getTime()));
                             return;
                         }
                         edtDate.setText(StringUtil.formatDate(calendar.getTime()));
