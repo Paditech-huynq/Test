@@ -53,11 +53,11 @@ public interface AppService {
 
     @POST("product/detail")
     @FormUrlEncoded
-    Call<GetProductDetailRSP> getProductDetail(@Field("product_id") String product_id);
+    Call<GetProductDetailRSP> getProductDetail(@Field("product_id") String productId);
 
     @POST("product/barcode")
     @FormUrlEncoded
-    Call<GetProductDetailRSP> getProductDetailFromBarcode(@Field("barcode") String product_barcode);
+    Call<GetProductDetailRSP> getProductDetailFromBarcode(@Field("barcode") String productBarcode);
 
     @POST("product/list")
     Call<GetListProductRSP> getListProduct(@Query("page") int page, @Query("page_size") int pageSize,
