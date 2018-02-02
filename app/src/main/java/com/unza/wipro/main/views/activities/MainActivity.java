@@ -3,6 +3,7 @@ package com.unza.wipro.main.views.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,6 +41,8 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
 
     @BindView(R.id.tvNotifyUnreadCount)
     TextView tvNotifyUnreadCount;
+
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected int getLayoutResource() {
@@ -203,5 +206,25 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
                 openCamera(true);
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+            this.doubleBackToExitPressedOnce = true;
+            showToast(getResources().getString(R.string.backpress_two_times));
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+            return;
+        }
+        super.onBackPressed();
     }
 }
