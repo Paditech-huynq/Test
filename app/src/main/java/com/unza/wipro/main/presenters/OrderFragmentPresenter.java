@@ -114,6 +114,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
                                 isFull = response.body().getData().size() < PAGE_SIZE;
                                 if (isRefresh) {
                                     isFull = false;
+                                    getView().scrollToTopForRefresh();
                                     getView().refreshData(response.body().getData());
                                 } else {
                                     getView().addItemToList(response.body().getData());
