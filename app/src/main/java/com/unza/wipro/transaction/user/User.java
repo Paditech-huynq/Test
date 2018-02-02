@@ -44,6 +44,9 @@ public abstract class User implements UserInfo {
     private String numberOrders;
 
     public String getNumberOrders() {
+        if (numberOrders == null) {
+            return "0";
+        }
         return numberOrders;
     }
 

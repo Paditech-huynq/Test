@@ -53,6 +53,9 @@ public class Promoter extends User {
     }
 
     public String getNumberCustomers() {
+        if (numberCustomers == null) {
+            return "0";
+        }
         return numberCustomers;
     }
 
