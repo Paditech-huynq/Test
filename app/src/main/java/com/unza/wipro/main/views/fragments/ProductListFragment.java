@@ -30,7 +30,6 @@ public class ProductListFragment extends BaseFragment {
     TabLayout mTabLayout;
 
     private ProductFragmentPagerAdapter mAdapter;
-    private int currentPage;
 
     public static ProductListFragment newInstance() {
 
@@ -124,8 +123,7 @@ public class ProductListFragment extends BaseFragment {
     public void onNetworkOnline() {
         super.onNetworkOnline();
         if (mAdapter != null && mAdapter.getCount() == 0) {
-            //TODO: implement re-load data if data have not loaded yet
-
+            getProductCategoryFromServer();
         }
     }
 }

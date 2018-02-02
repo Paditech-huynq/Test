@@ -30,8 +30,10 @@ import com.unza.wipro.main.contracts.ProductDetailContract;
 import com.unza.wipro.main.models.Product;
 import com.unza.wipro.main.models.ProductCategory;
 import com.unza.wipro.main.models.ProductStock;
+import com.unza.wipro.main.models.ProductThumbnail;
 import com.unza.wipro.main.presenters.ProductDetailPresenter;
 import com.unza.wipro.main.views.activities.MainActivity;
+import com.unza.wipro.main.views.dialogs.FullScreenImageDialogFragment;
 import com.unza.wipro.utils.AddToCartAnimation;
 import com.unza.wipro.utils.Utils;
 
@@ -64,6 +66,7 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
 
     private ProductImageAdapter mImageAdapter;
     private Product mProduct;
+    private boolean expanded;
 
     public static ProductDetailFragment newInstance(Product product) {
         Bundle args = new Bundle();
@@ -98,7 +101,15 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
     }
 
     private void setupViewPager() {
-        mImageAdapter = new ProductImageAdapter(getActivity());
+        if (mImageAdapter == null) {
+            mImageAdapter = new ProductImageAdapter(getActivity());
+            mImageAdapter.setmCallback(new ProductImageAdapter.Callback() {
+                @Override
+                public void onItemClick(int position, ProductThumbnail thumbnail, View v) {
+                    FullScreenImageDialogFragment.newInstance(mProduct.getImages(), position).show(getActivity().getSupportFragmentManager(), "");
+                }
+            });
+        }
         mViewPager.setAdapter(mImageAdapter);
         if (mProduct != null && mProduct.getProductThumbnail() != null) {
             mImageAdapter.addData(mProduct.getProductThumbnail());
