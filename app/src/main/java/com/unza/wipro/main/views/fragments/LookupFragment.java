@@ -195,6 +195,9 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
                 Product product = mAdapter.getItem(index);
                 if (isShowCartButton) {
                     makeFlyAnimation((ImageView) view, product);
+                } else {
+                    insertItemToCart(mAdapter.getItem(index));
+                    showToast(getResources().getString(R.string.scan_qr_success));
                 }
             }
         });
