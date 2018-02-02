@@ -1,5 +1,6 @@
 package com.unza.wipro.main.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Html;
 import android.util.Log;
@@ -25,6 +26,7 @@ import com.unza.wipro.transaction.user.Customer;
 import com.unza.wipro.transaction.user.Promoter;
 import com.unza.wipro.utils.ImageHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -230,7 +232,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
                 tvPromoterName.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_person_sell, mOrder.getCreator().getName())));
             }
             Date date = new Date(mOrder.getCreatedAt());
-            tvDate.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_date_sell, StringUtil.formatDate(date))));
+            tvDate.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_date_sell, getStringTimeAll(date))));
             if (mOrder.getCreator() != null && mOrder.getCreator().getAddress() != null && !mOrder.getCreator().getAddress().trim().isEmpty()) {
                 tvAddress.setVisibility(View.VISIBLE);
                 tvAddress.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.att_address_with_input, mOrder.getCreator().getAddress())));
@@ -257,7 +259,11 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
             if (app.getCurrentUser() != null) {
                 if (app.getCurrentUser() instanceof Promoter) {
                     fillPromoterInfo((Promoter) app.getCurrentUser());
-                }else {
+                } else {
+                    Customer customer = (Customer) app.getCurrentUser();
+                    ImageHelper.loadAvatar(itemView.getContext(), customer.getAvatar() + "", imvAvatar);
+                    tvName.setTextColor(itemView.getContext().getResources().getColor(R.color.colorPrimary));
+                    tvName.setText(customer.getName());
                     tvAddress.setVisibility(View.GONE);
                     tvDate.setVisibility(View.GONE);
                 }
@@ -276,7 +282,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
                 btnChangeCustomer.setText(itemView.getContext().getString(R.string.action_change));
             }
             Date date = new Date();
-            tvDate.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_date_sell, StringUtil.formatDate(date))));
+            tvDate.setText(Html.fromHtml(itemView.getContext().getResources().getString(R.string.cart_date_sell, getStringTimeAll(date))));
         }
 
         @OnClick(R.id.btnChangeCustomer)
@@ -304,5 +310,10 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         public void onCartUpdate() {
             updatePrice();
         }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    public static String getStringTimeAll(Date date) {
+        return new SimpleDateFormat("dd/MM/yyyy hh:mm").format(date);
     }
 }
