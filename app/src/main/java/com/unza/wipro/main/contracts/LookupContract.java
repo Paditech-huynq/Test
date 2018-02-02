@@ -15,6 +15,8 @@ public interface LookupContract {
         String getCurrentKeyword();
 
         void showMessageNoResult(boolean isShow);
+
+        void scrollToTop();
     }
 
     interface Presenter extends BasePresenterImpl {

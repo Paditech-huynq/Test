@@ -302,6 +302,11 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
     }
 
     @Override
+    public void scrollToTop() {
+        mRecyclerView.scrollToPosition(0);
+    }
+
+    @Override
     public void onLoadMore() {
         getPresenter().onLoadMore();
     }
