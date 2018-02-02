@@ -20,6 +20,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.Utils;
@@ -179,7 +180,12 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
         mAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(BaseRecycleViewAdapter.BaseViewHolder holder, View view, int position) {
-                startTransition(view, position);
+                if (isShowCartButton) {
+                    startTransition(view, position);
+                } else {
+                    insertItemToCart(mAdapter.getItem(position));
+                    showToast(getResources().getString(R.string.scan_qr_success));
+                }
             }
         });
 
@@ -189,8 +195,6 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
                 Product product = mAdapter.getItem(index);
                 if (isShowCartButton) {
                     makeFlyAnimation((ImageView) view, product);
-                } else {
-                    insertItemToCart(product);
                 }
             }
         });
