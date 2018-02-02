@@ -194,7 +194,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
 
     @Override
     public void scrollToTop() {
-        mRecyclerView.smoothScrollToPosition(0);
+        mRecyclerView.scrollToPosition(0);
     }
 
     public String getCategoryId() {
