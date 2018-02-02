@@ -372,6 +372,9 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public void setScreenTitle(String title) {
+        if(comFromWhatFragment == COME_FROM_PROFILE_FRAGMENT){
+            super.setScreenTitle(title);
+        }
     }
 
 //    protected boolean isKeepFragment() {
