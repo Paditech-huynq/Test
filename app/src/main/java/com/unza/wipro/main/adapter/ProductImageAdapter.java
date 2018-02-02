@@ -29,6 +29,10 @@ public class ProductImageAdapter extends PagerAdapter implements AppConstans {
         mListener = touchListener;
     }
 
+    public ProductThumbnail getItem(int pos) {
+        return mData.get(pos);
+    }
+
     public interface Callback {
         void onItemClick(int position, ProductThumbnail thumbnail, View v);
     }

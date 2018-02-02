@@ -144,7 +144,7 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
             Window w = getActivity().getWindow(); // in Activity's onCreate() for instance
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
-        switch (mFlag){
+        switch (mFlag) {
             case COME_FROM_SCANNER_IN_ORDER_DETAIL:
                 btnCart.setVisibility(View.GONE);
                 break;
@@ -263,20 +263,21 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
 
     @OnClick(R.id.btnRegister)
     protected void addToCart() {
-        if(mFlag == COME_FROM_PRODUCT_LIST || mFlag == COME_FROM_SCANNER_MAIN) {
+        if (mFlag == COME_FROM_PRODUCT_LIST || mFlag == COME_FROM_SCANNER_MAIN) {
             if (mProduct == null) return;
-            makeFlyAnimation(mViewPager);
+            makeFlyAnimation(mViewPager, mImageAdapter.getItem(mViewPager.getCurrentItem()).getLink());
             return;
         }
         app.editCart().insert(mProduct);
         showToast(getResources().getString(R.string.scan_qr_success));
     }
 
-    private void makeFlyAnimation(View targetView) {
+    private void makeFlyAnimation(View targetView, String imageSource) {
         Activity activity = getActivity();
 
         new AddToCartAnimation().attachActivity(activity)
                 .setTargetView(targetView)
+                .setImageSource(imageSource)
                 .setItemDuration(500)
                 .setMoveDuration(500)
                 .setDestView(btnCart)
