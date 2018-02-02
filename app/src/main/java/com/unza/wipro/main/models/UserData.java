@@ -45,6 +45,8 @@ public class UserData {
     private String isManager;
     @SerializedName("member_group_id")
     private String memberGroupId;
+    @SerializedName("password")
+    private String password;
 
     public String getSalesExpect() {
         return salesExpect == null ? "0" : salesExpect;
@@ -186,5 +188,13 @@ public class UserData {
 
     public String getIsManager() {
         return isManager;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
