@@ -38,7 +38,11 @@ public class UpdatePasswordPresenter extends BasePresenter<UpdatePasswordContrac
                             if (getView() != null) {
                                 getView().showProgressDialog(false);
                             }
-                            if (response.body().getData() != null) {
+                            if (response.body() == null) {
+                                getView().showToast(getView().getContext().getString(R.string.message_change_pass_failure));
+                                return;
+                            }
+                            if (response.body().getResult() == Api.Success) {
                                 getView().showToast(getView().getContext().getString(R.string.message_change_pass_success));
                                 ((BaseFragment) getView()).getActivity().onBackPressed();
                             } else {
