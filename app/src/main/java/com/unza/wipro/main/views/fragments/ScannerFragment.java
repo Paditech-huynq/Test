@@ -182,7 +182,7 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
         showToast(getContext().getString(R.string.scan_qr_success));
         app.editCart().insert(product);
         if (AppConstans.app.getCurrentUser() instanceof Customer || AppConstans.app.getCurrentUser() == null) {
-            switchFragment(OrderDetailFragment.newInstance(), true);
+            switchFragment(ProductDetailFragment.newInstance(product), true);
             return;
         }
         if (AppConstans.app.getCurrentUser() instanceof Promoter) {
