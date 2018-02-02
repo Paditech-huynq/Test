@@ -2,7 +2,6 @@ package com.unza.wipro.main.views.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.PeriodicSync;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -99,6 +98,7 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
             Utils.checkCameraPermission(this.getActivity());
             mScannerView.startCamera();
             isCameraOpen = true;
+            setScreenTitle(getScreenTitle());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -204,6 +204,9 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
 
     @Override
     public void setScreenTitle(String title) {
+        if(isCameraOpen) {
+            super.setScreenTitle(title);
+        }
     }
 
     @Subscribe
@@ -248,5 +251,10 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
             e.printStackTrace();
         }
         super.onDestroy();
+    }
+
+    @Override
+    public String getScreenTitle() {
+        return getString(R.string.title_home_qr);
     }
 }

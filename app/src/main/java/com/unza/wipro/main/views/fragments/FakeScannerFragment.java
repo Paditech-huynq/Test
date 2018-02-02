@@ -85,4 +85,8 @@ public class FakeScannerFragment extends BaseFragment implements AppConstans {
                 break;
         }
     }
+
+    @Override
+    public void setScreenTitle(String title) {
+    }
 }
