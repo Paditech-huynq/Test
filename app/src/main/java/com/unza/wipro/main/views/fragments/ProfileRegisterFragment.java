@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.ImageHelper;
+import com.paditech.core.helper.StringUtil;
 import com.unza.wipro.AppAction;
 import com.unza.wipro.AppConstans;
 import com.unza.wipro.R;
@@ -336,7 +337,7 @@ public class ProfileRegisterFragment extends BaseFragment implements AppConstans
                                         CreateCustomerRSP createCustomerRSP = response.body();
                                         final UserData customer = createCustomerRSP.getCustomer();
                                         if (customer != null && getActivity() != null) {
-                                            if (customer.getPassword() != null) {
+                                            if (customer.getPassword() != null && !StringUtil.isEmpty(customer.getPassword())) {
                                                 showAlertDialog(getString(R.string.create_customer_success),
                                                         getString(R.string.create_customer_pass, customer.getPassword()),
                                                         "OK",
