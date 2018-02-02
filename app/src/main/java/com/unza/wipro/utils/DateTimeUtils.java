@@ -20,7 +20,7 @@ public class DateTimeUtils {
 
     @SuppressLint("SimpleDateFormat")
     public static String getStringTimeAll(Date date) {
-        return new SimpleDateFormat("yyyy/MM/dd-kk:mm").format(date);
+        return new SimpleDateFormat("yyyy/MM/dd - kk:mm").format(date);
     }
 
     @SuppressLint("SimpleDateFormat")
