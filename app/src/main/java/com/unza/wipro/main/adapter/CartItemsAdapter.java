@@ -261,6 +261,7 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
                     fillPromoterInfo((Promoter) app.getCurrentUser());
                 } else {
                     Customer customer = (Customer) app.getCurrentUser();
+                    currentCustomer = customer;
                     ImageHelper.loadAvatar(itemView.getContext(), customer.getAvatar() + "", imvAvatar);
                     tvName.setTextColor(itemView.getContext().getResources().getColor(R.color.colorPrimary));
                     tvName.setText(customer.getName());
