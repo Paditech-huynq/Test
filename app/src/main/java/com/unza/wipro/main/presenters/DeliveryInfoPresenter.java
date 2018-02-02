@@ -13,6 +13,9 @@ public class DeliveryInfoPresenter extends BasePresenter<DeliveryInfoContract.Vi
     public void onSubmitButtonClick() {
         final OrderTransaction transaction = new OrderTransaction();
         transaction.setPaymentMethod(Transaction.PaymentMethod.COD).setDeliveryInfo(getView().getDeliverInfo());
+        if(getView().getDeliverInfo() == null){
+            return;
+        }
         final String customerId = getView().getCustomerId();
         if (transaction.create(customerId, app.getCurrentCart())) {
             try {
@@ -51,7 +54,6 @@ public class DeliveryInfoPresenter extends BasePresenter<DeliveryInfoContract.Vi
 
     private void onPaymentFailure() {
         getView().showToast("Payment Failure");
-
     }
 
     private void onPaymentSuccess(Transaction transaction) {
