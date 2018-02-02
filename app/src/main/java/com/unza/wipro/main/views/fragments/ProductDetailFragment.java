@@ -64,17 +64,22 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
 
     private ProductImageAdapter mImageAdapter;
     private Product mProduct;
+    private int mFlag;
+    public static final int COME_FROM_SCANNER_MAIN = 0;
+    public static final int COME_FROM_PRODUCT_LIST = 1;
+    public static final int COME_FROM_SCANNER_IN_ORDER_DETAIL = 2;
 
-    public static ProductDetailFragment newInstance(Product product) {
+    public static ProductDetailFragment newInstance(Product product, int comeFromWhatFragment) {
         Bundle args = new Bundle();
         ProductDetailFragment fragment = new ProductDetailFragment();
         fragment.mProduct = product;
+        fragment.mFlag = comeFromWhatFragment;
         fragment.setArguments(args);
         return fragment;
     }
 
-    public static ProductDetailFragment newInstance(Product product, Transition transition) {
-        ProductDetailFragment fragment = ProductDetailFragment.newInstance(product);
+    public static ProductDetailFragment newInstance(Product product, Transition transition, int comeFromWhatFragment) {
+        ProductDetailFragment fragment = ProductDetailFragment.newInstance(product, comeFromWhatFragment);
         fragment.setSharedElementEnterTransition(transition);
         fragment.setSharedElementReturnTransition(transition);
         return fragment;
@@ -128,6 +133,17 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window w = getActivity().getWindow(); // in Activity's onCreate() for instance
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+        switch (mFlag){
+            case COME_FROM_SCANNER_IN_ORDER_DETAIL:
+                btnCart.setVisibility(View.GONE);
+                break;
+            case COME_FROM_PRODUCT_LIST:
+                btnCart.setVisibility(View.VISIBLE);
+                break;
+            case COME_FROM_SCANNER_MAIN:
+                btnCart.setVisibility(View.VISIBLE);
+                break;
         }
     }
 
@@ -237,8 +253,13 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
 
     @OnClick(R.id.btnRegister)
     protected void addToCart() {
-        if (mProduct == null) return;
-        makeFlyAnimation(mViewPager);
+        if(mFlag == COME_FROM_PRODUCT_LIST || mFlag == COME_FROM_SCANNER_MAIN) {
+            if (mProduct == null) return;
+            makeFlyAnimation(mViewPager);
+            return;
+        }
+        app.editCart().insert(mProduct);
+        showToast(getResources().getString(R.string.scan_qr_success));
     }
 
     private void makeFlyAnimation(View targetView) {

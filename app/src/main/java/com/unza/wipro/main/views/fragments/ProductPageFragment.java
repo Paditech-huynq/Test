@@ -30,6 +30,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
+import static com.unza.wipro.main.views.fragments.ProductDetailFragment.COME_FROM_PRODUCT_LIST;
+
 public class ProductPageFragment extends MVPFragment<ProductPagePresenter> implements ProductPageContract.ViewImpl, AppConstans {
     @BindView(R.id.rcvProduct)
     RecyclerView mRecyclerView;
@@ -134,7 +136,7 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
         ViewCompat.setTransitionName(imvProduct, String.valueOf(Calendar.getInstance().getTimeInMillis()));
 
         ProductDetailFragment detailFragment = ProductDetailFragment.newInstance(mAdapter.getItem(position), TransitionInflater.from(ProductPageFragment.this.getContext()).
-                inflateTransition(R.transition.change_image_transform));
+                inflateTransition(R.transition.change_image_transform), COME_FROM_PRODUCT_LIST);
 
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.setCustomAnimations(com.paditech.core.R.anim.abc_fade_in, com.paditech.core.R.anim.abc_fade_out, com.paditech.core.R.anim.abc_fade_in, com.paditech.core.R.anim.abc_fade_out);

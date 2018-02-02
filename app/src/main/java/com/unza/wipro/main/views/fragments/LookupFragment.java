@@ -216,7 +216,7 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
         ViewCompat.setTransitionName(imvProduct, String.valueOf(Calendar.getInstance().getTimeInMillis()));
 
         ProductDetailFragment detailFragment = ProductDetailFragment.newInstance(mAdapter.getItem(position), TransitionInflater.from(LookupFragment.this.getContext()).
-                inflateTransition(R.transition.change_image_transform));
+                inflateTransition(R.transition.change_image_transform), ProductDetailFragment.COME_FROM_PRODUCT_LIST);
 
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.setCustomAnimations(com.paditech.core.R.anim.abc_fade_in, com.paditech.core.R.anim.abc_fade_out, com.paditech.core.R.anim.abc_fade_in, com.paditech.core.R.anim.abc_fade_out);

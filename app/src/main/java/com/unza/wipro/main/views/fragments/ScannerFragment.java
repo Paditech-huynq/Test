@@ -7,6 +7,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -182,7 +183,15 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
         showToast(getContext().getString(R.string.scan_qr_success));
         app.editCart().insert(product);
         if (AppConstans.app.getCurrentUser() instanceof Customer || AppConstans.app.getCurrentUser() == null) {
-            switchFragment(ProductDetailFragment.newInstance(product), true);
+            for (Fragment fragment : getActivity ().getSupportFragmentManager().getFragments()) {
+                Log.e("actionScan: ", fragment.getClass().toString() );
+                if(fragment instanceof HomeFragment){
+                    switchFragment(ProductDetailFragment.newInstance(product, ProductDetailFragment.COME_FROM_SCANNER_MAIN), true);
+                    return;
+                }
+            }
+            Log.e( "actionScan: ", "ok" );
+            switchFragment(ProductDetailFragment.newInstance(product, ProductDetailFragment.COME_FROM_SCANNER_IN_ORDER_DETAIL), true);
             return;
         }
         if (AppConstans.app.getCurrentUser() instanceof Promoter) {
