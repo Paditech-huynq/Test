@@ -94,7 +94,7 @@ public class NewsDetailFragment extends BaseFragment {
         settings.setLoadsImagesAutomatically(true);
         settings.setLoadWithOverviewMode(true);
         settings.setUseWideViewPort(true);
-        settings.setDefaultFontSize((int) getResources().getDimension(R.dimen.text_size_normal));
+        settings.setDefaultFontSize((int) getResources().getDimension(R.dimen.text_size_amount));
     }
 
     private void showDetail(News news) {
@@ -104,9 +104,7 @@ public class NewsDetailFragment extends BaseFragment {
         mDescText.setText(mNews.getSummary());
         mDateText.setText(Utils.getTimeCreated(getContext(), mNews.getCreatedAt()));
         if (!StringUtil.isEmpty(mNews.getContent())) {
-            //todo: fix
-            String head = "<head> <style>img{display: inline;height: auto;max-width:   100%;}</style> <style>body {font-family: 'Roboto';  }</style></head>";
-            mWebView.loadData(head + mNews.getContent(), "text/html; charset=UTF-8;", null);
+            mWebView.loadData(mNews.getContent(), "text/html; charset=UTF-8;", null);
         }
     }
 
