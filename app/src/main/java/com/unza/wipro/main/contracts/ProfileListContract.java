@@ -13,6 +13,8 @@ public interface ProfileListContract {
         String getCurrentKeyWord();
 
         void showMessageNoResult(boolean b);
+
+        void scrollToTop();
     }
 
     interface Presenter extends BasePresenterImpl {

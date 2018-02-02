@@ -102,6 +102,7 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
         page++;
         isFull = customerList.size() < PAGE_SIZE;
         if (isRefresh || isSearch) {
+            getView().scrollToTop();
             getView().refreshData(customerList);
         } else {
             getView().addItemToList(customerList);

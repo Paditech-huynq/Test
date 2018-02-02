@@ -210,6 +210,11 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
         noResult.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
+    @Override
+    public void scrollToTop() {
+        mRecyclerView.scrollToPosition(0);
+    }
+
     public void refreshData(List<Customer> customerList) {
         mAdapter.refreshData(customerList);
     }
