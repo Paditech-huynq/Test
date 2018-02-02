@@ -11,6 +11,8 @@ public interface ProductPageContract {
         void addItemToList(List<Product> products);
 
         void refreshData(List<Product> products);
+
+        void scrollToTop();
     }
 
     interface Presenter extends BasePresenterImpl {

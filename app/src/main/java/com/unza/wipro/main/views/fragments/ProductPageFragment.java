@@ -192,6 +192,11 @@ public class ProductPageFragment extends MVPFragment<ProductPagePresenter> imple
         mAdapter.replaceData(productList);
     }
 
+    @Override
+    public void scrollToTop() {
+        mRecyclerView.smoothScrollToPosition(0);
+    }
+
     public String getCategoryId() {
         return categoryId;
     }
