@@ -107,6 +107,7 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
         mPage++;
         isFull = productList.size() < PAGE_SIZE;
         if (isRefresh || isSearch) {
+            getView().scrollToTop();
             getView().refreshProductList(productList);
         } else {
             getView().updateItemToList(productList);
