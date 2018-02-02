@@ -80,6 +80,7 @@ public class NewsPagePresenter extends BasePresenter<NewsPageContract.ViewImpl> 
         page++;
         isFull = newsList.size() < PAGE_SIZE;
         if (isRefresh){
+            getView().scrollToTop();
             getView().refreshList(newsList);
         }else {
             getView().updateItemToList(newsList);
