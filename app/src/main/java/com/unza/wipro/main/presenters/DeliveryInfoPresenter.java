@@ -12,10 +12,10 @@ public class DeliveryInfoPresenter extends BasePresenter<DeliveryInfoContract.Vi
     @Override
     public void onSubmitButtonClick() {
         final OrderTransaction transaction = new OrderTransaction();
-        transaction.setPaymentMethod(Transaction.PaymentMethod.COD).setDeliveryInfo(getView().getDeliverInfo());
         if(getView().getDeliverInfo() == null){
             return;
         }
+        transaction.setPaymentMethod(Transaction.PaymentMethod.COD).setDeliveryInfo(getView().getDeliverInfo());
         final String customerId = getView().getCustomerId();
         if (transaction.create(customerId, app.getCurrentCart())) {
             try {
