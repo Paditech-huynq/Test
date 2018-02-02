@@ -99,6 +99,7 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
             isFull = true;
         }
         if (isRefresh) {
+            getView().scrollToTop();
             getView().refreshData(productList);
         } else {
             getView().addItemToList(productList);
