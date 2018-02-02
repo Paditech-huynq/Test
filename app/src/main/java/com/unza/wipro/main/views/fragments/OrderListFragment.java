@@ -157,7 +157,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public void dismissFilter() {
-        if(filter.getVisibility() == View.VISIBLE) {
+        if (filter.getVisibility() == View.VISIBLE) {
             OrderListFragment.this.enablePullToRefresh(true);
             viewUpRecycleView.setVisibility(View.GONE);
             filter.setAnimation(AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_up));
@@ -212,7 +212,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
     public void updateDayInFilter(String from, String to) {
         tvCalenderLeftFilter.setText(from);
         tvCalenderRightFilter.setText(to);
-        getPresenter().updateCurrentFilter(from,to);
+        getPresenter().updateCurrentFilter(from, to);
         if (StringUtil.isEmpty(from) && StringUtil.isEmpty(to)) {
             tvTimeInHeaderFilter.setText("");
             return;
@@ -299,6 +299,10 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         noResult.setVisibility(b ? View.VISIBLE : View.GONE);
     }
 
+    @Override
+    public void scrollToTopForRefresh() {
+        rcvOrder.scrollToPosition(0);
+    }
 
     @OnClick(R.id.tv_time_in_header_filter)
     public void onTvTimeFilterClick() {
@@ -372,7 +376,7 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @Override
     public void setScreenTitle(String title) {
-        if(comFromWhatFragment == COME_FROM_PROFILE_FRAGMENT){
+        if (comFromWhatFragment == COME_FROM_PROFILE_FRAGMENT) {
             super.setScreenTitle(title);
         }
     }

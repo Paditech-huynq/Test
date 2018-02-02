@@ -46,6 +46,8 @@ public interface OrderListContract {
         String getTo();
 
         void showMessageNoResult(boolean b);
+
+        void scrollToTopForRefresh();
     }
 
     interface Presenter extends BasePresenterImpl {
