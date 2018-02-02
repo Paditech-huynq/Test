@@ -86,7 +86,8 @@ public class ForgotPasswordActivity extends MVPActivity<ForgotPasswordPresenter>
     protected void confirm() {
         String username = mUsernameText.getText().toString().trim();
         if (!validate(username)) return;
-        getPresenter().forgotPass(username);
+//        getPresenter().forgotPass(username);
+        onForgotPassResult(true, "", "");
     }
 
     private boolean validate(String username) {
