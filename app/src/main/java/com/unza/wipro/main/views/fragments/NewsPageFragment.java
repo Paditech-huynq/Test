@@ -118,6 +118,11 @@ public class NewsPageFragment extends MVPFragment<NewsPagePresenter> implements 
     }
 
     @Override
+    public void scrollToTop() {
+        mRecyclerView.scrollToPosition(0);
+    }
+
+    @Override
     public void showProgressDialog(boolean isShown) {
         layoutLoading.setVisibility(isShown ? View.VISIBLE : View.GONE);
     }

@@ -12,6 +12,8 @@ public interface NewsPageContract {
         void updateItemToList(List<News> data);
         NewsCategory getCategory();
         void refreshList(List<News> news);
+
+        void scrollToTop();
     }
 
     interface Presenter extends BasePresenterImpl {
