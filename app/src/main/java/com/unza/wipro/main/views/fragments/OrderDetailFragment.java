@@ -80,7 +80,9 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
             @Override
             public void onCartUpdate() {
                 try {
-                    ((MainActivity) getActivity()).updateActionButtonAppearance(OrderDetailFragment.this);
+                    if(isVisible()) {
+                        ((MainActivity) getActivity()).updateActionButtonAppearance(OrderDetailFragment.this);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
