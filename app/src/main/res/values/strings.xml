@@ -176,5 +176,6 @@
     <string name="stock_phone_only">ĐT: %1s</string>
     <string name="create_customer_success">Tạo khách hàng thành công</string>
     <string name="create_customer_pass">Mật khẩu của khách hàng là %1s.</string>
+    <string name="backpress_two_times">Nhấn thoát hai lần để thoát ứng dụng</string>
 
 </resources>
