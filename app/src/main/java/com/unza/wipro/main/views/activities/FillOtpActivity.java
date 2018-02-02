@@ -110,6 +110,13 @@ public class FillOtpActivity extends MVPActivity<OtpPresenter> implements OtpCon
                     intent.putExtra("otp", otp);
                     startActivityForResult(intent, CHANGE_PASS_REQ_CODE);
                 } else {
+                    mCode1Text.setText("");
+                    mCode2Text.setText("");
+                    mCode3Text.setText("");
+                    mCode4Text.setText("");
+                    mCode5Text.setText("");
+                    mCode6Text.setText("");
+                    mCode1Text.requestFocus();
                     String alert = StringUtil.isEmpty(message) ? getString(R.string.message_otp_failure) : message;
                     showToast(alert);
                 }
