@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@android:color/white"
-              android:fitsSystemWindows="false"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:fitsSystemWindows="false"
+    android:orientation="vertical">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -31,14 +31,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/padding_small"
                     android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_product_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/padding_normal"
-                    android:layout_marginTop="@dimen/padding_small"/>
+                    android:layout_marginTop="@dimen/padding_small" />
 
                 <TextView
                     android:id="@+id/tv_product_price"
@@ -51,7 +51,7 @@
                     android:paddingLeft="@dimen/padding_normal"
                     android:paddingRight="@dimen/padding_normal"
                     android:textColor="@android:color/white"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -60,11 +60,10 @@
                     android:layout_marginTop="@dimen/padding_normal"
                     android:text="@string/att_product_category"
                     android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
 
-                <com.google.android.flexbox.FlexboxLayout
-                    xmlns:android="http://schemas.android.com/apk/res/android"
+                <com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/layout_category"
                     android:layout_width="match_parent"
@@ -83,7 +82,7 @@
                     android:layout_marginTop="@dimen/padding_small"
                     android:text="@string/att_product_available_at"
                     android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:id="@+id/layout_shop"
@@ -98,13 +97,13 @@
                     android:layout_height="wrap_content"
                     android:text="@string/att_product_describe"
                     android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_product_desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding_small"/>
+                    android:layout_marginTop="@dimen/padding_small" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 
@@ -134,7 +133,7 @@
                         android:layout_height="250dip"
                         android:scaleType="centerCrop"
                         android:src="@drawable/bg_test"
-                        android:transitionName="@string/transition_list_product_to_product_detail"/>
+                        android:transitionName="@string/transition_list_product_to_product_detail" />
 
                     <com.rd.PageIndicatorView
                         android:id="@+id/pageIndicatorView"
@@ -148,7 +147,7 @@
                         app:piv_radius="6.5dp"
                         app:piv_selectedColor="@color/colorPrimary"
                         app:piv_unselectedColor="@color/main_bg"
-                        app:piv_viewPager="@id/vpgProduct"/>
+                        app:piv_viewPager="@id/vpgProduct" />
                 </LinearLayout>
 
                 <android.support.v7.widget.Toolbar
@@ -178,7 +177,7 @@
                             android:layout_height="35dip"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            app:srcCompat="@drawable/ic_back_shadow"/>
+                            app:srcCompat="@drawable/ic_back_shadow" />
 
                         <TextView
                             android:id="@+id/tvTitle"
@@ -186,14 +185,14 @@
                             android:layout_height="match_parent"
                             android:layout_centerInParent="true"
                             android:gravity="center"
-                            android:text="@string/product_detail_title"
-                            android:textColor="@android:color/white"
-                            android:textSize="@dimen/text_size_title"
-                            android:textStyle="bold"
                             android:shadowColor="@color/text_shadow"
                             android:shadowDx="0"
                             android:shadowDy="3"
-                            android:shadowRadius="6"/>
+                            android:shadowRadius="6"
+                            android:text="@string/product_detail_title"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/text_size_title"
+                            android:textStyle="bold" />
 
                         <LinearLayout
                             android:id="@+id/view_cart"
@@ -249,5 +248,5 @@
         android:background="@color/colorPrimary"
         android:text="@string/action_add_to_cart"
         android:textColor="@android:color/white"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 </LinearLayout>
