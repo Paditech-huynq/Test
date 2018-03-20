@@ -27,7 +27,8 @@
             android:layout_weight="1"
             android:paddingBottom="17dip"
             android:paddingTop="17dip"
-            app:srcCompat="@drawable/ic_lookup" />
+            app:srcCompat="@drawable/ic_lookup"
+            />
 
         <ImageView
             android:id="@+id/btnScan"
