@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/card_radius_normal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_small"
+        android:paddingRight="@dimen/padding_small">
+
+        <LinearLayout
+            android:paddingTop="@dimen/padding_small"
+            android:paddingBottom="@dimen/padding_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imvAvatar"
+                android:padding="@dimen/padding_small"
+                android:layout_width="100dip"
+                android:layout_height="100dip"
+                app:srcCompat="@drawable/ic_avatar_holder" />
+
+            <TextView
+                android:id="@+id/btnChangeCustomer"
+                android:padding="@dimen/padding_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_select_customer"
+                android:textColor="@color/colorPrimary"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/btnLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_button"
+                android:textColor="@color/colorPrimary"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_small">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cart_please_select_customer"
+                android:textColor="@color/dark_light"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_marginTop="@dimen/padding_small"
+                android:background="@drawable/bg_green_border_rounded"
+                android:gravity="center"
+                android:minWidth="24dip"
+                android:paddingLeft="@dimen/padding_normal"
+                android:paddingRight="@dimen/padding_normal"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"/>
+
+            <TextView
+                android:id="@+id/tvPromoterName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
