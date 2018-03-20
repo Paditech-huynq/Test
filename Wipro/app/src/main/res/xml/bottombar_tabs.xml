@@ -1,0 +1,24 @@
+<tabs>
+    <tab
+        id="@+id/tab_product"
+        icon="@drawable/ic_product_list_unselected"
+        title=""/>
+
+    <tab
+        id="@+id/tab_order"
+        icon="@drawable/ic_order_list_unselected"
+        title=""/>
+
+    <tab
+        id="@+id/tab_qr"
+        icon="@drawable/ic_scan_qr_unselected"
+        title=""/>
+    <tab
+        id="@+id/tab_lookup"
+        icon="@drawable/ic_lookup_unselected"
+        title=""/>
+    <tab
+        id="@+id/tab_news"
+        icon="@drawable/ic_news_unselected"
+        title=""/>
+</tabs>

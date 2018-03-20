@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/image_big_height">
+
+                <ImageView
+                    android:id="@+id/img_avar_under"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/image_big_height"
+                    android:scaleType="centerCrop" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/image_big_height"
+                    android:background="@color/bg_big_image" />
+
+                <LinearLayout
+                    android:id="@+id/ln_img_avar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/padding_normal"
+                    android:layout_marginTop="@dimen/padding_large"
+                    android:background="@drawable/bg_img_avar_profile"
+                    android:elevation="@dimen/cardview_default_elevation"
+                    android:padding="@dimen/padding_small">
+
+                    <ImageView
+                        android:id="@+id/img_avar"
+                        android:layout_width="@dimen/avar_height_width"
+                        android:layout_height="@dimen/avar_height_width"
+                        android:scaleType="centerCrop" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_below="@+id/ln_img_avar"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padding_big"
+                    android:paddingRight="@dimen/padding_big">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/padding_big">
+
+                        <TextView
+                            android:id="@+id/tx_number_sales"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textColor="@color/text_dark"
+                            android:textSize="@dimen/text_number_sales"
+                            android:textStyle="bold"
+                            tools:ignore="NestedWeights" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/order_profile_fragment"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_size_normal"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/padding_big"
+                        android:paddingEnd="@dimen/padding_normal"
+                        android:paddingStart="@dimen/padding_normal">
+
+                        <TextView
+                            android:id="@+id/tx_numbers_point"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textColor="@color/text_dark"
+                            android:textSize="@dimen/text_number_sales"
+                            android:textStyle="bold"
+                            tools:ignore="NestedWeights" />
+
+                        <TextView
+                            android:id="@+id/tx_point"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/point_profile_fragment"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_size_normal"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:id="@+id/layoutMid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:paddingEnd="0dp"
+                        android:paddingLeft="@dimen/padding_giant">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_edit_text_default"
+                            android:paddingBottom="@dimen/padding_normal"
+                            android:paddingTop="@dimen/padding_normal">
+
+                            <TextView
+                                android:id="@+id/tv_name_default"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:text="@string/name_profile_fragment"
+                                android:textColor="@color/text_dark"
+                                android:textSize="@dimen/text_size_normal" />
+
+                            <TextView
+                                android:id="@+id/tv_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_toEndOf="@+id/tv_name_default"
+                                android:background="@android:color/transparent"
+                                android:ellipsize="end"
+                                android:enabled="false"
+                                android:gravity="end"
+                                android:maxLines="1"
+                                android:paddingEnd="@dimen/padding_normal"
+                                android:paddingStart="@dimen/padding_tiny"
+                                android:singleLine="true"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/text_size_normal" />
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/gray_light" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_edit_text_default"
+                            android:paddingBottom="@dimen/padding_normal"
+                            android:paddingTop="@dimen/padding_normal">
+
+                            <TextView
+                                android:id="@+id/tv_phone_default"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:text="@string/phone_profile_fragment"
+                                android:textColor="@color/text_dark"
+                                android:textSize="@dimen/text_size_normal" />
+
+                            <TextView
+                                android:id="@+id/tv_phone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:ellipsize="end"
+                                android:gravity="end"
+                                android:maxLines="1"
+                                android:paddingEnd="@dimen/padding_normal"
+                                android:paddingStart="@dimen/padding_tiny"
+                                android:singleLine="true"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/text_size_normal" />
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/gray_light" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_edit_text_default"
+                            android:paddingBottom="@dimen/padding_normal"
+                            android:paddingTop="@dimen/padding_normal">
+
+                            <TextView
+                                android:id="@+id/tv_email_default"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:text="@string/mail_profile_fragment"
+                                android:textColor="@color/text_dark"
+                                android:textSize="@dimen/text_size_normal" />
+
+                            <TextView
+                                android:id="@+id/tv_email"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_toEndOf="@+id/tv_email_default"
+                                android:ellipsize="end"
+                                android:gravity="end"
+                                android:maxLines="1"
+                                android:paddingEnd="@dimen/padding_normal"
+                                android:paddingStart="@dimen/padding_tiny"
+                                android:singleLine="true"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/text_size_normal" />
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/gray_light" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_edit_text_default"
+                            android:paddingBottom="@dimen/padding_normal"
+                            android:paddingTop="@dimen/padding_normal">
+
+                            <TextView
+                                android:id="@+id/tv_address_default"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:text="@string/address_profile_fragment"
+                                android:textColor="@color/text_dark"
+                                android:textSize="@dimen/text_size_normal" />
+
+                            <TextView
+                                android:id="@+id/tv_address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_toEndOf="@+id/tv_address_default"
+                                android:background="@android:color/transparent"
+                                android:ellipsize="end"
+                                android:enabled="false"
+                                android:gravity="end"
+                                android:maxLines="1"
+                                android:paddingEnd="@dimen/padding_normal"
+                                android:paddingStart="@dimen/padding_tiny"
+                                android:singleLine="true"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/text_size_normal" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ln_degree"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <com.unza.wipro.main.views.customs.DegreeView
+                            android:id="@+id/degree_sale"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/custom_degree_height"
+                            android:layout_marginBottom="@dimen/padding_normal"
+                            android:layout_marginTop="@dimen/padding_giant" />
+
+                        <RelativeLayout
+                            android:id="@+id/rlt_information_sales"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/ln_time_profile_fragment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignEnd="@+id/ln_sales_expect_profile_fragment"
+                                android:layout_alignStart="@id/ln_sales_expect_profile_fragment"
+                                android:layout_marginBottom="@dimen/padding_normal"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginTop="@dimen/padding_normal"
+                                    android:layout_weight="1"
+                                    android:paddingEnd="@dimen/padding_normal"
+                                    android:text="@string/time_profile_fragment"
+                                    android:textColor="@color/text_dark"
+                                    android:textSize="@dimen/text_size_normal"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tv_time_profile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginTop="@dimen/padding_normal"
+                                    android:gravity="end"
+                                    android:textColor="@color/text_dark"
+                                    android:textSize="@dimen/text_size_normal" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ln_sales_expect_profile_fragment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/ln_time_profile_fragment"
+                                android:layout_marginBottom="@dimen/padding_normal"
+                                android:minWidth="@dimen/min_width_text_degree"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:maxLines="1"
+                                    android:paddingEnd="@dimen/padding_normal"
+                                    android:text="@string/sales_expect_profile_fragment"
+                                    android:textColor="@color/text_dark"
+                                    android:textSize="@dimen/text_size_normal"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tv_sales_expect"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="end"
+                                    android:maxLines="1"
+                                    android:textColor="@color/text_dark"
+                                    android:textSize="@dimen/text_size_normal" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ln_sales_actual_profile_fragment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignEnd="@+id/ln_sales_expect_profile_fragment"
+                                android:layout_alignStart="@id/ln_sales_expect_profile_fragment"
+                                android:layout_below="@+id/ln_sales_expect_profile_fragment"
+                                android:layout_marginBottom="@dimen/padding_large"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:paddingEnd="@dimen/padding_normal"
+                                    android:text="@string/sales_actual_profile_fragment"
+                                    android:textColor="@color/text_dark"
+                                    android:textSize="@dimen/text_size_normal"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tv_sales_actual"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="end"
+                                    android:maxLines="1"
+                                    android:textColor="@color/text_dark"
+                                    android:textSize="@dimen/text_size_normal" />
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ln_manager_sales"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <RelativeLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/ic_some_people"
+                                android:layout_width="@dimen/ic_group_size"
+                                android:layout_height="@dimen/ic_group_size"
+                                android:layout_marginLeft="@dimen/padding_small"
+                                android:padding="@dimen/padding_normal"
+                                android:src="@drawable/ic_group" />
+
+                            <TextView
+                                android:id="@+id/tv_manager_default"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@+id/ic_some_people"
+                                android:layout_toRightOf="@id/ic_some_people"
+                                android:gravity="center_vertical"
+                                android:text="@string/manager_team_profile_fragment"
+                                android:textColor="@color/text_dark"
+                                android:textSize="@dimen/text_size_normal"
+                                android:textStyle="bold"
+                                tools:ignore="RtlHardcoded" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/rlt_manager_sales"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:drawableEnd="@drawable/ic_arrow_right"
+                            android:gravity="center_vertical"
+                            android:paddingBottom="@dimen/padding_normal"
+                            android:paddingEnd="@dimen/padding_small"
+                            android:paddingStart="@dimen/padding_giant"
+                            android:paddingTop="@dimen/padding_normal"
+                            android:text="@string/sales_member_profile_fragment"
+                            android:textColor="@color/text_dark"
+                            android:textSize="@dimen/text_size_normal" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ln_setting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dip">
+
+                            <ImageView
+                                android:id="@+id/ic_setting"
+                                android:layout_width="@dimen/ic_setting_size"
+                                android:layout_height="@dimen/ic_setting_size"
+                                android:layout_centerVertical="true"
+                                android:layout_marginBottom="@dimen/padding_big"
+                                android:layout_marginLeft="@dimen/padding_big"
+                                android:layout_marginRight="@dimen/padding_big"
+                                android:src="@drawable/ic_setting" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@+id/ic_setting"
+                                android:gravity="center"
+                                android:text="@string/setting_profile_fragment"
+                                android:textColor="@color/text_dark"
+                                android:textSize="@dimen/text_size_large"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:orientation="vertical"
+                            android:paddingEnd="0dp"
+                            android:paddingStart="@dimen/padding_giant">
+
+                            <TextView
+                                android:id="@+id/rlt_list_order"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/size_edit_text_default"
+                                android:background="@color/white"
+                                android:drawableEnd="@drawable/ic_arrow_right"
+                                android:gravity="center_vertical"
+                                android:paddingBottom="@dimen/padding_normal"
+                                android:paddingEnd="@dimen/padding_small"
+                                android:paddingTop="@dimen/padding_normal"
+                                android:text="@string/watch_order_list_profile_fragment"
+                                android:textColor="@color/text_dark"
+                                android:textSize="@dimen/text_size_normal" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/gray_light" />
+
+                            <TextView
+                                android:id="@+id/rlt_change_pass"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/size_edit_text_default"
+                                android:background="@color/white"
+                                android:drawableEnd="@drawable/ic_arrow_right"
+                                android:gravity="center_vertical"
+                                android:paddingBottom="@dimen/padding_normal"
+                                android:paddingEnd="@dimen/padding_small"
+                                android:paddingTop="@dimen/padding_normal"
+                                android:text="@string/change_pass_profile_fragment"
+                                android:textColor="@color/text_dark"
+                                android:textSize="@dimen/text_size_normal" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/gray_light" />
+
+                            <TextView
+                                android:id="@+id/rlt_questions"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/size_edit_text_default"
+                                android:background="@color/white"
+                                android:drawableEnd="@drawable/ic_arrow_right"
+                                android:gravity="center_vertical"
+                                android:paddingBottom="@dimen/padding_normal"
+                                android:paddingEnd="@dimen/padding_small"
+                                android:paddingTop="@dimen/padding_normal"
+                                android:text="@string/questions_profile_fragment"
+                                android:textColor="@color/text_dark"
+                                android:textSize="@dimen/text_size_normal" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/gray_light" />
+
+
+                            <TextView
+                                android:id="@+id/rlt_policy_permis"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/size_edit_text_default"
+                                android:background="@color/white"
+                                android:drawableEnd="@drawable/ic_arrow_right"
+                                android:gravity="center_vertical"
+                                android:paddingBottom="@dimen/padding_normal"
+                                android:paddingEnd="@dimen/padding_small"
+                                android:paddingTop="@dimen/padding_normal"
+                                android:text="@string/term_use_profile_fragment"
+                                android:textColor="@color/text_dark"
+                                android:textSize="@dimen/text_size_normal" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/gray_light" />
+
+                            <TextView
+                                android:id="@+id/rlt_logout"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/size_edit_text_default"
+                                android:background="@color/white"
+                                android:drawableEnd="@drawable/ic_arrow_right"
+                                android:gravity="center_vertical"
+                                android:paddingBottom="@dimen/padding_normal"
+                                android:paddingEnd="@dimen/padding_small"
+                                android:paddingTop="@dimen/padding_normal"
+                                android:text="@string/log_out_profile_fragment"
+                                android:textColor="@color/text_dark"
+                                android:textSize="@dimen/text_size_normal" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <com.paditech.core.DisableTouchView
+                    android:id="@+id/layoutEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/botView"
+                    android:layout_alignParentTop="true"
+                    android:background="#90000000"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:id="@+id/rltEditName"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_edit_text_default"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@android:color/white"
+                        android:paddingBottom="@dimen/padding_normal"
+                        android:paddingLeft="@dimen/padding_giant"
+                        android:paddingTop="@dimen/padding_normal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:text="@string/name_profile_fragment"
+                            android:textColor="@color/text_dark"
+                            android:textSize="@dimen/text_size_normal" />
+
+                        <EditText
+                            android:id="@+id/edtName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:background="@android:color/transparent"
+                            android:ellipsize="end"
+                            android:gravity="end"
+                            android:maxLines="1"
+                            android:paddingEnd="@dimen/padding_normal"
+                            android:paddingStart="@dimen/padding_tiny"
+                            android:singleLine="true"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_size_normal" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rltEditAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_edit_text_default"
+                        android:layout_marginTop="122dip"
+                        android:background="@android:color/white"
+                        android:paddingBottom="@dimen/padding_normal"
+                        android:paddingLeft="@dimen/padding_giant"
+                        android:paddingTop="@dimen/padding_normal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:text="@string/address_profile_fragment"
+                            android:textColor="@color/text_dark"
+                            android:textSize="@dimen/text_size_normal" />
+
+                        <EditText
+                            android:id="@+id/edtAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:background="@android:color/transparent"
+                            android:ellipsize="end"
+                            android:gravity="end"
+                            android:maxLines="1"
+                            android:paddingEnd="@dimen/padding_normal"
+                            android:paddingStart="@dimen/padding_tiny"
+                            android:singleLine="true"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_size_normal" />
+                    </RelativeLayout>
+                </com.paditech.core.DisableTouchView>
+
+                <View
+                    android:id="@+id/botView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dip"
+                    android:layout_below="@id/layoutMid"
+                    android:background="#000" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <com.paditech.core.DisableTouchView
+        android:id="@+id/layoutDisable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="#90000000"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/layoutControllSelectImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnCamera"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:text="Camera"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnGallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_orange_light"
+                android:text="Gallery"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_light"
+                android:text="Cancel"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </com.paditech.core.DisableTouchView>
+
+    <com.paditech.core.DisableTouchView
+        android:id="@+id/layoutLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="@dimen/actionbar_button_size"
+            android:layout_height="@dimen/actionbar_button_size"
+            android:layout_centerInParent="true" />
+    </com.paditech.core.DisableTouchView>
+</RelativeLayout>

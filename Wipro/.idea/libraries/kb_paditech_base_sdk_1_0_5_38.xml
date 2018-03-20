@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="kb.paditech:base_sdk-1.0.5.38">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/base_sdk-1.0.5.38.aar/2548f1bac00217618675e94837dc1c09/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/base_sdk-1.0.5.38.aar/2548f1bac00217618675e94837dc1c09/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/kb.paditech/base_sdk/1.0.5.38/a55e7b0e91d5b5e6836308477762670a24723087/base_sdk-1.0.5.38-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
