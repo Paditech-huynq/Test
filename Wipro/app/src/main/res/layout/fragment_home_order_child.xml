@@ -6,7 +6,8 @@
     android:layout_height="@dimen/child_recycle_view_size"
     android:layout_centerInParent="true"
     android:foreground="?attr/selectableItemBackground"
-    app:cardCornerRadius="@dimen/card_radius_small">
+    app:cardCornerRadius="@dimen/card_radius_small"
+    app:cardElevation="@dimen/cardview_compat_inset_shadow">
 
     <RelativeLayout
         android:paddingTop="@dimen/padding_small"
