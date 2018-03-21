@@ -29,7 +29,7 @@
             android:padding="@dimen/padding_small"
             android:text="@string/all_order_list"
             android:textColor="@drawable/color_text_filter_choose_day"
-            android:textSize="@dimen/text_size_normal" />
+            android:textSize="@dimen/text_size_small" />
 
         <Button
             android:id="@+id/btn_this_week"
@@ -43,7 +43,7 @@
             android:padding="@dimen/padding_small"
             android:text="@string/this_week_order_list"
             android:textColor="@drawable/color_text_filter_choose_day"
-            android:textSize="@dimen/text_size_normal" />
+            android:textSize="@dimen/text_size_small" />
 
         <Button
             android:id="@+id/btn_last_week"
@@ -57,7 +57,7 @@
             android:padding="@dimen/padding_small"
             android:text="@string/last_week"
             android:textColor="@drawable/color_text_filter_choose_day"
-            android:textSize="@dimen/text_size_normal" />
+            android:textSize="@dimen/text_size_small" />
 
         <Button
             android:id="@+id/btn_this_month"
@@ -72,7 +72,7 @@
             android:padding="@dimen/padding_small"
             android:text="@string/this_month"
             android:textColor="@drawable/color_text_filter_choose_day"
-            android:textSize="@dimen/text_size_normal" />
+            android:textSize="@dimen/text_size_small" />
     </LinearLayout>
 
     <LinearLayout
@@ -105,7 +105,7 @@
                 android:gravity="center"
                 android:padding="@dimen/padding_tiny"
                 android:textColor="@color/text_dark"
-                android:textSize="@dimen/text_size_normal" />
+                android:textSize="@dimen/text_size_small" />
 
             <ImageButton
                 android:id="@+id/btn_calender_left_filter"
@@ -138,7 +138,7 @@
                 android:layout_toStartOf="@+id/btn_calender_right_filter"
                 android:gravity="center"
                 android:padding="@dimen/padding_tiny"
-                android:textSize="@dimen/text_size_normal" />
+                android:textSize="@dimen/text_size_small" />
 
             <ImageButton
                 android:id="@+id/btn_calender_right_filter"
@@ -189,7 +189,7 @@
                 android:gravity="center"
                 android:text="@string/find"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_normal"
+                android:textSize="@dimen/text_size_small"
                 android:textStyle="bold" />
         </LinearLayout>
     </android.support.v7.widget.CardView>

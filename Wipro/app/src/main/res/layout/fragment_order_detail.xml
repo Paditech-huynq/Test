@@ -14,7 +14,7 @@
     <LinearLayout
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="@dimen/height_bottom_bar"
         android:background="@android:color/white"
         android:orientation="horizontal"
         android:paddingLeft="25dip"
@@ -25,9 +25,8 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingBottom="17dip"
-            android:paddingTop="17dip"
-            app:srcCompat="@drawable/ic_lookup"
+            android:padding="@dimen/padding_icon_bottom_detail_screen"
+            app:srcCompat="@drawable/ic_lookup_selected"
             />
 
         <ImageView
@@ -35,8 +34,7 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingBottom="17dip"
-            android:paddingTop="17dip"
+            android:padding="@dimen/padding_icon_bottom_detail_screen"
             app:srcCompat="@drawable/ic_scan_qr_selected" />
 
         <ImageView
@@ -44,8 +42,7 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingBottom="15dip"
-            android:paddingTop="15dip"
+            android:padding="@dimen/padding_big"
             app:srcCompat="@drawable/ic_payment" />
     </LinearLayout>
 </LinearLayout>

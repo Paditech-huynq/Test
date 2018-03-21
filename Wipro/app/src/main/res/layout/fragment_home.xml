@@ -16,7 +16,7 @@
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="@dimen/height_bottom_bar"
         app:bb_activeTabColor="@color/text_blue"
         app:bb_behavior="iconsOnly"
         app:bb_inActiveTabColor="@color/gray"

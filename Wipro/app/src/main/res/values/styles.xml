@@ -12,9 +12,10 @@
         <item name="android:textSize">@dimen/text_size_normal</item>
     </style>
 
-    <style name="TabTeaxtAppearance" parent="TextAppearance.Design.Tab">
+    <style name="TabTeaxtAppearance">
         <item name="textAllCaps">false</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="RobotoTextViewStyle" parent="android:Widget.TextView">

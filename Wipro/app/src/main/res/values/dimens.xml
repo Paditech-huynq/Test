@@ -7,9 +7,11 @@
     <dimen name="margin_small">5dp</dimen>
     <dimen name="padding_normal">10dip</dimen>
     <dimen name="padding_small">5dip</dimen>
+    <dimen name="padding_icon_header">9dip</dimen>
     <dimen name="padding_tiny">3dip</dimen>
     <dimen name="padding_big">15dip</dimen>
     <dimen name="padding_giant">30dip</dimen>
+    <dimen name="padding_icon_bottom_detail_screen">15dip</dimen>
     <dimen name="actionbar_button_size">40dip</dimen>
     <dimen name="text_size_title">18sp</dimen>
     <dimen name="tab_indicator_height">3dip</dimen>
@@ -17,7 +19,8 @@
     <dimen name="text_size_small">12sp</dimen>
     <dimen name="card_radius_normal">8dip</dimen>
     <dimen name="card_radius_small">4dp</dimen>
-    <dimen name="lookup_item_height">70dip</dimen>
+    <dimen name="card_radius_tiny">2dp</dimen>
+    <dimen name="lookup_item_height">90dip</dimen>
 
     <!-- login -->
     <dimen name="login_divider_width">100dp</dimen>
@@ -54,4 +57,6 @@
     <dimen name="text_size_count_scanner">120sp</dimen>
     <dimen name="size_edit_text_default">40dip</dimen>
     <dimen name="text_size_large">16sp</dimen>
+    <dimen name="height_width_icon_bottom_bar">20dip</dimen>
+    <dimen name="height_bottom_bar">50dip</dimen>
 </resources>

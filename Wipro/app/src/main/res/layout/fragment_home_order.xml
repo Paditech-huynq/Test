@@ -68,7 +68,7 @@
                 android:gravity="center_vertical"
                 android:layout_toEndOf="@+id/bt_time"
                 android:layout_toStartOf="@+id/bt_filter"
-                android:textSize="@dimen/text_size_normal"
+                android:textSize="@dimen/text_size_small"
                 android:textStyle="bold" />
 
             <View

@@ -173,10 +173,11 @@
 
                         <ImageView
                             android:id="@+id/imvAvatar"
-                            android:layout_width="35dip"
-                            android:layout_height="35dip"
+                            android:layout_width="45dip"
+                            android:layout_height="45dip"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
+                            android:padding="@dimen/padding_small"
                             app:srcCompat="@drawable/ic_back_shadow" />
 
                         <TextView
@@ -212,6 +213,7 @@
                                     android:id="@+id/btn_cart"
                                     android:layout_width="35dip"
                                     android:layout_height="35dip"
+                                    android:padding="@dimen/padding_tiny"
                                     android:layout_centerVertical="true"
                                     android:scaleType="fitCenter"
                                     android:src="@drawable/ic_cart_shadow" />
