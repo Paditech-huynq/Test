@@ -7,6 +7,7 @@
     app:cardCornerRadius="@dimen/card_radius_small">
 
     <LinearLayout
+        android:padding="@dimen/padding_tiny"
         android:layout_width="match_parent"
         android:layout_height="@dimen/lookup_item_height"
         android:background="@android:color/white"
@@ -34,19 +35,9 @@
                 android:paddingLeft="@dimen/padding_small"
                 android:paddingTop="@dimen/padding_small"
                 android:textColor="@color/text_dark"
-                android:paddingRight="@dimen/padding_small"
+                android:paddingRight="@dimen/padding_normal"
                 android:text="Striped Maxi Dress Color - Show your of  your life - SKU002" />
 
-
-            <ImageView
-                android:id="@+id/btnCart"
-                android:layout_width="30dip"
-                android:padding="@dimen/padding_tiny"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/tvName"
-                android:layout_centerVertical="true"
-                app:srcCompat="@drawable/ic_cart" />
 
             <TextView
                 android:id="@+id/tvPrice"
@@ -55,10 +46,23 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/tvName"
                 android:layout_marginLeft="@dimen/padding_small"
-                android:layout_toLeftOf="@+id/btnCart"
                 android:gravity="center_vertical"
                 android:textColor="@color/text_blue"
                 android:text="Đơn giá: 40.000 VNĐ" />
+
+            <ImageView
+                android:id="@+id/btnCart"
+                android:layout_width="37dip"
+                android:paddingBottom="@dimen/padding_tiny"
+                android:paddingEnd="@dimen/padding_tiny"
+                android:paddingStart="@dimen/padding_big"
+                android:paddingTop="@dimen/padding_big"
+                android:layout_height="37dip"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@+id/tvPrice"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_cart" />
+
         </RelativeLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
