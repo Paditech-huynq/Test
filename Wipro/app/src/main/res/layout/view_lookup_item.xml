@@ -8,6 +8,7 @@
     app:cardElevation="@dimen/cardview_compat_inset_shadow">
 
     <LinearLayout
+        android:padding="@dimen/padding_tiny"
         android:layout_width="match_parent"
         android:layout_height="@dimen/lookup_item_height"
         android:background="@android:color/white"
@@ -47,6 +48,7 @@
                 android:textSize="@dimen/text_size_small"
                 android:layout_height="match_parent"
                 android:layout_below="@id/tvName"
+
                 android:layout_marginStart="@dimen/padding_small"
                 android:gravity="center_vertical"
                 android:textColor="@color/text_blue" />
