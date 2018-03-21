@@ -135,21 +135,37 @@
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="DegreeView.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/unza/wipro/main/views/customs/DegreeView.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1026">
               <caret line="144" column="16" lean-forward="false" selection-start-line="144" selection-start-column="16" selection-end-line="144" selection-end-column="16" />
+=======
+      <file leaf-file-name="DegreeView.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/unza/wipro/main/views/customs/DegreeView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="144" column="22" lean-forward="true" selection-start-line="144" selection-start-column="22" selection-end-line="144" selection-end-column="22" />
+>>>>>>> e5ebc575563abf1551de1068f570753dd2f567c4
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="ProfileFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/unza/wipro/main/views/fragments/ProfileFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
               <caret line="196" column="24" lean-forward="false" selection-start-line="196" selection-start-column="24" selection-end-line="196" selection-end-column="24" />
+=======
+      <file leaf-file-name="ProfileFragment.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/unza/wipro/main/views/fragments/ProfileFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="196" column="65" lean-forward="false" selection-start-line="196" selection-start-column="65" selection-end-line="196" selection-end-column="106" />
+>>>>>>> e5ebc575563abf1551de1068f570753dd2f567c4
               <folding />
             </state>
           </provider>
@@ -2788,7 +2804,11 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+<<<<<<< HEAD
         <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1521604478595" />
+=======
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1521604414590" />
+>>>>>>> e5ebc575563abf1551de1068f570753dd2f567c4
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2836,7 +2856,11 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+<<<<<<< HEAD
         <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1521604478595" />
+=======
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1521604414590" />
+>>>>>>> e5ebc575563abf1551de1068f570753dd2f567c4
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -3017,7 +3041,11 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+<<<<<<< HEAD
         <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1521604478598" />
+=======
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1521604414591" />
+>>>>>>> e5ebc575563abf1551de1068f570753dd2f567c4
       </method>
     </configuration>
     <list size="1">
@@ -3582,18 +3610,32 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/unza/wipro/main/views/fragments/ProfileFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="196" column="24" lean-forward="false" selection-start-line="196" selection-start-column="24" selection-end-line="196" selection-end-column="24" />
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/unza/wipro/main/views/customs/DegreeView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="144" column="22" lean-forward="true" selection-start-line="144" selection-start-column="22" selection-end-line="144" selection-end-column="22" />
+>>>>>>> e5ebc575563abf1551de1068f570753dd2f567c4
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/unza/wipro/main/views/customs/DegreeView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1026">
           <caret line="144" column="16" lean-forward="false" selection-start-line="144" selection-start-column="16" selection-end-line="144" selection-end-column="16" />
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/unza/wipro/main/views/fragments/ProfileFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="196" column="65" lean-forward="false" selection-start-line="196" selection-start-column="65" selection-end-line="196" selection-end-column="106" />
+>>>>>>> e5ebc575563abf1551de1068f570753dd2f567c4
           <folding />
         </state>
       </provider>
