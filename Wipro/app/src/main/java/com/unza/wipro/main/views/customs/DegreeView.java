@@ -102,7 +102,7 @@ public class DegreeView extends View {
             paintDrawText.setAntiAlias(true);
             paintDrawText.setStyle(Paint.Style.FILL_AND_STROKE);
             paintDrawText.setTextAlign(Paint.Align.CENTER);
-            paintDrawText.setColor(getResources().getColor(R.color.text_blue));
+            paintDrawText.setColor(getResources().getColor(R.color.text_dark));
             if(maxvalue == 0){
                 mPaintDrawDegree.setColor(context.getResources().getColor(R.color.gray));
                 sweepAngle = DEGREE_BALANCE;
