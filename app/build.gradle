@@ -5,10 +5,10 @@ apply from: "$project.rootDir/tools/script-findbugs.gradle"
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.unza.wipro"
+        applicationId "com.pshop.crm"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 1
+        versionCode 2
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 

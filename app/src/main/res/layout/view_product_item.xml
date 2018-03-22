@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.unza.wipro.main.views.customs.DynamicHeightImageView
+        <com.pshop.app.main.views.customs.DynamicHeightImageView
             android:scaleType="fitXY"
             android:id="@+id/imvProduct"
             android:layout_width="match_parent"

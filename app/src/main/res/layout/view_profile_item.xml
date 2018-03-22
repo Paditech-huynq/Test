@@ -13,7 +13,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <com.unza.wipro.main.views.customs.DynamicHeightSquareImageView
+        <com.pshop.app.main.views.customs.DynamicHeightSquareImageView
             android:id="@+id/imvAvatar"
             android:layout_width="100dip"
             android:layout_height="100dip"

@@ -1,0 +1,29 @@
+package com.pshop.app.main.contracts;
+
+import com.paditech.core.mvp.BasePresenterImpl;
+import com.paditech.core.mvp.BaseViewImpl;
+import com.pshop.app.main.models.Product;
+
+import java.util.List;
+
+public interface LookupContract {
+    interface ViewImpl extends BaseViewImpl {
+        void updateItemToList(List<Product> productList);
+
+        void refreshProductList(List<Product> productList);
+
+        String getCurrentKeyword();
+
+        void showMessageNoResult(boolean isShow);
+
+        void scrollToTop();
+    }
+
+    interface Presenter extends BasePresenterImpl {
+        void searchByKeyWord();
+
+        void onLoadMore();
+
+        void onRefresh();
+    }
+}

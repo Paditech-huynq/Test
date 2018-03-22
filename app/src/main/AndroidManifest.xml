@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.unza.wipro">
+          package="com.pshop.app">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
-        android:name=".WiproApplication"
+        android:name="com.pshop.app.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:launchMode="singleTop"
-            android:name=".main.views.activities.MainActivity"
+            android:name="com.pshop.app.main.views.activities.MainActivity"
             android:configChanges="orientation|keyboard|keyboardHidden|screenSize|screenLayout|uiMode"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
@@ -27,31 +27,31 @@
         </activity>
         <activity
             android:launchMode="singleInstance"
-            android:name=".main.views.activities.LoginActivity"
+            android:name="com.pshop.app.main.views.activities.LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/FullScreenTheme"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
         <activity
-            android:name=".main.views.activities.FillOtpActivity"
+            android:name="com.pshop.app.main.views.activities.FillOtpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/FullScreenTheme"
             android:windowSoftInputMode="stateVisible"/>
         <activity
-            android:name=".main.views.activities.ForgotPasswordActivity"
+            android:name="com.pshop.app.main.views.activities.ForgotPasswordActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/FullScreenTheme"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
         <activity
-            android:name=".main.views.activities.ChangePasswordActivity"
+            android:name="com.pshop.app.main.views.activities.ChangePasswordActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/FullScreenTheme"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
         <activity
-            android:name=".main.views.activities.SplashActivity"
+            android:name="com.pshop.app.main.views.activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>

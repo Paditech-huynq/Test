@@ -294,7 +294,7 @@
                         android:orientation="vertical"
                         android:visibility="gone">
 
-                        <com.unza.wipro.main.views.customs.DegreeView
+                        <com.pshop.app.main.views.customs.DegreeView
                             android:id="@+id/degree_sale"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/custom_degree_height"
