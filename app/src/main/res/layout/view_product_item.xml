@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:foreground="?attr/selectableItemBackgroundBorderless"
     android:orientation="vertical"
-    app:cardCornerRadius="@dimen/card_radius_normal">
+    app:cardCornerRadius="@dimen/card_radius_normal"
+    app:cardElevation="0dp">
 
     <LinearLayout
         android:background="@android:color/white"

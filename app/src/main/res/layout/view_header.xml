@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorPrimary"
-    android:elevation="5dp"
+    android:elevation="0dp"
     android:paddingLeft="@dimen/padding_icon_header"
     android:paddingRight="@dimen/padding_icon_header">
 

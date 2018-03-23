@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -42,9 +41,6 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
 
     @BindView(R.id.view_up_rcv)
     View viewUpRecycleView;
-
-    @BindView(R.id.card_view_header)
-    CardView cardViewHeader;
 
     @BindView(R.id.btb_all)
     Button btnAll;
@@ -158,7 +154,6 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
             viewUpRecycleView.setVisibility(View.GONE);
             filter.setAnimation(AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_up));
             filter.setVisibility(View.GONE);
-            cardViewHeader.setElevation(getResources().getDimensionPixelOffset(R.dimen.cardview_default_elevation));
         }
     }
 
@@ -169,7 +164,6 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
         viewUpRecycleView.setVisibility(View.VISIBLE);
         filter.startAnimation(AnimationUtils.loadAnimation(this.getContext(), R.anim.slide_down));
         filter.setVisibility(View.VISIBLE);
-        cardViewHeader.setElevation(0);
     }
 
     @Override
