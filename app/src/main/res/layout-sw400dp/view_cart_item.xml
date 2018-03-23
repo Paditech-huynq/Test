@@ -73,7 +73,7 @@
                     android:layout_below="@id/tvName"
                     android:layout_marginBottom="@dimen/padding_tiny">
 
-                    <com.unza.wipro.main.views.customs.AmountView
+                    <com.pshop.app.main.views.customs.AmountView
                         android:id="@+id/avAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
