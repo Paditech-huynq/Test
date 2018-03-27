@@ -15,4 +15,5 @@
     <color name="bg_view_up_recycle_view_screen_list_order">#a8404040</color>
     <color name="red">#FF0000</color>
     <color name="text_shadow">#d6000000</color>
+    <color name="splash_bg">#0199EC</color>
 </resources>
