@@ -2,11 +2,9 @@ package com.pshop.app.main.presenters;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import com.paditech.core.helper.StringUtil;
 import com.paditech.core.mvp.BasePresenter;
-import com.squareup.otto.Subscribe;
 import com.pshop.app.AppConstans;
 import com.pshop.app.main.contracts.OrderListContract;
 import com.pshop.app.main.models.MyFilter;
@@ -14,6 +12,7 @@ import com.pshop.app.main.models.responses.GetOrdersRSP;
 import com.pshop.app.services.AppClient;
 import com.pshop.app.transaction.Transaction;
 import com.pshop.app.utils.DateTimeUtils;
+import com.squareup.otto.Subscribe;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -71,7 +70,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
         super.onCreate();
         bus.register(this);
         updateDateTime();
-        onSearch(currentFilter.getFrom(),currentFilter.getTo());
+        onSearch(currentFilter.getFrom(), currentFilter.getTo());
     }
 
     @Override
@@ -104,7 +103,6 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
                     @Override
                     public void onResponse(Call<GetOrdersRSP> call, Response<GetOrdersRSP> response) {
                         try {
-                            Log.e("testgetOrders", String.valueOf(response.code()));
                             isPending = false;
                             getView().showProgressDialog(false);
                             getView().enablePullToRefresh(true);
@@ -134,10 +132,10 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
 
                     @Override
                     public void onFailure(Call<GetOrdersRSP> call, Throwable t) {
-                            isPending = false;
-                            getView().showProgressDialog(false);
-                            getView().showToast(t.getLocalizedMessage());
-                            getView().enablePullToRefresh(true);
+                        isPending = false;
+                        getView().showProgressDialog(false);
+                        getView().showToast(t.getLocalizedMessage());
+                        getView().enablePullToRefresh(true);
                     }
                 });
     }
@@ -166,7 +164,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
                 break;
         }
         getView().updateDayInFilter(currentFilter.getFrom(), currentFilter.getTo());
-        }
+    }
 
     @Override
     public void onFilterClick() {
@@ -279,7 +277,7 @@ public class OrderFragmentPresenter extends BasePresenter<OrderListContract.View
         }, 100);
     }
 
-    public void updateCurrentFilter(String from,String to) {
+    public void updateCurrentFilter(String from, String to) {
         currentFilter.setFrom(from);
         currentFilter.setTo(to);
     }

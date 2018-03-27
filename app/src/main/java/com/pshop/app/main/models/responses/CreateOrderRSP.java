@@ -1,4 +1,3 @@
-
 package com.pshop.app.main.models.responses;
 
 import com.google.gson.annotations.Expose;

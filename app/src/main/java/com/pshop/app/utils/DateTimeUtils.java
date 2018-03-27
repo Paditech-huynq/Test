@@ -9,8 +9,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateTimeUtils {
-    private static long ONE_DAY = 1000*60*60*24;
+    private static long ONE_DAY = 1000 * 60 * 60 * 24;
     private static long ONE_SECOND = 1000;
+
     @SuppressLint("SimpleDateFormat")
     public static String getStringMonthYear(Date date) {
         return new SimpleDateFormat("MM/yyyy").format(date);
@@ -39,7 +40,7 @@ public class DateTimeUtils {
 
     @SuppressLint("SimpleDateFormat")
     public static Date getDateFromServerDayMonthYear(String dateString) {
-        Long longDate = Long.parseLong(dateString)*ONE_SECOND;
+        Long longDate = Long.parseLong(dateString) * ONE_SECOND;
         return new Date(longDate);
     }
 
@@ -47,7 +48,7 @@ public class DateTimeUtils {
     public static Date getEndOfeDateFromStringDayMonthYear(String dateString) {
         try {
             Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
-            date.setTime(date.getTime()+ONE_DAY);
+            date.setTime(date.getTime() + ONE_DAY);
             return date;
         } catch (ParseException e) {
             e.printStackTrace();
@@ -83,7 +84,7 @@ public class DateTimeUtils {
 
     @NonNull
     public static String getStringFirstDayInLastWeek() {
-        return getStringDayMonthYear(new Date(getTheFirstDayInCurrentWeek().getTime() - 7*ONE_DAY));
+        return getStringDayMonthYear(new Date(getTheFirstDayInCurrentWeek().getTime() - 7 * ONE_DAY));
     }
 
     @NonNull

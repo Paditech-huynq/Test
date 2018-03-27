@@ -19,5 +19,9 @@ public class LoginRSP extends BaseRSP {
         return data;
     }
 
-    public boolean isSuccess() {return result == 1 && getData() != null;};
+    public boolean isSuccess() {
+        return result == 1 && getData() != null;
+    }
+
+    ;
 }

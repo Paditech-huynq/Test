@@ -1,7 +1,5 @@
 package com.pshop.app.main.presenters;
 
-import android.util.Log;
-
 import com.paditech.core.mvp.BasePresenter;
 import com.pshop.app.AppConstans;
 import com.pshop.app.main.contracts.LookupContract;
@@ -68,7 +66,6 @@ public class LookupPresent extends BasePresenter<LookupContract.ViewImpl> implem
                     @Override
                     public void onResponse(Call<GetListProductRSP> call, Response<GetListProductRSP> response) {
                         try {
-                            Log.e("testgetListProductlook", String.valueOf(response.code()));
                             if (!keyword.equals(getView().getCurrentKeyword())) {
                                 return;
                             }

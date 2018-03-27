@@ -27,6 +27,15 @@ public class AppState {
     private static AppState instance;
     private UserData loginInfo;
     private boolean logoutPending;
+    private String token = AppConstans.EMPTY;
+    private String appKey = AppConstans.EMPTY;
+    private Cart currentCart = new Cart();
+    private User currentUser;
+    private int notifyCount = 0;
+    private AppClient appClient = AppClient.newInstance();
+    private AppState() {
+
+    }
 
     static synchronized AppState getInstance() {
         if (instance == null) {
@@ -34,17 +43,6 @@ public class AppState {
         }
         return instance;
     }
-
-    private AppState() {
-
-    }
-
-    private String token = AppConstans.EMPTY;
-    private String appKey = AppConstans.EMPTY;
-    private Cart currentCart = new Cart();
-    private User currentUser;
-    private int notifyCount = 0;
-    private AppClient appClient = AppClient.newInstance();
 
     public CartInfo getCurrentCart() {
         if (currentCart == null) {
@@ -98,11 +96,8 @@ public class AppState {
         PrefUtils.savePreferences(MainApplication.getAppContext(), PREF_APPKEY, appKey);
         PrefUtils.savePreferences(MainApplication.getAppContext(), PREF_INFO, new Gson().toJson(loginInfo));
         if (currentUser != null) {
-            Log.e("saveToCache: ", "curentUser" );
             PrefUtils.savePreferences(MainApplication.getAppContext(), PREF_CURRENT_USER, new Gson().toJson(currentUser, currentUser.getClass()));
         }
-
-        Log.i("save to cache", "success");
     }
 
     boolean loadFromCache() {

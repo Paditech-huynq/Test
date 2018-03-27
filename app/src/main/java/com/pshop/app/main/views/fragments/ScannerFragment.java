@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,9 +16,6 @@ import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.FragmentHelper;
 import com.paditech.core.helper.PrefUtils;
 import com.paditech.core.helper.StringUtil;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnTabSelectListener;
-import com.squareup.otto.Subscribe;
 import com.pshop.app.AppAction;
 import com.pshop.app.AppConstans;
 import com.pshop.app.R;
@@ -29,6 +25,9 @@ import com.pshop.app.services.AppClient;
 import com.pshop.app.transaction.user.Customer;
 import com.pshop.app.transaction.user.Promoter;
 import com.pshop.app.utils.Utils;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +48,8 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
     TextView tvCount;
 
     boolean isCameraOpen;
+    @BindView(R.id.layoutScanner)
+    ZBarScannerView mScannerView;
     private int Count = 3;
     private Handler mHandler = new Handler();
     private Runnable runnable = new Runnable() {
@@ -77,10 +78,6 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
     protected int getLayoutResource() {
         return R.layout.fragment_home_scanner;
     }
-
-
-    @BindView(R.id.layoutScanner)
-    ZBarScannerView mScannerView;
 
     private void setupFormats() {
         List<BarcodeFormat> formats = new ArrayList<>();
@@ -126,9 +123,6 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
 
     @Override
     public void handleResult(final Result rawResult) {
-        //todo: handle scan result here
-        Log.e(TAG, rawResult.getContents()); // Prints scan results
-        Log.e(TAG, rawResult.getBarcodeFormat().getName()); // Prints the scan format (qrcode, pdf417 etc.)
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Ringtone r = RingtoneManager.getRingtone(getActivity().getApplicationContext(), notification);
         r.play();
@@ -143,7 +137,6 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
                     @Override
                     public void onResponse(Call<GetProductDetailRSP> call, Response<GetProductDetailRSP> response) {
                         try {
-                            Log.e("testgetProductbarcode", String.valueOf(response.code()));
                             if (response.body().getResult() == 0) {
                                 showAlertDialog(getContext().getString(R.string.scan_title_product, rawResult.getContents()), getContext().getString(R.string.scan_qr_not_find_product), "ok", new DialogInterface.OnClickListener() {
                                     @Override
@@ -185,14 +178,12 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
         showToast(getContext().getString(R.string.scan_qr_success));
         app.editCart().insert(product);
         if (AppConstans.app.getCurrentUser() instanceof Customer || AppConstans.app.getCurrentUser() == null) {
-            for (Fragment fragment : getActivity ().getSupportFragmentManager().getFragments()) {
-                Log.e("actionScan: ", fragment.getClass().toString() );
-                if(fragment instanceof HomeFragment){
+            for (Fragment fragment : getActivity().getSupportFragmentManager().getFragments()) {
+                if (fragment instanceof HomeFragment) {
                     switchFragment(ProductDetailFragment.newInstance(product, ProductDetailFragment.COME_FROM_SCANNER_MAIN), true);
                     return;
                 }
             }
-            Log.e( "actionScan: ", "ok" );
             switchFragment(ProductDetailFragment.newInstance(product, ProductDetailFragment.COME_FROM_SCANNER_IN_ORDER_DETAIL), true);
             return;
         }
@@ -213,16 +204,8 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
         stopCamera(50);
     }
 
-    @Override
-    public void setScreenTitle(String title) {
-        if(isCameraOpen) {
-            super.setScreenTitle(title);
-        }
-    }
-
     @Subscribe
     public void onAction(AppAction action) {
-        Log.e("Action", action + "");
         switch (action) {
             case REQUEST_CAMERA_OPEN:
                 openCamera();
@@ -267,5 +250,12 @@ public class ScannerFragment extends BaseFragment implements ZBarScannerView.Res
     @Override
     public String getScreenTitle() {
         return getString(R.string.title_home_qr);
+    }
+
+    @Override
+    public void setScreenTitle(String title) {
+        if (isCameraOpen) {
+            super.setScreenTitle(title);
+        }
     }
 }

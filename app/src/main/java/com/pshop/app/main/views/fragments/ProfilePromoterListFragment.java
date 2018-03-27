@@ -34,16 +34,16 @@ import java.util.List;
 import butterknife.BindView;
 
 public class ProfilePromoterListFragment extends MVPFragment<ProfilePromoterLisPresenter> implements ProfilePromoterListContract.ViewImpl {
+    private final static String LAST_SCROLL_Y = "last_scroll_y";
+    private static final int DRAWABLE_RIGHT = 2;
+    private static final int SEARCH_DELAY = 500;
     @BindView(R.id.rcvProfile)
     RecyclerView mRecyclerView;
     @BindView(R.id.edtSearch)
     EditText edtSearch;
     @BindView(R.id.btnRegister)
     Button btnRegister;
-    private final static String LAST_SCROLL_Y = "last_scroll_y";
     private ProfilePromoterListAdapter mAdapter;
-    private static final int DRAWABLE_RIGHT = 2;
-    private static final int SEARCH_DELAY = 500;
     private Runnable searchRunnable = new Runnable() {
         @Override
         public void run() {
@@ -82,6 +82,7 @@ public class ProfilePromoterListFragment extends MVPFragment<ProfilePromoterLisP
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     protected int getLayoutResource() {
         return R.layout.fragment_profile_list;
@@ -144,7 +145,7 @@ public class ProfilePromoterListFragment extends MVPFragment<ProfilePromoterLisP
     }
 
     private void setupRecycleView() {
-        if(mAdapter == null) {
+        if (mAdapter == null) {
             mAdapter = new ProfilePromoterListAdapter();
         }
         mRecyclerView.addItemDecoration(new VerticalSpacesItemDecoration(getResources().getDimensionPixelOffset(R.dimen.padding_normal)));
@@ -185,6 +186,7 @@ public class ProfilePromoterListFragment extends MVPFragment<ProfilePromoterLisP
             mRecyclerView.scrollBy(0, savedInstanceState.getInt(LAST_SCROLL_Y));
         }
     }
+
     @Override
     public void addItemToList(List<Promoter> customerList) {
         mAdapter.addItemToList(customerList);

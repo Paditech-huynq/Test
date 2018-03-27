@@ -7,8 +7,6 @@ import android.widget.ImageView;
 
 import com.paditech.core.image.GlideApp;
 import com.paditech.core.mvp.MVPFragment;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnTabSelectListener;
 import com.pshop.app.AppAction;
 import com.pshop.app.AppConstans;
 import com.pshop.app.R;
@@ -16,6 +14,8 @@ import com.pshop.app.main.adapter.HomeFragmentPagerAdapter;
 import com.pshop.app.main.contracts.HomeContract;
 import com.pshop.app.main.presenters.HomePresenter;
 import com.pshop.app.main.views.activities.MainActivity;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 
 import butterknife.BindView;
 
@@ -121,7 +121,7 @@ public class HomeFragment extends MVPFragment<HomePresenter> implements HomeCont
 
     @Override
     public void updateView() {
-        if( app.getCurrentUser() == null || getActivity() == null){
+        if (app.getCurrentUser() == null || getActivity() == null) {
             return;
         }
         GlideApp.with(getActivity()).load(app.getCurrentUser().getAvatar()).placeholder(R.drawable.ic_avatar_holder)

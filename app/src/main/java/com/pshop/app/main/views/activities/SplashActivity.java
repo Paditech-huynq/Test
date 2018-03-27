@@ -1,13 +1,14 @@
 package com.pshop.app.main.views.activities;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.content.Intent;
 
 public class SplashActivity extends AppCompatActivity {
-    private Intent intent;
     public static final int DURATION = 3000;
+    private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

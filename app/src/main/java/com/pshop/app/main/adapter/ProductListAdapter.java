@@ -23,9 +23,9 @@ import java.util.List;
 import butterknife.BindView;
 
 public class ProductListAdapter extends BaseRecycleViewAdapter implements AppConstans {
+    private static final float DEFAULT_RATIO = 4F / 3F;
     private OnProductItemClickListenner mOnProductItemClickListenner;
     private List<Product> productList = new ArrayList<>();
-    private static final float DEFAULT_RATIO = 4F / 3F;
 
     public void setOnProductItemClickListenner(OnProductItemClickListenner mOnProductItemClickListenner) {
         this.mOnProductItemClickListenner = mOnProductItemClickListenner;
@@ -44,6 +44,25 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
     @Override
     public int getItemCount() {
         return productList.size();
+    }
+
+    public void insertData(List<Product> productList) {
+        if (productList == null) {
+            return;
+        }
+        int lastProductCount = this.productList.size();
+        this.productList.addAll(productList);
+        notifyItemRangeInserted(lastProductCount, this.productList.size());
+    }
+
+    public void replaceData(List<Product> productList) {
+        this.productList.clear();
+        this.productList.addAll(productList);
+        notifyDataSetChanged();
+    }
+
+    public interface OnProductItemClickListenner {
+        void onAddCartButtonClick(View view, int index);
     }
 
     class ProductHolder extends BaseViewHolder {
@@ -101,24 +120,5 @@ public class ProductListAdapter extends BaseRecycleViewAdapter implements AppCon
             imvProduct.setLayoutParams(rlp);
             imvProduct.setRatio(ratio);
         }
-    }
-
-    public interface OnProductItemClickListenner {
-        void onAddCartButtonClick(View view, int index);
-    }
-
-    public void insertData(List<Product> productList) {
-        if (productList == null) {
-            return;
-        }
-        int lastProductCount = this.productList.size();
-        this.productList.addAll(productList);
-        notifyItemRangeInserted(lastProductCount, this.productList.size());
-    }
-
-    public void replaceData(List<Product> productList) {
-        this.productList.clear();
-        this.productList.addAll(productList);
-        notifyDataSetChanged();
     }
 }

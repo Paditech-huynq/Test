@@ -17,7 +17,6 @@ import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.StringUtil;
 import com.paditech.core.image.GlideApp;
 import com.paditech.core.mvp.MVPActivity;
-import com.squareup.otto.Subscribe;
 import com.pshop.app.AppAction;
 import com.pshop.app.AppConstans;
 import com.pshop.app.R;
@@ -27,6 +26,7 @@ import com.pshop.app.main.views.fragments.HomeFragment;
 import com.pshop.app.main.views.fragments.NotificationFragment;
 import com.pshop.app.main.views.fragments.OrderDetailFragment;
 import com.pshop.app.main.views.fragments.ProfileFragment;
+import com.squareup.otto.Subscribe;
 
 import butterknife.BindView;
 
@@ -227,6 +227,6 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainCont
             return;
         }
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
-            super.onBackPressed();
+        super.onBackPressed();
     }
 }

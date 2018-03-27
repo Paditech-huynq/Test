@@ -15,17 +15,8 @@ import java.util.List;
 import retrofit2.Response;
 
 public abstract class Transaction implements TransactionImpl, AppConstans {
-    public enum PaymentMethod {
-        COD("Cod"), CreditCard("CreditCard");
-
-        private final String value;
-
-        PaymentMethod(String value) {
-            this.value = value;
-        }
-    }
-
     private CartInfo cart;
+    private String customerId;
 
     CartInfo getCart() {
         return cart;
@@ -35,8 +26,6 @@ public abstract class Transaction implements TransactionImpl, AppConstans {
         return customerId;
     }
 
-    private String customerId;
-
     @Override
     public boolean create(String customerId, CartInfo cart) {
         if (customerId != null && cart != null) {
@@ -45,12 +34,6 @@ public abstract class Transaction implements TransactionImpl, AppConstans {
             return true;
         }
         return false;
-    }
-
-    public interface TransactionCallback {
-        void onSuccess(Transaction transaction, OrderData data, String message);
-
-        void onFailure(Transaction transaction, Throwable e);
     }
 
     void onPaymentSuccess(TransactionCallback callback, Response<CreateOrderRSP> response) {
@@ -78,5 +61,21 @@ public abstract class Transaction implements TransactionImpl, AppConstans {
         }
 
         return new Gson().toJson(products);
+    }
+
+    public enum PaymentMethod {
+        COD("Cod"), CreditCard("CreditCard");
+
+        private final String value;
+
+        PaymentMethod(String value) {
+            this.value = value;
+        }
+    }
+
+    public interface TransactionCallback {
+        void onSuccess(Transaction transaction, OrderData data, String message);
+
+        void onFailure(Transaction transaction, Throwable e);
     }
 }

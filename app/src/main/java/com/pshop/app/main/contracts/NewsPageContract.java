@@ -10,7 +10,9 @@ import java.util.List;
 public interface NewsPageContract {
     interface ViewImpl extends BaseViewImpl {
         void updateItemToList(List<News> data);
+
         NewsCategory getCategory();
+
         void refreshList(List<News> news);
 
         void scrollToTop();

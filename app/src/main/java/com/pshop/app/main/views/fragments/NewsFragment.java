@@ -3,7 +3,6 @@ package com.pshop.app.main.views.fragments;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 
 import com.paditech.core.BaseFragment;
@@ -26,6 +25,7 @@ public class NewsFragment extends BaseFragment {
 
     @BindView(R.id.layoutLoading)
     View layoutLoading;
+    private NewsFragmentPagerAdapter mAdapter;
 
     public static NewsFragment newInstance() {
 
@@ -35,8 +35,6 @@ public class NewsFragment extends BaseFragment {
         fragment.setArguments(args);
         return fragment;
     }
-
-    private NewsFragmentPagerAdapter mAdapter;
 
     @Override
     protected int getLayoutResource() {
@@ -60,7 +58,7 @@ public class NewsFragment extends BaseFragment {
     }
 
     private void setupViewPager() {
-        if(mAdapter == null) {
+        if (mAdapter == null) {
             mAdapter = new NewsFragmentPagerAdapter(getChildFragmentManager());
         }
         mViewPager.setAdapter(mAdapter);
@@ -73,7 +71,6 @@ public class NewsFragment extends BaseFragment {
                     @Override
                     public void onResponse(Call<GetNewsCategoriesRSP> call, Response<GetNewsCategoriesRSP> response) {
                         try {
-                            Log.e("testgetNewsCategories", String.valueOf(response.code()));
                             showProgressDialog(false);
                             if (response.body() != null) {
                                 mAdapter.setCategories(response.body().getCategories());
@@ -104,8 +101,7 @@ public class NewsFragment extends BaseFragment {
     @Override
     public void onNetworkOnline() {
         super.onNetworkOnline();
-        if(mAdapter.getCount() == 0)
-        {
+        if (mAdapter.getCount() == 0) {
 
         }
     }

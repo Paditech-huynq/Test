@@ -43,6 +43,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> implements ProductDetailContract.ViewImpl, AppConstans {
+    public static final int COME_FROM_SCANNER_MAIN = 0;
+    public static final int COME_FROM_PRODUCT_LIST = 1;
+    public static final int COME_FROM_SCANNER_IN_ORDER_DETAIL = 2;
     @BindView(R.id.vpgProduct)
     ViewPager mViewPager;
     @BindView(R.id.tv_product_name)
@@ -63,13 +66,9 @@ public class ProductDetailFragment extends MVPFragment<ProductDetailPresenter> i
     TextView tvCartAmount;
     @BindView(R.id.btnCart)
     View btnCart;
-
     private ProductImageAdapter mImageAdapter;
     private Product mProduct;
     private int mFlag;
-    public static final int COME_FROM_SCANNER_MAIN = 0;
-    public static final int COME_FROM_PRODUCT_LIST = 1;
-    public static final int COME_FROM_SCANNER_IN_ORDER_DETAIL = 2;
     private int numberOfAddToCart = 0;
 
     public static ProductDetailFragment newInstance(Product product, int comeFromWhatFragment) {

@@ -16,6 +16,8 @@ import java.util.List;
 
 public class Order {
 
+    @SerializedName("products")
+    List<Product> products;
     @SerializedName("id")
     private int id;
     @SerializedName("money")
@@ -28,8 +30,6 @@ public class Order {
     private String name;
     @SerializedName("avatar_order")
     private String avatarOrder;
-    @SerializedName("products")
-    List<Product> products;
     @SerializedName("created_at")
     private long createdAt;
     @SerializedName("updated_at")
@@ -40,6 +40,11 @@ public class Order {
     private String updater;
     @SerializedName("customer")
     private Customer customer;
+    private CartInfo cartInfo;
+
+    public static Order newInstance() {
+        return new Order();
+    }
 
     public CartInfo getCart() {
         if (cartInfo == null) {
@@ -49,8 +54,6 @@ public class Order {
         }
         return cartInfo;
     }
-
-    private CartInfo cartInfo;
 
     public int getId() {
         return id;
@@ -146,9 +149,5 @@ public class Order {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-    }
-
-    public static Order newInstance() {
-        return new Order();
     }
 }

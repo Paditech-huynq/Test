@@ -16,6 +16,11 @@ import com.pshop.app.R;
 import com.pshop.app.utils.Utils;
 
 public class DegreeView extends View {
+    private static final float SCALE_FACTOR_FOR_SMALLER_HEIGHT = 6;
+    private static final float SCALE_FACTOR_FOR_SMALLER_WIDTH = 12;
+    private static final int DEGREE_BALANCE = 180;
+    private static final int SCALE_FACTOR_FOR_BIG_WIDTH = 2;
+    private static final float SCALE_PADDING_FOR_TEXT = 6;
     private Paint mPaintDrawBackground;
     private Paint mPaintDrawStroke;
     private Paint mPaintDrawDegree;
@@ -26,36 +31,7 @@ public class DegreeView extends View {
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private Context context;
-    private static final float SCALE_FACTOR_FOR_SMALLER_HEIGHT = 6;
-    private static final float SCALE_FACTOR_FOR_SMALLER_WIDTH = 12;
-    private static final int DEGREE_BALANCE = 180;
-    private static final int SCALE_FACTOR_FOR_BIG_WIDTH = 2;
-    private static final float SCALE_PADDING_FOR_TEXT = 6;
     private Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
-
-    public int getBackground1() {
-        return background;
-    }
-
-    public int getDisplayDegree() {
-        return displayDegree;
-    }
-
-    public void setBackground1(int background1) {
-        this.background = background1;
-    }
-
-    public void setDisplayDegree(int displayDegree) {
-        this.displayDegree = displayDegree;
-    }
-
-    public void setMaxvalue(long maxvalue) {
-        this.maxvalue = maxvalue;
-    }
-
-    public void setValue(long value) {
-        this.value = value;
-    }
 
     public DegreeView(Context context) {
         super(context);
@@ -71,6 +47,30 @@ public class DegreeView extends View {
 
     public DegreeView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+    public int getBackground1() {
+        return background;
+    }
+
+    public void setBackground1(int background1) {
+        this.background = background1;
+    }
+
+    public int getDisplayDegree() {
+        return displayDegree;
+    }
+
+    public void setDisplayDegree(int displayDegree) {
+        this.displayDegree = displayDegree;
+    }
+
+    public void setMaxvalue(long maxvalue) {
+        this.maxvalue = maxvalue;
+    }
+
+    public void setValue(long value) {
+        this.value = value;
     }
 
     @SuppressLint("DrawAllocation")
@@ -96,14 +96,14 @@ public class DegreeView extends View {
                 text_size = (int) (width * SCALE_FACTOR_FOR_SMALLER_WIDTH);
             }
             final RectF oval = new RectF();
-            int sweepAngle ;
-            String text ;
+            int sweepAngle;
+            String text;
             Paint paintDrawText = new Paint();
             paintDrawText.setAntiAlias(true);
             paintDrawText.setStyle(Paint.Style.FILL_AND_STROKE);
             paintDrawText.setTextAlign(Paint.Align.CENTER);
             paintDrawText.setColor(getResources().getColor(R.color.text_dark));
-            if(maxvalue == 0){
+            if (maxvalue == 0) {
                 mPaintDrawDegree.setColor(context.getResources().getColor(R.color.gray));
                 sweepAngle = DEGREE_BALANCE;
                 text = context.getString(R.string.not_have_expect);
@@ -111,7 +111,7 @@ public class DegreeView extends View {
                 paintDrawText.setColor(Color.GRAY);
             } else {
                 sweepAngle = (int) ((DEGREE_BALANCE * value) / maxvalue);
-                text = Utils.roundToString(((float) (value * 100) / maxvalue),1) + " %";
+                text = Utils.roundToString(((float) (value * 100) / maxvalue), 1) + " %";
             }
             oval.set(coordinateXToDraw - radius,
                     coordinateYToDraw - radius,
@@ -143,13 +143,13 @@ public class DegreeView extends View {
     }
 
     public void setValue(int background, int displayDegree, long value, long maxvalue) {
-            this.background = background;
-            this.displayDegree = displayDegree;
-            this.maxvalue = maxvalue;
-            this.value = value;
-            mPaintDrawBackground.setColor(context.getResources().getColor(getBackground1()));
-            mPaintDrawDegree.setColor(context.getResources().getColor(getDisplayDegree()));
-            invalidate();
+        this.background = background;
+        this.displayDegree = displayDegree;
+        this.maxvalue = maxvalue;
+        this.value = value;
+        mPaintDrawBackground.setColor(context.getResources().getColor(getBackground1()));
+        mPaintDrawDegree.setColor(context.getResources().getColor(getDisplayDegree()));
+        invalidate();
     }
 
     public void reset() {

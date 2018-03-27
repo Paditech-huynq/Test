@@ -27,7 +27,7 @@ public class ProductThumbnail {
     }
 
     public String getLink() {
-        if(StringUtil.isEmpty(link)){
+        if (StringUtil.isEmpty(link)) {
             return "";
         }
         return link;

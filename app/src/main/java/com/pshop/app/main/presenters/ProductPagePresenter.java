@@ -1,6 +1,5 @@
 package com.pshop.app.main.presenters;
 
-import android.util.Log;
 import android.widget.Toast;
 
 import com.paditech.core.mvp.BasePresenter;
@@ -51,7 +50,6 @@ public class ProductPagePresenter extends BasePresenter<ProductPageContract.View
                     public void onResponse(Call<GetListProductRSP> call, Response<GetListProductRSP> response) {
                         isPending = false;
                         try {
-                            Log.e("testgetListProduct", String.valueOf(response.code()));
                             getView().showProgressDialog(false);
                             getView().setRefreshing(false);
                             if (response.body() != null) {

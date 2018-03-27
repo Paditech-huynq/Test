@@ -1,7 +1,5 @@
 package com.pshop.app.main.presenters;
 
-import android.util.Log;
-
 import com.paditech.core.common.BaseConstant;
 import com.paditech.core.mvp.BasePresenter;
 import com.pshop.app.AppConstans;
@@ -51,7 +49,6 @@ public class NewsPagePresenter extends BasePresenter<NewsPageContract.ViewImpl> 
             public void onResponse(Call<GetNewsRSP> call, Response<GetNewsRSP> response) {
                 isPending = false;
                 try {
-                    Log.e("testgetNews", String.valueOf(response.code()));
                     getView().setRefreshing(false);
                     getView().showProgressDialog(false);
                     if (response.body() != null && response.body().getNews() != null && response.body().getNews().size() > 0) {
@@ -82,10 +79,10 @@ public class NewsPagePresenter extends BasePresenter<NewsPageContract.ViewImpl> 
     private void onLoadDataSuccess(boolean isRefresh, List<News> newsList) {
         page++;
         isFull = newsList.size() < PAGE_SIZE;
-        if (isRefresh){
+        if (isRefresh) {
             getView().scrollToTop();
             getView().refreshList(newsList);
-        }else {
+        } else {
             getView().updateItemToList(newsList);
         }
     }

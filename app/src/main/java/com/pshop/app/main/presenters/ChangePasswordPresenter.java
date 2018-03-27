@@ -1,7 +1,5 @@
 package com.pshop.app.main.presenters;
 
-import android.util.Log;
-
 import com.paditech.core.helper.StringUtil;
 import com.paditech.core.mvp.BasePresenter;
 import com.pshop.app.main.contracts.ChangePasswordContract;
@@ -33,7 +31,6 @@ public class ChangePasswordPresenter extends BasePresenter<ChangePasswordContrac
                     @Override
                     public void onResponse(Call<CommonRSP> call, Response<CommonRSP> response) {
                         try {
-                            Log.e("testresetPassword", String.valueOf(response.code()));
                             getView().showProgressDialog(false);
                             if (response.body() != null) {
                                 boolean result = response.body().isSuccess();

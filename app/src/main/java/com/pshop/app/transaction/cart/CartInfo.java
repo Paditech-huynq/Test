@@ -39,6 +39,7 @@ public interface CartInfo {
 
     /**
      * Get count of product
+     *
      * @return item count
      */
     int getItemCount();

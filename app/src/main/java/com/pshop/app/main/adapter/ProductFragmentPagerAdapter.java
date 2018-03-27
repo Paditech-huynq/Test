@@ -14,12 +14,12 @@ import java.util.List;
 public class ProductFragmentPagerAdapter extends FragmentStatePagerAdapter {
     private List<ProductCategory> productCategories = new ArrayList<>();
 
-    public void setProductCategories(List<ProductCategory> productCategories) {
-        this.productCategories = productCategories;
-    }
-
     public ProductFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
+    }
+
+    public void setProductCategories(List<ProductCategory> productCategories) {
+        this.productCategories = productCategories;
     }
 
     @Override

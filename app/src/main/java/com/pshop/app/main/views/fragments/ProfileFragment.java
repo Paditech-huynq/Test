@@ -43,6 +43,9 @@ import butterknife.OnClick;
 import static com.pshop.app.main.presenters.ProfilePresenter.REQUEST_PHOTO_CAMERA;
 
 public class ProfileFragment extends MVPFragment<ProfilePresenter> implements ProfileContract.ViewImpl, AppConstans {
+    private final static int REQUEST_PHOTO_GALLERY = 200;
+    private final static int REQUEST_WRITE_EXTERNAL_STORAGE = 112;
+    private final static String LAST_SCROLL_Y = "last_scroll_y";
     @BindView(R.id.layoutEdit)
     View layoutEdit;
     @BindView(R.id.scrollView)
@@ -87,18 +90,21 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     View layoutDisable;
     @BindView(R.id.layoutControllSelectImage)
     View layoutControllSelectImage;
-
     @BindView(R.id.edtAddress)
     EditText edtAddress;
-
     @BindView(R.id.edtName)
     EditText edtName;
-
-    private final static int REQUEST_PHOTO_GALLERY = 200;
-    private final static int REQUEST_WRITE_EXTERNAL_STORAGE = 112;
-    private final static String LAST_SCROLL_Y = "last_scroll_y";
     private boolean isEditing = false;
     private String mCurrentPhotoPath;
+
+    public static ProfileFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        ProfileFragment fragment = new ProfileFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     protected int getLayoutResource() {
@@ -108,15 +114,6 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
     @Override
     public String getScreenTitle() {
         return getString(R.string.title_profile);
-    }
-
-    public static ProfileFragment newInstance() {
-
-        Bundle args = new Bundle();
-
-        ProfileFragment fragment = new ProfileFragment();
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -187,8 +184,8 @@ public class ProfileFragment extends MVPFragment<ProfilePresenter> implements Pr
         Promoter promoter = (Promoter) app.getCurrentUser();
         tvPoint.setText(getResources().getString(R.string.custom_profile_fragment));
         tvNumberPoint.setText(promoter.getNumberCustomers());
-        if(Long.parseLong(promoter.getSalesExpect()) != 0) {
-            tvSalesExpect.setText(getResources().getString(R.string.value_sales_profile_fragment,StringUtil.formatMoney(promoter.getSalesExpect())));
+        if (Long.parseLong(promoter.getSalesExpect()) != 0) {
+            tvSalesExpect.setText(getResources().getString(R.string.value_sales_profile_fragment, StringUtil.formatMoney(promoter.getSalesExpect())));
         } else {
             tvSalesExpect.setText(getResources().getString(R.string.sales_expect_is_zero_profile_fragment));
         }

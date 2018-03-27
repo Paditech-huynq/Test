@@ -1,7 +1,5 @@
 package com.pshop.app.main.presenters;
 
-import android.util.Log;
-
 import com.paditech.core.mvp.BasePresenter;
 import com.pshop.app.AppConstans;
 import com.pshop.app.main.contracts.MainContract;
@@ -47,7 +45,6 @@ public class MainPresenter extends BasePresenter<MainContract.ViewImpl> implemen
             @Override
             public void onResponse(Call<GetNotificationsUnreadRSP> call, Response<GetNotificationsUnreadRSP> response) {
                 try {
-                    Log.e("testUnReadNotifications", String.valueOf(response.code()));
                     if (response.body() != null) {
                         int count = response.body().count();
                         app.setNotifyCount(count);

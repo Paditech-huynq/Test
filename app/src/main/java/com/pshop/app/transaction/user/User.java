@@ -9,22 +9,8 @@ public abstract class User implements UserInfo {
     static final int TYPE_CUSTOMER = 0;
     static final int TYPE_PROMOTER = 1;
     static final int TYPE_PROMOTER_LEADER = 2;
-
-    public enum Type {
-        CUSTOMER("customer"), PROMOTER("promoter"), PROMOTER_LEADER("promoter_leader");
-
-        public String getValue() {
-            return value;
-        }
-
-        private String value;
-
-        Type(String value) {
-            this.value = value;
-        }
-    }
-
-
+    @SerializedName("role")
+    protected int role = TYPE_CUSTOMER;
     @SerializedName("id")
     private String id;
     @SerializedName("name")
@@ -109,6 +95,24 @@ public abstract class User implements UserInfo {
         return super.equals(obj);
     }
 
+    public int getRole() {
+        return role;
+    }
+
+    public enum Type {
+        CUSTOMER("customer"), PROMOTER("promoter"), PROMOTER_LEADER("promoter_leader");
+
+        private String value;
+
+        Type(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
     public static class Builder {
         private UserData userData;
 
@@ -150,12 +154,5 @@ public abstract class User implements UserInfo {
             user.setNumberOrders(userData.getOrder());
             user.setPhone(userData.getPhone());
         }
-    }
-
-    @SerializedName("role")
-    protected int role = TYPE_CUSTOMER;
-
-    public int getRole() {
-        return role;
     }
 }

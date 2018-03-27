@@ -40,14 +40,17 @@ import butterknife.BindView;
 import static com.pshop.app.AppConstans.app;
 
 public class LookupFragment extends MVPFragment<LookupPresent> implements LookupContract.ViewImpl, BaseRecycleViewAdapter.LoadMoreListener {
+    private static final int DRAWABLE_RIGHT = 2;
+    private static final int SEARCH_DELAY = 500;
     @BindView(R.id.edtSearch)
     EditText edtSearch;
     @BindView(R.id.rcvLookup)
     RecyclerView mRecyclerView;
     @BindView(R.id.noResult)
     View noResult;
-    private static final int DRAWABLE_RIGHT = 2;
-    private static final int SEARCH_DELAY = 500;
+    LookupAdapter mAdapter;
+    @BindView(R.id.layoutLoading)
+    View layoutLoading;
     private Runnable searchRunnable = new Runnable() {
         @Override
         public void run() {
@@ -55,12 +58,8 @@ public class LookupFragment extends MVPFragment<LookupPresent> implements Lookup
         }
     };
     private Handler searchHandler = new Handler();
-    LookupAdapter mAdapter;
     private boolean isShowCartButton;
     private int numberOfAddToCart = 0;
-
-    @BindView(R.id.layoutLoading)
-    View layoutLoading;
     private TextWatcher textChangeListenner = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {

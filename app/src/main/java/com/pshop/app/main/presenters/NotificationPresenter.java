@@ -1,7 +1,5 @@
 package com.pshop.app.main.presenters;
 
-import android.util.Log;
-
 import com.paditech.core.mvp.BasePresenter;
 import com.pshop.app.AppConstans;
 import com.pshop.app.main.contracts.NotificationContract;
@@ -55,7 +53,6 @@ public class NotificationPresenter extends BasePresenter<NotificationContract.Vi
             @Override
             public void onResponse(Call<GetNotificationsRSP> call, Response<GetNotificationsRSP> response) {
                 try {
-                    Log.e("testgetNotifications", String.valueOf(response.code()));
                     getView().showProgressDialog(false);
                     getView().setRefreshing(false);
                     if (response.body() != null) {
@@ -95,7 +92,6 @@ public class NotificationPresenter extends BasePresenter<NotificationContract.Vi
             @Override
             public void onResponse(Call<ReadNotificationRSP> call, Response<ReadNotificationRSP> response) {
                 try {
-                    Log.e("readNotification", String.valueOf(response.code()));
                     getView().showProgressDialog(false);
                     if (response.body() != null && response.body().getNotice() != null) {
                         getView().updateView(response.body().getNotice());

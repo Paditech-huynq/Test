@@ -35,9 +35,9 @@ import retrofit2.Response;
 
 public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> implements ProfileContract.Presenter, AppConstans {
 
+    public final static int REQUEST_PHOTO_CAMERA = 100;
     private static final String URL_POLICY_PERMIS = "http://wipro.crm.admin.paditech.com/app/policy.html";
     private static final String URL_FAQ = "http://wipro.crm.admin.paditech.com/app/faq.html";
-    public final static int REQUEST_PHOTO_CAMERA = 100;
     private static final String JPEG_FILE_PREFIX = "IMG_";
     private static final String JPEG_FILE_SUFFIX = ".jpg";
 
@@ -71,7 +71,7 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
 //                    @Override
 //                    public void onClick(DialogInterface dialogInterface, int i) {
 //                        ///todo: show edit button
-                        getView().enableEditMode(false);
+        getView().enableEditMode(false);
 //                        getView().backToLastScreen();
 //                    }
 //                }, new DialogInterface.OnClickListener() {
@@ -93,7 +93,6 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
             @Override
             public void onResponse(Call<GetUserProfileRSP> call, Response<GetUserProfileRSP> response) {
                 try {
-                    Log.e("testgetUserProfile", String.valueOf(response.code()));
                     app.updateCurrentUser(response.body().getUser());
                     updateUi();
                     getView().showProgressDialog(false);
@@ -191,7 +190,6 @@ public class ProfilePresenter extends BasePresenter<ProfileContract.ViewImpl> im
                     @Override
                     public void onResponse(Call<ChangeInformationRSP> call, Response<ChangeInformationRSP> response) {
                         try {
-                            Log.e("changeInformation", String.valueOf(response.code()));
                             getView().showProgressDialog(false);
                             if (response.isSuccessful() && response.body().isSuccess()) {
                                 app.updateCurrentUser(response.body().getData());

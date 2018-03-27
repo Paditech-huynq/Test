@@ -25,6 +25,11 @@ public class FullScreenImageDialogFragment extends BaseDialog {
     private static final float RANGE_TO_DISMISS = 500;
     private static final long LONG_PRESS_TIME = 200;
     private final Handler handler = new Handler();
+    @BindView(R.id.vpgImages)
+    HandleTouchViewPager vpgImages;
+    @BindView(R.id.layoutFull)
+    View layoutFull;
+    private View currentView;
     private final Runnable mLongPressed = new Runnable() {
         public void run() {
             getView().setActivated(true);
@@ -33,56 +38,9 @@ public class FullScreenImageDialogFragment extends BaseDialog {
             vpgImages.setEnabled(false);
         }
     };
-
-    @BindView(R.id.vpgImages)
-    HandleTouchViewPager vpgImages;
-
-    @BindView(R.id.layoutFull)
-    View layoutFull;
-
-    private View currentView;
     private float startX, startY;
     private List<ProductThumbnail> data = new ArrayList<>();
     private int currentPos;
-
-    public static FullScreenImageDialogFragment newInstance(List<ProductThumbnail> data, int pos) {
-        Bundle args = new Bundle();
-        FullScreenImageDialogFragment fragment = new FullScreenImageDialogFragment();
-        fragment.setArguments(args);
-        fragment.data.addAll(data);
-        fragment.currentPos = pos;
-        return fragment;
-    }
-
-    @Override
-    protected int getContentView() {
-        return R.layout.dialog_full_image;
-    }
-
-    @Override
-    protected void initView(View view) {
-        ProductImageAdapter mAdapter = new ProductImageAdapter(getActivity(), touchListener);
-        vpgImages.setAdapter(mAdapter);
-        mAdapter.setData(data);
-        vpgImages.setCurrentItem(currentPos, false);
-        vpgImages.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                handler.removeCallbacks(mLongPressed);
-            }
-        });
-    }
-
     private View.OnTouchListener touchListener = new View.OnTouchListener() {
         @SuppressLint("ClickableViewAccessibility")
         @Override
@@ -131,6 +89,44 @@ public class FullScreenImageDialogFragment extends BaseDialog {
             return true;
         }
     };
+
+    public static FullScreenImageDialogFragment newInstance(List<ProductThumbnail> data, int pos) {
+        Bundle args = new Bundle();
+        FullScreenImageDialogFragment fragment = new FullScreenImageDialogFragment();
+        fragment.setArguments(args);
+        fragment.data.addAll(data);
+        fragment.currentPos = pos;
+        return fragment;
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.dialog_full_image;
+    }
+
+    @Override
+    protected void initView(View view) {
+        ProductImageAdapter mAdapter = new ProductImageAdapter(getActivity(), touchListener);
+        vpgImages.setAdapter(mAdapter);
+        mAdapter.setData(data);
+        vpgImages.setCurrentItem(currentPos, false);
+        vpgImages.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                handler.removeCallbacks(mLongPressed);
+            }
+        });
+    }
 
     @Override
     public void onStart() {

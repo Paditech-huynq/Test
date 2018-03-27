@@ -6,7 +6,7 @@ import com.pshop.app.main.models.Product;
 
 import java.util.List;
 
-public class GetListProductRSP extends BaseRSP{
+public class GetListProductRSP extends BaseRSP {
     @SerializedName("data")
     @Expose
     private List<Product> data = null;

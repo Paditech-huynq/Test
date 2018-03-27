@@ -134,10 +134,10 @@ public class DeliveryInfoFragment extends MVPFragment<DeliveryInfoPresenter> imp
                         calendar.set(year, month, dayOfMonth);
                         edtDate.setText(StringUtil.formatDate(calendar.getTime()));
                     }
-                }, year, month, day){
+                }, year, month, day) {
             @Override
             public void onDateChanged(@NonNull DatePicker view, int year, int month, int dayOfMonth) {
-                super.onDateChanged(view,year,month,dayOfMonth);
+                super.onDateChanged(view, year, month, dayOfMonth);
                 view.setMinDate(mDefaultDate.getTimeInMillis());
             }
         };

@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,7 +22,6 @@ import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.Utils;
 import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.mvp.MVPFragment;
-import com.squareup.otto.Subscribe;
 import com.pshop.app.AppAction;
 import com.pshop.app.AppConstans;
 import com.pshop.app.R;
@@ -32,6 +30,7 @@ import com.pshop.app.main.contracts.ProfileListContract;
 import com.pshop.app.main.presenters.ProfileListPresenter;
 import com.pshop.app.main.views.customs.VerticalSpacesItemDecoration;
 import com.pshop.app.transaction.user.Customer;
+import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
@@ -39,16 +38,16 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ProfileListFragment extends MVPFragment<ProfileListPresenter> implements ProfileListContract.ViewImpl, AppConstans {
+    private final static String LAST_SCROLL_Y = "last_scroll_y";
+    private static final int DRAWABLE_RIGHT = 2;
+    private static final int SEARCH_DELAY = 500;
     @BindView(R.id.rcvProfile)
     RecyclerView mRecyclerView;
     @BindView(R.id.edtSearch)
     EditText edtSearch;
     @BindView(R.id.noResult)
     View noResult;
-    private final static String LAST_SCROLL_Y = "last_scroll_y";
     private ProfileListAdapter mAdapter;
-    private static final int DRAWABLE_RIGHT = 2;
-    private static final int SEARCH_DELAY = 500;
     private Runnable searchRunnable = new Runnable() {
         @Override
         public void run() {
@@ -194,7 +193,6 @@ public class ProfileListFragment extends MVPFragment<ProfileListPresenter> imple
     @Override
     public void onRestoreViewState(@Nullable Bundle savedInstanceState) {
         super.onRestoreViewState(savedInstanceState);
-        Log.e("AA", "fsdfsdf");
         if (savedInstanceState != null) {
             mRecyclerView.scrollBy(0, savedInstanceState.getInt(LAST_SCROLL_Y));
         }

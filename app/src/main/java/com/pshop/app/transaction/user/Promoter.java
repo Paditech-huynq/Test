@@ -14,6 +14,10 @@ public class Promoter extends User {
     @SerializedName("to")
     private String to;
 
+    public Promoter() {
+        role = TYPE_PROMOTER;
+    }
+
     public String getSalesExpect() {
         if (salesActual == null) {
             return "0";
@@ -61,9 +65,5 @@ public class Promoter extends User {
 
     public void setNumberCustomers(String numberCustomers) {
         this.numberCustomers = numberCustomers;
-    }
-
-    public Promoter() {
-        role = TYPE_PROMOTER;
     }
 }

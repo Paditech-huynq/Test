@@ -5,10 +5,10 @@ import android.os.Bundle;
 
 import com.paditech.core.BaseFragment;
 import com.paditech.core.helper.FragmentHelper;
-import com.squareup.otto.Subscribe;
 import com.pshop.app.AppAction;
 import com.pshop.app.AppConstans;
 import com.pshop.app.R;
+import com.squareup.otto.Subscribe;
 
 public class FakeScannerFragment extends BaseFragment implements AppConstans {
     private boolean isFocus = true;
@@ -35,6 +35,10 @@ public class FakeScannerFragment extends BaseFragment implements AppConstans {
     @Override
     public String getScreenTitle() {
         return getString(R.string.title_home_qr);
+    }
+
+    @Override
+    public void setScreenTitle(String title) {
     }
 
     @Override
@@ -90,9 +94,5 @@ public class FakeScannerFragment extends BaseFragment implements AppConstans {
                 isFocus = false;
                 break;
         }
-    }
-
-    @Override
-    public void setScreenTitle(String title) {
     }
 }

@@ -1,7 +1,6 @@
 package com.pshop.app.main.presenters;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.paditech.core.mvp.BasePresenter;
 import com.pshop.app.AppConstans;
@@ -35,7 +34,6 @@ public class LoginPresenter extends BasePresenter<LoginContract.ViewImpl> implem
                     @Override
                     public void onResponse(Call<LoginRSP> call, Response<LoginRSP> response) {
                         try {
-                            Log.e("testlogin", String.valueOf(response.code()));
                             getView().showProgressDialog(false);
                             if (response.body() != null) {
                                 getView().onLoginResult(response.body().isSuccess(), response.body().getMessage());

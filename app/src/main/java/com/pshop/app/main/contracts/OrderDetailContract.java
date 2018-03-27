@@ -11,9 +11,9 @@ public interface OrderDetailContract {
 
         void showOrderDetail(Order order);
 
-        void setCustomer(Customer customer);
-
         Customer getCustomer();
+
+        void setCustomer(Customer customer);
 
         void backToLastScreen();
     }

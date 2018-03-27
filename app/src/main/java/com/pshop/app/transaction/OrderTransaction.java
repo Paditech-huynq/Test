@@ -1,7 +1,6 @@
 package com.pshop.app.transaction;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.pshop.app.main.models.responses.CreateOrderRSP;
 import com.pshop.app.transaction.user.DeliveryInfo;
@@ -27,7 +26,6 @@ public class OrderTransaction extends Transaction {
             app.getService().doCreatOrderForCustomer(app.getToken(), app.getAppKey(), getCustomerId(), getProductByJsonString(), deliveryInfo.getName(), deliveryInfo.getDate(), deliveryInfo.getPhone(), deliveryInfo.getNote(), deliveryInfo.getAddress()).enqueue(new Callback<CreateOrderRSP>() {
                 @Override
                 public void onResponse(Call<CreateOrderRSP> call, Response<CreateOrderRSP> response) {
-                    Log.e("doCreatOrderForCustomer", String.valueOf(response.code()));
                     onPaymentSuccess(callback, response);
                 }
 

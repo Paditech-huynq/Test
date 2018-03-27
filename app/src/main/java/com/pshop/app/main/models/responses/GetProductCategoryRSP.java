@@ -1,10 +1,10 @@
 package com.pshop.app.main.models.responses;
 
-import java.util.List;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.pshop.app.main.models.ProductCategory;
+
+import java.util.List;
 
 public class GetProductCategoryRSP {
 

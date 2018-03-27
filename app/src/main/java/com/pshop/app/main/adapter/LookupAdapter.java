@@ -21,9 +21,6 @@ import java.util.List;
 import butterknife.BindView;
 
 public class LookupAdapter extends BaseRecycleViewAdapter {
-    public interface OnProductItemClickListenner {
-        void onAddCartButtonClick(View view, int index);
-    }
     private LookupAdapter.OnProductItemClickListenner mOnProductItemClickListenner;
     private List<Product> mProducts = new ArrayList();
 
@@ -56,6 +53,10 @@ public class LookupAdapter extends BaseRecycleViewAdapter {
     @Override
     public int getItemCount() {
         return mProducts.size();
+    }
+
+    public interface OnProductItemClickListenner {
+        void onAddCartButtonClick(View view, int index);
     }
 
     class LookupItemHolder extends BaseViewHolder {

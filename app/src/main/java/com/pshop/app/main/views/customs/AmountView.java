@@ -28,26 +28,22 @@ public class AmountView extends RelativeLayout {
 
     private static final int MAX_TIME_CHANGE_VALUE = 500;
     private static final int MIN_TIME_CHANGE_VALUE = 10;
-
+    final Handler changeValueHandler = new Handler();
     @BindView(R.id.tv_amount)
     TextView mAmountText;
     @BindView(R.id.imv_increase)
     ImageView imvIncrease;
     @BindView(R.id.imv_decrease)
     ImageView imvDecrease;
-
+    int timeChangeValue = MAX_TIME_CHANGE_VALUE;
     private int value = 0;
     private int interval = 1;
     private int minValue = 0;
     private int maxValue = 9999;
     private OnValueChangeListener mOnValueChangeListener;
-
     private float timeRatio = 0.5F;
     private int countValueChange = 0;
     private boolean isIncrease = true;
-    int timeChangeValue = MAX_TIME_CHANGE_VALUE;
-
-    final Handler changeValueHandler = new Handler();
     final Runnable changeValueRunnable = new Runnable() {
         @Override
         public void run() {
@@ -157,14 +153,14 @@ public class AmountView extends RelativeLayout {
         setValue(value);
     }
 
+    public int getValue() {
+        return value;
+    }
+
     public AmountView setValue(int value) {
         this.value = value;
         mAmountText.setText(String.valueOf(this.value));
         return this;
-    }
-
-    public int getValue() {
-        return value;
     }
 
     public AmountView setInterval(int interval) {

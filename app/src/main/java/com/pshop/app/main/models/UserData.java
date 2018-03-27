@@ -141,6 +141,10 @@ public class UserData {
         return memberType == null ? "0" : memberType;
     }
 
+    public void setMemberType(String memberType) {
+        this.memberType = memberType;
+    }
+
     public int getMemberTypeInt() {
         try {
             return Integer.parseInt(memberType);
@@ -148,10 +152,6 @@ public class UserData {
             e.printStackTrace();
         }
         return 0;
-    }
-
-    public void setMemberType(String memberType) {
-        this.memberType = memberType;
     }
 
     public String getAvatar() {
@@ -174,10 +174,6 @@ public class UserData {
         return isManager.equalsIgnoreCase("1");
     }
 
-    public void setIsManager(String isManager) {
-        this.isManager = isManager;
-    }
-
     public String getMemberGroupId() {
         return memberGroupId;
     }
@@ -188,6 +184,10 @@ public class UserData {
 
     public String getIsManager() {
         return isManager;
+    }
+
+    public void setIsManager(String isManager) {
+        this.isManager = isManager;
     }
 
     public String getPassword() {

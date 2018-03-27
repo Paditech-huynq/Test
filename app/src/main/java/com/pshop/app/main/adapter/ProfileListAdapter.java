@@ -12,8 +12,8 @@ import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.image.GlideApp;
 import com.pshop.app.AppConstans;
 import com.pshop.app.R;
-import com.pshop.app.transaction.user.Customer;
 import com.pshop.app.main.views.customs.PlaceHolderDrawableHelper;
+import com.pshop.app.transaction.user.Customer;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -10,26 +10,6 @@ import com.pshop.app.transaction.Transaction;
 
 public class DeliveryInfoPresenter extends BasePresenter<DeliveryInfoContract.ViewImpl> implements DeliveryInfoContract.Presenter, AppConstans {
 
-    @Override
-    public void onSubmitButtonClick() {
-        final OrderTransaction transaction = new OrderTransaction();
-        if(getView().getDeliverInfo() == null){
-            return;
-        }
-        transaction.setPaymentMethod(Transaction.PaymentMethod.COD).setDeliveryInfo(getView().getDeliverInfo());
-        final String customerId = getView().getCustomerId();
-        if (transaction.create(customerId, app.getCurrentCart())) {
-            try {
-                getView().showProgressDialog(true);
-                transaction.pay(orderTransactionCallback);
-            } catch (Exception e) {
-                getView().showProgressDialog(false);
-                e.printStackTrace();
-                getView().showToast(e.getLocalizedMessage());
-            }
-        }
-    }
-
     private Transaction.TransactionCallback orderTransactionCallback = new Transaction.TransactionCallback() {
         @Override
         public void onSuccess(Transaction transaction, OrderData data, String message) {
@@ -52,6 +32,26 @@ public class DeliveryInfoPresenter extends BasePresenter<DeliveryInfoContract.Vi
             }
         }
     };
+
+    @Override
+    public void onSubmitButtonClick() {
+        final OrderTransaction transaction = new OrderTransaction();
+        if (getView().getDeliverInfo() == null) {
+            return;
+        }
+        transaction.setPaymentMethod(Transaction.PaymentMethod.COD).setDeliveryInfo(getView().getDeliverInfo());
+        final String customerId = getView().getCustomerId();
+        if (transaction.create(customerId, app.getCurrentCart())) {
+            try {
+                getView().showProgressDialog(true);
+                transaction.pay(orderTransactionCallback);
+            } catch (Exception e) {
+                getView().showProgressDialog(false);
+                e.printStackTrace();
+                getView().showToast(e.getLocalizedMessage());
+            }
+        }
+    }
 
     private void onPaymentFailure() {
         getView().showToast(getView().getContext().getString(R.string.purchase_fail));

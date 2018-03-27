@@ -13,14 +13,10 @@ import com.pshop.app.R;
 import butterknife.BindView;
 
 public class WebViewFragment extends BaseFragment {
-    private String urlWeb;
-    private String title;
     @BindView(R.id.web_view)
     WebView mWebView;
-    @Override
-    protected int getLayoutResource() {
-        return R.layout.fragment_web_view;
-    }
+    private String urlWeb;
+    private String title;
 
     public static WebViewFragment newInstance(String urlWeb, String title) {
         Bundle args = new Bundle();
@@ -29,6 +25,11 @@ public class WebViewFragment extends BaseFragment {
         fragment.title = title;
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_web_view;
     }
 
     @Override

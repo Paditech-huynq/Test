@@ -89,7 +89,6 @@ public class ProductDetailPresenter extends BasePresenter<ProductDetailContract.
                 @Override
                 public void onResponse(Call<GetProductDetailRSP> call, Response<GetProductDetailRSP> response) {
                     try {
-                        Log.e("testgetProductDetail", String.valueOf(response.code()));
                         if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
                             getView().showProductDetail(response.body().getProduct());
                             onGetCurrentLocation();

@@ -34,7 +34,7 @@ public class NotificationAdapter extends BaseRecycleViewAdapter implements AppCo
 
     public void updateData(Notice data) {
         if (mData == null) return;
-        for (Notice notice: mData) {
+        for (Notice notice : mData) {
             if (notice.getId() == data.getId()) {
                 notice.setRead(true);
                 break;
@@ -46,7 +46,7 @@ public class NotificationAdapter extends BaseRecycleViewAdapter implements AppCo
     public int getUnreadCount() {
         int count = 0;
         if (mData == null) return count;
-        for (Notice notice: mData) {
+        for (Notice notice : mData) {
             if (!notice.isRead()) count++;
         }
         return count;

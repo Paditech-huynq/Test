@@ -2,7 +2,6 @@ package com.pshop.app.main.adapter;
 
 import android.content.Context;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,15 +34,9 @@ import butterknife.OnClick;
 public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConstans {
     private final static int TYPE_INFO = 0;
     private final static int TYPE_ITEM = 1;
+    private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
     private Order mOrder;
     private Customer currentCustomer;
-    private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
-
-    public void updateOrder(Order mOrder) {
-        this.mOrder = mOrder;
-        currentCustomer = mOrder.getCustomer();
-        notifyDataSetChanged();
-    }
 
     public CartItemsAdapter(Order order) {
         if (order == null) {
@@ -55,6 +48,12 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
 
         this.mOrder = order;
         currentCustomer = order.getCustomer();
+    }
+
+    public void updateOrder(Order mOrder) {
+        this.mOrder = mOrder;
+        currentCustomer = mOrder.getCustomer();
+        notifyDataSetChanged();
     }
 
     @Override
@@ -89,14 +88,13 @@ public class CartItemsAdapter extends BaseRecycleViewAdapter implements AppConst
         return TYPE_ITEM;
     }
 
-    public void setCustomer(Customer customer) {
-        Log.e("updat customer", customer.getCustomerId());
-        this.currentCustomer = customer;
-        notifyItemChanged(0);
-    }
-
     public Customer getCustomer() {
         return currentCustomer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.currentCustomer = customer;
+        notifyItemChanged(0);
     }
 
     class CartItemHolder extends BaseRecycleViewAdapter.BaseViewHolder {

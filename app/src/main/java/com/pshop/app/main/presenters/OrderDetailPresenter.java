@@ -1,7 +1,5 @@
 package com.pshop.app.main.presenters;
 
-import android.util.Log;
-
 import com.paditech.core.mvp.BasePresenter;
 import com.pshop.app.AppConstans;
 import com.pshop.app.R;
@@ -56,7 +54,6 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.View
                     @Override
                     public void onResponse(Call<GetOrderDetailRSP> call, Response<GetOrderDetailRSP> response) {
                         try {
-                            Log.e("testgetOrderDetail", String.valueOf(response.code()));
                             getView().showProgressDialog(false);
                             if (response.body() != null) {
                                 getView().showOrderDetail(response.body().getOrder());

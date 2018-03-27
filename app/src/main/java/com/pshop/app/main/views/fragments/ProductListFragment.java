@@ -3,7 +3,6 @@ package com.pshop.app.main.views.fragments;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 
 import com.paditech.core.BaseFragment;
@@ -71,7 +70,6 @@ public class ProductListFragment extends BaseFragment {
                     @Override
                     public void onResponse(Call<GetProductCategoryRSP> call, Response<GetProductCategoryRSP> response) {
                         try {
-                            Log.e("testgetProductCategory", String.valueOf(response.code()));
                             showProgressDialog(false);
                             if (response.body() != null) {
                                 GetProductCategoryRSP productCategoryRSP = response.body();
@@ -110,8 +108,7 @@ public class ProductListFragment extends BaseFragment {
 
     @Override
     public boolean isActionShow(int resId) {
-        switch (resId)
-        {
+        switch (resId) {
             case R.id.btnEdit:
             case R.id.btnDone:
             case R.id.btnTrash:

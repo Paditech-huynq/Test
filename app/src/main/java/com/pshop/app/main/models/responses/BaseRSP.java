@@ -30,5 +30,7 @@ public class BaseRSP {
         return message;
     }
 
-    public boolean isSuccess() { return result == AppConstans.Api.Success;}
+    public boolean isSuccess() {
+        return result == AppConstans.Api.Success;
+    }
 }

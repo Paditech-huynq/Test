@@ -8,16 +8,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 public class HandleTouchViewPager extends ViewPager {
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
     private boolean enabled = true;
 
     public HandleTouchViewPager(@NonNull Context context) {
@@ -26,6 +16,16 @@ public class HandleTouchViewPager extends ViewPager {
 
     public HandleTouchViewPager(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override

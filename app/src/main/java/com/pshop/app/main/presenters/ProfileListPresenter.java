@@ -1,7 +1,5 @@
 package com.pshop.app.main.presenters;
 
-import android.util.Log;
-
 import com.paditech.core.mvp.BasePresenter;
 import com.pshop.app.AppConstans;
 import com.pshop.app.main.contracts.ProfileListContract;
@@ -57,7 +55,6 @@ public class ProfileListPresenter extends BasePresenter<ProfileListFragment> imp
                     @Override
                     public void onResponse(Call<GetListCustomerRSP> call, Response<GetListCustomerRSP> response) {
                         try {
-                            Log.e("testgetListCustomer", String.valueOf(response.code()));
                             if (!keyWord.equals(getView().getCurrentKeyWord())) {
                                 return;
                             }

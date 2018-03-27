@@ -1,7 +1,6 @@
 package com.pshop.app.transaction;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.pshop.app.main.models.responses.CreateOrderRSP;
 
@@ -17,18 +16,17 @@ public class DirectTransaction extends Transaction {
             app.getService().doCreatOrderForPromoter(app.getToken(), app.getAppKey(), getCustomerId(), getProductByJsonString()).enqueue(new Callback<CreateOrderRSP>() {
                 @Override
                 public void onResponse(Call<CreateOrderRSP> call, Response<CreateOrderRSP> response) {
-                    Log.e("doCreatOrderForPromoter", String.valueOf(response.code()));
                     onPaymentSuccess(callback, response);
                 }
 
                 @Override
                 public void onFailure(Call<CreateOrderRSP> call, Throwable t) {
-                    onPaymentFailure(callback,t);
+                    onPaymentFailure(callback, t);
                 }
             });
             return true;
         } catch (Exception e) {
-            onPaymentFailure(callback,e);
+            onPaymentFailure(callback, e);
             e.printStackTrace();
         }
         return false;

@@ -6,6 +6,10 @@ public class Customer extends User implements CustomerInfo {
     @SerializedName("point")
     private String point;
 
+    public Customer() {
+        role = TYPE_CUSTOMER;
+    }
+
     public String getPoint() {
         return point;
     }
@@ -17,10 +21,5 @@ public class Customer extends User implements CustomerInfo {
     @Override
     public String getCustomerId() {
         return getId();
-    }
-
-    public Customer()
-    {
-        role = TYPE_CUSTOMER;
     }
 }

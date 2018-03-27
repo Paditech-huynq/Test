@@ -10,7 +10,9 @@ import java.util.List;
 public interface ProfilePromoterListContract {
     interface ViewImpl extends BaseViewImpl {
         void addItemToList(List<Promoter> customerList);
+
         String getCurrentKeyWord();
+
         void refreshData(List<Promoter> customerList);
 
         void scrollToTop();
@@ -18,7 +20,9 @@ public interface ProfilePromoterListContract {
 
     interface Presenter extends BasePresenterImpl {
         void searchByKeyWord();
+
         void onLoadMore();
+
         void onRefresh();
     }
 }

@@ -33,46 +33,34 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> implements OrderListContract.ViewImpl {
-    @BindView(R.id.layoutLoading)
-    View layoutLoading;
-
-    @BindView(R.id.rcvOrder)
-    RecyclerView rcvOrder;
-
-    @BindView(R.id.view_up_rcv)
-    View viewUpRecycleView;
-
-    @BindView(R.id.btb_all)
-    Button btnAll;
-
-    @BindView(R.id.btn_last_week)
-    Button btnLastWeek;
-
-    @BindView(R.id.btn_this_week)
-    Button btnThisWeek;
-
-    @BindView(R.id.btn_this_month)
-    Button btnThisMonth;
-
-    @BindView(R.id.filter)
-    LinearLayout filter;
-
-    @BindView(R.id.tv_calender_left_filter)
-    TextView tvCalenderLeftFilter;
-
-    @BindView(R.id.tv_calender_right_filter)
-    TextView tvCalenderRightFilter;
-
-    @BindView(R.id.tv_time_in_header_filter)
-    TextView tvTimeInHeaderFilter;
-
-    @BindView(R.id.noResult)
-    View noResult;
-
-    private OrderListAdapter mAdapter;
+    public static final int COME_FROM_PROFILE_FRAGMENT = 0;
     private static final int DAY_LEFT_CALENDER_FILTER = 0;
     private static final int DAY_RIGHT_CALENDER_FILTER = 1;
-    public static final int COME_FROM_PROFILE_FRAGMENT = 0;
+    @BindView(R.id.layoutLoading)
+    View layoutLoading;
+    @BindView(R.id.rcvOrder)
+    RecyclerView rcvOrder;
+    @BindView(R.id.view_up_rcv)
+    View viewUpRecycleView;
+    @BindView(R.id.btb_all)
+    Button btnAll;
+    @BindView(R.id.btn_last_week)
+    Button btnLastWeek;
+    @BindView(R.id.btn_this_week)
+    Button btnThisWeek;
+    @BindView(R.id.btn_this_month)
+    Button btnThisMonth;
+    @BindView(R.id.filter)
+    LinearLayout filter;
+    @BindView(R.id.tv_calender_left_filter)
+    TextView tvCalenderLeftFilter;
+    @BindView(R.id.tv_calender_right_filter)
+    TextView tvCalenderRightFilter;
+    @BindView(R.id.tv_time_in_header_filter)
+    TextView tvTimeInHeaderFilter;
+    @BindView(R.id.noResult)
+    View noResult;
+    private OrderListAdapter mAdapter;
     private int comFromWhatFragment = -1;
 
     public static OrderListFragment newInstance() {
@@ -225,13 +213,13 @@ public class OrderListFragment extends MVPFragment<OrderFragmentPresenter> imple
                             calendar.set(Calendar.YEAR, year);
                             getPresenter().onChooseDate(whatCalenderInFilter, calendar.getTime());
                         }
-                    }, thisYear, thisMonth - 1, today){
+                    }, thisYear, thisMonth - 1, today) {
                 @Override
                 public void onDateChanged(@NonNull DatePicker view, int year, int month, int dayOfMonth) {
-                    if(whatCalenderInFilter == DAY_RIGHT_CALENDER_FILTER) {
+                    if (whatCalenderInFilter == DAY_RIGHT_CALENDER_FILTER) {
                         try {
                             view.setMinDate(DateTimeUtils.getDateFromStringDayMonthYear(tvCalenderLeftFilter.getText().toString()).getTime());
-                        } catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }

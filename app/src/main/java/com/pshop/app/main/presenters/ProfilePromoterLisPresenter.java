@@ -1,8 +1,6 @@
 package com.pshop.app.main.presenters;
 
 
-import android.util.Log;
-
 import com.paditech.core.mvp.BasePresenter;
 import com.pshop.app.AppConstans;
 import com.pshop.app.main.contracts.ProfilePromoterListContract;
@@ -58,7 +56,6 @@ public class ProfilePromoterLisPresenter extends BasePresenter<ProfilePromoterLi
                     @Override
                     public void onResponse(Call<GetListPromoterInGroupRSP> call, Response<GetListPromoterInGroupRSP> response) {
                         try {
-                            Log.e("testgetListPromoter", String.valueOf(response.code()));
                             if (!keyWord.equals(getView().getCurrentKeyWord())) {
                                 return;
                             }
@@ -70,8 +67,8 @@ public class ProfilePromoterLisPresenter extends BasePresenter<ProfilePromoterLi
                             getView().setRefreshing(false);
                             GetListPromoterInGroupRSP getListCustomerRSP = response.body();
                             List<Promoter> promoterList = getListCustomerRSP.getData();
-                            if(promoterList != null) {
-                                loadListCustomerSuccess(isRefresh, isSearch,promoterList);
+                            if (promoterList != null) {
+                                loadListCustomerSuccess(isRefresh, isSearch, promoterList);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();

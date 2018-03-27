@@ -1,7 +1,5 @@
 package com.pshop.app.main.presenters;
 
-import android.util.Log;
-
 import com.paditech.core.mvp.BasePresenter;
 import com.pshop.app.main.contracts.ForgotPasswordContract;
 import com.pshop.app.main.models.responses.CommonRSP;
@@ -20,11 +18,10 @@ public class ForgotPasswordPresenter extends BasePresenter<ForgotPasswordContrac
             @Override
             public void onResponse(Call<CommonRSP> call, Response<CommonRSP> response) {
                 try {
-                    Log.e("testforgotPassword", String.valueOf(response.code()));
                     getView().showProgressDialog(false);
                     if (response.body() != null) {
                         boolean result = response.body().isSuccess();
-                        String message = response.body().getMessage() != null? response.body().getMessage() : "";
+                        String message = response.body().getMessage() != null ? response.body().getMessage() : "";
                         getView().onForgotPassResult(result, username, message);
                     }
                 } catch (Exception e) {

@@ -6,13 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.paditech.core.common.BaseRecycleViewAdapter;
 import com.paditech.core.helper.ViewHelper;
 import com.paditech.core.mvp.MVPFragment;
-import com.squareup.otto.Subscribe;
 import com.pshop.app.AppAction;
 import com.pshop.app.AppConstans;
 import com.pshop.app.R;
@@ -27,6 +25,7 @@ import com.pshop.app.main.views.customs.VerticalSpacesItemDecoration;
 import com.pshop.app.transaction.cart.Cart;
 import com.pshop.app.transaction.user.Customer;
 import com.pshop.app.transaction.user.User;
+import com.squareup.otto.Subscribe;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -52,7 +51,6 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
 
     public static OrderDetailFragment newInstance(int orderID) {
         OrderDetailFragment fragment = newInstance();
-        Log.e("orderId", orderID + "");
         fragment.mOrderID = orderID;
         return fragment;
     }
@@ -80,7 +78,7 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
             @Override
             public void onCartUpdate() {
                 try {
-                    if(isVisible()) {
+                    if (isVisible()) {
                         ((MainActivity) getActivity()).updateActionButtonAppearance(OrderDetailFragment.this);
                     }
                 } catch (Exception e) {
@@ -137,14 +135,14 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
     }
 
     @Override
-    public void setCustomer(Customer customer) {
-        mAdapter.setCustomer(customer);
-
+    public Customer getCustomer() {
+        return mAdapter.getCustomer();
     }
 
     @Override
-    public Customer getCustomer() {
-        return mAdapter.getCustomer();
+    public void setCustomer(Customer customer) {
+        mAdapter.setCustomer(customer);
+
     }
 
     @Override
@@ -222,7 +220,6 @@ public class OrderDetailFragment extends MVPFragment<OrderDetailPresenter> imple
             case NOTIFY_CUSTOMER_SELECTED_AFTER_CREATE:
                 UserData userData = action.getData(UserData.class);
                 final User user = new User.Builder(userData).build();
-                Log.e("Customer selected", user.getClass().getSimpleName());
                 if (user instanceof Customer) {
                     mAdapter.setCustomer((Customer) user);
                 }

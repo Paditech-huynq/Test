@@ -1,7 +1,6 @@
 package com.pshop.app.main.views.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -117,7 +116,6 @@ public class NewsDetailFragment extends BaseFragment {
                     @Override
                     public void onResponse(Call<GetNewsDetailRSP> call, Response<GetNewsDetailRSP> response) {
                         try {
-                            Log.e("testgetNewsDetail", String.valueOf(response.code()));
                             showProgressDialog(false);
                             if (response.body() != null) {
                                 showDetail(response.body().getNews());

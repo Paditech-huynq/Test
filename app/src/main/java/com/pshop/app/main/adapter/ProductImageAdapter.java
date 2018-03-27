@@ -23,30 +23,25 @@ import java.util.List;
 
 public class ProductImageAdapter extends PagerAdapter implements AppConstans {
     View.OnTouchListener mListener;
+    private Callback mCallback;
+    private List<ProductThumbnail> mData;
+    private LayoutInflater mLayoutInflater;
 
     public ProductImageAdapter(Context context, View.OnTouchListener touchListener) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mListener = touchListener;
     }
 
+    public ProductImageAdapter(Context context) {
+        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
     public ProductThumbnail getItem(int pos) {
         return mData.get(pos);
     }
 
-    public interface Callback {
-        void onItemClick(int position, ProductThumbnail thumbnail, View v);
-    }
-
     public void setmCallback(Callback mCallback) {
         this.mCallback = mCallback;
-    }
-
-    private Callback mCallback;
-    private List<ProductThumbnail> mData;
-    private LayoutInflater mLayoutInflater;
-
-    public ProductImageAdapter(Context context) {
-        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public void addData(ProductThumbnail thumbnail) {
@@ -115,5 +110,9 @@ public class ProductImageAdapter extends PagerAdapter implements AppConstans {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
+    }
+
+    public interface Callback {
+        void onItemClick(int position, ProductThumbnail thumbnail, View v);
     }
 }

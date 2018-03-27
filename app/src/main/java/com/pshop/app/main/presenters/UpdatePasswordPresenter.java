@@ -1,7 +1,5 @@
 package com.pshop.app.main.presenters;
 
-import android.util.Log;
-
 import com.paditech.core.BaseFragment;
 import com.paditech.core.mvp.BasePresenter;
 import com.pshop.app.AppConstans;
@@ -36,7 +34,6 @@ public class UpdatePasswordPresenter extends BasePresenter<UpdatePasswordContrac
                     @Override
                     public void onResponse(Call<ChangePasswordRSP> call, Response<ChangePasswordRSP> response) {
                         try {
-                            Log.e("changePassword", String.valueOf(response.code()));
                             isPending = false;
                             if (getView() != null) {
                                 getView().showProgressDialog(false);

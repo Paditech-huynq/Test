@@ -11,12 +11,11 @@ public enum AppAction {
     NOTIFY_CUSTOMER_SELECTED_AFTER_CREATE("notify_customer_selected_after_create");
 
     public String value;
+    private String extraData;
 
     AppAction(String value) {
         this.value = value;
     }
-
-    private String extraData;
 
     public AppAction setData(String extraData) {
         this.extraData = extraData;

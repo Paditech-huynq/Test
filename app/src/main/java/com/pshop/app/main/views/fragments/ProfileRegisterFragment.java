@@ -54,32 +54,24 @@ public class ProfileRegisterFragment extends BaseFragment implements AppConstans
     public final static int REQUEST_WRITE_EXTERNAL_STORAGE = 112;
     public static final String JPEG_FILE_PREFIX = "IMG_";
     public static final String JPEG_FILE_SUFFIX = ".jpg";
-    private String mCurrentPhotoPath;
-    private boolean isPending;
-
     @BindView(R.id.edtUserName)
     EditText edtUserName;
-
     @BindView(R.id.edtPhoneNumber)
     EditText edtPhoneNumber;
-
     @BindView(R.id.edtEmail)
     EditText edtEmail;
-
     @BindView(R.id.edtAddress)
     EditText edtAddress;
-
     @BindView(R.id.layoutDisable)
     View layoutDisable;
-
     @BindView(R.id.layoutControllSelectImage)
     View layoutControllSelectImage;
-
     @BindView(R.id.registView)
     View registView;
-
     @BindView(R.id.avatar)
     ImageView imgAvatar;
+    private String mCurrentPhotoPath;
+    private boolean isPending;
 
     public static ProfileRegisterFragment newInstance() {
         Bundle args = new Bundle();
@@ -194,7 +186,6 @@ public class ProfileRegisterFragment extends BaseFragment implements AppConstans
         }
         if (requestCode == REQUEST_PHOTO_CAMERA) {
             galleryAddPic();
-            Log.e("onActivityResult: ", mCurrentPhotoPath);
             ImageHelper.loadThumbCircleImage(this.getContext(), mCurrentPhotoPath, imgAvatar);
         }
         if (requestCode == REQUEST_PHOTO_GALLERY) {
@@ -344,7 +335,6 @@ public class ProfileRegisterFragment extends BaseFragment implements AppConstans
                         @Override
                         public void onResponse(Call<CreateCustomerRSP> call, Response<CreateCustomerRSP> response) {
                             try {
-                                Log.e("testcreateCustomer", String.valueOf(response.code()));
                                 isPending = false;
                                 showProgressDialog(false);
                                 if (response.body() != null) {

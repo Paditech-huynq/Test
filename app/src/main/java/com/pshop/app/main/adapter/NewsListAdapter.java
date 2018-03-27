@@ -55,6 +55,20 @@ public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConsta
         notifyDataSetChanged();
     }
 
+    public void addNewsList(List<News> list) {
+        newsList.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public List<News> getNewsList() {
+        return newsList;
+    }
+
+    public void setNewsList(List<News> list) {
+        newsList = list;
+        notifyDataSetChanged();
+    }
+
     class NewsHolder extends BaseViewHolder {
         int index;
 
@@ -108,19 +122,5 @@ public class NewsListAdapter extends BaseRecycleViewAdapter implements AppConsta
             imvNews.setLayoutParams(rlp);
             imvNews.setRatio(thumbnaiRatio);
         }
-    }
-
-    public void setNewsList(List<News> list) {
-        newsList = list;
-        notifyDataSetChanged();
-    }
-
-    public void addNewsList(List<News> list) {
-        newsList.addAll(list);
-        notifyDataSetChanged();
-    }
-
-    public List<News> getNewsList() {
-        return newsList;
     }
 }

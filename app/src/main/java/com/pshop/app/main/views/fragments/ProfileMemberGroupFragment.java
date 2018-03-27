@@ -54,11 +54,6 @@ public class ProfileMemberGroupFragment extends BaseFragment {
 
     private Promoter mPromoter;
 
-    @Override
-    protected int getLayoutResource() {
-        return R.layout.fragment_profile;
-    }
-
     public static ProfileMemberGroupFragment newInstance(Promoter mPromoter) {
 
         Bundle args = new Bundle();
@@ -67,6 +62,11 @@ public class ProfileMemberGroupFragment extends BaseFragment {
         fragment.mPromoter = mPromoter;
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_profile;
     }
 
     @Override
@@ -98,8 +98,8 @@ public class ProfileMemberGroupFragment extends BaseFragment {
                 .into(imgAvarUnder);
         tvPoint.setText(getResources().getString(R.string.custom_profile_fragment));
         tvNumberPoint.setText(mPromoter.getNumberCustomers());
-        if(Long.parseLong(mPromoter.getSalesExpect()) != 0) {
-            tvSalesExpect.setText(getResources().getString(R.string.value_sales_profile_fragment,StringUtil.formatMoney(mPromoter.getSalesExpect())));
+        if (Long.parseLong(mPromoter.getSalesExpect()) != 0) {
+            tvSalesExpect.setText(getResources().getString(R.string.value_sales_profile_fragment, StringUtil.formatMoney(mPromoter.getSalesExpect())));
         } else {
             tvSalesExpect.setText(getResources().getString(R.string.sales_expect_is_zero_profile_fragment));
         }

@@ -31,8 +31,6 @@ import butterknife.OnClick;
 public class FillOtpActivity extends MVPActivity<OtpPresenter> implements OtpContract.ViewImpl {
 
     private static final int CHANGE_PASS_REQ_CODE = 1001;
-    private long mLastClickTime = 0;
-
     @BindView(R.id.tv_code_1)
     EditText mCode1Text;
     @BindView(R.id.tv_code_2)
@@ -45,7 +43,7 @@ public class FillOtpActivity extends MVPActivity<OtpPresenter> implements OtpCon
     EditText mCode5Text;
     @BindView(R.id.tv_code_6)
     EditText mCode6Text;
-
+    private long mLastClickTime = 0;
     private String phone;
     private String checkOtp;
 
@@ -155,7 +153,7 @@ public class FillOtpActivity extends MVPActivity<OtpPresenter> implements OtpCon
 
     private boolean confirmOtp(String code) {
         if (StringUtil.isEmpty(phone) || StringUtil.isEmpty(checkOtp)) return false;
-        return Utils.md5(phone+"@"+code).equalsIgnoreCase(checkOtp);
+        return Utils.md5(phone + "@" + code).equalsIgnoreCase(checkOtp);
     }
 
     private boolean isDoubleClick() {

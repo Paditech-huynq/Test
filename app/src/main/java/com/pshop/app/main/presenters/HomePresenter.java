@@ -1,13 +1,11 @@
 package com.pshop.app.main.presenters;
 
-import android.util.Log;
-
 import com.paditech.core.mvp.BasePresenter;
-import com.squareup.otto.Subscribe;
 import com.pshop.app.AppConstans;
 import com.pshop.app.R;
 import com.pshop.app.main.contracts.HomeContract;
 import com.pshop.app.transaction.Transaction;
+import com.squareup.otto.Subscribe;
 
 public class HomePresenter extends BasePresenter<HomeContract.ViewImpl> implements HomeContract.Presenter, AppConstans {
     @Override
@@ -62,7 +60,6 @@ public class HomePresenter extends BasePresenter<HomeContract.ViewImpl> implemen
      */
     @Subscribe
     public void onTransactionSuccess(Transaction transaction) {
-        Log.e("Transaction",transaction+"");
         try {
             getView().switchTab(1);
         } catch (Exception e) {

@@ -24,12 +24,14 @@ public class LoginClient implements AppConstans {
     }
 
     public static String getToken(Context context) {
-        if (isLogin(context)) return String.format(AUTHORIZATION, PrefUtils.getPreferences(context, PREF_TOKEN, EMPTY));
+        if (isLogin(context))
+            return String.format(AUTHORIZATION, PrefUtils.getPreferences(context, PREF_TOKEN, EMPTY));
         return "";
     }
 
     public static String getAppKey(Context context) {
-        if (isLogin(context)) return Utils.getSha1Hex(PrefUtils.getPreferences(context, PREF_APPKEY, EMPTY));
+        if (isLogin(context))
+            return Utils.getSha1Hex(PrefUtils.getPreferences(context, PREF_APPKEY, EMPTY));
         return "";
     }
 

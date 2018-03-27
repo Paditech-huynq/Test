@@ -9,7 +9,9 @@ import java.util.List;
 public interface NotificationContract {
     interface ViewImpl extends BaseViewImpl {
         void showData(List<Notice> data);
+
         void addData(List<Notice> data);
+
         void updateView(Notice notice);
 
         void showMessageNotLogin();
@@ -17,6 +19,7 @@ public interface NotificationContract {
 
     interface Presenter extends BasePresenterImpl {
         void loadData(boolean isRefresh);
+
         void read(Notice notice);
     }
 }
